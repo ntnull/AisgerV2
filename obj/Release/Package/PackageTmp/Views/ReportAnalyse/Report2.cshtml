@@ -1,0 +1,128 @@
+﻿@using Aisger
+@using Aisger.Helpers
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+
+@Styles.Render("~/Content/reportCss")
+<link href="~/Content/paper-dashboard.css" rel="stylesheet" />
+
+@Scripts.Render("~/bundles/kendoui")
+@Scripts.Render("~/bundles/reportJs")
+
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel">@ResourceSetting.ReportAnalyse<span></span></li>
+        <li id="selectLabel"><span class="glyphicon glyphicon-arrow-right"></span>@ResourceSetting.ReportAnalyse2</li>
+    </ul>
+    <div id="main-container" class="wrapper">
+        <div class="container-fluid">
+			<button class="btn-back k-button"><i class="glyphicon glyphicon-backward"></i>@ResourceSetting.Return</button>
+            <div id="tabstrip" class="s-tabstrip tab-report2" attrreportnumber="report2">
+                <ul>
+                    <li class="k-state-active tab-item1">@ResourceSetting.ReportItem 1</li>
+                    <li class="tab-item2 hide"><span>@ResourceSetting.ReportItem 2
+            <button data-type="remove" class="k-button k-button-icon"><span class="k-icon k-i-close"></span></button>
+                    </span></li>
+                    <li class="tab-item3 hide"><span>@ResourceSetting.ReportItem 3
+            <button data-type="remove" class="k-button k-button-icon"><span class="k-icon k-i-close"></span></button>
+                    </span></li>
+                </ul>
+                <div>
+                    <div class="wrapper report1-container" id="report1-container">
+                        <div class="sidebar sidebar-menu-collapsed" data-background-color="white" data-active-color="danger">
+                            <div class="sidebar-wrapper">
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <div class="year-grid"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <div class="region-grid"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="main-panel">
+                            <div class="content">
+                                <div class="container-fluid report1">
+                                    <div class="row">
+                                        <div class="div-menu">
+                                            <menu class="menu-report" type="toolbar">
+                                                <li class="menu-item-export-list hide">@ResourceSetting.Menu
+                                                    <ul>
+                                                        <li class="item-export" type="pdf">Экспорт(pdf)</li>
+                                                        <li class="item-export" type="png">Экспорт(png)</li>
+                                                        <li class="item-export" type="jpg">Экспорт(jpg)</li>
+                                                        <li class="item-export" type="svg">Экспорт(image/svg+xml)</li>
+                                                    </ul>
+                                                </li>
+                                                <li class="menu-item-refresh">@ResourceSetting.refresh</li>
+                                            </menu>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+										<div class="col-md-9">
+											<div id="pie-chart" class="aisger-chart"></div>
+										
+                                        </div>
+										<div class="col-md-2"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">                                         
+											<div id="chart-1" class="aisger-chart"></div>                                                
+                                        </div>
+                                        <div class="col-md-8">
+											<div id="chart-2" class="aisger-chart"></div>                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="wrapper">
+                        <div class="row-s report2">
+                                <div class="row">
+                                     <div class="col-md-1"> </div>
+                                     <div class="col-md-9">
+										<div id="report2-bar-chart" class="aisger-chart"></div>
+										 <hr />
+                                    </div>
+									<div class="col-md-2"> </div>
+                                </div>
+                                <div class="row">
+                                     <div class="col-md-1"> </div>
+                                     <div class="col-md-9">
+										<div id="report2-pie-chart" class="aisger-chart"></div>
+                                     </div>
+									 <div class="col-md-2"> </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="wrapper">
+                        <div class="row-s">
+                            <div class="col-md-11">
+                                <div class="container">
+                                    <div class="row">
+										<div class="col-md-3 col-md-offset-2">
+											<div class="bi-report-container"></div>
+										</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/reports/biFormaReport1.js"></script>
+<script src="~/Scripts/reports/report2.js"></script>

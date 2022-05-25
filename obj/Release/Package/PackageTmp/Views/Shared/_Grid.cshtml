@@ -1,0 +1,107 @@
+﻿@using GridMvc.Columns
+@using GridMvc.Pagination
+@model GridMvc.IGrid
+
+@if (Model == null) { return; }
+
+@if (Model.RenderOptions.RenderRowsOnly)
+{
+    @RenderGridBody();
+}
+else
+{
+    <div class="grid-mvc" data-lang="@Model.Language" data-gridname="@Model.RenderOptions.GridName" data-selectable="@Model.RenderOptions.Selectable.ToString().ToLower()" data-multiplefilters="@Model.RenderOptions.AllowMultipleFilters.ToString().ToLower()">
+        <div class="grid-wrap">
+            <table class="table table-striped grid-table" id="@Model.RenderOptions.TableId">
+                @* Draw grid header *@
+                <thead>
+                    @RenderGridHeader()
+                </thead>
+                <tbody>
+                    @RenderGridBody()
+                </tbody>
+            </table>
+            @RenderGridFooter()
+        </div>
+    </div>
+}
+@helper RenderGridBody()
+{
+    if (Model.ItemsToDisplay!=null && !Model.ItemsToDisplay.Any())
+    {
+        <tr class="grid-empty-text">
+            <td colspan="@Model.Columns.Count()">
+                @Model.EmptyGridText
+            </td>
+        </tr>
+    }
+    else
+    {
+        foreach (object item in Model.ItemsToDisplay)
+        {
+            <tr class="grid-row @Model.GetRowCssClasses(item)" @Model.GetRowAtr(item)>
+                @foreach (IGridColumn column in Model.Columns)
+                {
+                    @column.CellRenderer.Render(column, column.GetCell(item))
+                }
+            </tr>
+        }
+    }
+}
+@helper RenderGridHeader()
+{
+    <tr>
+        @foreach (IGridColumn column in Model.Columns)
+        {
+            @column.HeaderRenderer.Render(column)
+        }
+    </tr>
+}
+@helper RenderGridFooter()
+{
+    <div class="grid-footer">
+        
+        <div class="dropdown pull-right pagination">
+            @Html.Partial("~/Views/Shared/ExportExcelBtn.cshtml")
+            @* <button type="button" class="btn btn-primary btn-sm" id="exportBtn">
+                <span class="glyphicon glyphicon-open" aria-hidden="true"></span> Экспорт Excel
+            </button>*@
+@*            <a href="@gridPage.GetLinkForExporter("Excel")" target="_blank" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-open" aria-hidden="true"></span> Экспорт Excel</a>*@
+            @*   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Export
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+
+                @{
+                    GridMvc.Pagination.GridPager gridPage = new GridPager();
+                }
+$1$                @gridPage.SetColumn(Model.Columns);#1#
+                <li><a href="@gridPage.GetLinkForExporter("PDF")" target="_blank"> <i class=""></i> PDF</a></li>
+                <li><a href="@gridPage.GetLinkForExporter("Excel")" target="_blank">Excel</a></li>
+                <li><a href="@gridPage.GetLinkForExporter("Word")" target="_blank">Word</a></li>
+                <li><a href="@gridPage.GetLinkForExporter("Html")" target="_blank">Html</a></li>
+
+            </ul>*@
+        </div>
+
+        @if (Model.RenderOptions.ShowGridItemsCount)
+        {
+            <div class="grid-itemscount">
+                <span class="grid-itemscount-label">@Model.RenderOptions.GridCountDisplayName:</span>
+                <span class="grid-itemscount-caption">@Model.ItemsCount</span>
+            </div>
+        }
+        @if (Model.EnablePaging && Model.Pager != null)
+        {
+            @Html.Partial(Model.Pager.TemplateName, Model.Pager)
+        }
+
+
+    </div>
+}
+@if (Model.IsExport)
+{
+    Response.Redirect(Model.ExportUrl);
+    return;
+}

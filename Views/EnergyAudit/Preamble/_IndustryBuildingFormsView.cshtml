@@ -1,0 +1,45 @@
+﻿@using Aisger
+@using Aisger.CustomResources
+@model Aisger.Models.EAUDIT_Preamble
+
+<ul class="nav nav-tabs" id="BuildingFormTabs">
+    <li class="active"><a data-target="#bformtab" data-toggle="tab">@EauditResource.IBuildingForm1Name</a></li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane active" id="ibform1tab">
+        @Html.Action("GetIndustryBuildingForm1View", "IndustryBuildingAttachment3", new { id = Model == null ? 0 : Model.Id, isReadOnly = Model != null && Model.IsReadOnly })
+    </div>
+    <div>
+        <ul class="pager wizard bwizard-buttons">
+            <li class="exit" role="button" aria-disabled="False">
+                <a href="@Url.Action("Index","EnergyAudit")">
+                    &#10005; @ResourceSetting.Return
+                </a>
+            </li>
+            <li class="finish">
+                <a href="@Url.Action("Edit", "EnergyAudit", new { id = Model.Id })">
+                    @ResourceSetting.Finish &#10003;
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    var IndustryBuiildingParentForm = {
+        init: function () {
+            if (window.IndustryFormIBForm1)
+                window.IndustryFormIBForm1.init();
+
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                var target = $(e.target).attr("data-target"); // activated tab
+                var pId = $("#hfPreamleId").val();
+                if (!pId || pId == "0") return;
+
+                if (target == "#bform1tab") {
+                    
+                }
+            });
+        }
+    };
+</script>

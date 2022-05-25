@@ -1,0 +1,366 @@
+﻿@using Aisger
+@using GridMvc.Html
+@using GridMvc.Sorting
+@model Aisger.Models.Entity.Security.SEC_Guest
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+
+
+<div style=" position: relative;height: 100%;">
+<div id="wrapper_grid" style="margin-left: 50px; margin-top: 80px; position: absolute;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    overflow: auto;">
+    @using (Html.BeginForm("Create", "SubjectPerson", FormMethod.Post, new { id = "demoForm", name = "demoForm" }))
+    {
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.IsError)
+        @Html.HiddenFor(model => model.Id)
+        if (@Model != null && @Model.IsError)
+        {
+            <div class="alert alert-danger" role="alert">
+                @Html.ValidationSummary(true, @Model.ErrorMessage)
+            </div>
+        }
+        <div style="width: 100%;float: left">
+            <div class="panel panel-default" style="width: 40%; float: left;">
+                <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 40px;margin-left: 15px">
+                    @Html.LabelFor(model => model.IDK)
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(m => m.IDK, new { @class = "form-control" })
+
+                    </div>
+                    @Html.ValidationMessageFor(m => m.BINIIN)
+                </div>
+                <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 40px;margin-left: 15px">
+                    @Html.Label("Вид собственности")
+                    <div class="col-sm-6">
+                        @Html.DropDownList("TypeApplicationId", (IEnumerable<SelectListItem>)(ViewData["TypeApplicationList"]), String.Empty, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.TypeApplicationId)
+                </div>
+                <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 40px;margin-left: 15px">
+                    @Html.LabelFor(model => model.BINIIN, new { id = "biniinLabel" })
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(m => m.BINIIN, new { @class = "form-control" })
+
+                    </div>
+                    @Html.ValidationMessageFor(m => m.BINIIN)
+                </div>
+                <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 40px;margin-left: 15px" id="JuridicalNameDiv">
+                    @Html.LabelFor(model => model.JuridicalName)
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(m => m.JuridicalName, new { @class = "form-control" })
+
+                    </div>
+                    @Html.ValidationMessageFor(m => m.JuridicalName)
+                </div>
+                <div class="form-group clearfixmandatory" style="min-height: 1px; margin-left: 15px" id="IsCvazyDiv">
+                    @Html.LabelFor(model => model.IsCvazy, new { style = "width: 350px" })
+                    <div class="form-group">
+                        @Html.CheckBoxFor(m => m.IsCvazy, new { @class = "form-control" })
+                    </div>
+                </div>
+            @*    <div class="form-group clearfixmandatory" style="min-height: 1px; margin-left: 15px" id="IsHaveGESDiv">
+                    @Html.LabelFor(model => model.IsHaveGES, new { style = "width: 350px" })
+                    <div class="form-group">
+                        @Html.CheckBoxFor(m => m.IsHaveGES, new { @class = "form-control" })
+                    </div>
+                </div>*@
+                <div class="form-group clearfix" style="min-height: 1px; margin-bottom: 40px;margin-left: 15px">
+                    @Html.LabelFor(model => model.OkedId)
+                    <div class="col-sm-6">
+                        @Html.DropDownList("OkedId", (IEnumerable<SelectListItem>)(ViewData["OKEDList"]), String.Empty, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.OkedId)
+                </div>
+                <div class="form-group" style="min-height: 1px; margin-left: 15px" id="WastesDiv">
+
+                    <div class="chzn-select">
+                        @Html.ListBoxFor(x => Model.Wastes, Model.WastList,
+                 new { @class = "chzn-select", data_placeholder = ResourceSetting.SubjectAddActivities + "...", style = "width:450px;" })
+                    </div>
+                </div>
+                <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 44px;margin-left: 15px">
+                    @Html.LabelFor(model => model.LastName, new { id = "lastNameLabel" })
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.LastName)
+                </div>
+                <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 44px;margin-left: 15px">
+                    @Html.LabelFor(model => model.FirstName, new { id = "firstNameLabel" })
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.FirstName)
+                    </div>
+                </div>
+
+                <div class="form-group" style="min-height: 1px; margin-bottom: 44px;margin-left: 15px">
+                    @Html.LabelFor(model => model.SecondName, new { id = "secondNameLabel" })
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(model => model.SecondName, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 44px;margin-left: 15px">
+                    @Html.LabelFor(model => model.Post)
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(m => m.Post, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Post)
+                    </div>
+                </div>
+                <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 40px;margin-left: 15px">
+                    @Html.LabelFor(model => model.Email)
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Email)
+                    </div>
+                </div>
+             
+            </div>
+            <div class="panel panel-default" style="width: 50%;float: left;margin-left: 10px">
+                <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 44px;margin-left: 15px">
+                    @Html.LabelFor(model => model.Mobile)
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @mask = "(999) 999-9999" })
+                        @Html.ValidationMessageFor(m => m.Mobile)
+                    </div>
+                </div>
+                <div class="form-group " style="min-height: 1px; margin-bottom: 40px;margin-left: 15px">
+                    @Html.LabelFor(model => model.WorkPhone)
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(m => m.WorkPhone, new { @class = "form-control", @mask = "(999) 999-9999" })
+                    </div>
+                </div>
+                <div class="form-group " style="min-height: 1px; margin-bottom: 40px;margin-left: 15px">
+                    @Html.LabelFor(model => model.InternalPhone)
+                    <div class="col-sm-6">
+                        @Html.TextBoxFor(m => m.InternalPhone, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.InternalPhone)
+                    </div>
+                </div>
+                
+                <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 40px;margin-left: 15px">
+                    @Html.Label(ResourceSetting.Oblast)
+                    <div class="col-sm-6">
+
+                        @Html.DropDownList("Oblast", (IEnumerable<SelectListItem>)(ViewData["OblastList"]),
+                            String.Empty,
+                            new
+                            {
+                                id = "OblastDropDownList",
+                                name = "OblastDropDownList",
+                                @class = "form-control"
+
+                            })
+                    </div>
+                </div>
+                <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 40px;margin-left: 15px">
+                    @Html.Label(ResourceSetting.RegionCity)
+                    <div class="col-sm-6">
+                        @Html.DropDownList("Region", (IEnumerable<SelectListItem>)(ViewData["RegionList"]),
+                            String.Empty,
+                            new
+                            {
+                                id = "RegionDropDownList",
+                                name = "RegionDropDownList",
+                                @class = "form-control"
+                            })
+                    </div>
+                </div>
+                <div class="form-group" style="min-height: 1px; margin-bottom: 40px;margin-left: 15px">
+             
+                    @Html.Label(ResourceSetting.SubRegion)
+                    <div class="col-sm-6">
+                        @Html.DropDownList("SubRegion", (IEnumerable<SelectListItem>)(ViewData["SubRegionList"]),
+                            String.Empty,
+                            new
+                            {
+                                id = "SubRegionDropDownList",
+                                name = "SubRegionDropDownList",
+                                @class = "form-control"
+
+                            })
+                    </div>
+                </div>
+
+                <div class="form-group" style="min-height: 1px; margin-bottom: 40px;margin-left: 15px">
+                    @Html.Label(ResourceSetting.Village)
+                    <div class="col-sm-6">
+                        @Html.DropDownList("Village", (IEnumerable<SelectListItem>)(ViewData["VillageList"]),
+                            String.Empty,
+                            new
+                            {
+                                id = "VillageDropDownList",
+                                name = "VillageDropDownList",
+                                @class = "form-control"
+
+                            })
+                    </div>
+                </div>
+
+                <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 60px;margin-left: 15px">
+                    @Html.LabelFor(model => model.Address)
+                    <div class="col-sm-6">
+                        @Html.TextAreaFor(m => m.Address, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Address)
+                    </div>
+                </div>
+                <div class="form-group " style="min-height: 1px; margin-bottom: 60px;margin-left: 15px">
+                    @Html.LabelFor(model => model.ResponceFIO)
+                    <div class="col-sm-6">
+                        @Html.TextAreaFor(m => m.ResponceFIO, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ResponceFIO)
+                    </div>
+                </div>
+                <div class="form-group " style="min-height: 1px; margin-bottom: 40px;margin-left: 15px">
+                    @Html.LabelFor(model => model.ResponcePost)
+                    <div class="col-sm-6">
+                        @Html.TextAreaFor(m => m.ResponcePost, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ResponcePost)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="saveUpdate" type="submit" name="SaveUpdate" value="SaveUpdate" style="visibility: hidden;"></button>
+        <div style="margin-bottom: 80px">
+            <button type="button" class="btn btn-success btn-lg" onclick="location.href='@Url.Action("Index", "RstApplication")'">
+                <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Return
+            </button>
+            <button id="saveBtn" type="button" class="btn btn-success btn-lg" onclick=" SaveChange() " style="float: right; margin-right: 30px">
+                <span class="glyphicon glyphicon-save" aria-hidden="true"></span> @ResourceSetting.Save
+            </button>
+        </div>
+    }
+   
+
+</div>
+    </div>
+<script type="text/javascript">
+    function chowPlaceControl(isJur) {
+        if (isJur == true) {
+                    $("#biniinLabel").text("@ResourceSetting.sBIN");
+                    $("#lastNameLabel").text("@ResourceSetting.BossLastName");
+                    $("#firstNameLabel").text("@ResourceSetting.BossFirstName");
+                    $("#secondNameLabel").text("@ResourceSetting.BossSecondName");
+                    $("#JuridicalNameDiv").show();
+                    $("#WastesDiv").show();
+                    $("#IsCvazyDiv").show();
+                    $("#IsHaveGESDiv").show();
+
+                } else {
+                    $("#biniinLabel").text("@ResourceSetting.sIIN");
+                    $("#lastNameLabel").text("@ResourceSetting.SureName");
+                    $("#firstNameLabel").text("@ResourceSetting.FirstName");
+                    $("#secondNameLabel").text("@ResourceSetting.SecondName");
+                    $("#JuridicalNameDiv").hide();
+                    $("#WastesDiv").hide();
+                    $("#IsCvazyDiv").hide();
+                    $("#IsHaveGESDiv").hide();
+                }
+            }
+            $(document).ready(function () {
+                var typeId = $("#TypeApplicationId").val();
+                if (typeId == 5) {
+                    chowPlaceControl(false);
+                }else{
+                    chowPlaceControl(true);
+                }
+
+                if (typeId == 2 || typeId == 6 || typeId == 7 || typeId == 8 || typeId == 9) { //ГУ или ГКУ
+                    if (typeId == 2 || typeId == 6) {
+                        $("#IsCvazy").attr('checked', false);
+                    }
+                    if (typeId == 7 || typeId == 8 || typeId == 9) {
+                        $("#IsCvazy").attr('checked', true);
+                    }
+                    $("#IsCvazy").attr('disabled', 'disabled');
+                } else {
+                    $("#IsCvazy").removeAttr('disabled');
+                }
+
+                $("#TypeApplicationId").change(function () {
+
+                    var kindObject = $(this).val();
+                    if (kindObject == 5) {
+                        chowPlaceControl(false);
+                    } else {
+                        chowPlaceControl(true);
+
+                    }
+                    if (kindObject == 2 || kindObject == 6 || kindObject == 7 || kindObject == 8 || kindObject == 9) { //ГУ или ГКУ
+                        if (kindObject == 2 || kindObject == 6) {
+                            $("#IsCvazy").attr('checked', false);
+                        }
+                        if (kindObject == 7 || kindObject == 8 || kindObject == 9) {
+                            $("#IsCvazy").attr('checked', true);
+                        }
+                        $("#IsCvazy").attr('disabled', 'disabled');
+                    } else {
+                        $("#IsCvazy").removeAttr('disabled');
+                    }
+                });
+            });
+</script>
+
+<script type="text/javascript">
+    function getPoints(abbr, urlPoints, ddltarget, param) {
+        $.ajax({
+            url: urlPoints,
+            type: 'GET',
+            data: param,
+            cache: 'false',
+            success: function (data) {
+                $(ddltarget).empty();
+
+                if (data.length > 0) {
+                    $.each(data, function (index, optiondata) {
+                        $(ddltarget).append(
+                            $('<option/>')
+                                .attr('value', optiondata.Id)
+                                .text(optiondata.NameRu)
+                        );
+                    });
+                } else {
+                    $(ddltarget).append(
+                        $('<option/>')
+                            .attr('value', "")
+                            .text("Нет населенных пунктов")
+                    );
+                }
+                //$(ddltarget).trigger("chosen:updated");
+                $(ddltarget).trigger('liszt:updated');
+            },
+            error: function (data) {
+                alert("1Error" + data);
+            }
+        });
+    }
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#OblastDropDownList").change(function () {
+
+            var abbr = $(this).val();
+            var urlPoints = '@Url.Action("GetKatos")';
+            var ddltarget = "#RegionDropDownList";
+            var param = { parentId: abbr, mandatory: false };
+            getPoints(abbr, urlPoints, ddltarget, param);
+        });
+        $("#RegionDropDownList").change(function () {
+
+            var abbr = $(this).val();
+            var urlPoints = '@Url.Action("GetKatos")';
+            var ddltarget = "#SubRegionDropDownList";
+            var param = { parentId: abbr, mandatory: false };
+            getPoints(abbr, urlPoints, ddltarget, param);
+        });
+        $("#SubRegionDropDownList").change(function () {
+            var abbr = $(this).val();
+            var urlPoints = '@Url.Action("GetKatos")';
+            var ddltarget = "#VillageDropDownList";
+            var param = { parentId: abbr, mandatory: false };
+            getPoints(abbr, urlPoints, ddltarget, param);
+        });
+    });
+</script>

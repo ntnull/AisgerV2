@@ -1,0 +1,29 @@
+﻿@using Aisger
+@using GridMvc.Html
+@using GridMvc.Sorting
+@model Aisger.Models.Entity.Security.SEC_Guest
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.AuditPage  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>   @ResourceSetting.AuditReestr </li>
+    </ul>
+    <div style=" position: relative;height: 100%;">
+        <div id="wrapper_grid" style="margin-left: 50px;  position: absolute;top: 0; bottom: 0;left: 0; right: 0;overflow: auto;">
+                @Html.Partial("~/Views/PrivateSetting/GuestTemplateView.cshtml", @Model)
+            <div style="margin-bottom: 80px">
+                <button type="button" class="btn btn-success btn-lg" onclick="location.href='@Url.Action("Index","AuditReestr")'">
+                    <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Return
+                </button>
+                @if (ViewBag.IsCheck != null && ViewBag.IsCheck)
+                {
+                    <button id="saveBtn" type="button" class="btn btn-success btn-lg" onclick="location.href='@Url.Action("Accept", new {id = Model.Id})'" style="float: right; margin-right: 30px">
+                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span> @ResourceSetting.sAccept
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+</div>

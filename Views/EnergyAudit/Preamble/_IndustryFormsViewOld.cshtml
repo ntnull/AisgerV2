@@ -1,0 +1,311 @@
+﻿@model Aisger.Models.EAUDIT_Preamble
+
+<ul class="nav nav-tabs" id="IndustryFormTab">
+    <li class="active"><a data-target="#ownedftab" data-toggle="tab">Объекты собственности</a></li>
+    <li><a data-target="#form1tab" data-toggle="tab">Таблица 1</a></li>
+    <li><a data-target="#form2tab" data-toggle="tab">Таблица 2</a></li>
+    <li><a data-target="#form3tab" data-toggle="tab">Таблица 3</a></li>
+    <li><a data-target="#formShoptab" data-toggle="tab">Цех, участок, производство</a></li>
+    <li><a data-target="#form4tab" data-toggle="tab">Таблица 4</a></li>
+    <li><a data-target="#form5tab" data-toggle="tab">Таблица 5</a></li>
+    <li><a data-target="#form6tab" data-toggle="tab">Таблица 6</a></li>
+    <li><a data-target="#form7tab" data-toggle="tab">Таблица 7</a></li>
+    <li><a data-target="#form8tab" data-toggle="tab">Таблица 8</a></li>
+    <li><a data-target="#form9tab" data-toggle="tab">Таблица 9</a></li>
+    <li><a data-target="#form10tab" data-toggle="tab">Таблица 10</a></li>
+    <li><a data-target="#form11tab" data-toggle="tab">Таблица 11</a></li>
+    <li><a data-target="#form12tab" data-toggle="tab">Таблица 12</a></li>
+    <li><a data-target="#form13tab" data-toggle="tab">Таблица 13</a></li>
+    <li><a data-target="#form14tab" data-toggle="tab">Таблица 14</a></li>
+    <li><a data-target="#form15tab" data-toggle="tab">Таблица 15</a></li>
+    <li><a data-target="#form16tab" data-toggle="tab">Таблица 16</a></li>
+    <li><a data-target="#form17tab" data-toggle="tab">Таблица 17</a></li>
+    <li><a data-target="#form18tab" data-toggle="tab">Таблица 18</a></li>
+    <li><a data-target="#form19tab" data-toggle="tab">Таблица 19</a></li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane active" id="ownedftab">
+        @{
+            Html.RenderAction("GetOwnedFacilityView", "IndustryAttachment1", new { preambleId = Model.Id });
+        }
+    </div>
+    <div class="tab-pane" id="form1tab">
+        <div id="form1tabContent">
+        </div>
+    </div>
+    <div class="tab-pane" id="form2tab">
+        <div id="form2tabContent">
+
+        </div>
+    </div>
+    <div class="tab-pane" id="form3tab">
+        <div id="form3tabContent">
+
+        </div>
+    </div>
+    <div class="tab-pane" id="formShoptab">
+        <div id="formShoptabContent">
+
+        </div>
+    </div>
+    <div class="tab-pane" id="form4tab">
+        <div id="form4tabContent">
+
+        </div>
+    </div>
+    <div class="tab-pane" id="form5tab">
+        <div id="form5tabContent">
+
+        </div>
+    </div>
+    <div class="tab-pane" id="form6tab">
+        <div id="form6tabContent">
+
+        </div>
+    </div>
+    <div class="tab-pane" id="form7tab">
+        <div id="form7tabContent">
+
+        </div>
+    </div>
+    <div class="tab-pane" id="form8tab">
+        <div id="form8tabContent">
+
+        </div>
+    </div>
+    <div class="tab-pane" id="form9tab">
+        <div id="form9tabContent">
+
+        </div>
+    </div>
+    <div class="tab-pane" id="form10tab">
+        <div id="form10tabContent">
+
+        </div>
+    </div>
+    <div class="tab-pane" id="form11tab">
+        <div id="form11tabContent">
+
+        </div>
+    </div>
+    <div class="tab-pane" id="form12tab">
+        <div id="form12tabContent">
+
+        </div>
+    </div>
+    <div class="tab-pane" id="form13tab">
+        <div id="form13tabContent">
+
+        </div>
+    </div>
+    <div class="tab-pane" id="form14tab">
+        <div id="form14tabContent">
+
+        </div>
+    </div>
+    <div class="tab-pane" id="form15tab">
+        <div id="form15tabContent">
+
+        </div>
+    </div>
+    <div class="tab-pane" id="form16tab">
+        <div id="form16tabContent">
+
+        </div>
+    </div>
+    <div class="tab-pane" id="form17tab">
+        <div id="form17tabContent">
+
+        </div>
+    </div>
+    <div class="tab-pane" id="form18tab">
+        <div id="form18tabContent">
+
+        </div>
+    </div>
+    <div class="tab-pane" id="form19tab">
+        <div id="form19tabContent">
+
+        </div>
+    </div>
+</div>
+
+<script>
+    var EnergyAuditParentForm = {
+        init: function () {
+            //            var pId = $("#hfPreamleId").val();
+            //            if (!pId || pId == "0") return;
+            //            EnergyAuditParentForm.reloadForm1(pId);
+
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                var target = $(e.target).attr("data-target"); // activated tab
+                var pId = $("#hfPreamleId").val();
+                if (!pId || pId == "0") return;
+
+                if (target == "#form1tab") {
+                    EnergyAuditParentForm.reloadForm1(pId);
+                } else if (target == "#form2tab") {
+                    EnergyAuditParentForm.reloadForm2(pId);
+                } else if (target == "#form3tab") {
+                    $("#form3tabContent").load('@Url.Action("GetIndustryForm3View","IndustryAttachment1")', { "preambleId": pId },
+                        function (responseText, textStatus, jqXhr) {
+                            if (window.IndustryForm3)
+                                window.IndustryForm3.init();
+                        });
+                } else if (target == "#form4tab") {
+                    EnergyAuditParentForm.reloadForm4(pId);
+                } else if (target == "#formShoptab") {
+                    EnergyAuditParentForm.reloadFormShop(pId);
+                } else if (target == "#form5tab") {
+                    $("#form5tabContent").load('@Url.Action("GetIndustryForm5View","IndustryAttachment1")', { "preambleId": pId },
+                        function (responseText, textStatus, jqXhr) {
+                            if (window.IndustryForm5)
+                                window.IndustryForm5.init();
+                        });
+                } else if (target == "#form6tab") {
+                    $("#form6tabContent").load('@Url.Action("GetIndustryForm6View","IndustryAttachment1")', { "preambleId": pId },
+                        function (responseText, textStatus, jqXhr) {
+                            if (window.IndustryForm6)
+                                window.IndustryForm6.init();
+                        });
+                } else if (target == "#form7tab") {
+                    $("#form7tabContent").load('@Url.Action("GetIndustryForm7View","IndustryAttachment1")', { "preambleId": pId },
+                        function (responseText, textStatus, jqXhr) {
+                            if (window.IndustryForm7)
+                                window.IndustryForm7.init();
+                        });
+                } else if (target == "#form8tab") {
+                    EnergyAuditParentForm.reloadForm8(pId);
+                } else if (target == "#form9tab") {
+                    $("#form9tabContent").load('@Url.Action("GetIndustryForm9View","IndustryAttachment1")', { "preambleId": pId },
+                        function (responseText, textStatus, jqXhr) {
+                            if (window.IndustryForm9)
+                                window.IndustryForm9.init();
+                        });
+                } else if (target == "#form10tab") {
+                    $("#form10tabContent").load('@Url.Action("GetIndustryForm10View","IndustryAttachment1")', { "preambleId": pId },
+                        function (responseText, textStatus, jqXhr) {
+                            if (window.IndustryForm10)
+                                window.IndustryForm10.init();
+                        });
+                } else if (target == "#form11tab") {
+                    EnergyAuditParentForm.reloadForm11(pId);
+                } else if (target == "#form12tab") {
+                    EnergyAuditParentForm.reloadForm12(pId);
+                } else if (target == "#form13tab") {
+                    $("#form13tabContent").load('@Url.Action("GetIndustryForm13View","IndustryAttachment1")', { "preambleId": pId },
+                        function (responseText, textStatus, jqXhr) {
+                            if (window.IndustryForm13)
+                                window.IndustryForm13.init();
+                        });
+                } else if (target == "#form14tab") {
+                    EnergyAuditParentForm.reloadForm14(pId);
+                } else if (target == "#form15tab") {
+                    $("#form15tabContent").load('@Url.Action("GetIndustryForm15View","IndustryAttachment1")', { "preambleId": pId },
+                        function (responseText, textStatus, jqXhr) {
+                            if (window.IndustryForm15)
+                                window.IndustryForm15.init();
+                        });
+                } else if (target == "#form16tab") {
+                    EnergyAuditParentForm.reloadForm16(pId);
+                } else if (target == "#form17tab") {
+                    EnergyAuditParentForm.reloadForm17(pId);
+                } else if (target == "#form18tab") {
+                    EnergyAuditParentForm.reloadForm18(pId);
+                } else if (target == "#form19tab") {
+                    EnergyAuditParentForm.reloadForm19(pId);
+                }
+            });
+
+        },
+        reloadForm1: function (pId, ofacility) {
+            $("#form1tabContent").load('@Url.Action("GetIndustryForm1View", "IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm1)
+                        window.IndustryForm1.init();
+                });
+        },
+        reloadForm2: function (pId, ofacility) {
+            $("#form2tabContent").load('@Url.Action("GetIndustryForm2View", "IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm2)
+                        window.IndustryForm2.init();
+                });
+        },
+        reloadFormShop: function (pId, ofacility) {
+            $("#formShoptabContent").load('@Url.Action("GetIndustryShopView", "IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryFormShop)
+                        window.IndustryFormShop.init();
+                });
+        },
+        reloadForm4: function (pId, ofacility, shop) {
+            $("#form4tabContent").load('@Url.Action("GetIndustryForm4View", "IndustryAttachment1")'
+                , { "preambleId": pId, /*"ofacility": ofacility,*/ "shopId": shop }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm4)
+                        window.IndustryForm4.init();
+                });
+        },
+        reloadForm8: function (pId, ofacility) {
+            $("#form8tabContent").load('@Url.Action("GetIndustryForm8View", "IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm8)
+                        window.IndustryForm8.init();
+                });
+        },
+        reloadForm11: function (pId, ofacility) {
+            $("#form11tabContent").load('@Url.Action("GetIndustryForm11View","IndustryAttachment1")', { "preambleId": pId, "ofacility": ofacility }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm11)
+                        window.IndustryForm11.init();
+                });
+        },
+        reloadForm12: function (pId, ofacility) {
+            $("#form12tabContent").load('@Url.Action("GetIndustryForm12View","IndustryAttachment1")', { "preambleId": pId, "ofacility": ofacility }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm12)
+                        window.IndustryForm12.init();
+                });
+        },
+        reloadForm14: function (pId, ofacility) {
+            $("#form14tabContent").load('@Url.Action("GetIndustryForm14View","IndustryAttachment1")', { "preambleId": pId, "ofacility": ofacility }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm14)
+                        window.IndustryForm14.init();
+                });
+        },
+        reloadForm16: function (pId, ofacility) {
+            $("#form16tabContent").load('@Url.Action("GetIndustryForm16View","IndustryAttachment1")', { "preambleId": pId, "ofacility": ofacility }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm16)
+                        window.IndustryForm16.init();
+                });
+        },
+        reloadForm17: function (pId, ofacility) {
+            $("#form17tabContent").load('@Url.Action("GetIndustryForm17View","IndustryAttachment1")', { "preambleId": pId, "ofacility": ofacility }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm17)
+                        window.IndustryForm17.init();
+                });
+        },
+        reloadForm18: function (pId, ofacility) {
+            $("#form18tabContent").load('@Url.Action("GetIndustryForm18View","IndustryAttachment1")', { "preambleId": pId, "ofacility": ofacility }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm18)
+                        window.IndustryForm18.init();
+                });
+        },
+        reloadForm19: function (pId, ofacility) {
+            $("#form19tabContent").load('@Url.Action("GetIndustryForm19View","IndustryAttachment1")', { "preambleId": pId, "ofacility": ofacility }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm19)
+                        window.IndustryForm19.init();
+                });
+        }
+    };
+</script>

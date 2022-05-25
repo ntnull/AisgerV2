@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7566bc2b19f64b178deb336df21d11b3" Name="Diagram1">
+        <EntityTypeShape EntityType="aisgerModel.COLLECTOR_Cmdevice" Width="1.5" PointX="12.75" PointY="168.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.COLLECTOR_DIC_CmdeviceTypes" Width="1.5" PointX="10.5" PointY="162.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.COLLECTOR_IndicatorValues" Width="1.5" PointX="15" PointY="169" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.DIC_Department" Width="1.5" PointX="3" PointY="198.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.DIC_GU" Width="1.5" PointX="22.5" PointY="234" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.DIC_Holidays" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.DIC_Kato" Width="1.5" PointX="0.75" PointY="203.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.DIC_KindUser" Width="1.5" PointX="8.25" PointY="196" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.DIC_OKED" Width="1.5" PointX="3" PointY="209.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.DIC_Organization" Width="1.5" PointX="3" PointY="204" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.DIC_TypeApplication" Width="1.5" PointX="3" PointY="214.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.DIC_Unit" Width="1.5" PointX="7.5" PointY="168.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_AttachedFiles" Width="1.5" PointX="9.75" PointY="187.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_AuditorReestr" Width="1.5" PointX="7.5" PointY="187.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_Building" Width="1.5" PointX="9.75" PointY="180.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_BuildingForm1" Width="1.5" PointX="15" PointY="191.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_BuildingForm2" Width="1.5" PointX="18" PointY="191.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_BuildingForm3" Width="1.5" PointX="12" PointY="186.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_BuildingForm4" Width="1.5" PointX="15" PointY="186.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_BuildingForm5" Width="1.5" PointX="18" PointY="186.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_BuildingForm6" Width="1.5" PointX="21" PointY="192.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_BuildingForm7" Width="1.5" PointX="21" PointY="187.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_BuildingForm9" Width="1.5" PointX="21" PointY="203.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_DIC_Statuses" Width="1.5" PointX="5.25" PointY="192.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_DIC_TypeResource" Width="1.5" PointX="9.75" PointY="166.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_FieldComments" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_FormHistory" Width="1.5" PointX="9.75" PointY="215.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_IndustryBuildingForm1" Width="1.5" PointX="9.75" PointY="219.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_IndustryForm1" Width="1.5" PointX="12" PointY="262.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_IndustryForm10" Width="1.5" PointX="15" PointY="263.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_IndustryForm11" Width="1.5" PointX="15" PointY="257.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_IndustryForm12" Width="1.5" PointX="12" PointY="268.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_IndustryForm13" Width="1.5" PointX="12" PointY="256.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_IndustryForm14" Width="1.5" PointX="15" PointY="269.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_IndustryForm15" Width="1.5" PointX="21" PointY="262.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_IndustryForm16" Width="1.5" PointX="18" PointY="271.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_IndustryForm17" Width="1.5" PointX="21" PointY="269" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_IndustryForm18" Width="1.5" PointX="21" PointY="255.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_IndustryForm19" Width="1.5" PointX="15" PointY="251.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_IndustryForm2" Width="1.5" PointX="12" PointY="274.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_IndustryForm3" Width="1.5" PointX="12" PointY="251" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_IndustryForm4" Width="1.5" PointX="21" PointY="274" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_IndustryForm4_Shop" Width="1.5" PointX="18" PointY="262.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_IndustryForm4_ShopValues" Width="1.5" PointX="26.25" PointY="274.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_IndustryForm5" Width="1.5" PointX="24" PointY="262.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_IndustryForm6" Width="1.5" PointX="24" PointY="268.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_IndustryForm7" Width="1.5" PointX="24" PointY="256.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_IndustryForm8" Width="1.5" PointX="24" PointY="275" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_IndustryForm9" Width="1.5" PointX="24" PointY="250.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_OwnedFacility" Width="1.5" PointX="9.75" PointY="324" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.EAUDIT_Preamble" Width="1.5" PointX="7.5" PointY="199.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.ESCO_DIC_Product" Width="1.5" PointX="9.75" PointY="191.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.ESCO_DIC_ProductKind" Width="1.5" PointX="7.5" PointY="191.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.ESCO_DIC_ProductKindOked" Width="1.5" PointX="12.75" PointY="192.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.i_i18n" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.MAP_Application" Width="1.5" PointX="10.5" PointY="202.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.MAP_ApplicationEE2" Width="1.5" PointX="7.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.MAP_ApplicationEvent" Width="1.5" PointX="12.75" PointY="215.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.MAP_ApplicationHistory" Width="1.5" PointX="18.75" PointY="210.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.MAP_ApplicationProduct" Width="1.5" PointX="12.75" PointY="220" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.MAP_DIC_EEDetailModels" Width="1.5" PointX="5" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.MAP_DIC_EEDetails" Width="1.5" PointX="2.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.MAP_DIC_EEStatus" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.MAP_DIC_Status" Width="1.5" PointX="8.25" PointY="226.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.MAP_FormEE2" Width="1.5" PointX="7.5" PointY="233.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.Map_FormEE2Record" Width="1.5" PointX="9.75" PointY="233.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.MAP_Project" Width="1.5" PointX="21.75" PointY="209.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.RST_Application" Width="1.5" PointX="13.5" PointY="204.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.RST_DIC_CodeOblast" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.RST_DIC_Reason" Width="1.5" PointX="22.5" PointY="182.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.RST_DIC_Status" Width="1.5" PointX="22.5" PointY="230.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.RST_DIC_StatusHistory" Width="1.5" PointX="30" PointY="210.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.RST_Executed" Width="1.5" PointX="7.5" PointY="241.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.rst_obl_control" Width="1.5" PointX="10.5" PointY="199.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.RST_Reestr" Width="1.5" PointX="24.75" PointY="204" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.RST_ReestrHistory" Width="1.5" PointX="30" PointY="204.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.RST_ReestrReportHistory" Width="1.5" PointX="32.25" PointY="209.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.RST_Report" Width="1.5" PointX="7.5" PointY="248.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.RST_ReportReestr" Width="1.5" PointX="30" PointY="214.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.rst_reportreestroked" Width="1.5" PointX="32.25" PointY="220.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SEC_DIC_EventType" Width="1.5" PointX="11.25" PointY="176" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SEC_JurEvent" Width="1.5" PointX="13.5" PointY="200.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SEC_RightPermission" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SEC_RolePermission" Width="1.5" PointX="5.25" PointY="109.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SEC_Roles" Width="1.5" PointX="3" PointY="218.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SEC_User" Width="1.5" PointX="5.25" PointY="196.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SEC_UserHistory" Width="1.5" PointX="7.5" PointY="261.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SEC_UserKind" Width="1.5" PointX="10.5" PointY="211" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SEC_UserOked" Width="1.5" PointX="13.5" PointY="209.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SEC_UserToken" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_ActionComment" Width="1.5" PointX="18.75" PointY="196.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_ActionComRecord" Width="1.5" PointX="13.5" PointY="212" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_ActionHistory" Width="1.5" PointX="16.5" PointY="204.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_ActionPlan" Width="1.5" PointX="16.5" PointY="197.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_ActionRecordHistory" Width="1.5" PointX="18.75" PointY="205.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_ActionTab1" Width="1.5" PointX="18.75" PointY="241.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_ActionTab2" Width="1.5" PointX="21.75" PointY="198" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_ActionTab3" Width="1.5" PointX="18.75" PointY="216.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.sub_dic_energyindicator" Width="1.5" PointX="25.5" PointY="194.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_DIC_Event" Width="1.5" PointX="7.5" PointY="288.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_DIC_KindResource" Width="1.5" PointX="25.5" PointY="227.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_DIC_KindTabOne" Width="1.5" PointX="16.5" PointY="242.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_DIC_KindTabTwo" Width="1.5" PointX="19.5" PointY="181.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_DIC_NormEnergy" Width="1.5" PointX="25.5" PointY="190.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_DIC_Status" Width="1.5" PointX="14.25" PointY="196.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_DIC_TypeCounter" Width="1.5" PointX="25.5" PointY="231.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_DIC_TypeResource" Width="1.5" PointX="19.5" PointY="233.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_Form" Width="1.5" PointX="16.5" PointY="209.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_Form2Gu" Width="1.5" PointX="18.75" PointY="201.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_Form2Record" Width="1.5" PointX="21.75" PointY="214.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_Form3aGuRecord1" Width="1.5" PointX="24.75" PointY="212.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_Form3aGuRecord2" Width="1.5" PointX="24.75" PointY="217.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_Form3aGuRecord3" Width="1.5" PointX="21.75" PointY="219.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_Form3Gu" Width="1.5" PointX="18.75" PointY="223.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_Form3GuRecord" Width="1.5" PointX="18.75" PointY="227.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_Form3Record" Width="1.5" PointX="27.75" PointY="212.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_Form4Record" Width="1.5" PointX="21.75" PointY="248.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_Form5Record" Width="1.5" PointX="27.75" PointY="205.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_Form6Record" Width="1.5" PointX="27.75" PointY="217.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_FormComment" Width="1.5" PointX="18.75" PointY="253.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_FormComRecord" Width="1.5" PointX="21" PointY="225.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_FormGuLightingInfo" Width="1.5" PointX="18.75" PointY="258.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_FormHistory" Width="1.5" PointX="24.75" PointY="198.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_FormKadastr" Width="1.5" PointX="18.75" PointY="267.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_FormRecordHistory" Width="1.5" PointX="27.75" PointY="199.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_FormTab1" Width="1.5" PointX="24.75" PointY="222.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_FormTab2" Width="1.5" PointX="27.75" PointY="223.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="aisgerModel.SUB_FormTab3" Width="1.5" PointX="18.75" PointY="286.375" IsExpanded="true" />
+        <AssociationConnector Association="aisgerModel.FK_COLLECTOR_CmDevice_refUnit" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_COLLECTOR_DIC_CmDevice_refIndicatorType" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_COLLECTOR_IndicatorValues_refCmdevice" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_public_sec_user_public_dic_dept" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SUB_Form3aGuRecord1_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SUB_Form3aGuRecord2_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SUB_Form3aGuRecord3_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_public_dic_org_public_dic_kato_oblast" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_public_dic_org_public_dic_kato_region" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_public_dic_org_public_dic_kato_subregion" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_public_dic_org_public_dic_kato_village" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_RST_Application_kato" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_rst_obl_control_dic_kato" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_rst_repo_reference_dic_kato" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_rst_repo_reg_dic_kato" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_rst_repo_subreg_dic_kato" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_rst_repo_vill_dic_kato" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_RST_ReportReestr_oblast" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SEC_User_Olbast" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SEC_User_Region" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SEC_User_SubRegion" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SEC_User_Village" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.RST_ReestrReportHistory_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SEC_UserKind_kind" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.DIC_OKED_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_ESCO_DIC_ProductKindOkedd_Oked" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_rst_repo_reference_dic_oked" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SEC_User_oked" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SEC_UserOked_Oked" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.rst_reportreestroked_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_public_sec_user_public_dic_org" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_rst_repo_reference_dic_type" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SEC_User_TypeApp" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_DicTypeResource_DicUnit_refUnit" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_DicTypeResource_DicUnit_refUnit2" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm1_DicUnit_refDicUnit" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SUB_DIC_KindResource_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SUB_DIC_TypeResource_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_Preamble_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_AuditorReestr_EAUDIT_DIC_Statuses_refStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_AuditorReestr_SEC_User_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_Building_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm1_refBuilding" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm2_refBuilding" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm3_refBuilding" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm4_refBuilding" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm5_refBuilding" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm6_refBuilding" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm7_refBuilding" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm9_refBuilding" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm1_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm1_refTypeResource" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm2_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm2_refTypeResource" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm3_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm3_refTypeResource" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm4_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm4_refTypeResource" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm5_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm5_refTypeResource" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm6_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm6_refTypeResource" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm7_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm7_refTypeResource" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm9_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_BuildingForm9_refTypeResource" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_Preamble_DIC_Statuses_refDicStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IF4_ShopValues_DicTypeResource_refTypeResource" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm1_refTypeResource" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm11_refTypeResource" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm12_refTypeResource" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm14_refTypeResource" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm16_refTypeResource" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm17_refTypeResource" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm18_refTypeResource" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm19_refTypeResource" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm2_DicTypeResource_refTypeResource" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm4_DicTypeResource_refTypeResource" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm8_refTypeResource" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_FormHistory_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryBuildingForm1_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm1_refOwnedFacility" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm1_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm10_refOwnedFacility" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm10_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm11_refOwnedFacility" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm11_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm12_refOwnedFacility" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm12_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustrForm13_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm13_refOwnedFacility" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm14_refOwnedFacility" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm14_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm15_refOwnedFacility" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm15_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm16_refOwnedFacility" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm16_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm17_refOwnedFacility" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm17_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm18_refOwnedFacility" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm18_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm19_refOwnedFacility" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm19_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm2_EauditPreamle_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm2_refownedFacility" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_Preamble_refOwnedFacility" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_Preamble_refPreamble1" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IF4_ShopValues_refIndustryForm4" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm4_EauditPreamle_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm4_refownedFacility" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IF4_Shop_EauditPreamle_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm4_Shop_refOwnedFacility" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm5_refOwnedFacility" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm5_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm6_refOwnedFacility" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm6_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm7_refOwnedFacility" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm7_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm8_refOwnedFacility" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm8_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm9_refOwnedFacility" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_IndustryForm9_refPreamble" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_Preamble_refPreamble2" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDIT_Preamble_SEC_User_refInspector" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EAUDITpreamble_SECuser_refEauditObject" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_EUDITpreamble_SECuser_refAuditor" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_ESCO_DIC_Product_Kind" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_ESCO_DIC_ProductKind_User" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_ESCO_DIC_ProductKindOked_Kind" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_AP_Application_Editor" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_AP_Application_User" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_MAP_Application_Stat" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_MAP_ApplicationEvent_App" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_MAP_ApplicationHistory_App" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_MAP_ApplicationProduct_App" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_MAP_Project_App" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.MAP_ApplicationEE2_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.MAP_ApplicationEE2_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_MAP_ApplicationHistory_Stat" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_MAP_ApplicationHistory_User" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.MAP_DIC_EEDetailModels_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.MAP_FormEE2_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.Map_FormEE2Record_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_MAP_Project_Editor" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_MAP_Project_Esco" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_RST_Application_User" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_RST_Reestr_App" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.RST_ReestrReportHistory_fk3" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_RST_Reestr_Reason" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_RST_ReestrHistory_Reason" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_RST_ReestrReportHistory_Reason" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_RST_ReportReestr_reason" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.RST_ReestrReportHistory_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.RST_ReportReestr_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_RST_Reestr_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_RST_ReestrHistory_status" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_RST_ReportReestr_status" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_RST_ReestrReportHistory_status" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.RST_Executed_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_rst_obl_control_sec_user" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_RST_ReestrHistory_reestr" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_RST_ReportReestr_reestr" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_RST_ReestrHistory_user" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_RST_ReestrReportHistory_reestr" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_RST_ReestrReportHistory_user" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.RST_ReestrReportHistory_fk2" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_RST_ReportReestr_report" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.RST_Report_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_RST_ReportReestr_Editor" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_RST_ReportReestr_user" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.RST_ReportReestr_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.rst_reportreestroked_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_public_sec_jur_public_dic_eventtype" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_public_sec_jur_public_sec_user" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_public_sec_rightperm_sec_rightperm" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_public_sec_roleperm_sec_rightperm" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_public_sec_roleperm_sec_roles" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.FK_public_sec_user_public_sec_roles" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SEC_UserKind_User" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SEC_UserOked_User" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_ActionComRecord_user" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_ActionHistory_user" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_ActionPlan_Editor" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_ActionPlan_User" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_Form_Editor" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_FORM_User" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_FormComRecord_user" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_FormHistory_user" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SEC_UserHistory_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SUB_ActionRecordHistory_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SUB_DIC_Action_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SUB_FormRecordHistory_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_ActionComment" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_ActionComRecord_com" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_ActionHistory_form" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_ActionHistory_status" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_ActionPlan_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_ActionTab1" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_ActionTab2" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_ActionTab3_Form" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SUB_ActionRecordHistory_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_ActionTab1_Kind" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SUB_ActionTab1_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_ActionTab2_Kind" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.pk_sub_dic_energyindicator" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SUB_Form4Record_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_Form3Record_KindRes" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SUB_Form6Record_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_FormTab1_Kind" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_FormTab2_Kind" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_Form5Record_Norm" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SUB_DIC_NormEnergy_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_Form_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_FormHistory_status" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_Form4Record_typCount" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_Form6Record_TypCount" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_Form2Record_TypRes" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_Form4Record_TypRes" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_Form6Record_TypRes" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_Form2Record_Form" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_Form3Record_Form" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_Form4Record_Form" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_Form5Record_Form" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_Form6Record_Form" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_FormComment" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_FormHistory_form" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_FormTab1" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_FormTab2" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_FormTab3_Form" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SUB_Form2Gu_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SUB_Form3aGuRecord1_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SUB_Form3aGuRecord2_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SUB_Form3aGuRecord3_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SUB_Form3Gu_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SUB_Form3GuRecord_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SUB_FormGuLightingInfo_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SUB_FormKadastr_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.SUB_FormRecordHistory_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="aisgerModel.fk_SUB_FormComRecord_com" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

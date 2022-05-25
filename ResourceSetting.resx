@@ -1,0 +1,2720 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountController_ChangePassword_Error" xml:space="preserve">
+    <value>Текущий пароль неверен или новый пароль неверен.</value>
+    <comment>Ағымдағы құпия сөз дұрыс емес немесе жаңа құпия сөз жарамсыз.</comment>
+  </data>
+  <data name="AccountController_LogOn_Error" xml:space="preserve">
+    <value>Логин или пароль не корректный.</value>
+    <comment>Логин немесе құпия сөз қате</comment>
+  </data>
+  <data name="ChooseValue" xml:space="preserve">
+    <value>Выберите значение</value>
+    <comment>Мәнді таңдаңыз</comment>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Подтверждение пароля</value>
+    <comment>Құпия сөзді растаңыз</comment>
+  </data>
+  <data name="ConfirmPwd" xml:space="preserve">
+    <value>Подтверждение пароля</value>
+    <comment>Құпия сөзді растаңыз</comment>
+  </data>
+  <data name="DESCR" xml:space="preserve">
+    <value>Описание</value>
+    <comment>Сипаттамасы</comment>
+  </data>
+  <data name="Employee" xml:space="preserve">
+    <value>Сотрудник</value>
+    <comment>Қызметкер</comment>
+  </data>
+  <data name="EVENT" xml:space="preserve">
+    <value>событие</value>
+    <comment>Оқиға</comment>
+  </data>
+  <data name="EVENT_TYPE_ID" xml:space="preserve">
+    <value>Тип события</value>
+    <comment>Оқиға түрі</comment>
+  </data>
+  <data name="INITIATOR" xml:space="preserve">
+    <value>Кто соврешил</value>
+    <comment>Кім жасады</comment>
+  </data>
+  <data name="login" xml:space="preserve">
+    <value>логин</value>
+    <comment>логин</comment>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Наименование</value>
+    <comment>Атауы</comment>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Новый пароль</value>
+    <comment>Жаңа құпия сөз</comment>
+  </data>
+  <data name="NotEmpty" xml:space="preserve">
+    <value>Введите значение</value>
+    <comment>Мән жазыңыз</comment>
+  </data>
+  <data name="OBJ_ID" xml:space="preserve">
+    <value>Идентификатор изменяемого объекта</value>
+    <comment>Өзгеретін объектінің сәйкестендіргіші</comment>
+  </data>
+  <data name="OBJ_NAME" xml:space="preserve">
+    <value>Наименование объекта</value>
+    <comment>Объектінің атауы</comment>
+  </data>
+  <data name="OBJ_TABLE" xml:space="preserve">
+    <value>Таблица объекта</value>
+    <comment>Объектінің кестесі</comment>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Текущий пароль</value>
+    <comment>Ағымдағы құпия сөз</comment>
+  </data>
+  <data name="ORGANIZATION_ID" xml:space="preserve">
+    <value>Организация, где произошло событие</value>
+    <comment>Оқиға болған мекеме</comment>
+  </data>
+  <data name="pwd" xml:space="preserve">
+    <value>пароль</value>
+    <comment>Құпия сөз</comment>
+  </data>
+  <data name="RIGTH_EDIT" xml:space="preserve">
+    <value>Право на запись/чтение</value>
+    <comment>Жазу/оқу рұқсаты</comment>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Роль</value>
+    <comment>Рөлі</comment>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Роли</value>
+    <comment>Рөлдер</comment>
+  </data>
+  <data name="TOKEN" xml:space="preserve">
+    <value>Токен участника</value>
+    <comment>Мүшенің таңбасы</comment>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Пользователи</value>
+    <comment>Пайдаланушылар</comment>
+  </data>
+  <data name="USER_NAME" xml:space="preserve">
+    <value>Участник взаимодействия</value>
+    <comment>Өзара іс-қимыл мүшесі</comment>
+  </data>
+  <data name="add" xml:space="preserve">
+    <value>Создать</value>
+    <comment>Жасау</comment>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Адрес</value>
+    <comment>Адрес</comment>
+  </data>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>Наименование/ФИО</value>
+    <comment>Атауы/ТАӘ</comment>
+  </data>
+  <data name="biniinOwner" xml:space="preserve">
+    <value>БИН субъекта</value>
+    <comment>Субъекттің БСН </comment>
+  </data>
+  <data name="fioSertificate" xml:space="preserve">
+    <value>Фамилия, Имя, Отчество:</value>
+    <comment>Тегі, Аты, Әкесінің аты</comment>
+  </data>
+  <data name="KadastrNumber" xml:space="preserve">
+    <value>Кадастровый номер</value>
+    <comment>Кадастрлық номері</comment>
+  </data>
+  <data name="NameKz" xml:space="preserve">
+    <value>Наименование (на гос. языке)</value>
+    <comment>Атауы (мем. тілде)</comment>
+  </data>
+  <data name="NameRu" xml:space="preserve">
+    <value>Наименование (на рус. языке)</value>
+    <comment>Атауы (орыс. тілде)</comment>
+  </data>
+  <data name="ObjectName" xml:space="preserve">
+    <value>Наименование объекта</value>
+    <comment>Объектінің атауы</comment>
+  </data>
+  <data name="Oblast" xml:space="preserve">
+    <value>Область</value>
+    <comment>Облысы</comment>
+  </data>
+  <data name="OwnerName" xml:space="preserve">
+    <value>Наименование владельца</value>
+    <comment>Иесінің атауы</comment>
+  </data>
+  <data name="Reestr" xml:space="preserve">
+    <value>Реестр ГЭР</value>
+    <comment>МЭТ тізілімі</comment>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Страна/ Область/ Район/ Населённый пункт</value>
+    <comment>Ел/ Облыс/ Аудан / Елді мекен</comment>
+  </data>
+  <data name="RegionCity" xml:space="preserve">
+    <value>Район/Город</value>
+    <comment>Аудан/қала</comment>
+  </data>
+  <data name="ReportYear" xml:space="preserve">
+    <value>Отчетный период</value>
+    <comment>Есептемелік кезең</comment>
+  </data>
+  <data name="RstDicStatus" xml:space="preserve">
+    <value>Статус</value>
+    <comment>Статус</comment>
+  </data>
+  <data name="RST_Application" xml:space="preserve">
+    <value>Заполнение реестра</value>
+    <comment>Тізімді толтыру</comment>
+  </data>
+  <data name="RST_Reestr" xml:space="preserve">
+    <value>Реестр</value>
+    <comment>Тізім</comment>
+  </data>
+  <data name="ShortName" xml:space="preserve">
+    <value>Краткое наименование</value>
+    <comment>Қысқа атауы</comment>
+  </data>
+  <data name="ShortNameKz" xml:space="preserve">
+    <value>Краткое наименование (на гос. языке)</value>
+    <comment>Қысқа атауы (мем.тілде)</comment>
+  </data>
+  <data name="ShortNameRu" xml:space="preserve">
+    <value>Краткое наименование (на рус. языке)</value>
+    <comment>Қысқа атауы (орыс.тілде)</comment>
+  </data>
+  <data name="SubRegion" xml:space="preserve">
+    <value>Сельский округ</value>
+    <comment>Ауылдық округ</comment>
+  </data>
+  <data name="Village" xml:space="preserve">
+    <value>Село</value>
+    <comment>Ауыл</comment>
+  </data>
+  <data name="Executer" xml:space="preserve">
+    <value>Исполнитель</value>
+    <comment>Орындаушы</comment>
+  </data>
+  <data name="RegDate" xml:space="preserve">
+    <value>Дата регистрации</value>
+    <comment>Тіркеу күні</comment>
+  </data>
+  <data name="dateformat" xml:space="preserve">
+    <value>укажите значение мес/день/год</value>
+    <comment>ай/күн/жыл белгілеңіз</comment>
+  </data>
+  <data name="RstExluded" xml:space="preserve">
+    <value>Исключенные из реестра</value>
+    <comment>Тізімнен шығарылғандар</comment>
+  </data>
+  <data name="AccountSetting" xml:space="preserve">
+    <value>Личные данные</value>
+    <comment>Жеке деректер</comment>
+  </data>
+  <data name="admin" xml:space="preserve">
+    <value>Администрирование</value>
+    <comment>Басқарма</comment>
+  </data>
+  <data name="Autor" xml:space="preserve">
+    <value>Автор</value>
+    <comment>Автор</comment>
+  </data>
+  <data name="eventJur" xml:space="preserve">
+    <value>Журнал события</value>
+    <comment>Оқиға журналы</comment>
+  </data>
+  <data name="EventType" xml:space="preserve">
+    <value>Тип события</value>
+    <comment>Оқиға түрі</comment>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Имя</value>
+    <comment>Аты</comment>
+  </data>
+  <data name="Organisation" xml:space="preserve">
+    <value>Организация</value>
+    <comment>Мекеме</comment>
+  </data>
+  <data name="privatePage" xml:space="preserve">
+    <value>Личный кабинет</value>
+    <comment>Жеке кабинет</comment>
+  </data>
+  <data name="SureName" xml:space="preserve">
+    <value>Фамилия</value>
+    <comment>Тегі</comment>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Пользователи</value>
+    <comment>Пайдаланушылар</comment>
+  </data>
+  <data name="validconfirm" xml:space="preserve">
+    <value>Введенный пароль не совподает с подтвержденным паролем</value>
+    <comment>Сіз енгізген құпия сөз расталған құпия сөзбен сәйкес келмейді</comment>
+  </data>
+  <data name="BININ" xml:space="preserve">
+    <value>ИИН/БИН</value>
+    <comment>БСН/ЖСН</comment>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Электронный адрес</value>
+    <comment>Электронды адресі</comment>
+  </data>
+  <data name="InternalPhone" xml:space="preserve">
+    <value>Внутренний телефон</value>
+    <comment>Ішкі телефон</comment>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>Мобильный телефон</value>
+    <comment>Ұялы телефон</comment>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>Должность</value>
+    <comment>Лауазымы</comment>
+  </data>
+  <data name="ResponceFIO" xml:space="preserve">
+    <value>ФИО ответственного лица</value>
+    <comment>Жауаптының АТӘ</comment>
+  </data>
+  <data name="ResponcePost" xml:space="preserve">
+    <value>Должность ответственного лица</value>
+    <comment>Жауаптының лауазымы</comment>
+  </data>
+  <data name="SecondName" xml:space="preserve">
+    <value>Отчество</value>
+    <comment>Әкесінің аты</comment>
+  </data>
+  <data name="WorkPhone" xml:space="preserve">
+    <value>Рабочий телефон</value>
+    <comment>Жұмыс телефоны</comment>
+  </data>
+  <data name="DicOked" xml:space="preserve">
+    <value>ОКЭД</value>
+    <comment>ЭҚТЖ</comment>
+  </data>
+  <data name="IsCvazy" xml:space="preserve">
+    <value>Учереждение квазигосударственного сектора</value>
+    <comment>Квазимемлекеттік сектор мекемесі</comment>
+  </data>
+  <data name="KindActivity" xml:space="preserve">
+    <value>Вид деятельности</value>
+    <comment>Қызмет түрі</comment>
+  </data>
+  <data name="RegisterForm" xml:space="preserve">
+    <value>Отчетность ГЭР</value>
+    <comment>МЭТ есептемесі</comment>
+  </data>
+  <data name="SubDicKindResource" xml:space="preserve">
+    <value>Вид энергоресурсов</value>
+    <comment>Энергетикалық ресурстар түрі</comment>
+  </data>
+  <data name="SubDicTypeResource" xml:space="preserve">
+    <value>Наименование энергоресурсов</value>
+    <comment>Энергетикалық ресур атауы</comment>
+  </data>
+  <data name="SubForm" xml:space="preserve">
+    <value>Форма субъектов</value>
+    <comment>Субъектінің формасы</comment>
+  </data>
+  <data name="AppForm" xml:space="preserve">
+    <value>Отчеты субъектов</value>
+    <comment>Субъектилердің есебі </comment>
+  </data>
+  <data name="boss" xml:space="preserve">
+    <value>Первый руководитель</value>
+    <comment>Бірінші басшысы</comment>
+  </data>
+  <data name="SubjectPage" xml:space="preserve">
+    <value>Субъекты ГЭР</value>
+    <comment>МЭТ Субъектісі</comment>
+  </data>
+  <data name="SubjectPerson" xml:space="preserve">
+    <value>Субъекты</value>
+    <comment>Субъектілер</comment>
+  </data>
+  <data name="RstDicReason" xml:space="preserve">
+    <value>Причина исключение/включение</value>
+    <comment>Қосу/шығару себебі</comment>
+  </data>
+  <data name="DicUnit" xml:space="preserve">
+    <value>Единица измерения</value>
+    <comment>Өлшем бірлігі</comment>
+  </data>
+  <data name="SubDicKindTabOne" xml:space="preserve">
+    <value>Загаловки плановых мероприятии таблицы 1</value>
+  </data>
+  <data name="SubDicKindTabTwo" xml:space="preserve">
+    <value>Загаловки плановых мероприятии таблицы 2</value>
+  </data>
+  <data name="ReportGer" xml:space="preserve">
+    <value>Отчеты по данным ГЭР</value>
+    <comment>МЭТ бойынша есептемелік кескіндер</comment>
+  </data>
+  <data name="ReportReestr" xml:space="preserve">
+    <value>Отчеты по списку ГЭР</value>
+    <comment>Тізімдік МЭТ бойынша есептеме</comment>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Отчеты</value>
+    <comment>Есептер</comment>
+  </data>
+  <data name="ReportPeriod" xml:space="preserve">
+    <value>Отчетный период</value>
+    <comment>Есептемелік кезең</comment>
+  </data>
+  <data name="KeofTut" xml:space="preserve">
+    <value>Коэффициент т.у.т.</value>
+    <comment>Коэффициент т.у.т.</comment>
+  </data>
+  <data name="SubDicKindRes" xml:space="preserve">
+    <value>Виды воды</value>
+    <comment>Су түрлері</comment>
+  </data>
+  <data name="SubDicTypeRes" xml:space="preserve">
+    <value>Виды энергоресурсов</value>
+    <comment>Энергетикалық ресурстар түрі</comment>
+  </data>
+  <data name="Dictionary" xml:space="preserve">
+    <value>Справочники</value>
+    <comment>Анықтамалықтар</comment>
+  </data>
+  <data name="existCode" xml:space="preserve">
+    <value>С таким кодом запись существует</value>
+    <comment>Бұндай код боынша жазу бар</comment>
+  </data>
+  <data name="biniinSubject" xml:space="preserve">
+    <value>БИН субъекта</value>
+    <comment>Субъекттің БСН</comment>
+  </data>
+  <data name="SubjectOblast" xml:space="preserve">
+    <value>Область Субъекта</value>
+    <comment>Субъектінің облысы</comment>
+  </data>
+  <data name="SubPerson" xml:space="preserve">
+    <value>Субъект</value>
+    <comment>Субъект</comment>
+  </data>
+  <data name="IsHaveGES" xml:space="preserve">
+    <value>Занимается передачей (реализацией) электро и теплоэнергии другим юридическим и физическим лицам</value>
+    <comment>Имеет гидроэлектростанцию</comment>
+  </data>
+  <data name="OkedMain" xml:space="preserve">
+    <value>Основной вид деятельности</value>
+    <comment>Қызметтің негізгі түрі</comment>
+  </data>
+  <data name="AuditPage" xml:space="preserve">
+    <value>Энергоаудит</value>
+    <comment>Энергоаудит</comment>
+  </data>
+  <data name="AuditReestr" xml:space="preserve">
+    <value>Энергоаудиторские организаций</value>
+    <comment>Энергоаудиторские организаций</comment>
+  </data>
+  <data name="EscoPage" xml:space="preserve">
+    <value>ЭСКО</value>
+    <comment>ЭСКО</comment>
+  </data>
+  <data name="EscoReestr" xml:space="preserve">
+    <value>Реестр ЭСКО</value>
+    <comment>ЭСКО тізімі</comment>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Услугополучатели</value>
+    <comment>Қызмет алушылар</comment>
+  </data>
+  <data name="IDK" xml:space="preserve">
+    <value>ИДК</value>
+    <comment>ИДК</comment>
+  </data>
+  <data name="CountNewReestr" xml:space="preserve">
+    <value>Кол-во новых</value>
+    <comment>Жаңалардың саны</comment>
+  </data>
+  <data name="CountOldReestr" xml:space="preserve">
+    <value>Кол-во перенесенных с прошлого года</value>
+    <comment>Өткен жылдан көшірілгендердің саны</comment>
+  </data>
+  <data name="RST_Report" xml:space="preserve">
+    <value>Реестр по годам</value>
+    <comment>Жыл бойынша тізім</comment>
+  </data>
+  <data name="ReportReason" xml:space="preserve">
+    <value>Отмеченные</value>
+    <comment>Белгіленгендер</comment>
+  </data>
+  <data name="CountExclude" xml:space="preserve">
+    <value>Кол-во исключенных</value>
+    <comment>Тізімнен шығарылғандардың саны</comment>
+  </data>
+  <data name="sImport" xml:space="preserve">
+    <value>Импорт</value>
+    <comment>Импорт</comment>
+  </data>
+  <data name="SubActionPlan" xml:space="preserve">
+    <value>Планы мероприятий</value>
+    <comment>Іс-шаралар жоспарлары</comment>
+  </data>
+  <data name="TypeApplication" xml:space="preserve">
+    <value>Организационно правовая форма</value>
+    <comment>Меншік түрі</comment>
+  </data>
+  <data name="sAuditor" xml:space="preserve">
+    <value>Данные энергоаудитора</value>
+    <comment>Данные энергоаудитора</comment>
+  </data>
+  <data name="AppNumber" xml:space="preserve">
+    <value>Номер заявление</value>
+    <comment>Арыздың номері</comment>
+  </data>
+  <data name="sContract" xml:space="preserve">
+    <value>Договор</value>
+    <comment>Договор</comment>
+  </data>
+  <data name="CurrentState" xml:space="preserve">
+    <value>Текущее состояние подготовки и реализации проекта</value>
+    <comment>Жобанын жағдайы</comment>
+  </data>
+  <data name="sContractDate" xml:space="preserve">
+    <value>Дата договора</value>
+    <comment>Дата договора</comment>
+  </data>
+  <data name="EnergyMap" xml:space="preserve">
+    <value>Карта энергоэффективности</value>
+    <comment>Энергия тиімділігі картасы</comment>
+  </data>
+  <data name="EstimatedPeriod" xml:space="preserve">
+    <value>Предполагаемый период реализации</value>
+    <comment>Болжамды іске асыру мерзімі</comment>
+  </data>
+  <data name="sEauditObject" xml:space="preserve">
+    <value>Данные объекта энергетического аудита</value>
+    <comment>Данные объекта энергетического аудита</comment>
+  </data>
+  <data name="ExpectedResult" xml:space="preserve">
+    <value>Ожидаемые результаты</value>
+    <comment>Күтілетін нәтижелер</comment>
+  </data>
+  <data name="tConclusion" xml:space="preserve">
+    <value>Заключение</value>
+    <comment>Заключение</comment>
+  </data>
+  <data name="MAP_Application" xml:space="preserve">
+    <value>Заявление «Карта энергоэффективности»</value>
+    <comment>Энергия тиімділігі картасына арыз</comment>
+  </data>
+  <data name="tConclusions" xml:space="preserve">
+    <value>Заключения</value>
+    <comment>Заключения</comment>
+  </data>
+  <data name="ProjectLocation" xml:space="preserve">
+    <value>Место реализации (указать полный адрес места, включая улицу и дом)</value>
+    <comment>Орындалу орны(толық мекен-жайы, көшесі, үй номері)</comment>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Наименование проекта</value>
+    <comment>Жоба атауы</comment>
+  </data>
+  <data name="sBankRequisites" xml:space="preserve">
+    <value>Банковкие реквизиты</value>
+    <comment>Банковкие реквизиты</comment>
+  </data>
+  <data name="ProjectObjective" xml:space="preserve">
+    <value>Цель проекта</value>
+    <comment>Жоба мақсаты</comment>
+  </data>
+  <data name="sFormOfIncorporation" xml:space="preserve">
+    <value>Организационно-правовая форма</value>
+    <comment>Организационно-правовая форма</comment>
+  </data>
+  <data name="TotalCost" xml:space="preserve">
+    <value>Общая стоимость (млн тг)</value>
+    <comment>Жалпы құны (млн теңге)</comment>
+  </data>
+  <data name="sHeadOf" xml:space="preserve">
+    <value>Ф.И.О., должность руководителя, телефон, факс должностного лица</value>
+    <comment>Ф.И.О., должность руководителя, телефон, факс должностного лица</comment>
+  </data>
+  <data name="Main" xml:space="preserve">
+    <value>Основное</value>
+    <comment>Басты</comment>
+  </data>
+  <data name="PowerInYear" xml:space="preserve">
+    <value>Проектная мощность в год</value>
+    <comment>Жылына жобалық қуаты </comment>
+  </data>
+  <data name="tBaseYear" xml:space="preserve">
+    <value>Базовый год</value>
+    <comment>Базовый год</comment>
+  </data>
+  <data name="ProductKind" xml:space="preserve">
+    <value>Виды продукции</value>
+    <comment>Тауарлар түрі</comment>
+  </data>
+  <data name="tCurrentYear" xml:space="preserve">
+    <value>Текущий год</value>
+    <comment>Текущий год</comment>
+  </data>
+  <data name="PruductService" xml:space="preserve">
+    <value>Производимые товары и услуги</value>
+    <comment>Өндірілетін тауарлар мен қызметтер</comment>
+  </data>
+  <data name="RealTerm" xml:space="preserve">
+    <value>В натуральном выражении</value>
+    <comment>Нақты көріністе</comment>
+  </data>
+  <data name="TermCost" xml:space="preserve">
+    <value>В стоимостном выражении</value>
+    <comment>Құндық мәнде</comment>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Значение</value>
+    <comment>Мәні</comment>
+  </data>
+  <data name="BudgetFonds" xml:space="preserve">
+    <value>Бюджетные средства</value>
+    <comment>Бюджет қаражаты</comment>
+  </data>
+  <data name="EventList" xml:space="preserve">
+    <value>Список мероприятии, включенных в проект</value>
+    <comment>Жобаға қосылған шаралардың тізімі</comment>
+  </data>
+  <data name="EventName" xml:space="preserve">
+    <value>Мероприятие</value>
+    <comment>Шаралар</comment>
+  </data>
+  <data name="EventPage" xml:space="preserve">
+    <value>Мероприятие и финансирования</value>
+    <comment>Шаралар мен қаржыландыру</comment>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Примечание</value>
+    <comment>Аңғарту</comment>
+  </data>
+  <data name="OwnFonds" xml:space="preserve">
+    <value>Собственные средства</value>
+    <comment>Өз қаражаты</comment>
+  </data>
+  <data name="PaybackPeriod" xml:space="preserve">
+    <value>Срок окупаемости (лет)</value>
+    <comment>Өтелу мерзімі</comment>
+  </data>
+  <data name="PlanExpend" xml:space="preserve">
+    <value>Объемы инвестиций, планируемые расходы, млн. тнг </value>
+    <comment>Инвестиция көлемі, жоспарланған шығындар, млн. теңге</comment>
+  </data>
+  <data name="RequiredResource" xml:space="preserve">
+    <value>Требуемые дополнительные средства</value>
+    <comment>Қажетті қосымша қаражат</comment>
+  </data>
+  <data name="SavedCost" xml:space="preserve">
+    <value>Годовая экономия энергетических ресурсов в натуральном выражении млн. тг. (по тарифу)</value>
+    <comment>Энергетикалық ресурстардың жылдық үнемдеуі натуралды мәнде мың  тг. (тариф бойынша)</comment>
+  </data>
+  <data name="sCommercialAccount" xml:space="preserve">
+    <value>Коммерческий учет</value>
+    <comment>Коммерческий учет</comment>
+  </data>
+  <data name="sConsumeQuantityPerYear" xml:space="preserve">
+    <value>Потребленное количество в год</value>
+    <comment>Потребленное количество в год</comment>
+  </data>
+  <data name="sDeviceType" xml:space="preserve">
+    <value>Тип прибора (марка)</value>
+    <comment>Тип прибора (марка)</comment>
+  </data>
+  <data name="sQuantity" xml:space="preserve">
+    <value>Количество</value>
+    <comment>Количество</comment>
+  </data>
+  <data name="sSourceOfEnergyName" xml:space="preserve">
+    <value>Наименование энергоносителя</value>
+    <comment>Наименование энергоносителя</comment>
+  </data>
+  <data name="SavedEnergy" xml:space="preserve">
+    <value>Годовая экономия энергетических ресурсов в натуральном выражении</value>
+    <comment>Энергетикалық ресурстардың жылдық үнемдеуі натуралды мәнде мың  тг.</comment>
+  </data>
+  <data name="StructBudjet" xml:space="preserve">
+    <value>Структура предпологаемого финансирования проекта</value>
+    <comment>Күтілетін жобалық қаржыландыру құрылымы</comment>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+    <comment>Жою</comment>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Редактировать</value>
+    <comment>Өзгерту</comment>
+  </data>
+  <data name="Deadline" xml:space="preserve">
+    <value>Плановая дата</value>
+    <comment>Жобалық күн</comment>
+  </data>
+  <data name="Expied" xml:space="preserve">
+    <value>Кол-во дней</value>
+    <comment>Күн саны</comment>
+  </data>
+  <data name="FinishDate" xml:space="preserve">
+    <value>Дата завершения</value>
+    <comment>Аяқталу күну</comment>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>История</value>
+    <comment>Тарих</comment>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Отправить</value>
+    <comment>Жіберу</comment>
+  </data>
+  <data name="MapApp" xml:space="preserve">
+    <value>Заявления</value>
+    <comment>Арыздар</comment>
+  </data>
+  <data name="MapEnergy" xml:space="preserve">
+    <value>Карта ЭЭ</value>
+    <comment>ЭТ картасы</comment>
+  </data>
+  <data name="MapInpbox" xml:space="preserve">
+    <value>Мои входящие</value>
+    <comment>Кіріспе</comment>
+  </data>
+  <data name="SendDate" xml:space="preserve">
+    <value>Дата подачи</value>
+    <comment>Беру күні</comment>
+  </data>
+  <data name="BeginDate" xml:space="preserve">
+    <value>Начало периода</value>
+    <comment>Кезең басы</comment>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Конец периода</value>
+    <comment>Кезең аяғы</comment>
+  </data>
+  <data name="EscoName" xml:space="preserve">
+    <value>Наименование ЭСКО-компании</value>
+    <comment>ЭСКО-компания атауы</comment>
+  </data>
+  <data name="RecipientName" xml:space="preserve">
+    <value>Наименование получателя</value>
+    <comment>Алушы аты</comment>
+  </data>
+  <data name="SourceBudject" xml:space="preserve">
+    <value>Источник финансирования</value>
+    <comment>Қаржыландыру көзі</comment>
+  </data>
+  <data name="MapProject" xml:space="preserve">
+    <value>Проекты</value>
+    <comment>Жобалар</comment>
+  </data>
+  <data name="SetNumber" xml:space="preserve">
+    <value>Укажите числовое значение</value>
+    <comment>Санды жазыңыз</comment>
+  </data>
+  <data name="Applicant" xml:space="preserve">
+    <value>Заявитель</value>
+    <comment>Арызданушы</comment>
+  </data>
+  <data name="Certificate" xml:space="preserve">
+    <value>Номер и дата свидетельства о регистрации(перегистрации) или справка о государственной регистрации(перегистрации) юридического лица</value>
+    <comment>Тіркеу (қайта тіркеу) туралы куәліктің нөмірі мен күні</comment>
+  </data>
+  <data name="FactAddress" xml:space="preserve">
+    <value>Фактический адрес</value>
+    <comment>Нақты мекен-жайы</comment>
+  </data>
+  <data name="JuridicalAddress" xml:space="preserve">
+    <value>Юридический адрес</value>
+    <comment>Заңды мекен-жайы</comment>
+  </data>
+  <data name="OkedString" xml:space="preserve">
+    <value>Отрасль Производство электрической и тепловой энергии</value>
+    <comment>Электр және жылу энергиясын өндіру саласы</comment>
+  </data>
+  <data name="DicHolidays" xml:space="preserve">
+    <value>Праздничные дни</value>
+    <comment>Мереке күндері</comment>
+  </data>
+  <data name="HolidaysCount" xml:space="preserve">
+    <value>Кол-во праздничных дней</value>
+    <comment>Мереке күндердің саны</comment>
+  </data>
+  <data name="WorkCount" xml:space="preserve">
+    <value>Кол-во рабочих дней</value>
+    <comment>Жұмыс күндер саны</comment>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Год</value>
+    <comment>Жыл</comment>
+  </data>
+  <data name="WorkDays" xml:space="preserve">
+    <value>Рабочие дни</value>
+    <comment>Жұмыс күндері</comment>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Создать подобное</value>
+    <comment>Ұқсас жасау</comment>
+  </data>
+  <data name="CountProduct" xml:space="preserve">
+    <value>Кол-во товаров</value>
+    <comment>Тауар саны</comment>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+    <comment>Сипаттамасы</comment>
+  </data>
+  <data name="EscoDicProductKind" xml:space="preserve">
+    <value>Товары</value>
+    <comment>Тауарлар</comment>
+  </data>
+  <data name="NameGroup" xml:space="preserve">
+    <value>Наименование группы товаров</value>
+    <comment>Тауар тобының атауы</comment>
+  </data>
+  <data name="NameProduct" xml:space="preserve">
+    <value>Товар</value>
+    <comment>Тауар</comment>
+  </data>
+  <data name="EscoSearch" xml:space="preserve">
+    <value>Поиск товаров</value>
+    <comment>Тауар іздеу</comment>
+  </data>
+  <data name="ExpectantName" xml:space="preserve">
+    <value>Основание исключения</value>
+    <comment>Шығару негізі(Кандидаты на исключение)</comment>
+  </data>
+  <data name="Forms" xml:space="preserve">
+    <value>Отчетные формы</value>
+    <comment>Есептік формалар</comment>
+  </data>
+  <data name="sFinishDate" xml:space="preserve">
+    <value>Дата завершения</value>
+    <comment>Аяқталу күні</comment>
+  </data>
+  <data name="sBaseYear" xml:space="preserve">
+    <value>Базовый год</value>
+    <comment>Негізгі жылы</comment>
+  </data>
+  <data name="sReportYear" xml:space="preserve">
+    <value>Текущий год</value>
+    <comment>Ағымдағы жыл</comment>
+  </data>
+  <data name="EnergyAudit" xml:space="preserve">
+    <value>Энергоаудит</value>
+    <comment>Энергоаудит</comment>
+  </data>
+  <data name="urlProduct" xml:space="preserve">
+    <value>Ссылка на официальный сайт</value>
+    <comment>Ресми сайтына сілтеме</comment>
+  </data>
+  <data name="urlSite" xml:space="preserve">
+    <value>Сайт компании</value>
+    <comment>Компанияның сайты</comment>
+  </data>
+  <data name="KindUser" xml:space="preserve">
+    <value>Вид пользователя</value>
+    <comment>Пайдаланушының түрі</comment>
+  </data>
+  <data name="binvalid" xml:space="preserve">
+    <value>БИН должен содержать 12 цифр</value>
+    <comment>БСН 12 цифрдан тұрады</comment>
+  </data>
+  <data name="IsBlokced" xml:space="preserve">
+    <value>Заблокирован</value>
+    <comment>Құлыпталған</comment>
+  </data>
+  <data name="DateOrder" xml:space="preserve">
+    <value>Дата приказа</value>
+    <comment>Бұйрық куні</comment>
+  </data>
+  <data name="NumberOrder" xml:space="preserve">
+    <value>Номер приказа</value>
+    <comment>Бұйрық номері</comment>
+  </data>
+  <data name="KatoLocation" xml:space="preserve">
+    <value>Населенный пункт</value>
+    <comment>Елді мекен</comment>
+  </data>
+  <data name="BossFirstName" xml:space="preserve">
+    <value>Имя первого руководителя</value>
+    <comment>Бірінші басшының аты</comment>
+  </data>
+  <data name="BossLastName" xml:space="preserve">
+    <value>Фамилия первого руководителя</value>
+    <comment>Бірінші басшының тегі</comment>
+  </data>
+  <data name="BossSecondName" xml:space="preserve">
+    <value>Отчество первого руководителя</value>
+    <comment>Бірінші басшының әкесінің аты</comment>
+  </data>
+  <data name="AnalisePage" xml:space="preserve">
+    <value>Аналитика</value>
+    <comment>Сараптау</comment>
+  </data>
+  <data name="ReportAnalyse" xml:space="preserve">
+    <value>Аналитические отчеты</value>
+    <comment>Сараптамалық есептер</comment>
+  </data>
+  <data name="RegionNotEmpty" xml:space="preserve">
+    <value>Укажите регион или город</value>
+    <comment>Облыс немесе қаланы белгілеңіз</comment>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>Сортировка</value>
+    <comment>Сұрыптау</comment>
+  </data>
+  <data name="RegistredYear" xml:space="preserve">
+    <value>Создать новый отчетный год</value>
+    <comment>Жаңа есептемелік жылды жасау</comment>
+  </data>
+  <data name="Operation" xml:space="preserve">
+    <value>Операции</value>
+    <comment>Операциялар</comment>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Вернуться</value>
+    <comment>Қайту</comment>
+  </data>
+  <data name="Check" xml:space="preserve">
+    <value>Проверить</value>
+    <comment>Тексеру</comment>
+  </data>
+  <data name="HistoryReestr" xml:space="preserve">
+    <value>История по реестру</value>
+    <comment>Тізім тарихы</comment>
+  </data>
+  <data name="SendForm" xml:space="preserve">
+    <value>Рассылка</value>
+  </data>
+  <data name="Excluded" xml:space="preserve">
+    <value>Признак</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Сохранить</value>
+    <comment>Сохранить</comment>
+  </data>
+  <data name="sComment" xml:space="preserve">
+    <value>Комментарии</value>
+    <comment>Комментарии</comment>
+  </data>
+  <data name="sFieldValue" xml:space="preserve">
+    <value>Значение поля</value>
+    <comment>Значение поля</comment>
+  </data>
+  <data name="tApplication1" xml:space="preserve">
+    <value>Приложение 1</value>
+    <comment>Приложение 1</comment>
+  </data>
+  <data name="tApplication2" xml:space="preserve">
+    <value>Приложение 2</value>
+    <comment>Приложение 2</comment>
+  </data>
+  <data name="tApplication3" xml:space="preserve">
+    <value>Приложение 3</value>
+    <comment>Приложение 3</comment>
+  </data>
+  <data name="tEauditConclution" xml:space="preserve">
+    <value>Заключение по энергосбережению и энергоэффективности</value>
+    <comment>Заключение по энергосбережению и энергоэффективности</comment>
+  </data>
+  <data name="tPreamble" xml:space="preserve">
+    <value>Вводная часть</value>
+    <comment>Вводная часть</comment>
+  </data>
+  <data name="ReasonBlocked" xml:space="preserve">
+    <value>Причина блокировки</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+    <comment>Статус</comment>
+  </data>
+  <data name="tCollector" xml:space="preserve">
+    <value>Коллектор</value>
+    <comment>Коллектор</comment>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Просмотреть</value>
+  </data>
+  <data name="Cmdevices" xml:space="preserve">
+    <value>Приборы учета</value>
+    <comment>Приборы учета</comment>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Код</value>
+    <comment>Код</comment>
+  </data>
+  <data name="IndicatorType" xml:space="preserve">
+    <value>Тип прибора</value>
+    <comment>Тип прибора</comment>
+  </data>
+  <data name="Return" xml:space="preserve">
+    <value>Вернуться</value>
+    <comment>Вернуться</comment>
+  </data>
+  <data name="sReportObject" xml:space="preserve">
+    <value>Объект отчетности</value>
+    <comment>Объект отчетности</comment>
+  </data>
+  <data name="tOverview" xml:space="preserve">
+    <value>Общие сведения</value>
+    <comment>Общие сведения</comment>
+  </data>
+  <data name="download" xml:space="preserve">
+    <value>Скачать</value>
+  </data>
+  <data name="MapApplivcantReestr" xml:space="preserve">
+    <value>Реестр заявителей</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Другие</value>
+  </data>
+  <data name="ReportShowCase" xml:space="preserve">
+    <value>Витрина</value>
+  </data>
+  <data name="ShowDetails" xml:space="preserve">
+    <value>Просмотр</value>
+  </data>
+  <data name="IsDisabled" xml:space="preserve">
+    <value>Заблокирован</value>
+  </data>
+  <data name="ReportAskuerCase" xml:space="preserve">
+    <value>Витрина АСКУЭР</value>
+  </data>
+  <data name="sRegisterOwnedFacilities" xml:space="preserve">
+    <value>зарегистрируйте объекты в собственности</value>
+    <comment>зарегистрируйте объекты в собственности</comment>
+  </data>
+  <data name="tOwnedFacilities" xml:space="preserve">
+    <value>Объекты в собственности</value>
+    <comment>Объекты в собственности</comment>
+  </data>
+  <data name="sFillIfNessesary" xml:space="preserve">
+    <value>(заполняется при наличии)</value>
+    <comment>(заполняется при наличии)</comment>
+  </data>
+  <data name="sProductionPodstationNumber" xml:space="preserve">
+    <value>Производство, цех, номер подстанции</value>
+    <comment>Производство, цех, номер подстанции</comment>
+  </data>
+  <data name="sYearOfCommissioning" xml:space="preserve">
+    <value>Год ввода в эксплуатацию</value>
+    <comment>Год ввода в эксплуатацию</comment>
+  </data>
+  <data name="tInformationAboutTransfarmators" xml:space="preserve">
+    <value>Сведения о трансформаторных подстанциях</value>
+    <comment>Сведения о трансформаторных подстанциях</comment>
+  </data>
+  <data name="tTable" xml:space="preserve">
+    <value>Таблица</value>
+    <comment>Таблица</comment>
+  </data>
+  <data name="tTable1SubContent" xml:space="preserve">
+    <value>1) Стоимость топливно-энергетического ресурса (ТЭР) определяется по предъявленным счетам. &lt;br /&gt;
+                                2) Определяется по формуле     Значение п. 3 / Значение п. 1 &lt;br /&gt;
+                                3) Определяется по формуле      Значение п. 1 / Значение п. 3 &lt;br /&gt;
+                                * Текущий год – календарный год, предшествующий году заключения Договора по энергоаудиту; &lt;br /&gt;
+                                * Базовый год – календарный год, предшествующий текущему году. &lt;br /&gt;</value>
+    <comment>1) Стоимость топливно-энергетического ресурса (ТЭР) определяется по предъявленным счетам. &lt;br /&gt;
+                                2) Определяется по формуле     Значение п. 3 / Значение п. 1 &lt;br /&gt;
+                                3) Определяется по формуле      Значение п. 1 / Значение п. 3 &lt;br /&gt;
+                                * Текущий год – календарный год, предшествующий году заключения Договора по энергоаудиту; &lt;br /&gt;
+                                * Базовый год – календарный год, предшествующий текущему году. &lt;br /&gt;</comment>
+  </data>
+  <data name="tTotalConsumptionOfEnergy" xml:space="preserve">
+    <value>Общее потребление энергоносителей</value>
+    <comment>Общее потребление энергоносителей</comment>
+  </data>
+  <data name="RequiredToFill" xml:space="preserve">
+    <value>Необходимо заполнить</value>
+    <comment>Необходимо заполнить</comment>
+  </data>
+  <data name="eRequireFillAllFields" xml:space="preserve">
+    <value>Не заполнены обязательные поля</value>
+    <comment>Не заполнены обязательные поля</comment>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Вход</value>
+    <comment>Вход</comment>
+  </data>
+  <data name="Registration" xml:space="preserve">
+    <value>Регистрация</value>
+    <comment>Регистрация</comment>
+  </data>
+  <data name="SummaryInfo" xml:space="preserve">
+    <value>Сводная информация</value>
+    <comment>Сводная информация</comment>
+  </data>
+  <data name="tAboutNIREE" xml:space="preserve">
+    <value>Об определении национального института развития в области энергосбережения и повышения энергоэффективности.</value>
+    <comment>Об определении национального института развития в области энергосбережения и повышения энергоэффективности.</comment>
+  </data>
+  <data name="tAdministration" xml:space="preserve">
+    <value>Администрирование</value>
+    <comment>Администрирование</comment>
+  </data>
+  <data name="tBalance" xml:space="preserve">
+    <value>В реестре</value>
+    <comment>Остаток</comment>
+  </data>
+  <data name="tBias" xml:space="preserve">
+    <value>Уклонились</value>
+    <comment>Уклонились</comment>
+  </data>
+  <data name="tCentralOffice" xml:space="preserve">
+    <value>Центральный аппарат</value>
+    <comment>Центральный аппарат</comment>
+  </data>
+  <data name="tChangeControl" xml:space="preserve">
+    <value>Контроль изменений</value>
+    <comment>Контроль изменений</comment>
+  </data>
+  <data name="tCreateAndMaintanceCardEE" xml:space="preserve">
+    <value>Создание и ведение Карты энергоэффективности.</value>
+    <comment>Создание и ведение Карты энергоэффективности.</comment>
+  </data>
+  <data name="tCreateAndmaintanceReestr" xml:space="preserve">
+    <value>Формирование и ведение Государственного энергетического реестра.</value>
+    <comment>Формирование и ведение Государственного энергетического реестра.</comment>
+  </data>
+  <data name="tDownloadOnKz" xml:space="preserve">
+    <value>Скачать на гос языке</value>
+    <comment>Скачать на гос языке</comment>
+  </data>
+  <data name="tDownloadOnRus" xml:space="preserve">
+    <value>Скачать на рус языке</value>
+    <comment>Скачать на рус языке</comment>
+  </data>
+  <data name="tEntities" xml:space="preserve">
+    <value>Юридические лица</value>
+    <comment>Юридические лица</comment>
+  </data>
+  <data name="tExcluded" xml:space="preserve">
+    <value>Исключено</value>
+    <comment>Исключено</comment>
+  </data>
+  <data name="tGevenmentAgencies" xml:space="preserve">
+    <value>Государственные учреждения</value>
+    <comment>Государственные учреждения</comment>
+  </data>
+  <data name="tInfoAboutSubjectGer" xml:space="preserve">
+    <value>Информация по субъектам ГЭР в {0} году</value>
+    <comment>Информация по субъектам ГЭР в  {0} году</comment>
+  </data>
+  <data name="tlawRk" xml:space="preserve">
+    <value>Закон РК</value>
+    <comment>Закон РК</comment>
+  </data>
+  <data name="tLawRkAboutEE" xml:space="preserve">
+    <value>ЗАКОН РЕСПУБЛИКИ КАЗАХСТАН Об энергосбережении и повышении энергоэффективности от 13 января 2012 года</value>
+    <comment>ЗАКОН РЕСПУБЛИКИ КАЗАХСТАН Об энергосбережении и повышении энергоэффективности от 13 января 2012 года</comment>
+  </data>
+  <data name="tMetodicAndOrders" xml:space="preserve">
+    <value>Методики и приказы</value>
+    <comment>Методики и приказы</comment>
+  </data>
+  <data name="TNIREE" xml:space="preserve">
+    <value>АО «Институт развития электроэнергетики и энергосбережения»</value>
+    <comment>АО «Институт развития электроэнергетики и энергосбережения»</comment>
+  </data>
+  <data name="tNotification" xml:space="preserve">
+    <value>Оповещение</value>
+    <comment>Оповещение</comment>
+  </data>
+  <data name="tNPA" xml:space="preserve">
+    <value>НПА</value>
+    <comment>НПА</comment>
+  </data>
+  <data name="tOrderMIR" xml:space="preserve">
+    <value>Правила формирования и ведения Государственного энергетического реестра.
+Приказ Министра по инвестициям и развитию Республики Казахстан от 31 марта 2015 года № 387.</value>
+    <comment>Приказ Министра по инвестициям и развитию Республики Казахстан от 31 марта 2015 года № 387.</comment>
+  </data>
+  <data name="tOrderMIRRK" xml:space="preserve">
+    <value>Приказ МИР РК</value>
+    <comment>Приказ МИР РК</comment>
+  </data>
+  <data name="tPortalMainPupose" xml:space="preserve">
+    <value>Основные задачи портала:</value>
+    <comment>Основные задачи портала:</comment>
+  </data>
+  <data name="tQuasipublicSector" xml:space="preserve">
+    <value>Квазигосударственный сектор</value>
+    <comment>Квазигосударственный сектор</comment>
+  </data>
+  <data name="tReestrSubjectGer" xml:space="preserve">
+    <value>Перечень субъектов Государственного энергетического реестра.</value>
+    <comment>Перечень субъектов Государственного энергетического реестра.</comment>
+  </data>
+  <data name="tRulesGer" xml:space="preserve">
+    <value>Правила формирования и ведения Государственного энергетического реестра.</value>
+    <comment>Правила формирования и ведения Государственного энергетического реестра.</comment>
+  </data>
+  <data name="tSource" xml:space="preserve">
+    <value>Источник</value>
+    <comment>Источник</comment>
+  </data>
+  <data name="tStateOn" xml:space="preserve">
+    <value>Актуальное состояние ГЭР</value>
+    <comment>По состоянию на</comment>
+  </data>
+  <data name="tSupportEE2020" xml:space="preserve">
+    <value>Поддержка реализации программы «Энергосбережение – 2020».</value>
+    <comment>Поддержка реализации программы «Энергосбережение – 2020».</comment>
+  </data>
+  <data name="tSystemLogs" xml:space="preserve">
+    <value>Логи системы</value>
+    <comment>Логи системы</comment>
+  </data>
+  <data name="tSystemParameter" xml:space="preserve">
+    <value>Параметры системы</value>
+    <comment>Параметры системы</comment>
+  </data>
+  <data name="tViewOnMap" xml:space="preserve">
+    <value>Посмотреть на карте</value>
+    <comment>Посмотреть на карте</comment>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Отмена</value>
+    <comment>Отмена</comment>
+  </data>
+  <data name="eEnterError" xml:space="preserve">
+    <value>Ошибка при входе в систему</value>
+    <comment>Ошибка при входе в систему</comment>
+  </data>
+  <data name="sAccept" xml:space="preserve">
+    <value>Подтвердить</value>
+    <comment>Подтвердить</comment>
+  </data>
+  <data name="sBIN" xml:space="preserve">
+    <value>БИН</value>
+    <comment>БИН</comment>
+  </data>
+  <data name="sChooseCertificate" xml:space="preserve">
+    <value>Выбрать сертификат</value>
+    <comment>Выбрать сертификат</comment>
+  </data>
+  <data name="sCompanyName" xml:space="preserve">
+    <value>Наименование организации</value>
+    <comment>Наименование организации</comment>
+  </data>
+  <data name="sDateStartDateExpire" xml:space="preserve">
+    <value>Срок действия</value>
+    <comment>Срок действия</comment>
+  </data>
+  <data name="sECP" xml:space="preserve">
+    <value>ЭЦП</value>
+    <comment>ЭЦП</comment>
+  </data>
+  <data name="sFIO" xml:space="preserve">
+    <value>ФИО</value>
+    <comment>ФИО</comment>
+  </data>
+  <data name="sForgetPassword" xml:space="preserve">
+    <value>Забыли пароль?</value>
+    <comment>Забыли пароль?</comment>
+  </data>
+  <data name="sIIN" xml:space="preserve">
+    <value>ИИН</value>
+    <comment>ИИН</comment>
+  </data>
+  <data name="sInputLogin" xml:space="preserve">
+    <value>Введите ваш логин</value>
+    <comment>Введите ваш логин</comment>
+  </data>
+  <data name="sInputPassword" xml:space="preserve">
+    <value>Введите ваш пароль</value>
+    <comment>Введите ваш пароль</comment>
+  </data>
+  <data name="sPassword" xml:space="preserve">
+    <value>Пароль</value>
+    <comment>Пароль</comment>
+  </data>
+  <data name="sRegistrationINNBIN" xml:space="preserve">
+    <value>Регистрация через БИН или ИИН</value>
+    <comment>Регистрация через БИН или ИИН</comment>
+  </data>
+  <data name="ActualInfo" xml:space="preserve">
+    <value>Актуальные данные</value>
+    <comment>Актуальные данные</comment>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Сменить пароль</value>
+    <comment>Сменить пароль</comment>
+  </data>
+  <data name="CmdeviceReadings" xml:space="preserve">
+    <value>Показания прибора учета</value>
+    <comment>Показания прибора учета</comment>
+  </data>
+  <data name="DetailInfo" xml:space="preserve">
+    <value>Детальная информация</value>
+    <comment>Детальная информация</comment>
+  </data>
+  <data name="DownloadTemplate" xml:space="preserve">
+    <value>Скачать шаблон</value>
+    <comment>Скачать шаблон</comment>
+  </data>
+  <data name="eBinMustBe12" xml:space="preserve">
+    <value>БИН должен состоять из 12 символов</value>
+    <comment>БИН должен состоять из 12 символов</comment>
+  </data>
+  <data name="eByYearAndSubjectReportRegistered" xml:space="preserve">
+    <value>По данному году и субъектку отчет уже зарегистрирован</value>
+    <comment>По данному году и субъектку отчет уже зарегистрирован</comment>
+  </data>
+  <data name="eChangePasswordError" xml:space="preserve">
+    <value>Ошибка при семене пароля</value>
+    <comment>Ошибка при семене пароля</comment>
+  </data>
+  <data name="eForSaveRequireFill26" xml:space="preserve">
+    <value>Для сохранения необходимо начать заполнять формы с 2 по 6</value>
+    <comment>Для сохранения необходимо начать заполнять формы с 2 по 6</comment>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Выход</value>
+    <comment>Выход</comment>
+  </data>
+  <data name="ExtendedFind" xml:space="preserve">
+    <value>Расширенный поиск</value>
+    <comment>Расширенный поиск</comment>
+  </data>
+  <data name="Form" xml:space="preserve">
+    <value>Форма</value>
+    <comment>Форма</comment>
+  </data>
+  <data name="HideNote" xml:space="preserve">
+    <value>Скрыть примечание</value>
+    <comment>Скрыть примечание</comment>
+  </data>
+  <data name="ImportDataSubject" xml:space="preserve">
+    <value>Импорт данных о Субъекте ГЭР</value>
+    <comment>Импорт данных о Субъекте ГЭР</comment>
+  </data>
+  <data name="RealTimeMode" xml:space="preserve">
+    <value>в режиме реального времени</value>
+    <comment>в режиме реального времени</comment>
+  </data>
+  <data name="sAdminContactForRestorePass" xml:space="preserve">
+    <value>Для восстановления пароль напишите письмо администратору системы на эл.ящик:</value>
+    <comment>Для восстановления пароль напишите письмо администратору системы на эл.ящик:</comment>
+  </data>
+  <data name="sAdminContactInputText" xml:space="preserve">
+    <value>В письме укажите свои ФИО, должность, подразделение (отдел), наименование организации.</value>
+    <comment>В письме укажите свои ФИО, должность, подразделение (отдел), наименование организации.</comment>
+  </data>
+  <data name="sAreYouSureYouWantToSend" xml:space="preserve">
+    <value>Вы уверены, что хотите отправить</value>
+    <comment>Вы уверены, что хотите отправить</comment>
+  </data>
+  <data name="sChooseReg" xml:space="preserve">
+    <value>Выберите области</value>
+    <comment>Выберите области</comment>
+  </data>
+  <data name="sChooseSubject" xml:space="preserve">
+    <value>Укажите субъект</value>
+    <comment>Укажите субъект</comment>
+  </data>
+  <data name="sChooseSubjectAndRegYear" xml:space="preserve">
+    <value>Укажите субъект и год регистрации</value>
+    <comment>Укажите субъект и год регистрации</comment>
+  </data>
+  <data name="sChooseYear" xml:space="preserve">
+    <value>Укажите год</value>
+    <comment>Укажите год</comment>
+  </data>
+  <data name="sEnterBinIinOrPartName" xml:space="preserve">
+    <value>Введите БИН,ИИН или часть наименование</value>
+    <comment>Введите БИН,ИИН или часть наименование</comment>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Показать</value>
+    <comment>Показать</comment>
+  </data>
+  <data name="ShowNote" xml:space="preserve">
+    <value>Показать примечание</value>
+    <comment>Показать примечание</comment>
+  </data>
+  <data name="sInputIntegerNumber" xml:space="preserve">
+    <value>Введите целое число</value>
+    <comment>Введите целое число</comment>
+  </data>
+  <data name="sInputNumberRequired" xml:space="preserve">
+    <value>Поле должно содержат числовое значение</value>
+    <comment>Поле должно содержат числовое значение</comment>
+  </data>
+  <data name="sInputPositiveNumber" xml:space="preserve">
+    <value>Введите число без знака минус</value>
+    <comment>Введите число без знака минус</comment>
+  </data>
+  <data name="sPasswordChangeSuccess" xml:space="preserve">
+    <value>Пароль был успешно сменен</value>
+    <comment>Пароль был успешно сменен</comment>
+  </data>
+  <data name="sRefuseReason" xml:space="preserve">
+    <value>Причина отказа</value>
+    <comment>Причина отказа</comment>
+  </data>
+  <data name="SubjectAddActivities" xml:space="preserve">
+    <value>Дополнительные виды деятельности</value>
+    <comment>Дополнительные виды деятельности</comment>
+  </data>
+  <data name="SubjectBossFIO" xml:space="preserve">
+    <value>ФИО первого руководителя субъекта ГЭР (полностью)</value>
+    <comment>ФИО первого руководителя субъекта ГЭР (полностью)</comment>
+  </data>
+  <data name="SubjectBossPosition" xml:space="preserve">
+    <value>Должность первого руководителя субъекта ГЭР</value>
+    <comment>Должность первого руководителя субъекта ГЭР</comment>
+  </data>
+  <data name="SubjectFullName" xml:space="preserve">
+    <value>Полное наименование субъекта ГЭР</value>
+    <comment>Полное наименование субъекта ГЭР</comment>
+  </data>
+  <data name="SubjectGeneralData" xml:space="preserve">
+    <value>Общие данные субъекта Государственного энергетического реестра</value>
+    <comment>Общие данные субъекта Государственного энергетического реестра</comment>
+  </data>
+  <data name="SubjectKvaziGos" xml:space="preserve">
+    <value>Учреждение квазигосударственного сектора (Да/Нет)</value>
+    <comment>Учреждение квазигосударственного сектора (Да/Нет)</comment>
+  </data>
+  <data name="SubjectLegalAddress" xml:space="preserve">
+    <value>Юридический адрес субъекта ГЭР</value>
+    <comment>Юридический адрес субъекта ГЭР</comment>
+  </data>
+  <data name="SubjectMainActivities" xml:space="preserve">
+    <value>Основные виды деятельности субъекта ГЭР*</value>
+    <comment>Основные виды деятельности субъекта ГЭР*</comment>
+  </data>
+  <data name="SubjectSubFormText" xml:space="preserve">
+    <value>&lt;p style="font-weight: bold"&gt;* Примечание: &lt;/p&gt;
+                    1) В случае, если субъект ГЭР осуществляет несколько видов деятельности, указать все виды деятельности&lt;br&gt;
+                    2) Виды деятельности организации указывать в соответствии с общим классификатором видов экономической деятельности - ОКЭД &lt;br&gt;
+                    (справка по видам ОКЭД прилагается в электронном виде) &lt;br&gt;
+                    3) &lt;b&gt;Учреждение квазигосударственного сектора&lt;/b&gt; - организация, участником или акционером которых является государство;&lt;br&gt;</value>
+    <comment>&lt;p style="font-weight: bold"&gt;* Примечание: &lt;/p&gt;
+                    1) В случае, если субъект ГЭР осуществляет несколько видов деятельности, указать все виды деятельности&lt;br&gt;
+                    2) Виды деятельности организации указывать в соответствии с общим классификатором видов экономической деятельности - ОКЭД &lt;br&gt;
+                    (справка по видам ОКЭД прилагается в электронном виде) &lt;br&gt;
+                    3) &lt;b&gt;Учреждение квазигосударственного сектора&lt;/b&gt; - организация, участником или акционером которых является государство;&lt;br&gt;</comment>
+  </data>
+  <data name="sWholeReportСlarification" xml:space="preserve">
+    <value>Пояснение для всего отчета</value>
+    <comment>Пояснение для всего отчета</comment>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Загрузить файл</value>
+    <comment>Загрузить файл</comment>
+  </data>
+  <data name="ViewReadings" xml:space="preserve">
+    <value>Посмотреть показания</value>
+    <comment>Посмотреть показания</comment>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Предупреждение</value>
+    <comment>Предупреждение</comment>
+  </data>
+  <data name="sAreYouSure" xml:space="preserve">
+    <value>Вы уверены</value>
+    <comment>Вы уверены</comment>
+  </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>Контакты</value>
+    <comment>Контакты</comment>
+  </data>
+  <data name="addfile" xml:space="preserve">
+    <value>Добавить файл</value>
+  </data>
+  <data name="addNew" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="addproduct" xml:space="preserve">
+    <value>Добавить новый товар</value>
+  </data>
+  <data name="advansedFilter" xml:space="preserve">
+    <value>Расширенный поиск</value>
+  </data>
+  <data name="all" xml:space="preserve">
+    <value>Всего</value>
+  </data>
+  <data name="AllPlan" xml:space="preserve">
+    <value>Всего по плану</value>
+  </data>
+  <data name="beforeInclude" xml:space="preserve">
+    <value>Ранее исключенные</value>
+  </data>
+  <data name="beginYear" xml:space="preserve">
+    <value>Начало года</value>
+  </data>
+  <data name="BossFio" xml:space="preserve">
+    <value>ФИО первого руководителя</value>
+    <comment>Бірінші басшының тегі</comment>
+  </data>
+  <data name="bossFioPost" xml:space="preserve">
+    <value>Полностью ФИО, подпись руководителя организации</value>
+  </data>
+  <data name="chooseOblast" xml:space="preserve">
+    <value>Выберите области ...</value>
+  </data>
+  <data name="chooseoked" xml:space="preserve">
+    <value>Укажите вид детельности целевой аудитории...</value>
+  </data>
+  <data name="chooseYear" xml:space="preserve">
+    <value>Укажите отчетный год</value>
+  </data>
+  <data name="CompaerYear" xml:space="preserve">
+    <value>Год сравнение</value>
+  </data>
+  <data name="confirmExcluded" xml:space="preserve">
+    <value>Все кандидаты будут исключены, Вы уверены, что хотите их исключить?</value>
+  </data>
+  <data name="countRecord" xml:space="preserve">
+    <value>кол-во записей</value>
+  </data>
+  <data name="createReport" xml:space="preserve">
+    <value>Создать отчет</value>
+  </data>
+  <data name="deleteconfirm" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить?</value>
+  </data>
+  <data name="designReason" xml:space="preserve">
+    <value>Причина отказа</value>
+  </data>
+  <data name="details" xml:space="preserve">
+    <value>Подробнее</value>
+  </data>
+  <data name="discribe" xml:space="preserve">
+    <value>Пояснение для всего отчета</value>
+  </data>
+  <data name="endYear" xml:space="preserve">
+    <value>Конец года</value>
+  </data>
+  <data name="excludedKandidat" xml:space="preserve">
+    <value>Исключить кандидатов</value>
+  </data>
+  <data name="Excludeds" xml:space="preserve">
+    <value>Исключить</value>
+  </data>
+  <data name="Excluds" xml:space="preserve">
+    <value>Исключенные</value>
+  </data>
+  <data name="existList" xml:space="preserve">
+    <value>Уже включенные</value>
+  </data>
+  <data name="Expands" xml:space="preserve">
+    <value>Кандидаты</value>
+  </data>
+  <data name="exportExcel" xml:space="preserve">
+    <value>Экспортировать в Excel</value>
+  </data>
+  <data name="form1" xml:space="preserve">
+    <value>Форма 1</value>
+  </data>
+  <data name="form11" xml:space="preserve">
+    <value>Общие данные субъекта Государственного энергетического реестра</value>
+  </data>
+  <data name="form12" xml:space="preserve">
+    <value>Полное наименование субъекта ГЭР</value>
+  </data>
+  <data name="form13" xml:space="preserve">
+    <value>Юридический адрес субъекта ГЭР</value>
+  </data>
+  <data name="form14" xml:space="preserve">
+    <value>ФИО первого руководителя субъекта ГЭР (полностью)</value>
+  </data>
+  <data name="form15" xml:space="preserve">
+    <value>Должность первого руководителя субъекта ГЭР</value>
+  </data>
+  <data name="form16" xml:space="preserve">
+    <value>Учреждение квази- государ- ственного сектора (Да/Нет)</value>
+  </data>
+  <data name="form17" xml:space="preserve">
+    <value>Основные виды деятельности субъекта ГЭР*</value>
+  </data>
+  <data name="form18" xml:space="preserve">
+    <value>Дополнительные виды деятельности</value>
+  </data>
+  <data name="form2" xml:space="preserve">
+    <value>Форма 2</value>
+  </data>
+  <data name="form22" xml:space="preserve">
+    <value>Наименования энергоресурсов</value>
+  </data>
+  <data name="form23" xml:space="preserve">
+    <value>Единица измерения</value>
+  </data>
+  <data name="form24" xml:space="preserve">
+    <value>Объем добытых /произведенных ТЭР</value>
+  </data>
+  <data name="form26" xml:space="preserve">
+    <value>Потребление энергоресурсов, полученные НЕ из собственных источников*</value>
+  </data>
+  <data name="form27" xml:space="preserve">
+    <value>в том числе:</value>
+  </data>
+  <data name="form28" xml:space="preserve">
+    <value>Потребление энергоресурсов, полученных из собственных источников*</value>
+  </data>
+  <data name="form3" xml:space="preserve">
+    <value>Форма 2a</value>
+  </data>
+  <data name="form32" xml:space="preserve">
+    <value>потери при транспортировке ТЭР*</value>
+  </data>
+  <data name="form3a" xml:space="preserve">
+    <value>Вид энергоресурса</value>
+  </data>
+  <data name="form3b" xml:space="preserve">
+    <value>Потребление воды*</value>
+  </data>
+  <data name="form3c" xml:space="preserve">
+    <value>Потери воды при транспортировке*</value>
+  </data>
+  <data name="form4" xml:space="preserve">
+    <value>Форма 3</value>
+  </data>
+  <data name="form41" xml:space="preserve">
+    <value>Наименование мероприятия</value>
+  </data>
+  <data name="form42" xml:space="preserve">
+    <value>Срок реализации за год(месяц)</value>
+  </data>
+  <data name="form43" xml:space="preserve">
+    <value>Планируемые расходы</value>
+  </data>
+  <data name="form44" xml:space="preserve">
+    <value>Фактические инвестиции за отчетный период (с учетом НДС), тенге</value>
+  </data>
+  <data name="form46" xml:space="preserve">
+    <value>Название энергетического ресурса</value>
+  </data>
+  <data name="form47" xml:space="preserve">
+    <value>в натуральном выражении</value>
+  </data>
+  <data name="form48" xml:space="preserve">
+    <value>в денежном выражении (с учетом НДС), тенге</value>
+  </data>
+  <data name="form5" xml:space="preserve">
+    <value>Форма 4</value>
+  </data>
+  <data name="form51" xml:space="preserve">
+    <value>Наименование показателя энергоэффективности (пример: удельный расход электроэнергии на производство алюминия; удельное теплопотребление на кв.м и др.)</value>
+  </data>
+  <data name="form52" xml:space="preserve">
+    <value>Об утверждении нормативов энергопотребления</value>
+  </data>
+  <data name="form53" xml:space="preserve">
+    <value>Регламентированные нормативные показатели на единицу продукции</value>
+  </data>
+  <data name="form54" xml:space="preserve">
+    <value>Единица измерения используемых коэффициентов энергоэффективности организации (кВт*ч/т., Гкал/м2г у.т./кВт*ч., кг у.т./Гкал и др.)</value>
+  </data>
+  <data name="form55" xml:space="preserve">
+    <value>Формула расчета показателя энергоэффективности*</value>
+  </data>
+  <data name="form56" xml:space="preserve">
+    <value>Значение показателя энергоэффективности*</value>
+  </data>
+  <data name="form6" xml:space="preserve">
+    <value>Форма 5</value>
+  </data>
+  <data name="form61" xml:space="preserve">
+    <value>№ п/п</value>
+  </data>
+  <data name="form62" xml:space="preserve">
+    <value>Учитываемый энергоресурс (электричество, газ, тепло и др.)</value>
+  </data>
+  <data name="form63" xml:space="preserve">
+    <value>Количество приборов, шт.</value>
+  </data>
+  <data name="form64" xml:space="preserve">
+    <value>общий % оснащенности приборами учета</value>
+  </data>
+  <data name="from29" xml:space="preserve">
+    <value>Энергоресурсы, переданные (реализованные) другим юридическим и физическим лицам*</value>
+  </data>
+  <data name="from30" xml:space="preserve">
+    <value>Расходы на приобретение энергоресурсов (сумма столбцов 5а+6), тенге (с учетом НДС)</value>
+  </data>
+  <data name="from31" xml:space="preserve">
+    <value>Примечание</value>
+  </data>
+  <data name="from45" xml:space="preserve">
+    <value>Фактический эффект экономии от реализации мероприятий за отчетный период*</value>
+  </data>
+  <data name="fullBossName" xml:space="preserve">
+    <value>Полностью ФИО руководителя организации</value>
+  </data>
+  <data name="hideBeforeYears" xml:space="preserve">
+    <value>Скрыть данные за предыдущий год</value>
+  </data>
+  <data name="HideInformTextHide" xml:space="preserve">
+    <value>Скрыть примечание</value>
+  </data>
+  <data name="HideInformTextShow" xml:space="preserve">
+    <value>Показать примечание</value>
+  </data>
+  <data name="importRecord" xml:space="preserve">
+    <value>Загрузить список</value>
+  </data>
+  <data name="info" xml:space="preserve">
+    <value>Контакты</value>
+  </data>
+  <data name="loadImage" xml:space="preserve">
+    <value>Загрузить изображение</value>
+  </data>
+  <data name="loadReestr" xml:space="preserve">
+    <value>Загрузить реестр</value>
+  </data>
+  <data name="Marks" xml:space="preserve">
+    <value>Отметки...</value>
+  </data>
+  <data name="nds" xml:space="preserve">
+    <value>тенге (с учетом НДС)</value>
+  </data>
+  <data name="news" xml:space="preserve">
+    <value>Новые</value>
+  </data>
+  <data name="objectInfo" xml:space="preserve">
+    <value>Данные по объектам субъекта</value>
+  </data>
+  <data name="opeartion" xml:space="preserve">
+    <value>Операции</value>
+  </data>
+  <data name="orderInfo" xml:space="preserve">
+    <value>Информация о приказе</value>
+  </data>
+  <data name="plantitle" xml:space="preserve">
+    <value>План мероприятий по энергосбережению и повышению энергоэффективности</value>
+  </data>
+  <data name="refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="resident" xml:space="preserve">
+    <value>Кандидаты...</value>
+  </data>
+  <data name="responceFioFull" xml:space="preserve">
+    <value>Полностью ФИО ответственного лица</value>
+  </data>
+  <data name="responcePostFio" xml:space="preserve">
+    <value>Полностью ФИО, должность, контакты и подпись ответственного лица</value>
+  </data>
+  <data name="sendconfirm" xml:space="preserve">
+    <value>Вы уверены, что хотите отправить?</value>
+  </data>
+  <data name="sended" xml:space="preserve">
+    <value>отправлено</value>
+  </data>
+  <data name="sendExpand" xml:space="preserve">
+    <value>Перевести в уклонисты</value>
+  </data>
+  <data name="showBeforeYears" xml:space="preserve">
+    <value>Показать данные за предыдущий год</value>
+  </data>
+  <data name="ShowInMap" xml:space="preserve">
+    <value>Показать на карте</value>
+  </data>
+  <data name="showTut" xml:space="preserve">
+    <value>Показать в Т.У.T.</value>
+  </data>
+  <data name="showValue" xml:space="preserve">
+    <value>Показать в значениях</value>
+  </data>
+  <data name="Statuses" xml:space="preserve">
+    <value>Статусы...</value>
+  </data>
+  <data name="Sum" xml:space="preserve">
+    <value>Итого</value>
+  </data>
+  <data name="SumPlan" xml:space="preserve">
+    <value>Итого по плану</value>
+  </data>
+  <data name="table1" xml:space="preserve">
+    <value>Таблица 1</value>
+  </data>
+  <data name="table11" xml:space="preserve">
+    <value>Код и номер</value>
+  </data>
+  <data name="table12" xml:space="preserve">
+    <value>Мероприятия</value>
+  </data>
+  <data name="table13" xml:space="preserve">
+    <value>Период реализации (с - до)</value>
+  </data>
+  <data name="table14" xml:space="preserve">
+    <value>Планируемые расходы, млн. тенге</value>
+  </data>
+  <data name="table15" xml:space="preserve">
+    <value>Ед. изм.</value>
+  </data>
+  <data name="table16" xml:space="preserve">
+    <value>Объем планируемого снижения потребления энергетических ресурсов в натуральном выражении</value>
+  </data>
+  <data name="table17" xml:space="preserve">
+    <value>Срок окупаемости, лет</value>
+  </data>
+  <data name="table18" xml:space="preserve">
+    <value>Отметка о выполнении</value>
+  </data>
+  <data name="table19" xml:space="preserve">
+    <value>Введите часть наименование</value>
+  </data>
+  <data name="table2" xml:space="preserve">
+    <value>Таблица 2</value>
+  </data>
+  <data name="table22" xml:space="preserve">
+    <value>Наименование энергетического ресурса</value>
+  </data>
+  <data name="table23" xml:space="preserve">
+    <value>Объем планируемого снижения потребления энергетических ресурсов (т.у.т.)</value>
+  </data>
+  <data name="table24" xml:space="preserve">
+    <value>Планируемая экономия, млн. тнг</value>
+  </data>
+  <data name="table25" xml:space="preserve">
+    <value>Возможное уменьшение максимальной мощности</value>
+  </data>
+  <data name="table26" xml:space="preserve">
+    <value>Потенциал снижения потребления энергоресурсов (%)</value>
+  </data>
+  <data name="table27" xml:space="preserve">
+    <value>Отметка о выполнении</value>
+  </data>
+  <data name="table3" xml:space="preserve">
+    <value>Таблица 3</value>
+  </data>
+  <data name="table31" xml:space="preserve">
+    <value>Наименование удельного показателя</value>
+  </data>
+  <data name="table32" xml:space="preserve">
+    <value>Единица измерения используемых коэффициентов энергоэффективности организации</value>
+  </data>
+  <data name="table33" xml:space="preserve">
+    <value>Объем планируемого снижения потребления энергетических ресурсов на единицу продукции/площади</value>
+  </data>
+  <data name="templLoad" xml:space="preserve">
+    <value>Скачать Шаблон</value>
+  </data>
+  <data name="yearsExists" xml:space="preserve">
+    <value>По данному году и субъекту отчет уже зарегистрирован</value>
+  </data>
+  <data name="sReadings" xml:space="preserve">
+    <value>Показания</value>
+    <comment>Көрсеткіш</comment>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Суммарное значение</value>
+    <comment>Суммарное значение</comment>
+  </data>
+  <data name="unit" xml:space="preserve">
+    <value>единица</value>
+    <comment>единица</comment>
+  </data>
+  <data name="units" xml:space="preserve">
+    <value>единицы</value>
+    <comment>единицы</comment>
+  </data>
+  <data name="Back1" xml:space="preserve">
+    <value>Назад</value>
+    <comment>Назад</comment>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>Завершить</value>
+    <comment>Завершить</comment>
+  </data>
+  <data name="Forward" xml:space="preserve">
+    <value>Далее</value>
+    <comment>Далее</comment>
+  </data>
+  <data name="msgFileSizeMusBe" xml:space="preserve">
+    <value>размер файла не должен превышать 30Мб</value>
+    <comment>размер файла не должен превышать 30Мб</comment>
+  </data>
+  <data name="sPartName" xml:space="preserve">
+    <value>введите часть наименования</value>
+    <comment>сөздін бөлігін енгізіңіз</comment>
+  </data>
+  <data name="sSaveError" xml:space="preserve">
+    <value>Ошибка сохранения</value>
+    <comment>Ошибка сохранения</comment>
+  </data>
+  <data name="sSaveSuccess" xml:space="preserve">
+    <value>Успешно сохранено</value>
+    <comment>Успешно сохранено</comment>
+  </data>
+  <data name="msgCreatingReport" xml:space="preserve">
+    <value>Идет формирование отчета для подписи</value>
+    <comment>Идет формирование отчета для подписи</comment>
+  </data>
+  <data name="msgSignReport" xml:space="preserve">
+    <value>Идет подпись отчета</value>
+    <comment>Идет подпись отчета</comment>
+  </data>
+  <data name="sChooseChecker" xml:space="preserve">
+    <value>Выберите проверяющего</value>
+    <comment>Выберите проверяющего</comment>
+  </data>
+  <data name="sEmployeeAC" xml:space="preserve">
+    <value>Сотрудник ЦА</value>
+    <comment>Сотрудник ЦА</comment>
+  </data>
+  <data name="eBinAlreadyRegister" xml:space="preserve">
+    <value>С данным ИИН или БИН пользователь уже зарегистрирован, обратитесь к администратору</value>
+    <comment>С данным ИИН или БИН пользователь уже зарегистрирован, обратитесь к администратору</comment>
+  </data>
+  <data name="sAdditionalTypeAction" xml:space="preserve">
+    <value>Дополнительные виды детельности</value>
+    <comment>Дополнительные виды детельности</comment>
+  </data>
+  <data name="sShops" xml:space="preserve">
+    <value>Цех, участок, производство</value>
+    <comment>Цех, участок, производство</comment>
+  </data>
+  <data name="CopyFormJurAddess" xml:space="preserve">
+    <value>Скопировать с юр. адреса</value>
+    <comment>Скопировать с юр. адреса</comment>
+  </data>
+  <data name="sFind" xml:space="preserve">
+    <value>Поиск</value>
+    <comment>Поиск Iздеу</comment>
+  </data>
+  <data name="Expired" xml:space="preserve">
+    <value>срок истек</value>
+    <comment>срок истек</comment>
+  </data>
+  <data name="sEndPeriod" xml:space="preserve">
+    <value>Конец периода</value>
+    <comment>Конец периода</comment>
+  </data>
+  <data name="sStartPeriod" xml:space="preserve">
+    <value>Начало периода</value>
+    <comment>Начало периода</comment>
+  </data>
+  <data name="chooseRegion" xml:space="preserve">
+    <value>Укажите регион/город</value>
+  </data>
+  <data name="enterNumber" xml:space="preserve">
+    <value>Введите число</value>
+  </data>
+  <data name="enterNumberNotMinus" xml:space="preserve">
+    <value>Введите число без знака минус</value>
+  </data>
+  <data name="fillenergyResources" xml:space="preserve">
+    <value>Заполненные данные по слудующим энергоресурсам:</value>
+  </data>
+  <data name="fillform2spec" xml:space="preserve">
+    <value>В данной ячейке указывается электроэнергия, затраченная на собственные нужды ГЭС, после ввода в поле примечание нужно указать и его источник. вы точна хотите его внести?</value>
+  </data>
+  <data name="from2notFill" xml:space="preserve">
+    <value>Отсутвует данные по форме 2</value>
+  </data>
+  <data name="from3notFill" xml:space="preserve">
+    <value>Отсутвует данные по форме 3</value>
+  </data>
+  <data name="from4notFill" xml:space="preserve">
+    <value>Отсутвует данные по форме 4</value>
+  </data>
+  <data name="from5notFill" xml:space="preserve">
+    <value>Отсутвует данные по форме 5</value>
+  </data>
+  <data name="from6notFill" xml:space="preserve">
+    <value>Отсутвует данные по форме 6</value>
+  </data>
+  <data name="mustfillmandatory" xml:space="preserve">
+    <value>Вам необходимо заполнить объязательные личные данные. Перейти на страницу личных данных?</value>
+  </data>
+  <data name="FieldError" xml:space="preserve">
+    <value>Ошибка в поле</value>
+    <comment>Ошибка в поле</comment>
+  </data>
+  <data name="sChooseFile" xml:space="preserve">
+    <value>Выбрать файл</value>
+    <comment>Файл таңдаңыз</comment>
+  </data>
+  <data name="loading" xml:space="preserve">
+    <value>Идет загрузка...</value>
+  </data>
+  <data name="chooses" xml:space="preserve">
+    <value>Выбрать</value>
+  </data>
+  <data name="HideSignedValue" xml:space="preserve">
+    <value>Скрыть с ЭЦП</value>
+    <comment>Скрыть с ЭЦП</comment>
+  </data>
+  <data name="ShowSignedValue" xml:space="preserve">
+    <value>Показать c ЭЦП</value>
+    <comment>Показать c ЭЦП</comment>
+  </data>
+  <data name="Signed" xml:space="preserve">
+    <value>Подписан</value>
+    <comment>Подписан</comment>
+  </data>
+  <data name="alltut" xml:space="preserve">
+    <value>Общее потребление (Т.У.Т.):</value>
+  </data>
+  <data name="SaveAndSend" xml:space="preserve">
+    <value>Отправить заявку</value>
+    <comment>Сохранить</comment>
+  </data>
+  <data name="DIC_Department" xml:space="preserve">
+    <value>Подразделение</value>
+  </data>
+  <data name="hideBeforeControlPriceText" xml:space="preserve">
+    <value>Скрыть контроль цены за ед.</value>
+  </data>
+  <data name="RequiredNotEqual" xml:space="preserve">
+    <value>'Сумма объемы инвестиций, планируемые расходы, млн. тнг' не равно 'Требуемые дополнительные средства' </value>
+  </data>
+  <data name="showBeforeControlPriceText" xml:space="preserve">
+    <value>Показать контроль цены за ед.</value>
+  </data>
+  <data name="fileNotification" xml:space="preserve">
+    <value>Файлы уведомления</value>
+  </data>
+  <data name="InNotReestr" xml:space="preserve">
+    <value>Не включен в реестр</value>
+  </data>
+  <data name="notification" xml:space="preserve">
+    <value>Уведомление</value>
+  </data>
+  <data name="sendednotif" xml:space="preserve">
+    <value>Уведомление отправлено</value>
+  </data>
+  <data name="sendNotification" xml:space="preserve">
+    <value>Отправить уведомление</value>
+  </data>
+  <data name="Acceped" xml:space="preserve">
+    <value>Принять</value>
+  </data>
+  <data name="confirmSend" xml:space="preserve">
+    <value>Изменить статус отчета на "Принят" с отправкой уведомления Субъекту?</value>
+  </data>
+  <data name="confirmDel" xml:space="preserve">
+    <value>После удаление, только администратор с может восстановить запись. Вы уверены что хотите удалить?</value>
+  </data>
+  <data name="ApplyApplication" xml:space="preserve">
+    <value>Подать заявку</value>
+  </data>
+  <data name="AggregatePower" xml:space="preserve">
+    <value>Совокупная мощность</value>
+  </data>
+  <data name="AverageTariff" xml:space="preserve">
+    <value>Усредненный тариф, тг</value>
+  </data>
+  <data name="CountOfFixtures" xml:space="preserve">
+    <value>Количество светильников, шт.</value>
+  </data>
+  <data name="CountOfLamps" xml:space="preserve">
+    <value>Количество ламп, шт.</value>
+  </data>
+  <data name="CPRA" xml:space="preserve">
+    <value>КПРА</value>
+  </data>
+  <data name="MaintenanceCosts" xml:space="preserve">
+    <value>Расходы  на содержание, тг</value>
+  </data>
+  <data name="Power" xml:space="preserve">
+    <value>Мощность, Вт</value>
+  </data>
+  <data name="WorkingHours" xml:space="preserve">
+    <value>Время работы, ч</value>
+  </data>
+  <data name="EE2DetailsParameter" xml:space="preserve">
+    <value>Параметры</value>
+  </data>
+  <data name="MapApplicationEE2" xml:space="preserve">
+    <value>Заявление в программу энергоэффективность 2.0</value>
+  </data>
+  <data name="EE2DetailsName" xml:space="preserve">
+    <value>Наименование</value>
+  </data>
+  <data name="FormOfOwnership" xml:space="preserve">
+    <value>Форма собственности</value>
+  </data>
+  <data name="NumberOfStoreys" xml:space="preserve">
+    <value>Этажность</value>
+  </data>
+  <data name="TotalArea" xml:space="preserve">
+    <value>Общая площадь (кв.м)</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Файлы</value>
+  </data>
+  <data name="ReportAnalyse1" xml:space="preserve">
+    <value>Общее потребление энергоресурсов по РК</value>
+  </data>
+  <data name="ReportAnalyse2" xml:space="preserve">
+    <value>Структура потребления энергоресурсов по формам собственности</value>
+  </data>
+  <data name="ReportAnalyse3" xml:space="preserve">
+    <value>Структура субъектов ГЭР по формам собственности</value>
+  </data>
+  <data name="ReportAnalyse4" xml:space="preserve">
+    <value>Субъекты ГЭР с наибольшим потреблением</value>
+  </data>
+  <data name="ReportAnalyse5" xml:space="preserve">
+    <value>Структура субъектов по видам экономической деятельности</value>
+  </data>
+  <data name="ReportAnalyse6" xml:space="preserve">
+    <value>Показатели энергоэффективности социальных объектов</value>
+  </data>
+  <data name="ReportAnalyse7" xml:space="preserve">
+    <value>Субъекты ГЭР, потребляющие более 100 тысяч т.у.т. в год</value>
+  </data>
+  <data name="ReportAnalyse8" xml:space="preserve">
+    <value>Потребление по областям на карте РК</value>
+  </data>
+  <data name="ReportAnalyse9" xml:space="preserve">
+    <value>Субъекты ГЭР на карте РК</value>
+  </data>
+  <data name="ReportItem" xml:space="preserve">
+    <value>Отчет</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Меню</value>
+  </data>
+  <data name="sRegion" xml:space="preserve">
+    <value>Район</value>
+    <comment>Аудан</comment>
+  </data>
+  <data name="SameBin" xml:space="preserve">
+    <value>Найдены  одинаковые БИН</value>
+  </data>
+  <data name="EE2SearchInfo1" xml:space="preserve">
+    <value>Заявитель уже зарегистрирован в Системе. Если забыли пароль - обратитесь к администратору системы.</value>
+  </data>
+  <data name="EE2SearchInfo2" xml:space="preserve">
+    <value>Организация уже имеется в Системе (является или являлась Субъектом ГЭР).</value>
+  </data>
+  <data name="IsCvazy2" xml:space="preserve">
+    <value>Квази?</value>
+  </data>
+  <data name="RemoveDuplicate" xml:space="preserve">
+    <value>Удаление дубликатов</value>
+  </data>
+  <data name="ExecuteDelDuplicate" xml:space="preserve">
+    <value>Выполнить удаление дубликатов</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="MapRegisterEE2" xml:space="preserve">
+    <value>Реестр заявлений в ЭЭ 2.0</value>
+  </data>
+  <data name="SourceController" xml:space="preserve">
+    <value>Анализ и мониторинг отчетов Формы 2</value>
+  </data>
+  <data name="WorkPhoneOwner" xml:space="preserve">
+    <value>Рабочий телефон ответственного лица</value>
+    <comment>Жұмыс телефоны</comment>
+  </data>
+  <data name="CityCode" xml:space="preserve">
+    <value>Обязательно укажите код города</value>
+    <comment>Жұмыс телефоны</comment>
+  </data>
+  <data name="ProjectEE2" xml:space="preserve">
+    <value>Проект "Энергоэффективность 2.0"</value>
+  </data>
+  <data name="DevelopmentOfGPP" xml:space="preserve">
+    <value>Развитие ГЧП в энергосбережении РК</value>
+  </data>
+  <data name="SubDicTypeResSingle" xml:space="preserve">
+    <value>Вид энергоресурса</value>
+    <comment>Энергетикалық ресурстың түрі</comment>
+  </data>
+  <data name="showTutSum" xml:space="preserve">
+    <value>Общее потребление т.у.т</value>
+  </data>
+  <data name="sColumn" xml:space="preserve">
+    <value>Колонка</value>
+  </data>
+  <data name="sColumns" xml:space="preserve">
+    <value>Колонки</value>
+  </data>
+  <data name="sExclusion" xml:space="preserve">
+    <value>Исключенность</value>
+  </data>
+  <data name="sNotes" xml:space="preserve">
+    <value>Отметки</value>
+  </data>
+  <data name="sOkedTooltip" xml:space="preserve">
+    <value>Общий классификатор видов экономической деятельности</value>
+  </data>
+  <data name="sAscending" xml:space="preserve">
+    <value>по возрастанию</value>
+    <comment>өсуі бойынша</comment>
+  </data>
+  <data name="sByRepublic" xml:space="preserve">
+    <value>По республике</value>
+    <comment>Республика бойынша</comment>
+  </data>
+  <data name="sDescending" xml:space="preserve">
+    <value>по убыванию</value>
+    <comment>кемуі бойынша</comment>
+  </data>
+  <data name="sEditDetails" xml:space="preserve">
+    <value>Редактировать реквизиты</value>
+    <comment>Мәліметтерді өңдеу</comment>
+  </data>
+  <data name="sNoData" xml:space="preserve">
+    <value>н/д</value>
+    <comment>нет данных</comment>
+  </data>
+  <data name="sReportByGER" xml:space="preserve">
+    <value>Отчет по ГЭР</value>
+    <comment>МЭТ бойынша есептеме</comment>
+  </data>
+  <data name="sResetAllFilters" xml:space="preserve">
+    <value>Сбросить все фильтры</value>
+    <comment>Сүзгілерді тазарту</comment>
+  </data>
+  <data name="sSortOff" xml:space="preserve">
+    <value>Сортировка откл.</value>
+    <comment>Cұрыптаусыз</comment>
+  </data>
+  <data name="sSubjectCard" xml:space="preserve">
+    <value>Карточка субъекта</value>
+    <comment>Субъектің карточкасы</comment>
+  </data>
+  <data name="Directories" xml:space="preserve">
+    <value>Справочники</value>
+    <comment>Анықтамалар</comment>
+  </data>
+  <data name="tIndividualEntrepreneurs" xml:space="preserve">
+    <value>Индивидуальные предприниматели</value>
+    <comment>Жеке кәсіпкерлер</comment>
+  </data>
+  <data name="AuditRequired" xml:space="preserve">
+    <value>Предприятия подлежащие энергоаудиту</value>
+    <comment>Необходим аудит</comment>
+  </data>
+  <data name="AcceptReport" xml:space="preserve">
+    <value>Принять отчет</value>
+    <comment>Есеп кабылдау</comment>
+  </data>
+  <data name="AcceptReportTooltip" xml:space="preserve">
+    <value>Загрузить заполненный отчет Субъекта (импорт Excel-файла)</value>
+    <comment>Субъектинин толтырылган есебин жуктеу (Excel-файлы кабылдау)</comment>
+  </data>
+  <data name="AddSubject" xml:space="preserve">
+    <value>Добавить Субъектов</value>
+  </data>
+  <data name="AddSubjectTooltip" xml:space="preserve">
+    <value>Внести в реестр новых субъектов</value>
+  </data>
+  <data name="MobilePhoneLeader" xml:space="preserve">
+    <value>Мобильный телефон ответственного лица</value>
+    <comment>Басшының ұялы телефоны</comment>
+  </data>
+  <data name="sTutTotal" xml:space="preserve">
+    <value>Cуммарно(т.у.т.)</value>
+  </data>
+  <data name="sAnd" xml:space="preserve">
+    <value>и</value>
+  </data>
+  <data name="EE2Report" xml:space="preserve">
+    <value>Отчетные формы по Энергоэффективность 2.0</value>
+  </data>
+  <data name="ReportIsExist" xml:space="preserve">
+    <value>Отчет уже создан</value>
+  </data>
+  <data name="FillActionPlan" xml:space="preserve">
+    <value>Заполнение плана мероприятий</value>
+  </data>
+  <data name="PropsForm1" xml:space="preserve">
+    <value>Реквизиты формы 1</value>
+  </data>
+  <data name="espSign" xml:space="preserve">
+    <value>Подпись (ЭЦП)</value>
+  </data>
+  <data name="GerWoEcp" xml:space="preserve">
+    <value>Разрешение на сдачу отчетов ГЭР без ЭЦП</value>
+  </data>
+  <data name="SendReportTooltip" xml:space="preserve">
+    <value>Отправить заполненный отчет в уполномоченный орган</value>
+    <comment>Есепті уәкілетті органға жөнелту</comment>
+  </data>
+  <data name="erroneous" xml:space="preserve">
+    <value>Ошибочные</value>
+  </data>
+  <data name="fillRequiredFields" xml:space="preserve">
+    <value>Заполните обязательные поля</value>
+  </data>
+  <data name="ConsumptionStandards" xml:space="preserve">
+    <value>Нормативы потребления</value>
+  </data>
+  <data name="IsHaveGESError" xml:space="preserve">
+    <value>Пожалуйста поставьте отметку что вы занимаетесь передачей (реализацией) электро и теплоэнергии другим юридическим и физическим лицам в Личном кабинете</value>
+  </data>
+  <data name="SendMessChangeStatus" xml:space="preserve">
+    <value>Отправить Субъекту уведомление о статусе отчета</value>
+  </data>
+  <data name="SendMessChangeStatusTool" xml:space="preserve">
+    <value>Уведомление субъекту отправляется при любом изменении статуса. При установленной галочке уведомление будет отправлено и без изменения статуса</value>
+  </data>
+  <data name="changeStatus" xml:space="preserve">
+    <value>Сменить статус отчета</value>
+  </data>
+  <data name="EqualBinInfo" xml:space="preserve">
+    <value>В случае совпадения отчетов за один год, у вторичного субъекта бин будет заменен на</value>
+  </data>
+  <data name="CityOrDistrict" xml:space="preserve">
+    <value>Город (район)</value>
+  </data>
+  <data name="OblastOrCity" xml:space="preserve">
+    <value>Область (город)</value>
+  </data>
+  <data name="OblastInRegion" xml:space="preserve">
+    <value>Область в Регион</value>
+  </data>
+  <data name="form51Gu" xml:space="preserve">
+    <value>Наименование показателя энергоэффективности</value>
+  </data>
+  <data name="form54Gu" xml:space="preserve">
+    <value>Единица измерения используемых коэффициентов энергоэффективности организации</value>
+  </data>
+  <data name="form62Gu" xml:space="preserve">
+    <value>Наименование энергетического ресурса</value>
+  </data>
+  <data name="EnergyEfficiencyIndicators" xml:space="preserve">
+    <value>Показатели энергоэффективности</value>
+    <comment>Энергия тиімділігінің көрсеткіші</comment>
+  </data>
+  <data name="DicUnitKz" xml:space="preserve">
+    <value>Единица измерения (на гос. языке)</value>
+    <comment>Өлшем бірлігі</comment>
+  </data>
+  <data name="DicUnitRu" xml:space="preserve">
+    <value>Единица измерения (на рус. языке)</value>
+  </data>
+  <data name="Akmola" xml:space="preserve">
+    <value>Акмолинская. Сопроводительная и Приложение.pdf</value>
+  </data>
+  <data name="Aktobe" xml:space="preserve">
+    <value>Актюбинская обл. Сопроводительная и Приложение.pdf</value>
+  </data>
+  <data name="Almati" xml:space="preserve">
+    <value>Алматы г. Сопроводительная и Приложение.pdf</value>
+  </data>
+  <data name="Almati_obl" xml:space="preserve">
+    <value>Алматинская обл. Сопроводительная и Приложение.pdf</value>
+  </data>
+  <data name="Answer" xml:space="preserve">
+    <value>Ответ</value>
+  </data>
+  <data name="Answer1" xml:space="preserve">
+    <value>В соответствии с пунктом 3 Правил формирования и ведения Государственного энергетического реестра (далее – ГЭР), утвержденным приказом Министра по инвестициям и развитию РК от 31 марта 2015 года № 387, для формирования ГЭР местные исполнительные органы областей, города республиканского значения и столицы ежегодно в срок до пятого ноября направляют Национальному институту развития в области энергосбережения и повышения энергоэффективности информацию о субъектах ГЭР. На основании писем ГУ «Управлений энергетики и жилищно-коммунального хозяйства областей».</value>
+  </data>
+  <data name="Answer11" xml:space="preserve">
+    <value>Список писем МИО.</value>
+  </data>
+  <data name="Answer21" xml:space="preserve">
+    <value>С 1 января по 1 апреля 2019 года, Вам необходимо</value>
+  </data>
+  <data name="Answer22" xml:space="preserve">
+    <value>войти</value>
+  </data>
+  <data name="Answer23" xml:space="preserve">
+    <value>, заполнить отчетные формы и подписать электронно-цифровой подписью (далее –ЭЦП).</value>
+  </data>
+  <data name="Answer3" xml:space="preserve">
+    <value>В соответствии с пунктом 3 Правил формирования и ведения Государственного энергетического реестра (далее – ГЭР), утвержденным приказом Министра по инвестициям и развитию РК от 31 марта 2015 года № 387, для формирования ГЭР необходимо исследование всех юридических лиц, которые уже включены в реестр. Вашей организации требуется в период с 1 января по 1 апреля 2019 года необходимо войти в информационную систему ГЭР, заполнить отчетные формы и подписать ЭЦП.</value>
+  </data>
+  <data name="Astana" xml:space="preserve">
+    <value>Астана. Сопроводительная и Приложение.pdf</value>
+  </data>
+  <data name="Atrau" xml:space="preserve">
+    <value>Атырауская обл. Сопроводительная и Приложение.pdf</value>
+  </data>
+  <data name="ChangeBinii" xml:space="preserve">
+    <value>Изменить ИИН/БИН</value>
+  </data>
+  <data name="Collerctor" xml:space="preserve">
+    <value>Сборщик</value>
+  </data>
+  <data name="dtBeg" xml:space="preserve">
+    <value>Дата начала</value>
+  </data>
+  <data name="dtEnd" xml:space="preserve">
+    <value>Дата окончания</value>
+  </data>
+  <data name="Jambil" xml:space="preserve">
+    <value>Жамбылская обл. Сопроводительная и Приложение.pdf</value>
+  </data>
+  <data name="Karagandi" xml:space="preserve">
+    <value>Карагандинская обл. Сопроводительная и Приложение.pdf</value>
+  </data>
+  <data name="Kizilorda" xml:space="preserve">
+    <value>Кызылординская обл. Сопроводительная и Приложение.pdf</value>
+  </data>
+  <data name="Kostanai" xml:space="preserve">
+    <value>Костанайская обл. Сопроводительная и Приложение.pdf</value>
+  </data>
+  <data name="Mangistau" xml:space="preserve">
+    <value>Мангистауская обл. Сопроводительная и Приложение.pdf</value>
+  </data>
+  <data name="MIAList" xml:space="preserve">
+    <value>Список писем МИО</value>
+  </data>
+  <data name="Pavlodar" xml:space="preserve">
+    <value>Павлодарская обл. Сопроводительная и Приложение.pdf</value>
+  </data>
+  <data name="Question1" xml:space="preserve">
+    <value>Почему наша организация была включена в список субъектов Государственного энергетического реестра (далее – ГЭР)? Причина включения нашей организации в ГЭР?</value>
+  </data>
+  <data name="Question2" xml:space="preserve">
+    <value>Что делать с письмом, которое к нам пришло?</value>
+  </data>
+  <data name="Question3" xml:space="preserve">
+    <value>Наша организация потребляет энергетические ресурсы, менее необходимого рубежа потребления, что нам делать? Например, организации, являющиеся арендаторами, управляющими компаниями, потребление энергетических ресурсов которых минимально или нулевое.</value>
+  </data>
+  <data name="Run" xml:space="preserve">
+    <value>Выполнить</value>
+  </data>
+  <data name="Shymkent" xml:space="preserve">
+    <value>Шымкент. Сопроводительная и Приложение.pdf</value>
+  </data>
+  <data name="Sko" xml:space="preserve">
+    <value>СКО. Сопроводительная и Приложение.pdf</value>
+  </data>
+  <data name="StartPageQuestion" xml:space="preserve">
+    <value>Вопрос</value>
+  </data>
+  <data name="StartPageQuestionContent" xml:space="preserve">
+    <value>Почему наша организация была включена в список субъектов ГЭР?</value>
+  </data>
+  <data name="StartPageQuestionLink" xml:space="preserve">
+    <value>Перейти</value>
+  </data>
+  <data name="StartPageQuestionMore" xml:space="preserve">
+    <value>еще</value>
+  </data>
+  <data name="StartPageQuestionTitle" xml:space="preserve">
+    <value>Вопросы и ответы для новых Субъектов ГЭР</value>
+  </data>
+  <data name="SubjectCount" xml:space="preserve">
+    <value>Количество субъектов</value>
+  </data>
+  <data name="Turkistan" xml:space="preserve">
+    <value>Туркестанская обл. Сопроводительная и Приложение.pdf</value>
+  </data>
+  <data name="UserAuditIndex" xml:space="preserve">
+    <value>Аудит действий пользователей</value>
+  </data>
+  <data name="Vko" xml:space="preserve">
+    <value>ВКО. Сопроводительная и Приложение.pdf</value>
+  </data>
+  <data name="Zko" xml:space="preserve">
+    <value>ЗКО. Сопроводительная и Приложение.pdf</value>
+  </data>
+  <data name="ActiveYearSettings" xml:space="preserve">
+    <value>Настройка актуального года</value>
+  </data>
+  <data name="ArbitraryInterval" xml:space="preserve">
+    <value>Произвольный интервал</value>
+  </data>
+  <data name="auditDetails" xml:space="preserve">
+    <value>Детали</value>
+  </data>
+  <data name="AuditEventUser" xml:space="preserve">
+    <value>Аудит действий пользователей</value>
+  </data>
+  <data name="auditRun" xml:space="preserve">
+    <value>Детали выполненной команды</value>
+  </data>
+  <data name="auditUsers" xml:space="preserve">
+    <value>Пользователь</value>
+  </data>
+  <data name="clearFilter" xml:space="preserve">
+    <value>Сбросить все фильтры</value>
+  </data>
+  <data name="DateTime" xml:space="preserve">
+    <value>Дата/время</value>
+  </data>
+  <data name="descriptionObj" xml:space="preserve">
+    <value>Описание объекта</value>
+  </data>
+  <data name="explain" xml:space="preserve">
+    <value>Пояснение</value>
+  </data>
+  <data name="Forward2" xml:space="preserve">
+    <value>Вперёд</value>
+  </data>
+  <data name="obj" xml:space="preserve">
+    <value>Объект</value>
+  </data>
+  <data name="period" xml:space="preserve">
+    <value>Период</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Показывать на странице</value>
+  </data>
+  <data name="siteSection" xml:space="preserve">
+    <value>Разделы сайта</value>
+  </data>
+  <data name="confirmIDK" xml:space="preserve">
+    <value>Изменить ИДК?</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="EMSystemImplemented" xml:space="preserve">
+    <value>Система энергоменеджмента внедрена</value>
+    <comment>Жүйеге энергия менеджемент енгізілді</comment>
+  </data>
+  <data name="EnergyAuditConducted" xml:space="preserve">
+    <value>Энергоаудит проводился</value>
+    <comment>Энергия аудиті өткізілді</comment>
+  </data>
+  <data name="FsCode" xml:space="preserve">
+    <value>Типа формы собственности</value>
+  </data>
+  <data name="gerReport8" xml:space="preserve">
+    <value>Отчет по количеству, с разбивкой по формам собственности</value>
+  </data>
+  <data name="gerReport9" xml:space="preserve">
+    <value>Отчет по областям, с объемами потребления</value>
+  </data>
+  <data name="gerReport10" xml:space="preserve">
+    <value>Отчет по видам экономической деятельности, с количеством, с объемами потребления</value>
+  </data>
+  <data name="gerReport11" xml:space="preserve">
+    <value>Отчет по группам потребления</value>
+  </data>
+  <data name="gerReport12" xml:space="preserve">
+    <value>Отчет по категориям объемов  потребления</value>
+  </data>
+  <data name="gerReport13" xml:space="preserve">
+    <value>Отчет по наименованиям, с сортировкой по объемам потребления, выводить первые 100</value>
+  </data>
+  <data name="gerReport14" xml:space="preserve">
+    <value>Отчет по видам энергоресурсов, с объемами потребления</value>
+  </data>
+  <data name="gerReport15" xml:space="preserve">
+    <value>Отчет о проверке предоставленных неполных сведений по республике</value>
+  </data>
+  <data name="gerReport16" xml:space="preserve">
+    <value>Отчет о проверке предоставленных неполных сведений по областям</value>
+  </data>
+  <data name="gerReport17" xml:space="preserve">
+    <value>Отчет по уклонившимся и/или предоставивших недостоверные сведения по республике</value>
+  </data>
+  <data name="gerReport25" xml:space="preserve">
+    <value>Объемы потребления основных энергоресурсов, в т.у.т. и % от предыдущего периода</value>
+  </data>
+  <data name="gerReport26" xml:space="preserve">
+    <value>Объемы потребления основных энергоресурсов, в т.у.т. и % от предыдущего периода в разрезе областей</value>
+  </data>
+  <data name="gerReport27" xml:space="preserve">
+    <value>Доли потребления энергоресурсов субъектами ГЭР по областям</value>
+  </data>
+  <data name="gerReport28" xml:space="preserve">
+    <value>Субъекты ГЭР с наибольшим потреблением электроэнергии, топ 100</value>
+  </data>
+  <data name="gerReport29" xml:space="preserve">
+    <value>Субъекты ГЭР с наибольшим потреблением теплоэнергии, топ 100</value>
+  </data>
+  <data name="gerReport30" xml:space="preserve">
+    <value>Субъекты ГЭР с наибольшим потреблением природного газа, топ 100</value>
+  </data>
+  <data name="gerReport31" xml:space="preserve">
+    <value>Субъекты ГЭР с наибольшим потреблением каменного угля, топ 100</value>
+  </data>
+  <data name="gerReport32" xml:space="preserve">
+    <value>Сравнительные данные субъектов ГЭР, потребляющих более 100 тысяч т.у.т. в год</value>
+  </data>
+  <data name="gerReport33" xml:space="preserve">
+    <value>Средние показатели удельного теплопотребления по областям</value>
+  </data>
+  <data name="gerReport34" xml:space="preserve">
+    <value>Информация об оснащенности приборами учета потребления энергоресурсов</value>
+  </data>
+  <data name="gerReport37" xml:space="preserve">
+    <value>Объемы потребления воды субъектами ГЭР (в млн. м3) в разрере областей</value>
+  </data>
+  <data name="gerReport42" xml:space="preserve">
+    <value>Свод по областям, ФС и исключенным</value>
+  </data>
+  <data name="gerReport43" xml:space="preserve">
+    <value>Оснащенность приборами учета</value>
+  </data>
+  <data name="gerReport44" xml:space="preserve">
+    <value>Отчет по расходам на энергопотребление в разрезе областей</value>
+  </data>
+  <data name="gerReport45" xml:space="preserve">
+    <value>Отчет по количественным показателям ГУ</value>
+  </data>
+  <data name="gerReport46" xml:space="preserve">
+    <value>Отчет по общему потреблению по РК (в т.у.т.)</value>
+  </data>
+  <data name="gerReport47" xml:space="preserve">
+    <value>Выборка крупных субъектов по потреблению (т.у.т.)</value>
+  </data>
+  <data name="gerReport48" xml:space="preserve">
+    <value>100 промышленных субъектов</value>
+  </data>
+  <data name="gerReport49" xml:space="preserve">
+    <value>Социальные объекты</value>
+  </data>
+  <data name="gerReport50" xml:space="preserve">
+    <value>Список мало затратных мероприятий исполненных субъектами ГЭР</value>
+  </data>
+  <data name="gerReport51" xml:space="preserve">
+    <value>Список эффективных мероприятий исполненных субъектами ГЭР</value>
+  </data>
+  <data name="gerReport52" xml:space="preserve">
+    <value>Список субъектов ГЭР (список), не обеспечивших ежегодное снижение объема потребления энергоресурсов на единицу продукции</value>
+  </data>
+  <data name="gerReport53" xml:space="preserve">
+    <value>Сравнение данных по областям</value>
+  </data>
+  <data name="gerReport54" xml:space="preserve">
+    <value>Свод по удельному потреблению энергоресурсов субъектами ГЭР</value>
+  </data>
+  <data name="reestrReport1" xml:space="preserve">
+    <value>Отчет по реестру Субъектов ГЭР по республике</value>
+  </data>
+  <data name="reestrReport2" xml:space="preserve">
+    <value>Отчет по реестру Субъектов ГЭР в разрезе областей</value>
+  </data>
+  <data name="reestrReport3" xml:space="preserve">
+    <value>Основные причины исключения из реестра по республике</value>
+  </data>
+  <data name="reestrReport4" xml:space="preserve">
+    <value>Основные причины исключения из реестра в разрезе областей</value>
+  </data>
+  <data name="reestrReport40" xml:space="preserve">
+    <value>Отчет по Карта энергоэффективности</value>
+  </data>
+  <data name="ExpensesTengeIncludingVAT" xml:space="preserve">
+    <value>Расходы в тенге (с учетом НДС)</value>
+  </data>
+  <data name="gerReport55" xml:space="preserve">
+    <value>Свод  мероприятий исполненных субъектами ГЭР</value>
+  </data>
+</root>

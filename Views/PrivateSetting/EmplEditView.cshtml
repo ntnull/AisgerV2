@@ -1,0 +1,124 @@
+﻿@using Aisger
+@using GridMvc.Html
+@using GridMvc.Sorting
+@model Aisger.Models.SEC_User
+@{
+    ViewBag.Title = ResourceSetting.AccountSetting;
+}
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+
+<style type="text/css">
+    td {
+        border-left: 1px solid #dddddd;
+    }
+</style>
+
+
+
+<div id="B">
+    @Html.Partial("~/Views/Home/TitleItem.cshtml", ResourceSetting.privatePage + "," + ResourceSetting.AccountSetting)
+    <div style=" position: relative;height: 100%;">
+        <div id="wrapper_grid" style="margin-left: 50px;  position: absolute;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    overflow: auto;">
+            @using (Html.BeginForm("EmplEditView", "PrivateSetting", FormMethod.Post, new { id = "demoForm", name = "demoForm" }))
+            {  @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.CreateDate)
+                @Html.HiddenFor(model => model.IsConfirm)
+                
+                <div class="clearfixmandatory">
+                    @Html.LabelFor(model => model.LastName)
+                    <div class="input">
+                        @Html.TextBoxFor(model => model.LastName)
+                        @Html.ValidationMessageFor(model => model.LastName)
+                    </div>
+                </div>
+                <div class="clearfixmandatory">
+                    @Html.LabelFor(model => model.FirstName)
+                    <div class="input">
+                        @Html.TextBoxFor(model => model.FirstName)
+                        @Html.ValidationMessageFor(model => model.FirstName)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SecondName)
+                    <div class="input">
+                        @Html.EditorFor(model => model.SecondName)
+                    </div>
+                </div>
+
+                <div class="clearfixmandatory">
+                    @Html.LabelFor(model => model.Login)
+                    <div class="input">
+                        @Html.TextBoxFor(model => model.Login, new { @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.Login)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email)
+                    <div class="input">
+                        @Html.TextBoxFor(model => model.Email)
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Mobile)
+                    <div class="input">
+                        @Html.TextBoxFor(model => model.Mobile,new {@placeholder="+7"})
+                        @Html.ValidationMessageFor(model => model.Mobile)
+                    </div>
+                </div>
+                <div class="form-group"  style="margin-bottom:20px;">
+                    @Html.LabelFor(model => model.WorkPhone)
+                    <div class="input">
+                        @Html.TextBoxFor(model => model.WorkPhone)
+						<label style="font-size: 12px;padding-top: 3px;padding-left: 5px;color: #999;">@ResourceSetting.CityCode</label>
+                        @Html.ValidationMessageFor(model => model.WorkPhone)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.InternalPhone)
+                    <div class="input">
+                        @Html.TextBoxFor(model => model.InternalPhone)
+                        @Html.ValidationMessageFor(model => model.InternalPhone)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Должность")
+                    <div class="input">
+                        @Html.TextBoxFor(model => model.Post)
+                        @Html.ValidationMessageFor(model => model.Post)
+                    </div>
+                </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.OrganizationId)
+        <div class="input">
+            @Html.TextBoxFor(model => model.DIC_Organization.NameRu, new { @readonly = "readonly" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.RolesId)
+        <div class="input ">
+            @Html.TextBoxFor(model => model.SEC_Roles.NameRu, new { @readonly = "readonly" })
+        </div>
+    </div>
+                <button id="saveUpdate" type="submit" name="SaveUpdate" value="SaveUpdate" style="visibility: hidden;"></button>
+            }
+            <div>
+                <button type="button" class="btn btn-success btn-lg" onclick="location.href='@Url.Action("Index", "PrivateSetting")'">
+                    <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Back
+                </button>
+                <button type="button" class="btn btn-success btn-lg" onclick=" SaveChange() " style="float: right; margin-right: 30px">
+                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span> @ResourceSetting.Save
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+

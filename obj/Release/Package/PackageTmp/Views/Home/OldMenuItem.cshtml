@@ -1,0 +1,269 @@
+﻿@using Aisger
+@using Aisger.Utils
+
+<style type="text/css">
+    #wrapper_grid {
+        margin-left: 50px;
+        margin-bottom: 70px;
+    }
+
+    .menuheader {
+        background-color: #e4db13;
+    }
+</style>
+
+<div id="A">
+    <input type=hidden id="selectSubMenuTitle" value='@ViewContext.RouteData.GetRequiredString("controller")' />
+    <input type=hidden id="selectaActionTitle" value='@ViewContext.RouteData.GetRequiredString("action")' />
+    <div class="sidebar-nav" style="width:250px">
+        <div class="sidebar-nav">
+            <div class="panel-group" id="accordion">
+                <!-- личный кабинет -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="padding-top: 20px;background-color: #5cb85c ">
+                        <h4 class="panel-title" style="color: white">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#PrivatePage">
+                                <span class="glyphicon glyphicon-user"></span> @ResourceSetting.privatePage
+                            </a><i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
+                        </h4>
+                    </div>
+                    <div id="PrivatePage" class="panel-page panel-collapse collapse in">
+                        <ul class="nav nav-list" id="nav">
+                            <li><a href="@Url.Action("Index", "PrivateSetting")" id='@CodeConstManager.PrivateSetting'>@ResourceSetting.AccountSetting</a></li>
+                            <li><a href="@Url.Action("Index", "SubActionPlan")" id='@CodeConstManager.SubActionPlan'>@ResourceSetting.SubActionPlan</a></li>
+                            @*                            <li><a href="#" >Объекты</a></li>*@
+                            <li>
+                                <a href="@Url.Action("Index", "RegisterForm")" id='@CodeConstManager.RegisterForm'>
+                                    @ResourceSetting.RegisterForm
+                                    @if (@ViewBag.RejectCount != 0)
+                                    {
+                                        <span class="badge pull-right" title="Отказанные">@ViewBag.RejectCount</span>
+                                    }
+                                </a>
+                            </li>
+                            <li><a href="@Url.Action("Index", "MapApplication")" id='@CodeConstManager.MapApplication'>@ResourceSetting.MAP_Application</a></li>
+
+                            @*                            <li><a href="@Url.Action("Index", "ActivityLicense")" id='@CodeConstManager.ActivityLicense'>Лицензия на вид деятельности</a></li>*@
+                            @*                            <li><a href="@Url.Action("Index", "ImportExportSpecialProductLicense")" id='@CodeConstManager.ImportExportSpecialProductLicense'>Лицензия на импорта/экспорта ОВТ</a></li>*@
+                        </ul>
+                    </div>
+                </div>
+                <!-- Администрирование -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" style=" background-color:  #5cb85c ">
+                        <h4 class="panel-title" style="color: white">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#AdminPage">
+                                <span class="glyphicon glyphicon-cog"></span>   @ResourceSetting.admin
+                            </a><i class="indicator glyphicon glyphicon-chevron-up pull-right"></i>
+                        </h4>
+                    </div>
+                    <div id="AdminPage" class="panel-page panel-collapse collapse">
+                        <ul class="nav nav-list" id="nav">
+                            <li><a href="@Url.Action("Index", "Users")" id='@CodeConstManager.Users'>@ResourceSetting.Users</a></li>
+                            <li><a href="@Url.Action("Index", "SecRules")" id='@CodeConstManager.SecRules'>@ResourceSetting.Roles</a></li>
+
+                            <li><a href="@Url.Action("Index", "JurEvent")" id='@CodeConstManager.JurEvent'>@ResourceSetting.eventJur</a></li>
+                            <li><a href="@Url.Action("Index", "Guest")" id='@CodeConstManager.Guest'>@ResourceSetting.Guest</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Справочники -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" style=" background-color: #5cb85c">
+                        <h4 class="panel-title" style="color: white">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#DictionaryPage">
+                                <span class="glyphicon glyphicon-inbox"></span>   Справочники
+                            </a><i class="indicator glyphicon glyphicon-chevron-up pull-right"></i>
+                        </h4>
+                    </div>
+                    <div id="DictionaryPage" class="panel-page panel-collapse collapse">
+                        <ul class="nav nav-list" id="nav">
+                            <li><a href="@Url.Action("Index", "SubDicKindResource")" id='@CodeConstManager.SubDicKindResource'>@ResourceSetting.SubDicKindRes</a></li>
+                            <li><a href="@Url.Action("Index", "SubDicTypeResource")" id='@CodeConstManager.SubDicTypeResource'>@ResourceSetting.SubDicTypeRes</a></li>
+                            <li><a href="@Url.Action("Index", "DicOrganisation")" id='@CodeConstManager.DicOrganisation'>@ResourceSetting.Organisation</a></li>
+                            <li><a href="@Url.Action("Index", "DicUnit")" id='@CodeConstManager.DicUnit'>@ResourceSetting.DicUnit</a></li>
+                            <li><a href="@Url.Action("Index", "DicOked")" id='@CodeConstManager.DicOked'>@ResourceSetting.DicOked</a></li>
+                            @*                            <li><a href="#" id='dic1'>Организация</a></li>*@
+                        </ul>
+                    </div>
+                </div>
+                <!-- Реестр ГЭР -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" style=" background-color: #5cb85c">
+                        <h4 class="panel-title" style="color: white">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#ReestrPage">
+                                <span class="glyphicon glyphicon-flash"></span>   @ResourceSetting.Reestr
+                            </a><i class="indicator glyphicon glyphicon-chevron-up pull-right"></i>
+                        </h4>
+                    </div>
+                    <div id="ReestrPage" class="panel-page panel-collapse collapse">
+                        <ul class="nav nav-list" id="nav">
+                            <li><a href="@Url.Action("Index", "RstApplication")" id='@CodeConstManager.RstApplication'>@ResourceSetting.RST_Application</a></li>
+                            <li><a href="@Url.Action("Index", "RstReestr")" id='@CodeConstManager.RstReestr'>@ResourceSetting.RST_Reestr</a></li>
+                            <li><a href="@Url.Action("Index", "RstExluded")" id='@CodeConstManager.RstExluded'>@ResourceSetting.RstExluded</a></li>
+                            <li><a href="@Url.Action("Index", "RstReport")" id='@CodeConstManager.RstReport'>@ResourceSetting.RST_Report</a></li>
+                            @*                            <li><a href="@Url.Action("Index", "IssueDocsReport")" id='@CodeConstManager.IssueDocsReport'>@ResourceSetting.IssueDocsReport</a></li>*@
+                            @*                            <li><a href="@Url.Action("Index", "RegistAppReport")" id='@CodeConstManager.RegistAppReport'>@ResourceSetting.RegistAppReport</a></li>*@
+                        </ul>
+                    </div>
+                </div>
+                <!-- Субьекты ГЭР -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" style=" background-color: #5cb85c">
+                        <h4 class="panel-title" style="color: white">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#SubjectPage">
+                                <span class="glyphicon glyphicon-fire"></span>   @ResourceSetting.SubjectPage
+                            </a><i class="indicator glyphicon glyphicon-chevron-up pull-right"></i>
+                        </h4>
+                    </div>
+                    <div id="SubjectPage" class="panel-page panel-collapse collapse">
+                        <ul class="nav nav-list" id="nav">
+                            <li>
+                                <a href="@Url.Action("Index", "AppForm")" id='@CodeConstManager.AppForm'>
+                                    @ResourceSetting.AppForm
+                                @if (@ViewBag.InboxCount != 0)
+                                {
+                                    <span class="badge pull-right" title="Зарегистрированные">@ViewBag.InboxCount</span>
+                                }
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("Index", "AppAction")" id='@CodeConstManager.AppAction'>
+                                @ResourceSetting.SubActionPlan
+                                @if (@ViewBag.AppActionCount != 0)
+                                {
+                                    <span class="badge pull-right" title="Зарегистрированные">@ViewBag.AppActionCount</span>
+                                }
+                            </a>
+                        </li>
+
+                        <li><a href="@Url.Action("Index", "SubjectPerson")" id='@CodeConstManager.SubjectPerson'>@ResourceSetting.SubjectPerson</a></li>
+                        @*                            <li><a href="@Url.Action("Index", "IssueDocsReport")" id='@CodeConstManager.IssueDocsReport'>@ResourceSetting.IssueDocsReport</a></li>*@
+                        @*                            <li><a href="@Url.Action("Index", "RegistAppReport")" id='@CodeConstManager.RegistAppReport'>@ResourceSetting.RegistAppReport</a></li>*@
+                    </ul>
+                </div>
+            </div>
+            <!-- ЭСКО -->
+            <div class="panel panel-default">
+                <div class="panel-heading" style=" background-color: #5cb85c">
+                    <h4 class="panel-title" style="color: white">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#EscoPage">
+                            <span class="glyphicon glyphicon-cloud"></span>   @ResourceSetting.EscoPage
+                        </a><i class="indicator glyphicon glyphicon-chevron-up pull-right"></i>
+                    </h4>
+                </div>
+                <div id="EscoPage" class="panel-page panel-collapse collapse">
+                    <ul class="nav nav-list" id="nav">
+
+                        <li><a href="@Url.Action("Index", "EscoReestr")" id='@CodeConstManager.EscoReestr'>@ResourceSetting.EscoReestr</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Энергоаудит -->
+            <div class="panel panel-default">
+                <div class="panel-heading" style=" background-color: #5cb85c">
+                    <h4 class="panel-title" style="color: white">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#AuditPage">
+                            <span class="glyphicon glyphicon-bell"></span>   @ResourceSetting.AuditPage
+                        </a><i class="indicator glyphicon glyphicon-chevron-up pull-right"></i>
+                    </h4>
+                </div>
+                <div id="AuditPage" class="panel-page panel-collapse collapse">
+                    <ul class="nav nav-list" id="nav">
+                        <li><a href="@Url.Action("Index", "AuditReestr")" id='@CodeConstManager.AuditReestr'>@ResourceSetting.AuditReestr</a></li>
+                        <li><a href="@Url.Action("Index", "EnergyAudit")">@ResourceSetting.tConclusions</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" style=" background-color: #5cb85c">
+                    <h4 class="panel-title" style="color: white">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#MapEnergy">
+                            <span class="glyphicon glyphicon-map-marker"></span>   @ResourceSetting.MapEnergy
+                        </a><i class="indicator glyphicon glyphicon-chevron-up pull-right"></i>
+                    </h4>
+                </div>
+                <div id="MapEnergy" class="panel-page panel-collapse collapse">
+                    <ul class="nav nav-list" id="nav">
+                        <li><a href="@Url.Action("Index", "MapApp")" id='@CodeConstManager.MapApp'>@ResourceSetting.MapApp</a></li>
+                        <li><a href="@Url.Action("Index", "MapInpbox")" id='@CodeConstManager.MapInpbox'>@ResourceSetting.MapInpbox</a></li>
+                        <li><a href="@Url.Action("Index", "MapProject")" id='@CodeConstManager.MapProject'>@ResourceSetting.MapProject</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Отчеты -->
+            <div class="panel panel-default">
+                <div class="panel-heading" style=" background-color: #5cb85c">
+                    <h4 class="panel-title" style="color: white">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#ReportPage">
+                            <span class="glyphicon glyphicon-flash"></span>   Отчеты
+                        </a><i class="indicator glyphicon glyphicon-chevron-up pull-right"></i>
+
+                    </h4>
+                </div>
+                <div id="ReportPage" class="panel-page panel-collapse collapse">
+                    <ul class="nav nav-list" id="nav">
+                        <li><a href="@Url.Action("Index", "ReportReestr")" id='@CodeConstManager.ReportReestr'>@ResourceSetting.ReportReestr</a></li>
+                        <li><a href="@Url.Action("Index", "ReportGer")" id='@CodeConstManager.ReportGer'>@ResourceSetting.ReportGer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Аналитика -->
+            <div class="panel panel-default">
+                <div class="panel-heading" style=" background-color: #5cb85c">
+                    <h4 class="panel-title" style="color: white">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#AnalisePage">
+                            <span class="glyphicon glyphicon-stats"></span>   Аналитика
+                        </a><i class="indicator glyphicon glyphicon-chevron-up pull-right"></i>
+
+                    </h4>
+                </div>
+                <div id="AnalisePage" class="panel-page panel-collapse collapse">
+                    <ul class="nav nav-list" id="nav">
+                        <li><a href="#" id='dic1'>Аналитика 1</a></li>
+                        <li><a href="#" id='dic1'>Аналитика 2</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            $('.openDialog').live("click", function (e) {
+                e.preventDefault();
+                $("<div style=" + '"' + "text-align: center;" + '"' + "><img src=" + '"' + "../content/images/spinner.gif" + '"' + " style=" + '"' + "display: block; margin: 0 auto;" + '"' + " /></br>" + "....</div>")
+                    .addClass("dialog")
+                    .attr("id", $(this)
+                        .attr("data-dialog-id"))
+                    .appendTo("body")
+                    .dialog({
+                        title: $(this).attr("data-dialog-title"),
+                        close: function () { $(this).remove(); },
+                        width: 800,
+                        modal: true
+                    })
+                    .load(this.href);
+            });
+            $(".close").live("click", function (e) {
+                e.preventDefault();
+                $(this).closest(".dialog").dialog("close");
+            });
+            $('#accordion').on('hidden.bs.collapse', function() {
+                //do something...
+            });
+
+            $('#accordion .accordion-toggle').click(function(e) {
+                var chevState = $(e.target).siblings("i.indicator").toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+                $("i.indicator").not(chevState).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+            });
+
+        });
+</script>

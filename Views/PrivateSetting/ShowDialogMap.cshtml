@@ -1,0 +1,118 @@
+﻿@using Aisger
+@using GridMvc.Html
+@using GridMvc.Sorting
+@model Aisger.Models.SEC_User
+@{
+    ViewBag.Title = ResourceSetting.AccountSetting;
+}
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+
+<style type="text/css">
+    #mymap {
+        width: 100%;
+        height: 400px;
+    }
+</style>
+
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAN12KP6o3aNk49AH9_T3yVZ03OmzuzVqk"></script>
+<link rel="stylesheet" href="@Url.Content("~/Content/jquery-ui.css")" />
+<link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.css")">
+
+
+    <div id="mymap">
+
+    </div>
+   <script type="text/javascript">
+      
+       var defaultLat='@Model.Lat';
+       var defaultLng='@Model.Lng';
+       var markers = [];
+       var initialLocation;
+       var browserSupportFlag = new Boolean();
+       function initMap() {
+           var mapDiv = document.getElementById("mymap");
+           var mapOptions = {              
+               zoom: 12,
+               mapTypeId: google.maps.MapTypeId.ROADMAP
+           };
+
+           if(defaultLat!=''){
+               mapOptions =  {
+                   center: new google.maps.LatLng(defaultLat, defaultLng ),
+                   zoom: 12,
+                   mapTypeId: google.maps.MapTypeId.ROADMAP
+               };
+           }
+
+           var map = new google.maps.Map(mapDiv, mapOptions);
+           if (defaultLat.length > 0 && defaultLng.length > 0) {
+               var latLng =  new google.maps.LatLng(defaultLat,defaultLng);
+               placeMarkerAndPanTo(latLng,map);
+
+           } else {
+               if (navigator.geolocation) {
+                   browserSupportFlag = true;
+                   navigator.geolocation.getCurrentPosition(function (position) {
+                       initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                       map.setCenter(initialLocation);
+                   }, function () {
+                       handleNoGeolocation(browserSupportFlag);
+                   });
+               }
+                   // Browser doesn't support Geolocation
+               else {
+                   browserSupportFlag = false;
+                   handleNoGeolocation(browserSupportFlag);
+               }
+           }
+
+           function handleNoGeolocation(errorFlag) {
+               if (errorFlag == true) {
+                   initialLocation = newyork;
+               } else {
+                   initialLocation = newyork;
+               }
+               map.setCenter(initialLocation);
+           }
+
+       }
+       function setMapOnAll(map) {
+           for (var i = 0; i < markers.length; i++) {
+               markers[i].setMap(map);
+           }
+       }
+       function placeMarkerAndPanTo(location, map) {
+           setMapOnAll(null);
+           var marker = new google.maps.Marker({
+               position: location,
+               map: map
+           });
+           markers.push(marker);
+           console.log(location.lat());
+           console.log(location.lng());
+           setMark(location.lat(), location.lng());
+           /*    var marker = new google.maps.Marker({
+               position: latLng,
+               map: map
+           });
+           map.panTo(latLng);*/
+       }
+
+       function setMark(lat, lng) {
+           var userId = @Model.Id;
+           $.ajax({
+               type: "POST",
+               url: '@Url.Action("UpdateMark")',
+               data: { 'userId': userId, 'lat': lat, 'lng': lng },
+               dataType: 'json',
+               cache: false,
+               success: function (data) {
+               },
+               error: function (data) {
+                   alert("1Error" + data);
+               }
+           });
+       }
+       window.onload = initMap();
+</script>
+

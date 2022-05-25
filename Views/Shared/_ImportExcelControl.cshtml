@@ -1,0 +1,158 @@
+﻿@using Aisger
+@using Aisger.Helpers
+@model Aisger.Models.ControlModels.ImportExcelModel    
+
+<style>
+    input[type=file] {
+        width: 100%;
+    }
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+    }
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+    }
+</style>
+<link href="@Url.Content("~/Content/select2/select2.css")" rel="stylesheet" type="text/css" />
+
+@using (Html.BeginForm(Model.Action, Model.Controller, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="control-label col-md-4">
+                @ResourceSetting.sChooseSubject
+            </div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.ObjectId, new { id = "refObjectId", style="width: 100%;" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="control-label col-md-4">
+                @ResourceSetting.ReportPeriod
+            </div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.Year, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="control-label col-md-4">
+                @ResourceSetting.sChooseFile
+            </div>
+            <div class="col-md-8">
+                @*                <input type="file" id="FileUpload" name="FileUpload" class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />*@
+@*                <span class="btn btn-default btn-file">*@
+@*                    *@
+@*                    *@
+@*                </span>*@
+                <div class="input-group">
+                    <div class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                            @ResourceSetting.sChooseFile &hellip; @Html.TextBoxFor(model => model.FileContent, new
+                                       {
+                                           type = "file",
+                                           accept = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+//                                           @class = "form-control"
+                                       })
+                        </span>
+                    </div>
+                    <input id="inputFileName" type="text" class="form-control" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="@ResourceSetting.sImport" id="btnSubmit" class="btn btn-primary pull-right" />
+            </div>
+        </div>
+    </div>
+}
+<script src="@Url.Content("~/Scripts/select2.js")" type="text/javascript"></script>
+<script>
+    var ImportExcelControl = {
+        init: function () {
+            $("#btnSubmit").prop('disabled', true);
+            var pageSize = 20;
+            $("#refObjectId").select2({
+                placeholder: '@ResourceSetting.sEnterBinIinOrPartName',
+                minimumInputLength: 3,
+                allowClear: true,
+                lang:'@CultureHelper.GetCurrentCulture()',
+                ajax: {
+                    quietMillis: 150,
+                    url: '@Url.Action("SelectApplication", "AppForm")',
+                    dataType: 'jsonp',
+                    data: function (term, page) {
+                        return {
+                            pageSize: pageSize,
+                            pageNum: page,
+                            searchTerm: term
+                        };
+                    },
+                    results: function (data, page) {
+                        var more = (page * pageSize) < data.Total;
+                        return { results: data.Results, more: more };
+                    }
+                },
+                //formatResult: contractFormatResult,
+                //formatSelection: contractFormatSelection
+            }).on("change", function (e) {
+                var val = e.val;
+                
+            });
+            /*
+            $('input:file').on('fileselect', function (event, numFiles, label) {
+                debugger;
+                var input = $(this).parents('.input-group').find(':text'),
+                    log = label;
+
+                if (input.length) {
+                    input.val(log);
+                }
+            });*/
+
+            var onInputChange = function () {
+                var refObject = $("#refObjectId").val();
+                var year = $("#Year").val();
+                var fileName = $("#inputFileName").val();
+                if (refObject && year && fileName) {
+                    $("#btnSubmit").prop('disabled', false);
+                } else {
+                    $("#btnSubmit").prop('disabled', true);
+                }
+            };
+
+            $('input:file').change(function (s, e) {
+                var input = $(this).parents('.input-group').find(':text'),
+                    path = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
+
+                if (input.length) {
+                    input.val(path);
+                }
+
+                onInputChange();
+            });
+            $("#refObjectId").change(function() {
+                onInputChange();
+            });
+            $("#Year").change(function () {
+                onInputChange();
+            });
+
+        }
+    };
+</script>

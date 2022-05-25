@@ -1,0 +1,77 @@
+﻿@using System.Threading
+@using Aisger
+@using Aisger.Helpers
+@using Aisger.Utils
+@using GridMvc.Html
+@using GridMvc.Sorting
+@model IEnumerable<Aisger.Models.SEC_User>
+
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+
+@helper GridManageItemColumn(long id)
+{
+    <button type="button" class="btn btn-warning btn-sm" accesscode="EscoReestr-edit" disabled onclick="location.href = '@Url.Action("Edit", "EscoReestr", new { id })'">
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> @ResourceSetting.Edit
+    </button>
+ 
+}
+@helper GridCvazy(bool isCvazy)
+{
+    if (isCvazy)
+    {
+        if (CultureHelper.GetCurrentCulture() == CultureHelper.FieldKz)
+        {
+            <text>Иә</text>
+        }
+        else
+        {
+            <text>Да</text>
+        }
+    }
+    else
+    {
+        if (CultureHelper.GetCurrentCulture() == CultureHelper.FieldKz)
+        {
+            <text>Жоқ</text>
+        }
+        else
+        {
+            <text>Нет</text>
+        }
+    }
+}
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.EscoPage  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>   @ResourceSetting.EscoReestr (<span id="countGridRecord"></span>)</li>
+        <li style="float: right">
+            <button type="button" class="btn btn-success btn-sm"  accesscode="EscoReestr-create" disabled onclick="location.href='@Url.Action("Create", "EscoReestr")'">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> @ResourceSetting.add
+            </button>
+            @Html.Partial("~/Views/Shared/ExportExcelBtn.cshtml")
+        </li>
+    </ul>
+    <div id="CSSTableGenerator">
+        @Html.Grid(Model).SetLanguage(Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName).Columns(columns =>
+                {
+                    columns.Add(o => o.Id, true)
+                    .Titled("Id").SetWidth(0);
+                    columns.Add(o => o.ApplicationName).Titled(ResourceSetting.Name)
+                    .SetWidth(60);
+                    columns.Add(o => o.BINIIN).Titled(ResourceSetting.BININ)
+                    .SetWidth(60);
+                    columns.Add(o => o.FullName).Titled(ResourceSetting.boss)
+                    .SetWidth(60);
+                  columns.Add(o => o.IsDisabled)
+            .Titled(ResourceSetting.IsDisabled)
+            .SetWidth(40)
+            .RenderValueAs(o => GridCvazy(o.IsDisabled));
+                    columns.Add()
+                    .Encoded(false)
+                    .Sanitized(false).SetWidth(60)
+                    .RenderValueAs(o => GridManageItemColumn(o.Id).ToHtmlString());
+
+                }).SetRowCssClasses(item => item.IsDisabled ? "danger" : string.Empty).WithPaging(50).Sortable().Filterable().WithMultipleFilters()
+    </div>
+</div>

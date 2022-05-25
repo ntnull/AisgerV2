@@ -1,0 +1,38 @@
+﻿@using System.Diagnostics
+@using NPOI.SS.Formula.Functions
+@model Aisger.Models.ControlModels.SelectLinkListModel
+
+@{
+    if (Model == null || Model.SelectListItems == null)
+    {
+        return;
+    }
+
+    var defaultValue = Model.SelectListItems.FirstOrDefault(item => item.Value == "null");
+
+    if (defaultValue != null)
+    {
+        if (string.IsNullOrEmpty(Model.CurrentLink) || defaultValue.Value == Model.CurrentLink)
+        {
+            <a value="@defaultValue.Value" class="link-selector-item selected">@defaultValue.Text</a>
+        }
+        else
+        {
+            <a value="@defaultValue.Value" class="link-selector-item">@defaultValue.Text</a>
+        }
+    }
+}
+@foreach (SelectListItem item in Model.SelectListItems)
+{
+    if (item.Value != "null")
+    {
+        if (!string.IsNullOrEmpty(Model.CurrentLink) && item.Value == Model.CurrentLink)
+        {
+            <a value="@item.Value" class="link-selector-item selected">@item.Text</a>
+        }
+        else
+        {
+            <a value="@item.Value" class="link-selector-item">@item.Text</a>
+        }
+    }
+}

@@ -1,0 +1,62 @@
+﻿@using System.Threading
+@using Aisger
+@using FlowDoc.Models
+@using GridMvc.Html
+@model IEnumerable<Aisger.Models.RST_ReportReestrFilter>
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+<script src="@Url.Content("~/Scripts/custom/gridmvc.reestr.status.js")" type="text/javascript"> </script>
+<script src="@Url.Content("~/Scripts/custom/gridmvc.reestr.reason.js")" type="text/javascript"> </script>
+@*<script src="@Url.Content("~/Scripts/custom/gridmvc.oblast.js")" type="text/javascript"> </script>*@
+@helper GridManageItemColumn(long id)
+{
+    <a href="@Url.Action("EditRecord", "RstReport", new { id })">
+        <i class="glyphicon glyphicon-edit" title="@ResourceSetting.Edit"></i>
+    </a>
+    <a href="@Url.Action("Exluded", "RstReport", new { id })">
+        <i class="glyphicon glyphicon-share" title="Исключить"></i>
+    </a>
+}
+
+
+<style type="text/css">
+    td {
+        border-left: 1px solid #dddddd;
+    }
+</style>
+<div id="CSSTableGenerator">
+    @Html.Grid(Model).Named("ordersGrid").SetLanguage(Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName).Columns(columns =>
+            {
+                columns.Add(o => o.Id, true)
+                    .Titled("Id").SetWidth(0);
+                columns.Add(o => o.BINIIN).Titled(ResourceSetting.biniinSubject)
+                   .SetWidth(40);
+                columns.Add(o => o.OwnerName).Titled(ResourceSetting.SubPerson)
+                  .SetWidth(40);
+                columns.Add(o => o.Address).Titled(ResourceSetting.Address)
+            .SetWidth(40);
+                columns.Add(o => o.OblastName).Titled(ResourceSetting.Oblast)
+           .SetWidth(40).SetFilterWidgetType("OblastNameFilterWidget");
+                columns.Add(o => o.StatusName).Titled(ResourceSetting.RstDicStatus)
+        .SetWidth(40).SetFilterWidgetType("StatusReestrNameFilterWidget");
+                columns.Add(o => o.ReasonName).Titled(ResourceSetting.ReportReason)
+       .SetWidth(40).SetFilterWidgetType("ReasonReestrNameFilterWidget");
+                
+                columns.Add()
+                       .Encoded(false)
+                       .Sanitized(false).SetWidth(20)
+                       .RenderValueAs(o => GridManageItemColumn(o.Id).ToHtmlString());
+
+            }).WithPaging(50).Sortable()
+</div>
+
+
+<script>
+    $(function () {
+        pageGrids.ordersGrid.addFilterWidget(new StatusReestrFilterWidget());
+        pageGrids.ordersGrid.addFilterWidget(new ReasonReestrFilterWidget());
+        pageGrids.ordersGrid.addFilterWidget(new OblastFilterWidget());
+
+    });
+</script>
+
+

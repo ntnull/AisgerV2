@@ -1,0 +1,104 @@
+﻿@using Aisger
+@using Aisger.Helpers
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+
+@Styles.Render("~/Content/reportCss")
+@Scripts.Render("~/bundles/kendoui")
+@Scripts.Render("~/bundles/reportJs")
+
+<div id="B">
+	@Html.Partial("~/Views/Home/TitleItem.cshtml", ResourceSetting.AnalisePage + "," + ResourceSetting.ReportShowCase)
+
+	<div id="main-container" class="wrapper">
+		<div class="container-fluid">
+			<div id="tabstrip" class="s-tabstrip tab-report2" attrreportnumber="report2">
+				<ul>
+					<li class="k-state-active tab-item1">Часть 1</li>
+					<li class="tab-item2 hide"><span>Часть 2
+						<button data-type="remove" class="k-button k-button-icon"><span class="k-icon k-i-close"></span></button>
+					</span>
+					</li>
+					<li class="tab-item3 hide"><span>Часть 3
+						<button data-type="remove" class="k-button k-button-icon"><span class="k-icon k-i-close"></span></button>
+					</span>
+					</li>
+				</ul>
+				<div>
+					<div class="wrapper report1-container" id="report1-container">
+						<div class="content">
+							<div class="container-fluid report1">
+								<div class="row">
+									<div class="col-md-5">
+										<div class="card">
+											<div class="view-chart1 aisger-chart"></div>
+										</div>
+									</div>
+									<div class="col-md-5">
+										<div class="card">
+											<div class="view-chart2 aisger-chart"></div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-5">
+										<div class="card">
+											<div class="content">
+												<div class="view-chart3 aisger-chart"></div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-5">
+										<div class="card ">
+											<div class="content">
+												<div class="view-chart4 aisger-chart"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div class="wrapper">
+						<div class="row-s report2">
+								    <div class="row">
+                                     <div class="col-md-1"> </div>
+                                     <div class="col-md-9">
+										<div  class="view-chart21 aisger-chart"></div>
+										 <hr />
+                                    </div>
+									<div class="col-md-2"> </div>
+                                </div>
+                                <div class="row">
+                                     <div class="col-md-1"> </div>
+                                     <div class="col-md-9">
+										<div class="view-chart22 aisger-chart"></div>
+                                     </div>
+									 <div class="col-md-2"> </div>
+                                </div>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div class="wrapper">
+						<div class="row-s">
+							<div class="col-md-11">
+								<div class="container">
+									<div class="row row-centered">
+										<div class="bi-report-container"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<script src="~/Scripts/reports/biFormaReport1.js"></script>
+<script src="~/Scripts/dashboard1.js"></script>
+
+@*<script src="~/Scripts/reports/report2.js"></script>*@

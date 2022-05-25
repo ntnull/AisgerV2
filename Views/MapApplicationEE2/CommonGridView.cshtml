@@ -1,0 +1,106 @@
+﻿@using System.Collections
+@using System.Threading
+@using Aisger
+@using Aisger.Models.Entity.Map
+@using Aisger.Utils
+@using FlowDoc.Models
+@using GridMvc.Html
+@model IEnumerable<MAP_ApplicationEE2Info>
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+<script src="@Url.Content("~/Scripts/custom/gridmvc.reestr.status.js")" type="text/javascript"> </script>
+<script src="@Url.Content("~/Scripts/custom/gridmvc.reestr.reason.js")" type="text/javascript"> </script>
+<script src="@Url.Content("~/Scripts/custom/gridmvc.oblast.js")" type="text/javascript"> </script>
+<style>
+    .btnmenu > li > a:hover {
+        background-color: transparent;
+    }
+
+    .cl-right {
+        text-align: right;
+    }
+</style>
+
+
+@helper GridManageItemColumn(MAP_ApplicationEE2Info form)
+{ 
+    <div class="btn-group">
+        <button type="button" class="btn btn-success dropdown-toggle btn-operation" disabled  accesscode="MapApplicationEE2-operation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Операции">
+            @ResourceSetting.Operation <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu btnmenu">
+            <li class="btn-primary" title="@ResourceSetting.Edit">
+                <a href="@Url.Action("Edit", "MapApplicationEE2", new { id = form.Id })"  >
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>@ResourceSetting.Edit
+                </a>
+            </li>
+            <li class="btn-danger" title="@ResourceSetting.Delete">
+                <a href="#" onclick="DeleteRecord('@form.Id')" class="btn btn-danger btn-sm btn-block">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>@ResourceSetting.Delete
+                </a>
+            </li>
+        </ul>
+    </div>
+}
+
+
+<div class="alert alert-danger div-error-message hide" role="alert">
+    <h5><span class="error-message"></span></h5>
+</div>
+<div id="CSSTableGenerator">
+    @Html.Grid(Model).SetLanguage(Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName).Columns(columns =>
+        {
+            columns.Add(o => o.Id, true).Titled("Id").SetWidth(0);
+            //columns.Add(o => o.DicDetailsId).Titled(ResourceSetting.DicDetailsId).SetWidth(40);
+            columns.Add(o => o.DicDetails_Name).Titled(ResourceSetting.EE2DetailsName).SetWidth(40);
+            columns.Add(o => o.DicDetailModels_Name).Titled(ResourceSetting.EE2DetailsParameter).SetWidth(40);
+            columns.Add(o => o.CountOfFixtures).Titled(ResourceSetting.CountOfFixtures).SetWidth(40).Css("cl-right");
+            columns.Add(o => o.CountOfLamps).Titled(ResourceSetting.CountOfLamps).SetWidth(40).Css("cl-right");
+            columns.Add(o => o.Power).Titled(ResourceSetting.Power).SetWidth(40).Css("cl-right");
+            columns.Add(o => o.CPRA).Titled(ResourceSetting.CPRA).SetWidth(40).Css("cl-right");
+            columns.Add(o => o.AggregatePower).Titled(ResourceSetting.AggregatePower).SetWidth(40).Css("cl-right");
+            columns.Add(o => o.AverageTariff).Titled(ResourceSetting.AverageTariff).SetWidth(40).Css("cl-right");
+            columns.Add(o => o.WorkingHours).Titled(ResourceSetting.WorkingHours).SetWidth(40).Css("cl-right");
+            columns.Add(o => o.MaintenanceCosts).Titled(ResourceSetting.MaintenanceCosts).SetWidth(40).Css("cl-right");
+            columns.Add(o => o.Comments).Titled(ResourceSetting.sComment).SetWidth(40);
+            columns.Add().Titled(ResourceSetting.Files).Filterable(true).Sanitized(false).Encoded(false).RenderValueAs(model => Html.Raw(model.files)).SetWidth(40);
+            //RenderValueAs(model => Html.ActionLink(model.files,
+            //  "MapApplicationEE2", "Upload", new { fname = model.files }, null)
+            //    .ToHtmlString());
+            columns.Add()
+                .Encoded(false).Sanitized(false).SetWidth(20)
+                .RenderValueAs(o => GridManageItemColumn(o).ToHtmlString());
+
+        }).WithPaging(50).Sortable().Filterable().WithMultipleFilters()
+</div>
+
+<script type="text/javascript">
+
+    var rootUrl = "@Url.Content("~")";
+
+    function DeleteRecord(id) {
+        var success = function () {
+
+            $.post(rootUrl + 'MapApplicationEE2/Delete', { id: id }, function (data) {
+
+                console.log("delete", data);
+
+                if (data.ErrorMessage) {
+                    $('.div-error-message').removeClass('hide');
+                    $('.error-message').text(data.ErrorMessage);
+                    //showWarning(data.ErrorMessage);
+                    return;
+                } else window.location.href = "/MapApplicationEE2/Index";
+
+            });
+
+            //var url = '/MapApplicationEE2/Delete/' + id;
+            //window.location.href = url;
+        }
+        var cancel = function () {
+        };
+
+        showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+
+    }
+
+</script>

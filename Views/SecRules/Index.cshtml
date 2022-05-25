@@ -1,0 +1,72 @@
+﻿@using Aisger
+@using Aisger.Utils
+@using GridMvc.Html
+@using GridMvc.Sorting
+@using Aisger.Models;
+ 
+@model IEnumerable<Aisger.Models.SEC_Roles>
+
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+
+@helper GridManageItemColumn(long id)
+{
+		/* if (!MyExtensions.CheckRightEdit(CodeConstManager.SecRules))
+        {
+            return;
+        }*/
+    <a href="@Url.Action("Edit", "SecRules", new { id })">
+        <i class="glyphicon glyphicon-edit" title="@ResourceSetting.Edit"></i>
+    </a>
+    <a onclick="DeleteRecord(@id)" href="#">
+        <i class="glyphicon glyphicon-remove" style="margin-left: 5px" title="@ResourceSetting.Delete"></i>
+    </a>
+    <a href="@Url.Action("CopyRole", "SecRules", new { id })">
+        <i class="glyphicon glyphicon-copy" style="margin-left: 5px" title="Копировать"></i>
+    </a>
+}
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.admin  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>   @ResourceSetting.Roles (<span id="countGridRecord"></span>)</li>
+        <li style="float: right">
+            <button type="button" class="btn btn-success btn-sm" onclick="location.href='@Url.Action("Create", "SecRules")'">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> @ResourceSetting.add
+            </button>
+            @Html.Partial("~/Views/Shared/ExportExcelBtn.cshtml")
+        </li>
+    </ul>
+    <div id="CSSTableGenerator">
+        @Html.Grid(Model).Columns(columns =>
+				{
+					columns.Add(o => o.Id, true)
+					.Titled("Id").SetWidth(0);
+					columns.Add(o => o.NameRu).Titled(ResourceSetting.Name)
+					.SetWidth(60);
+					columns.Add()
+				   .Encoded(false)
+				   .Sanitized(false).SetWidth(60)
+				   .RenderValueAs(o => GridManageItemColumn(o.Id).ToHtmlString());
+
+				}).WithPaging(50).Sortable().Filterable().WithMultipleFilters()
+    </div>
+</div>
+<script>
+	$(document).ready(function () {
+		bindTodeleteBtn('@ResourceSetting.Delete', '@ResourceSetting.deleteconfirm');
+	});
+</script>
+<script>
+	function DeleteRecord(id) {
+		var success = function () {
+			var url = '/SecRules/Delete/' + id;
+			window.location.href = url;
+		}
+		var cancel = function () {
+		};
+		showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+
+	}
+
+</script>

@@ -1,0 +1,68 @@
+﻿@using Aisger
+@model Aisger.Models.DIC_GU
+
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+
+<div id="B">
+
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.Dictionary  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  Справочник(ГУ)</li>        
+    </ul>    
+    <div class="row" style="margin-top:20px;">
+        <div class="col col-lg-12">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <label class="control-label col-md-2">@ResourceSetting.Code</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">@ResourceSetting.NameRu</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.NameRu, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NameRu, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">@ResourceSetting.NameKz</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.NameKz, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NameKz, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">@ResourceSetting.Delete</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.IsDeleted, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.IsDeleted, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="@ResourceSetting.Save" class="btn btn-success btn-lg" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+        <div>
+            <button type="button" class="btn btn-success btn-lg" onclick="location.href='@Url.Action("Index","DicGu")'">
+                <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Return
+            </button>
+        </div>
+        </div>
+    </div>
+</div>

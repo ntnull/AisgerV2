@@ -1,0 +1,336 @@
+﻿@using Aisger
+@using GridMvc.Html
+@model Aisger.Models.RST_ExecutedFilter
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+<style type="text/css">.formField { }</style>
+<style type="text/css">
+    .just-read {
+        background-color: #eee;
+    }
+</style>
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.SubjectPage  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  @ResourceSetting.ExpectantName  (@ResourceSetting.countRecord: <span id="countGridRecord"></span>)</li>
+        <li style="float: right">
+           @if (Model.RstReportReestrs != null && Model.RstReportReestrs.Any())
+           {
+            <button type="button" class="btn btn-warning btn-sm" id="HideInform" value="show">
+                <span class="glyphicon glyphicon-unchecked" aria-hidden="true" id="HideInformCheck"></span> <span id="HideInformText">@ResourceSetting.Edit</span>
+            </button>
+               <button type="button" class="btn btn-success btn-sm" id="executedBtn">
+                   <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> @ResourceSetting.excludedKandidat
+               </button>
+    @Html.Partial("~/Views/Shared/ExportExcelBtn.cshtml")
+           }
+
+        </li>
+    </ul>
+    <div id="wrapper_grid" style="margin-left: 50px;margin-bottom: 100px">
+        <input type="hidden" id="userId" value="@Model.UserId">
+        @using (Html.BeginForm("Create", "RstReport", FormMethod.Post, new { id = "demoForm", name = "demoForm" }))
+        {
+            @Html.ValidationSummary(true)
+    <div class="panel panel-success">
+        <div class=" panel-heading">
+            <div class="row" style="margin-bottom: 10px">
+                <div class="col-sm-3">
+                    <label for="" style="width: 40px;">@ResourceSetting.Year</label>
+                    <div class="input" style="margin-left: 20px">
+                        @Html.DropDownListFor(model => model.ReportYear, (IEnumerable<SelectListItem>)(ViewData["Years"]), String.Empty, new { @style = "width: 150px" })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label for="" style="width: 60px;">@ResourceSetting.SubPerson</label>
+                    <div class="input" style="margin-left:70px">
+                        @Html.TextBoxFor(model => model.SubjectName, new { @style = "width: 100%" })
+                    </div>
+
+                </div>
+                <div class="col-sm-4" style="float: right;">
+                    <label for="" style="width: 80px;">@ResourceSetting.Sort</label>
+                    <div class="input">
+                        @Html.DropDownListFor(model => model.SortId, (IEnumerable<SelectListItem>)(ViewData["SortList"]), String.Empty, new { @style = "width: 200px", @class = "form-control" })
+
+
+                    </div>
+                </div>
+
+            </div>
+            <div style="float: right">
+                <button type="button" class="btn btn-info btn-sm" id="addBtn">
+                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> @ResourceSetting.refresh
+                </button>
+            </div>
+            <h4 class="panel-title">
+                <a class="lotLihk" style="font-weight: bold"><span class="glyphicon glyphicon-forward"></span>@ResourceSetting.advansedFilter </a>
+            </h4>
+
+        </div>
+        <div class="panel-body divpanel">
+            <div class="col-sm-6">
+                @Html.Label(ResourceSetting.IDK)
+                <div class="input">
+                    @Html.TextBoxFor(model => model.IDK, new { @style = "width: 80%" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                @Html.Label(ResourceSetting.biniinOwner)
+                <div class="input">
+                    @Html.TextBoxFor(model => model.BINIIN, new { @style = "width: 80%" })
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                @Html.Label(ResourceSetting.Address)
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Adress, new { @style = "width: 80%" })
+                </div>
+            </div>
+            <div class="col-sm-6">
+                @Html.Label(ResourceSetting.ExpectantName)
+                <div class="input">
+                    <div class="chzn-select">
+                        @Html.ListBoxFor(x => Model.Expacts, Model.ExpactList,
+              new { @class = "chzn-select", data_placeholder = ResourceSetting.Expands, @style = "width: 80%" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                @Html.Label(ResourceSetting.RstDicStatus)
+                <div class="input">
+                    <div class="chzn-select">
+                        @Html.ListBoxFor(x => Model.Statuses, Model.StatusList,
+                     new { @class = "chzn-select", data_placeholder = ResourceSetting.Statuses, @style = "width: 80%" })
+                    </div>
+                </div>
+            </div>
+           
+            <div class="col-sm-12">
+                @Html.Label(ResourceSetting.Oblast)
+                <div class="input">
+                    <div class="chzn-select">
+                        @Html.ListBoxFor(x => Model.Oblasts, Model.OblastList,
+                     new { @class = "chzn-select", data_placeholder = ResourceSetting.chooseOblast, @style = "width: 90%" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            <div class="panel panel-primary">
+                <div class=" panel-heading">
+                    <h4 class="panel-title">
+                        <a class="lotLihk1" style="font-weight: bold"><span class="glyphicon glyphicon-forward"></span>@ResourceSetting.orderInfo </a>
+                    </h4>
+                </div>
+
+
+
+                <div class="panel-body divpanel1">
+                    <div class="col-sm-6">
+                        @Html.Label(ResourceSetting.NumberOrder)
+                        <div class="input">
+                            @Html.TextBoxFor(model => model.NumberOrder, new { @style = "width: 80%", @class = "formField" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.Label(ResourceSetting.DateOrder)
+                        <div class="input">
+                            @Html.TextBoxFor(model => model.DateOrderStr, new { @style = "width: 80%", @class = "formField" })
+                        </div>
+                    </div>
+
+                    <div class="input" style="margin-left: 0;margin-top: 20px">
+                        <textarea cols="20"  id="Note" name="Note" rows="2" placeholder="@ResourceSetting.Description" style="width: 100%; height: 100px;margin-top: 20px" class="formField">@Model.Note</textarea>
+                    </div>
+                </div>
+            </div>
+        }
+
+         
+
+        @*<div style="float: left">
+
+            <div class="input-group" style="width: 200px">
+                <span class="input-group-addon" id="basic-addon1">Кол-во записей:</span>
+                <input type="text" readonly="readonly" class="form-control" id="objectCount" aria-describedby="basic-addon1" value="@Model.RstReportReestrs.Count()">
+            </div>
+        </div>
+ *@
+
+        @Html.Partial("~/Views/RstExluded/CommonGridView.cshtml", @Model.RstReportReestrs)
+    </div>
+
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#DateOrderStr").datepicker({
+            format: 'dd/mm/yyyy',
+            language: 'ru',
+            autoclose: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#SubjectName").on('keyup', function (e) {
+            if (e.keyCode == 13) {
+                updatePage("CommonView");
+            }
+        });
+        disabledControl(true);
+        $("#HideInform").click(function () {
+            if ($(this).val() == "hide") {
+                $(this).val("show");
+                $("#HideInformCheck").addClass("glyphicon-unchecked");
+                $("#HideInformCheck").removeClass("glyphicon-check");
+                disabledControl(true);
+            } else {
+                $(this).val("hide");
+                $("#HideInformCheck").removeClass("glyphicon-unchecked");
+                $("#HideInformCheck").addClass("glyphicon-check");
+                disabledControl(false);
+            }
+        });
+        $(".formField").change(function () {
+            var reportYear = $("#ReportYear").val();
+            if (reportYear == null || reportYear.length == 0) {
+                showWarning("Укажите отчетный год");
+                return;
+            }
+            var userId = $("#userId").val();
+            if (userId == null || userId.length == 0) {
+                showWarning("Не указан автор, обновите страницу");
+                return;
+            }
+            var fieldValue = $(this).val();
+
+            var params = JSON.stringify({ 'reportYear': reportYear, 'userId': userId, 'fieldName': $(this).attr('id'), 'fieldValue': fieldValue });
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateOrderInfo")',
+                data: params,
+                dataType: 'json',
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (!data.Success) {
+                        showWarning("Не коректные данные");
+                    }
+                },
+                error: function () {
+                    alert("Connection Failed. Please Try Again");
+                }
+            });
+        });
+        $("#ReportYear").change(function () {
+            var url = "/RstExluded/CommonView?year=" + $("#ReportYear").val();
+            window.location = url;
+        });
+
+        $("#exportBtn").click(function () {
+            updatePage("ExportExcel");
+        });
+        $("#addBtn").click(function () {
+            updatePage("CommonView");
+        });
+        $("#executedBtn").click(function () {
+            var success = function () {
+                window.Showbusy();
+                var url = "/RstExluded/ExecuteCommand?year=" + $("#ReportYear").val();
+                window.location = url;
+            }
+            var cancel = function () {
+            };
+            showConfirmation('@ResourceSetting.Excludeds', '@ResourceSetting.confirmExcluded', success, cancel);
+
+
+        });
+    });
+</script>
+<script>
+    function updatePage(action) {
+        var status = "";
+        var expact = "";
+        var sortId = "";
+        var oblast = "";
+        if ($("#Statuses").val() != null) {
+            status = $("#Statuses").val().join(',');
+        }
+        if ($("#Expacts").val() != null) {
+            expact = $("#Expacts").val().join(',');
+        }
+        if ($("#SortId").val() != null) {
+            sortId = $("#SortId").val();
+        }
+        if ($("#Oblasts").val() != null) {
+            oblast = $("#Oblasts").val().join(',');
+        }
+        var url = "/RstExluded/" + action + "?year=" + $("#ReportYear").val() + '&idk=' + $("#IDK").val() + '&biniin=' + $("#BINIIN").val() + '&adress=' + $("#Adress").val() + '&owner=' + $("#SubjectName").val() + '&sortId=' + sortId;
+        if (status.length > 0) {
+            url += '&status=' + status;
+        }
+        if (oblast.length > 0) {
+            url += '&oblast=' + oblast;
+        }
+        if (expact.length > 0) {
+            url += '&expact=' + expact;
+        }
+        window.location = url;
+    }
+    function disabledControl(isReadonly)
+    {
+        if (isReadonly) {
+            $(".expactCombox").attr('disabled', 'disabled');
+            $(".expactCombox").addClass('just-read');
+
+            $(".stateCombox").attr('disabled', 'disabled');
+            $(".stateCombox").addClass('just-read');
+
+            $(".reasonCombox").attr('disabled', 'disabled');
+            $(".reasonCombox").addClass('just-read');
+
+            $(".fsCodeCombox").attr('disabled', 'disabled');
+            $(".fsCodeCombox").addClass('just-read');
+
+
+            $("#NumberOrder").addClass('just-read');
+            $("#DateOrderStr").addClass('just-read');
+            $("#Note").addClass('just-read');
+            $("#NumberOrder").prop("readonly", true);
+            $("#DateOrderStr").attr('disabled', 'disabled');
+            $("#Note").prop("readonly", true);
+        } else {
+            $(".expactCombox").removeAttr('disabled');
+            $(".expactCombox").removeClass('just-read');
+
+            $(".stateCombox").removeAttr('disabled');
+            $(".stateCombox").removeClass('just-read');
+
+            $(".reasonCombox").removeAttr('disabled');
+            $(".reasonCombox").removeClass('just-read');
+
+            $(".fsCodeCombox").removeAttr('disabled');
+            $(".fsCodeCombox").removeClass('just-read');
+
+            $("#NumberOrder").removeClass('just-read');
+            $("#DateOrderStr").removeClass('just-read');
+            $("#Note").removeClass('just-read');
+            $("#NumberOrder").prop("readonly", false);
+            $("#Note").prop("readonly", false);
+            $("#DateOrderStr").removeAttr('disabled');
+        }
+    }
+    $(function () {
+        $(".divpanel").toggle();
+        $(".divpanel1").toggle();
+        $("a.lotLihk").click(function () {
+            $(".divpanel").toggle();
+        });
+        $("a.lotLihk1").click(function () {
+            $(".divpanel1").toggle();
+        });
+    });
+</script>

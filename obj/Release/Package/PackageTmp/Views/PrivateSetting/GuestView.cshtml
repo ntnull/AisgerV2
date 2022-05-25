@@ -1,0 +1,57 @@
+﻿@using Aisger
+@using GridMvc.Html
+@using GridMvc.Sorting
+@model Aisger.Models.Entity.Security.SEC_Guest
+@{
+	ViewBag.Title = ResourceSetting.AccountSetting;
+}
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+
+
+
+
+<div id="B">
+	<ul class="titlegroup" style="margin-top: 12px;">
+		<li style="font-size: 18px; color: #2679b5;" id="parentLabel">@ResourceSetting.privatePage  <span></span></li>
+		<li id="selectLabel"><span class="glyphicon glyphicon-arrow-right"></span>@ResourceSetting.AccountSetting</li>
+		<li style="float: right">
+			<button type="button" class="btn btn-success btn-sm" onclick="location.href='@Url.Action("GuestEditView", "PrivateSetting")'" style="margin-right: 30px">
+				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>@ResourceSetting.Edit
+			</button>
+
+			<button type="button" class="btn btn-primary btn-sm" onclick="location.href='@Url.Action("Map", "PrivateSetting")'" style="margin-right: 30px">
+				<span class="glyphicon glyphicon-globe" aria-hidden="true"></span>@ResourceSetting.ShowInMap
+			</button>
+		</li>
+	</ul>
+	<div style="position: relative; height: 100%;">
+		<div id="wrapper_grid" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin-left: 0; overflow: auto;min-width:800px;">
+			@Html.Partial("~/Views/PrivateSetting/GuestTemplateView.cshtml", @Model)
+			<button id="saveUpdate" type="submit" name="SaveUpdate" value="SaveUpdate" style="visibility: hidden;"></button>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	$(document).ready(function () {
+
+		checkKindObject5();
+
+		//----Развитие ГЧП в энергосбережении РК 
+		//----------Подать заявку
+		function checkKindObject5() {
+
+			var kindObject = $("#Kinds").val();
+			if (kindObject != null && kindObject.indexOf("5") != -1) {
+				console.log("5");
+				$(".kind5").hide();
+			}
+
+		}
+
+	});
+
+
+</script>

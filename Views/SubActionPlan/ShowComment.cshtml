@@ -1,0 +1,30 @@
+﻿@using Aisger
+@model Aisger.Models.SUB_ActionComment
+<div class="input-group">
+    <span class="input-group-addon">
+        @Html.CheckBoxFor(model => model.IsError)
+    </span>
+    <input type="text" class="form-control" aria-label="..." value="@ResourceSetting.FieldError" readonly="readonly">
+</div><!-- /input-group -->
+<textarea cols="20" id="NoteComment" name="NoteComment" rows="2" placeholder="@ResourceSetting.Description" style="width: 100%; height: 100px;"></textarea>
+
+<div id="content">
+    <h4 style="text-align: left">@ResourceSetting.History</h4>
+    @foreach (var entity in Model.SUB_ActionComRecord.OrderByDescending(e => e.Id))
+    {
+        var className = "aleralert alert-info";
+        if (Model.SUB_ActionPlan != null && entity.UserId == Model.SUB_ActionPlan.UserId)
+        {
+            className = "alert alert-success";
+        }
+        <div class="@className" role="alert" style="text-align: left">
+            <p>@entity.Note</p>
+            <p><b>Значение поле:</b> @entity.ValueField</p>
+            <p style="text-align: right;font-size: 12px"><b>@ResourceSetting.RegDate:</b> @entity.CreateDateStr <b>  @ResourceSetting.Autor:</b>@entity.OwnerName</p>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+
+</script>

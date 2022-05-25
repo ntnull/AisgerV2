@@ -1,0 +1,1557 @@
+﻿@using System.Globalization
+@using System.Web.UI.WebControls
+@using Aisger
+@using Aisger.Helpers
+@using System.Linq
+@using Aisger.Models.Entity.Subject
+@model Aisger.Models.Entity.Subject.SUB_FormGuNew
+
+<style type="text/css">
+
+    .form3guField {
+        width: 100%;
+    }
+
+    .form5Field {
+        width: 100%;
+    }
+
+    .form3agu1Field {
+        width: 100%;
+    }
+
+    .form3agu2Field {
+        width: 100%;
+    }
+
+    .form3agu3Field {
+        width: 100%;
+    }
+
+    .ui-datepicker-calendar {
+        display: none;
+    }
+</style>
+
+<link href="@Url.Content("~/Content/select2/select2.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/custom/typeahead.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/custom/typeahead.js-bootstrap.css")" rel="stylesheet" type="text/css" />
+
+<div style="display: none" id="normDivContent">
+    <select id="norm" style="width: 100%" class="populate select2-offscreen form-edit">
+        <option value="0"></option>
+        @foreach (var item in Model.SubDicEnergyindicatorList)
+        {
+            @Html.Partial("~/Views/RegisterForm/ChildrensGu.cshtml", item)
+        }
+    </select>
+</div>
+
+@if (CultureHelper.GetCurrentCulture() == "kz")
+{
+    <div>
+        <h5 style="font-weight: bold; text-align: center;margin-top:15px;width:70%;margin-left:15%;">
+            Раздел 2. Укажите расчет показателя энергоэффективности и значение
+        </h5>
+    </div>
+}
+else
+{
+    <div>
+        <h5 style="font-weight: bold; text-align: center;margin-top:15px;width:70%;margin-left:15%;">
+            Раздел 2. Укажите расчет показателя энергоэффективности и значение
+        </h5>
+    </div>
+}
+
+<div id="CSSTableGenerator">
+    <div class="row">
+        <div class="col-lg-12">
+            <table id="table5" class="wast-list" style="width: 100%; text-align: center">
+                <thead>
+                    <tr style="font-weight: bold">
+                        <td>№ </td>
+                        <td>Вид отопления</td>
+                        <td>@ResourceSetting.form51Gu</td>
+                        <td>@ResourceSetting.form54Gu</td>
+                        <td>@ResourceSetting.form55</td>
+                        <td>@ResourceSetting.form56</td>
+                        <td rowspan="2"></td>
+                    </tr>
+                    <tr style="font-style: italic;font-weight: bold">
+                        <td></td>
+                        @{
+                            for (int i = 1; i < 6; i++)
+                            {
+                                <td>@i</td>
+                            }
+                        }
+                    </tr>
+
+                </thead>
+                <tbody id="form5">
+                    @{
+                        Aisger.Models.SUB_Form5Record signedObj = null;
+                    }
+                    @for (var i = 0; i < Model.SubForm5Records.Count; i++)
+                    {
+                        if (Model.SignedSubForm != null)
+                        {
+                            var id = Model.SubForm5Records[i].Id;
+                            signedObj = Model.SignedSubForm.SUB_Form5Record.FirstOrDefault(f => f.Id == id);
+                        }
+                        var index = i + 1;
+                        var energyindicatorId = "SubForm5Records_" + i + "__energyindicator_id";
+                        var typeOfHeating = Model.SubForm5Records[i].TypeOfHeating;
+                        if (typeOfHeating == null)
+                        {
+                            typeOfHeating = 0;
+                        }
+
+                        var energyindicatorId2 = Model.SubForm5Records[i].energyindicator_id;
+                        if (energyindicatorId2 == null)
+                        {
+                            energyindicatorId2 = 0;
+                        }
+
+                        <tr rowid="@Model.SubForm5Records[i].Id" rowindex="@index" rowkind="1">
+                            <td class="disabletd">@index</td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.DropDownListFor(model => model.SubForm5Records[i].TypeOfHeating, new SelectList((IEnumerable<ListItem>)(ViewData["TypeOfHeatingList"]), "Value", "Text", typeOfHeating), "-", new { @class = "form5Field form-edit type-of-heating" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @*<div class="norm-select" selectid="@Model.SubForm5Records[i].energyindicator_id " controlid="@energyindicatorId"></div>*@
+                                    @Html.DropDownListFor(model => model.SubForm5Records[i].energyindicator_id, new SelectList((IEnumerable<ListItem>)(ViewData["DicEnergyIndicatorList"]), "Value", "Text", energyindicatorId2), "-", new { @class = "form5Field form-edit energy-indicator" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                @if (signedObj != null)
+                                {
+                                    <div class="signed signed-color">
+                                        @signedObj.energyindicator_id
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SubForm5Records[i].UnitMeasure, new { @class = "form5Field  form-edit unitMeasure-disabled" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                @if (signedObj != null)
+                                {
+                                    <div class="signed signed-color">
+                                        @signedObj.UnitMeasure
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SubForm5Records[i].CalcFormula, new { @class = "form5Field  form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                @if (signedObj != null)
+                                {
+                                    <div class="signed signed-color">
+                                        @signedObj.CalcFormula
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SubForm5Records[i].EnergyValue, new { @class = "form5Field  form-edit from-float" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                @if (signedObj != null)
+                                {
+                                    <div class="signed signed-color">
+                                        @signedObj.EnergyValue
+                                    </div>
+                                }
+                            </td>
+                            @if (i == 0)
+                            {
+                                <td><a class="deleteRow"></a></td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+                                </td>
+                            }
+                        </tr>
+
+                    }
+                    <tr>
+                        <td colspan="5" style="text-align: left;">
+
+                            <button type="button" class="btn btn-success btn-sm add-btn-from5" id="addTable5">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.addNew
+                            </button>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="9" style="text-align: left;" class="disabletd">
+                            <h5 style="font-weight: bold; padding-left: 20px">@ResourceSetting.Other</h5>
+                        </td>
+                    </tr>
+                    @for (var i = 0; i < Model.SubForm5RecordsOther.Count; i++)
+                    {
+                        if (Model.SignedSubForm != null)
+                        {
+                            var id = Model.SubForm5RecordsOther[i].Id;
+                            signedObj = Model.SignedSubForm.SUB_Form5Record.FirstOrDefault(f => f.Id == id);
+                        }
+                        var index = i + 1;
+                        var normId = "SubForm5RecordsOther_" + i + "__energyindicator_id";
+                        var typeOfHeating = Model.SubForm5RecordsOther[i].TypeOfHeating;
+                        if (typeOfHeating == null)
+                        {
+                            typeOfHeating = 0;
+                        }
+
+                        <tr rowid="@Model.SubForm5RecordsOther[i].Id" rowindex="@index" rowkind="2">
+                            <td class="disabletd">@index</td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.DropDownListFor(model => model.SubForm5RecordsOther[i].TypeOfHeating, new SelectList((IEnumerable<ListItem>)(ViewData["TypeOfHeatingList"]), "Value", "Text", typeOfHeating), "-", new { @class = "form5Field form-edit" })
+                                    @*@Html.DropDownList("SubForm5RecordsOther[" + @i + "].TypeOfHeating", (IEnumerable<SelectListItem>)(ViewData["TypeOfHeatingList"]), String.Empty, new { @class = "form5Field form-edit" })*@
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SubForm5RecordsOther[i].IndicatorName, new { @class = "form5Field form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                @if (signedObj != null)
+                                {
+                                    <div class="signed signed-color">
+                                        @signedObj.IndicatorName
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SubForm5RecordsOther[i].UnitMeasure, new { @class = "form5Field  form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                @if (signedObj != null)
+                                {
+                                    <div class="signed signed-color">
+                                        @signedObj.UnitMeasure
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SubForm5RecordsOther[i].CalcFormula, new { @class = "form5Field  form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                @if (signedObj != null)
+                                {
+                                    <div class="signed signed-color">
+                                        @signedObj.CalcFormula
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SubForm5RecordsOther[i].EnergyValue, new { @class = "form5Field  form-edit from-float" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                @if (signedObj != null)
+                                {
+                                    <div class="signed signed-color">
+                                        @signedObj.EnergyValue
+                                    </div>
+                                }
+                            </td>
+                            @if (i == 0)
+                            {
+                                <td><a class="deleteRow"></a></td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+                                </td>
+                            }
+                        </tr>
+
+                    }
+                    <tr>
+                        <td colspan="5" style="text-align: left;">
+
+                            <button type="button" class="btn btn-success btn-sm add-btn-from5" id="addTable51">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.addNew
+                            </button>
+
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot id="foodForm5">
+
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h5 style="font-weight: bold; text-align: center;margin-top:15px;width:70%;margin-left:15%;">
+                Раздел 3. Укажите информацию об источнике отопления (заполняется в случае наличия автономного отопления)
+            </h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <table id="table3agu1" class="wast-list" style="width: 100%; text-align: center">
+                <thead>
+                    <tr style="font-weight: bold">
+                        <td>№</td>
+                        <td>Тип источника отопления</td>
+                        <td>Количество источников отопления, штук</td>
+                        <td>Коэффициент полезного действия</td>
+                        <td>Мощность источников отопления, ВТ</td>
+                        <td>Год ввода в эксплуатацию</td>
+                        <td></td>
+                    </tr>
+                    <tr style="font-style: italic;font-weight: bold">
+                        @{
+                            <td></td>
+                            for (int i = 1; i <= 5; i++)
+                            {
+                                <td>@i</td>
+                            }
+                            <td></td>
+                        }
+                    </tr>
+                </thead>
+                <tbody id="form3agu1">
+                    @for (int i = 0; i < Model.SUB_Form3aGuRecord1s.Count; i++)
+                    {
+                        var index = i + 1;
+                        var dicId = Model.SUB_Form3aGuRecord1s[i].DicId;
+                        if (dicId == null)
+                        {
+                            dicId = 0;
+                        }
+                        <tr rowid="@Model.SUB_Form3aGuRecord1s[i].Id" rowkind="1" rowindex="@index">
+                            <td class="disabletd">@index</td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.DropDownListFor(model => model.SUB_Form3aGuRecord1s[i].DicId, new SelectList((IEnumerable<ListItem>)(ViewData["DicGu1List"]), "Value", "Text", dicId), "-", new { @class = "form3agu1Field  form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord1s[i].CountOfHeatingSources, new { @class = "form3agu1Field  form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord1s[i].CoefficientOfPerformance, new { @class = "form3agu1Field  form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord1s[i].PowerOfHeatingSources, new { @class = "form3agu1Field  form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord1s[i].YearOfCommissioning, new { @class = "form3agu1Field  form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            @if (i == 0)
+                            {
+                                <td><a class="deleteRow"></a></td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+                                </td>
+                            }
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="6" style="text-align: left;">
+
+                            <button type="button" class="btn btn-success btn-sm add-btn-from3agu1" id="addTable3agu1">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.addNew
+                            </button>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" style="text-align: left;" class="disabletd">
+                            <h5 style="font-weight: bold; padding-left: 20px">@ResourceSetting.Other</h5>
+                        </td>
+                    </tr>
+                    @for (int i = 0; i < Model.SUB_Form3aGuRecord1sOther.Count; i++)
+                    {
+                        var index = i + 1;
+                        <tr rowid="@Model.SUB_Form3aGuRecord1sOther[i].Id" rowkind="2" rowindex="@index">
+                            <td class="disabletd">@index</td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord1sOther[i].SourceName, new { @class = "form3agu1Field  form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord1sOther[i].CountOfHeatingSources, new { @class = "form3agu1Field  form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord1sOther[i].CoefficientOfPerformance, new { @class = "form3agu1Field  form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord1sOther[i].PowerOfHeatingSources, new { @class = "form3agu1Field  form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord1sOther[i].YearOfCommissioning, new { @class = "form3agu1Field  form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            @if (i == 0)
+                            {
+                                <td><a class="deleteRow"></a></td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+                                </td>
+                            }
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="6" style="text-align: left;">
+
+                            <button type="button" class="btn btn-success btn-sm add-btn-from3agu1" id="addTable3agu1Other">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.addNew
+                            </button>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h5 style="font-weight:bold;text-align:center;margin-top:15px;width:70%;margin-left:15%;">
+                Раздел 4. Укажите информацию об источниках освещения (внутренние и наружные)
+            </h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <table id="table3agu2" class="wast-list" style="width: 100%; text-align: center">
+                <thead>
+                    <tr style="font-weight: bold">
+                        <td>№</td>
+                        <td style="width:25%;">Осветительные приборы</td>
+                        <td>Количество, штук</td>
+                        <td>Мощность одной единицы, ВТ</td>
+                        <td>Время работы в сутки, час</td>
+                        <td></td>
+                    </tr>
+                    <tr style="font-style: italic;font-weight: bold">
+                        @{
+                            <td></td>
+                            for (int i = 1; i <= 4; i++)
+                            {
+                                <td>@i</td>
+                            }
+                            <td></td>
+                        }
+                    </tr>
+                </thead>
+                <tbody id="form3agu2">
+                    @for (int i = 0; i < Model.SUB_Form3aGuRecord2s.Count; i++)
+                    {
+                        var index = i + 1;
+                        var dicId = Model.SUB_Form3aGuRecord2s[i].DicId;
+                        if (dicId == null)
+                        {
+                            dicId = 0;
+                        }
+
+                        <tr rowid="@Model.SUB_Form3aGuRecord2s[i].Id" rowindex="@index" rowkind="1">
+                            <td class="disabletd">@index</td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.DropDownList("SUB_Form3aGuRecord2s[" + @i + "].DicId", new SelectList((IEnumerable<ListItem>)(ViewData["DicGu2List"]), "Value", "Text", dicId), "-", new { @class = "form3agu2Field  form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord2s[i].Amount, new { @class = "form3agu2Field  form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord2s[i].Power, new { @class = "form3agu2Field  form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord2s[i].HoursPerDay, new { @class = "form3agu2Field  form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            @if (i == 0)
+                            {
+                                <td><a class="deleteRow"></a></td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+                                </td>
+                            }
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="5" style="text-align: left;">
+
+                            <button type="button" class="btn btn-success btn-sm add-btn-from3agu2" id="addTable3agu2">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.addNew
+                            </button>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" style="text-align: left;" class="disabletd">
+                            <h5 style="font-weight: bold; padding-left: 20px">@ResourceSetting.Other</h5>
+                        </td>
+                    </tr>
+                    @for (int i = 0; i < Model.SUB_Form3aGuRecord2sOther.Count; i++)
+                    {
+                        var index = i + 1;
+
+                        <tr rowid="@Model.SUB_Form3aGuRecord2sOther[i].Id" rowindex="@index" rowkind="2">
+                            <td class="disabletd">@index</td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord2sOther[i].DeviceName, new { @class = "form3agu2Field  form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord2sOther[i].Amount, new { @class = "form3agu2Field  form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord2sOther[i].Power, new { @class = "form3agu2Field  form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord2sOther[i].HoursPerDay, new { @class = "form3agu2Field  form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            @if (i == 0)
+                            {
+                                <td><a class="deleteRow"></a></td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+                                </td>
+                            }
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="5" style="text-align: left;">
+
+                            <button type="button" class="btn btn-success btn-sm add-btn-from3agu2" id="addTable3agu2Other">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.addNew
+                            </button>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h5 style="font-weight:bold;text-align:center;margin-top:15px;width:70%;margin-left:15%;">
+                Раздел 5. Укажите информацию по основным энергопотребляющим оборудованиям
+            </h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <table id="table3agu3" class="wast-list" style="width: 100%; text-align: center">
+                <thead>
+                    <tr style="font-weight: bold">
+                        <td>№</td>
+                        <td style="width:25%;">Наименование энергопотребляющего оборудования</td>
+                        <td>Количество, штук</td>
+                        <td>Мощность одной единицы, ВТ</td>
+                        <td>Время работы в сутки, час</td>
+                        <td></td>
+                    </tr>
+                    <tr style="font-style: italic;font-weight: bold">
+                        @{
+                            <td></td>
+                            for (int i = 1; i <= 4; i++)
+                            {
+                                <td>@i</td>
+                            }
+                            <td></td>
+                        }
+                    </tr>
+                </thead>
+                <tbody id="form3agu3">
+                    @for (int i = 0; i < Model.SUB_Form3aGuRecord3s.Count; i++)
+                    {
+                        var index = i + 1;
+                        var dicId = Model.SUB_Form3aGuRecord3s[i].DicId;
+                        if (dicId == null)
+                        {
+                            dicId = 0;
+                        }
+
+                        <tr rowid="@Model.SUB_Form3aGuRecord3s[i].Id" rowindex="@index" rowkind="1">
+                            <td class="disabletd">@index</td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.DropDownList("SUB_Form3aGuRecord3s[" + @i + "].DicId", new SelectList((IEnumerable<ListItem>)(ViewData["DicGu3List"]), "Value", "Text", dicId), "-", new { @class = "form3agu3Field  form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord3s[i].Amount, new { @class = "form3agu3Field form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord3s[i].Power, new { @class = "form3agu3Field form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord3s[i].HoursPerDay, new { @class = "form3agu3Field form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            @if (i == 0)
+                            {
+                                <td><a class="deleteRow"></a></td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+                                </td>
+                            }
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="5" style="text-align: left;">
+                            <button type="button" class="btn btn-success btn-sm add-btn-from3agu3" id="addTable3agu3">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.addNew
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" style="text-align: left;" class="disabletd">
+                            <h5 style="font-weight: bold; padding-left: 20px">@ResourceSetting.Other</h5>
+                        </td>
+                    </tr>
+                    @for (int i = 0; i < Model.SUB_Form3aGuRecord3sOther.Count; i++)
+                    {
+                        var index = i + 1;
+                        <tr rowid="@Model.SUB_Form3aGuRecord3sOther[i].Id" rowindex="@index">
+                            <td class="disabletd">@index</td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord3sOther[i].EnergyConsumEquipName, new { @class = "form3agu3Field form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord3sOther[i].Amount, new { @class = "form3agu3Field form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord3sOther[i].Power, new { @class = "form3agu3Field form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(model => model.SUB_Form3aGuRecord3sOther[i].HoursPerDay, new { @class = "form3agu3Field form-edit" })
+                                    <span class="input-group-addon">
+                                        <a class="commentDialog" href="#">
+                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </td>
+                            @if (i == 0)
+                            {
+                                <td><a class="deleteRow"></a></td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+                                </td>
+                            }
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="5" style="text-align: left;">
+                            <button type="button" class="btn btn-success btn-sm add-btn-from3agu3" id="addTable3agu3Other">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.addNew
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script src="@Url.Content("~/Scripts/select2.js")" type="text/javascript"></script>
+@if (CultureHelper.GetCurrentCulture() == "ru")
+{
+    <script src="@Url.Content("~/Scripts/localization/select2_locale_ru.js")" type="text/javascript"></script>
+}
+else
+{
+    <script src="@Url.Content("~/Scripts/localization/select2_locale_kk.js")" type="text/javascript"></script>
+
+}
+<script src="@Url.Content("~/Scripts/typeahead.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+
+    function SetEventForm5(idcontrol) {
+    	$(idcontrol).change(function () {
+
+
+    	    var fieldValue=$(this).val();
+            var idAttr = $(this).attr('name');
+            var fieldName = idAttr.split('.')[1];
+
+            var type = "string";
+            if (fieldName == "EnergyValue") {
+                type = "float";
+            }
+
+            if (type == "float") {
+                if (fieldValue != null && fieldValue.length > 0) {
+                    if (fieldValue.indexOf(',') > 0) {
+                        fieldValue = fieldValue.replace(',', '.');
+                    }
+                    if (fieldValue != '' && !$.isNumeric(fieldValue)) {
+                        showWarning('@ResourceSetting.enterNumber');
+                        $(this).val("");
+                        return false;
+                    }
+                    if (fieldValue.indexOf('-') > -1) {
+                        showWarning('@ResourceSetting.enterNumberNotMinus');
+                        $(this).val("");
+                        return false;
+                    }
+                }
+            }
+
+            var row = $(this).closest('tr');
+            var entityId = row.attr('rowid');
+            UpdateModel("form5", entityId, $(this).attr('id'), idAttr.replace('.', '_'), fieldValue, type, 0);
+        });
+    }
+
+    function SetEventForm3aGuRecord1(idcontrol) {
+    	$(idcontrol).change(function () {
+
+    	    var fieldValue=$(this).val();
+            var idAttr = $(this).attr('name');
+            var fieldName = idAttr.split('.')[1];
+
+            var type = "float";
+            if (fieldName == "PowerOfHeatingSources") {
+                type = "float";
+            }
+
+            if (fieldName == "SourceName")
+                type = "string";
+
+            if (type == "float") {
+                if (fieldValue != null && fieldValue.length > 0) {
+                    if (fieldValue.indexOf(',') > 0) {
+                        fieldValue = fieldValue.replace(',', '.');
+                    }
+                    if (fieldValue != '' && !$.isNumeric(fieldValue)) {
+                        showWarning('@ResourceSetting.enterNumber');
+                        $(this).val("");
+                        return false;
+                    }
+                    if (fieldValue.indexOf('-') > -1) {
+                        showWarning('@ResourceSetting.enterNumberNotMinus');
+                        $(this).val("");
+                        return false;
+                    }
+                }
+            }
+            if (fieldName == "CoefficientOfPerformance") {
+                if (parseInt(fieldValue) < 0 || parseInt(fieldValue) > 100) {
+                     showWarning('ФЛК: число должно быть от 0 до 100');
+                }
+            }
+
+            var row = $(this).closest('tr');
+            var entityId = row.attr('rowid');
+            UpdateModel("form3aGuRecord1", entityId, $(this).attr('id'), idAttr.replace('.', '_'), fieldValue, type, 0);
+        });
+    }
+
+    function SetEventForm3aGuRecord2(idcontrol) {
+    	$(idcontrol).change(function () {
+
+    	    var fieldValue=$(this).val();
+            var idAttr = $(this).attr('name');
+            var fieldName = idAttr.split('.')[1];
+
+            var type = "float";
+            if (fieldName == "Power" || fieldName == "HoursPerDay") {
+                type = "float";
+            }
+
+            if (fieldName == "DeviceName")
+                type = "string";
+
+            if (type == "float") {
+                if (fieldValue != null && fieldValue.length > 0) {
+                    if (fieldValue.indexOf(',') > 0) {
+                        fieldValue = fieldValue.replace(',', '.');
+                    }
+                    if (fieldValue != '' && !$.isNumeric(fieldValue)) {
+                        showWarning('@ResourceSetting.enterNumber');
+                        $(this).val("");
+                        return false;
+                    }
+                    if (fieldValue.indexOf('-') > -1) {
+                        showWarning('@ResourceSetting.enterNumberNotMinus');
+                        $(this).val("");
+                        return false;
+                    }
+                }
+            }
+
+            var row = $(this).closest('tr');
+            var entityId = row.attr('rowid');
+            UpdateModel("form3aGuRecord2", entityId, $(this).attr('id'), idAttr.replace('.', '_'), fieldValue, type, 0);
+        });
+    }
+
+    function SetEventForm3aGuRecord3(idcontrol) {
+    	$(idcontrol).change(function () {
+
+
+    	    var fieldValue=$(this).val();
+            var idAttr = $(this).attr('name');
+            var fieldName = idAttr.split('.')[1];
+
+            var type = "float";
+            if (fieldName == "Power" || fieldName == "HoursPerDay") {
+                type = "float";
+            }
+
+            if (fieldName == "EnergyConsumEquipName")
+                type = "string";
+
+            if (type == "float") {
+                if (fieldValue != null && fieldValue.length > 0) {
+                    if (fieldValue.indexOf(',') > 0) {
+                        fieldValue = fieldValue.replace(',', '.');
+                    }
+                    if (fieldValue != '' && !$.isNumeric(fieldValue)) {
+                        showWarning('@ResourceSetting.enterNumber');
+                        $(this).val("");
+                        return false;
+                    }
+                    if (fieldValue.indexOf('-') > -1) {
+                        showWarning('@ResourceSetting.enterNumberNotMinus');
+                        $(this).val("");
+                        return false;
+                    }
+                }
+            }
+
+            var row = $(this).closest('tr');
+            var entityId = row.attr('rowid');
+            UpdateModel("form3aGuRecord3", entityId, $(this).attr('id'), idAttr.replace('.', '_'), fieldValue, type, 0);
+        });
+    }
+
+    function SetEventTypeOfHeating(idcontrol) {
+
+        var dicEnergyIndicatorList = JSON.parse('@Html.Raw(Json.Encode(ViewData["DicEnergyIndicatorListJson"]))');
+
+        $(idcontrol).change(function () {
+
+            var val = $(this).val();
+            var row = $(this).closest('tr');
+            var index = $(row).attr('rowindex') - 1;
+            var rowKind = $(row).attr('rowkind');
+            if (parseInt(rowKind) == 2) {
+                return;
+            }
+
+            index = parseInt(index);
+         
+            //272
+            var options = [{ value: 0, text: '-' }];
+            var filterData = dicEnergyIndicatorList.Data;
+            if (parseInt(val) == 1) {
+                filterData = dicEnergyIndicatorList.Data.filter(x => x.id == 272);
+            } else if (parseInt(val) == 2) {
+                filterData = dicEnergyIndicatorList.Data.filter(x => x.id != 272);
+            }
+
+            $.map(filterData, function (item) {
+
+                options.push({
+                    value: item.id,
+                    text: item.name
+                });
+            });                        
+
+            $('#SubForm5Records_' + index + '__energyindicator_id').empty();
+            $.map(options, function (item) {
+                var option =item;
+                $('#SubForm5Records_' + index + '__energyindicator_id').append(
+                    $('<option>').text(option.text).val(option.value)
+                );
+            });
+            $('#SubForm5Records_' + index + '__UnitMeasure').val('');
+        });
+    }
+
+    function SetEventIndicator(idcontrol) {
+
+        var dicEnergyIndicatorList = JSON.parse('@Html.Raw(Json.Encode(ViewData["DicEnergyIndicatorListJson"]))');
+
+        $(idcontrol).change(function () {
+            console.log("changed1");
+            var val = $(this).val();
+            var row = $(this).closest('tr');
+            var index = $(row).attr('rowindex') - 1;
+            index = parseInt(index);
+            var obj = dicEnergyIndicatorList.Data.find(x => x.id == parseInt(val));
+            $('#SubForm5Records_' + index + '__UnitMeasure').val(obj.unitname);
+        })
+    }
+
+    //bird
+	$(document).ready(function () {
+
+        //----form5
+        SetEventTypeOfHeating(".type-of-heating");
+        SetEventIndicator(".energy-indicator");
+
+	    $('.unitMeasure-disabled').attr("disabled", true);
+		if (window.location.href.indexOf('AppForm') < 0) {
+			$('.column-hide').hide();
+		} else {
+
+			if (window.location.href.indexOf('ShowDetails') < 0)
+				$('.column-hide').hide();
+		}
+
+        $('.norm-select').each(function () {
+            var idcontrol = $(this).attr('controlid');
+            var selectid = $(this).attr('selectid');
+            var normDiv = $("#norm").clone();
+            normDiv.attr('id', idcontrol);
+
+            $(this).append(normDiv);
+            $("#" + idcontrol).select2().select2("val", selectid).on("change", function (e) {
+                var val = e.val;
+                if (val == null) {
+                    return false;
+                }
+                var row = $(this).closest('tr');
+                var entityId = row.attr('rowid');
+                var unitId = idcontrol.replace("energyindicator_id", "UnitMeasure");
+                $("#" + unitId).val($("#" + idcontrol).find(":selected").attr('unit'));
+                var columnhide = row.find('.column-hide');
+                columnhide.text($("#" + idcontrol).find(":selected").attr('rate'));
+
+                UpdateModel("form5", entityId, $(this).attr('id'), "energyindicator_id", val, "long", 0);
+
+            });
+
+            $('#' + idcontrol).val((parseInt(selectid)).toString()).change();
+        });
+
+        SetEventForm5(".form5Field");
+        var counterTable5 = 0;
+        $(".add-btn-from5").on("click", function () {
+
+            var typeOfHeatingList = JSON.parse('@Html.Raw(Json.Encode(ViewData["TypeOfHeatingList"]))');
+            var dicEnergyIndicatorList = JSON.parse('@Html.Raw(Json.Encode(ViewData["DicEnergyIndicatorList"]))');
+
+            var row = $(this).closest("tr").prev();
+            var rowindex = parseInt(row.attr('rowindex'), 10) || 0;
+            var nextIndex = rowindex + 1;
+            console.log("nextIndex=" + nextIndex);
+
+            var kindObject = "";
+            var rowKind = 1;
+            if ($(this).attr('id') == "addTable5") {
+                kindObject = "SubForm5Records";
+                rowKind = 1;
+            } else {
+                kindObject = "SubForm5RecordsOther";
+                rowKind = 2;
+            }
+
+            var cols = '<tr rowid="0" rowindex="' + nextIndex + '" rowkind="' + rowKind + '">';        
+
+            cols += '<td class="disabletd">' + nextIndex + '</td>';
+
+            var option = '<option value="0">-</option>';
+            $.map(typeOfHeatingList, function (item) {
+                option += '<option value="' + item.Value + '">' + item.Text + '</option>';
+            });
+            cols += '<td><div class="input-group"><select id="'+kindObject+'_' + rowindex + '__TypeOfHeating" class="form5Field  form-edit" name="'+kindObject+'['+ rowindex + '].TypeOfHeating">'+option+'</select><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            
+            if (kindObject == "SubForm5Records") {
+                option = '<option value="0">-</option>';
+                $.map(dicEnergyIndicatorList, function (item) {
+                    option += '<option value="' + item.Value + '">' + item.Text + '</option>';
+                });
+                cols += '<td><div class="input-group"><select id="' + kindObject + '_' + rowindex + '__energyindicator_id" class="form5Field  form-edit" name="' + kindObject + '[' + rowindex + '].energyindicator_id">' + option + '</select><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            } else {
+                cols += '<td><div class="input-group"><input type="text" name="SubForm5RecordsOther[' + rowindex + '].IndicatorName" id="' + kindObject + '_' + rowindex+'__IndicatorName" class="form5Field  form-edit"/><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            }
+
+            cols += '<td class="disabletd column-hide"></td>';
+            cols += '<td><div class="input-group"><input type="text" name="' + kindObject + '[' + rowindex + '].UnitMeasure" id="' + kindObject + '_' + rowindex + '__UnitMeasure" class="form5Field  form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            cols += '<td><div class="input-group"><input type="text" name="' + kindObject + '[' + rowindex + '].CalcFormula" id="' + kindObject + '_' + rowindex + '__CalcFormula" class="form5Field  form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            cols += '<td><div class="input-group"><input type="text" name="' + kindObject + '[' + rowindex + '].EnergyValue" id="' + kindObject + '_' + rowindex + '__EnergyValue" class="form5Field  form-edit from-float" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+
+            cols += '<td><i class="glyphicon glyphicon-remove deleteRow"  title="@ResourceSetting.Delete"></td>';
+            cols += '</tr>';
+            //            console.log(cols);
+            row.after(cols);
+
+            SetEventTypeOfHeating('#' + kindObject + '_' + rowindex + '__TypeOfHeating');
+            SetEventIndicator('#' + kindObject + '_' + rowindex + '__energyindicator_id');
+
+            SetEventForm5('#' + kindObject + '_' + rowindex + '__TypeOfHeating');
+            SetEventForm5('#' + kindObject + '_' + rowindex + '__energyindicator_id');
+
+            SetEventForm5('#' + kindObject + '_' + rowindex + '__IndicatorName');
+            SetEventForm5('#' + kindObject + '_' + rowindex + '__CalcFormula');
+            SetEventForm5('#' + kindObject + '_' + rowindex + '__UnitMeasure');
+            SetEventForm5('#' + kindObject + '_' + rowindex + '__EnergyValue');
+
+            if (window.location.href.indexOf('AppForm') < 0) {
+                $('.column-hide').hide();
+
+            }
+            counterTable5++;
+        });
+
+        $("#table5").on("click", ".deleteRow", function () {
+
+            var row = $(this).closest('tr');
+            var success = function () {
+
+                var entityId = row.attr('rowid');
+                DeleteRecord("form5", entityId);
+                row.remove();
+                counterTable5 -= 1;
+                $('#addTable5').attr('disabled', false).prop('value', "Добавить");
+            }
+            var cancel = function () {
+            };
+            showConfirmation('@ResourceSetting.Delete', '@ResourceSetting.deleteconfirm', success, cancel);
+        });
+
+        //----form3agu1
+        SetEventForm3aGuRecord1(".form3agu1Field");
+        $('.add-btn-from3agu1').click(function () {
+
+            var dicGu1List = JSON.parse('@Html.Raw(Json.Encode(ViewData["DicGu1List"]))');
+
+            var row = $(this).closest("tr").prev();
+            var rowindex = parseInt(row.attr('rowindex'), 10) || 0;
+            var nextIndex = rowindex + 1;
+
+            var kindObject = "";
+            var rowKind = 1;
+            if ($(this).attr('id') == "addTable3agu1") {
+                kindObject = "SUB_Form3aGuRecord1s";
+                rowKind = 1;
+            } else {
+                kindObject = "SUB_Form3aGuRecord1sOther";
+                rowKind = 2;
+            }
+
+            var cols = '<tr rowid="0" rowindex="' + nextIndex + '" rowkind="' + rowKind + '">';
+            cols += '<td class="disabletd">' + nextIndex + '</td>';
+
+            if (kindObject == "SUB_Form3aGuRecord1s") {
+                var _option = '<option value="0">-</option>';
+                $.map(dicGu1List, function (item) {
+                    _option += '<option value="' + item.Value + '">' + item.Text + '</option>';
+                });
+                cols += '<td><div class="input-group"><select name="' + kindObject + '[' + nextIndex + '].DicId"  id="SUB_Form3aGuRecord1s_' + nextIndex + '__DicId" class="form3agu1Field  form-edit">' + _option + '</select><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            } else {
+                cols += '<td><div class="input-group"><input type="text" name="' + kindObject + '[' + nextIndex + '].SourceName" id="' + kindObject + '_' + nextIndex + '__SourceName" class="form3agu1Field form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            }
+
+            cols += '<td><div class="input-group"><input type="text" name="' + kindObject + '[' + nextIndex + '].CountOfHeatingSources" id="' + kindObject + '_' + nextIndex + '__CountOfHeatingSources" class="form3agu1Field  form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            cols += '<td><div class="input-group"><input type="text" name="' + kindObject + '[' + nextIndex + '].CoefficientOfPerformance" id="' + kindObject + '_' + nextIndex + '__CoefficientOfPerformance" class="form3agu1Field  form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            cols += '<td><div class="input-group"><input type="text" name="' + kindObject + '[' + nextIndex + '].PowerOfHeatingSources" id="' + kindObject + '_' + nextIndex + '__PowerOfHeatingSources" class="form3agu1Field  form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            cols += '<td><div class="input-group"><input type="text" name="' + kindObject + '[' + nextIndex + '].YearOfCommissioning" id="' + kindObject + '_' + nextIndex + '__YearOfCommissioning" class="form3agu1Field  form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            cols += '<td><i class="glyphicon glyphicon-remove deleteRow"  title="@ResourceSetting.Delete"></td>';
+            cols += '</tr>';
+            row.after(cols);
+
+            if (kindObject == 'SUB_Form3aGuRecord1s') {
+                SetEventForm3aGuRecord1('#' + kindObject + '_' + nextIndex + '__DicId');
+            } else {
+                SetEventForm3aGuRecord1('#' + kindObject + '_' + nextIndex + '__SourceName');
+            }
+
+            SetEventForm3aGuRecord1('#' + kindObject + '_' + nextIndex + '__CountOfHeatingSources');
+            SetEventForm3aGuRecord1('#' + kindObject + '_' + nextIndex + '__CoefficientOfPerformance');
+            SetEventForm3aGuRecord1('#' + kindObject + '_' + nextIndex + '__PowerOfHeatingSources');
+            SetEventForm3aGuRecord1('#' + kindObject + '_' + nextIndex + '__YearOfCommissioning');
+        });
+
+        $("#table3agu1").on("click", ".deleteRow", function () {
+
+            var row = $(this).closest('tr');
+            var success = function () {
+
+                var entityId = row.attr('rowid');
+                DeleteRecord("form3aGuRecord1", entityId);
+                row.remove();
+                $('#addTable3agu1').attr('disabled', false).prop('value', "Добавить");
+            }
+            var cancel = function () {
+            };
+            showConfirmation('@ResourceSetting.Delete', '@ResourceSetting.deleteconfirm', success, cancel);
+        });
+
+        //----form3agu2
+        SetEventForm3aGuRecord2(".form3agu2Field");
+         $('.add-btn-from3agu2').click(function () {
+
+            var dicGu2List = JSON.parse('@Html.Raw(Json.Encode(ViewData["DicGu2List"]))');
+
+            var row = $(this).closest("tr").prev();
+            var rowindex = parseInt(row.attr('rowindex'), 10) || 0;
+            var nextIndex = rowindex + 1;
+
+            var kindObject = "";
+            if ($(this).attr('id') == "addTable3agu2") {
+                kindObject = "SUB_Form3aGuRecord2s";
+            } else {
+                kindObject = "SUB_Form3aGuRecord2sOther";
+            }
+
+            var cols = '<tr rowid="0" rowindex="' + nextIndex + '">';
+            cols += '<td class="disabletd">' + nextIndex + '</td>';
+
+            if (kindObject == "SUB_Form3aGuRecord2s") {
+
+                var option = '<option value="0">-</option>';
+                $.map(dicGu2List, function (item) {
+                    option += '<option value="' + item.Value + '">' + item.Text + '</option>';
+                });
+                cols += '<td><div class="input-group"><select name="' + kindObject + '[' + nextIndex + '].DicId" id="' + kindObject + '_' + nextIndex + '__DicId" class="form3agu2Field form-edit">' + option + '</select><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+
+            } else {
+                cols += '<td><div class="input-group"><input type="text" name="' + kindObject + '[' + nextIndex + '].DeviceName" id="' + kindObject + '_' + nextIndex + '__DeviceName" class="form3agu2Field form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            }
+
+            cols += '<td><div class="input-group"><input type="text" name="' + kindObject + '[' + nextIndex + '].Amount" id="' + kindObject + '_' + nextIndex + '__Amount" class="form3agu2Field form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            cols += '<td><div class="input-group"><input type="text" name="' + kindObject + '[' + nextIndex + '].Power" id="' + kindObject + '_' + nextIndex + '__Power" class="form3agu2Field form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            cols += '<td><div class="input-group"><input type="text" name="' + kindObject + '[' + nextIndex + '].HoursPerDay" id="' + kindObject + '_' + nextIndex + '__HoursPerDay" class="form3agu2Field form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            cols += '<td><i class="glyphicon glyphicon-remove deleteRow"  title="@ResourceSetting.Delete"></td>';
+
+            cols += '</tr>';
+            row.after(cols);
+
+            if (kindObject == 'SUB_Form3aGuRecord2s') {
+                SetEventForm3aGuRecord2('#' + kindObject + '_' + nextIndex + '__DicId');
+            } else {
+                SetEventForm3aGuRecord2('#' + kindObject + '_' + nextIndex + '__DeviceName');
+            }
+
+            SetEventForm3aGuRecord2('#' + kindObject + '_' + nextIndex + '__Amount');
+            SetEventForm3aGuRecord2('#' + kindObject + '_' + nextIndex + '__Power');
+            SetEventForm3aGuRecord2('#' + kindObject + '_' + nextIndex + '__HoursPerDay');
+        });
+
+        $("#table3agu2").on("click", ".deleteRow", function () {
+
+            var row = $(this).closest('tr');
+            var success = function () {
+
+                var entityId = row.attr('rowid');
+                DeleteRecord("form3aGuRecord2", entityId);
+                row.remove();
+                $('#addTable3agu2').attr('disabled', false).prop('value', "Добавить");
+            }
+            var cancel = function () {
+            };
+            showConfirmation('@ResourceSetting.Delete', '@ResourceSetting.deleteconfirm', success, cancel);
+        });
+
+         //----form3agu3
+        SetEventForm3aGuRecord3(".form3agu3Field");
+        $('.add-btn-from3agu3').click(function () {
+
+            var dicGu3List = JSON.parse('@Html.Raw(Json.Encode(ViewData["DicGu3List"]))');
+
+            var row = $(this).closest("tr").prev();
+            var rowindex = parseInt(row.attr('rowindex'), 10) || 0;
+            var nextIndex = rowindex + 1;
+
+            var rowKind = 1;
+            var kindObject = "";
+            if ($(this).attr('id') == "addTable3agu3") {
+                kindObject = "SUB_Form3aGuRecord3s";
+                rowKind = 1;
+            } else {
+                kindObject = "SUB_Form3aGuRecord3sOther";
+                rowKind = 2;
+            }
+
+            var cols = '<tr rowid="0" rowindex="' + nextIndex + '" rowkind="' + rowKind + '">';
+            cols += '<td class="disabletd">' + nextIndex + '</td>';
+
+            if (kindObject == "SUB_Form3aGuRecord3s") {
+
+                var option = '<option value="0">-</option>';
+                $.map(dicGu3List, function (item) {
+                    option += '<option value="' + item.Value + '">' + item.Text + '</option>';
+                });
+                cols += '<td><div class="input-group"><select name="' + kindObject + '[' + nextIndex + '].DicId" id="' + kindObject + '_' + nextIndex + '__DicId" class="form3agu3Field form-edit">' + option + '</select><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+
+            } else {
+                cols += '<td><div class="input-group"><input type="text" name="' + kindObject + '[' + nextIndex + '].EnergyConsumEquipName" id="' + kindObject + '_' + nextIndex + '__EnergyConsumEquipName" class="form3agu3Field form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            }
+
+            cols += '<td><div class="input-group"><input type="text" name="' + kindObject + '[' + nextIndex + '].Amount" id="' + kindObject + '_' + nextIndex + '__Amount" class="form3agu3Field form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            cols += '<td><div class="input-group"><input type="text" name="' + kindObject + '[' + nextIndex + '].Power" id="' + kindObject + '_' + nextIndex + '__Power" class="form3agu3Field form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            cols += '<td><div class="input-group"><input type="text" name="' + kindObject + '[' + nextIndex + '].HoursPerDay" id="' + kindObject + '_' + nextIndex + '__HoursPerDay" class="form3agu3Field form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            cols += '<td><i class="glyphicon glyphicon-remove deleteRow"  title="@ResourceSetting.Delete"></td>';
+
+            cols += '</tr>';
+            row.after(cols);
+
+            if (kindObject == 'SUB_Form3aGuRecord3s') {
+                SetEventForm3aGuRecord3('#' + kindObject + '_' + nextIndex + '__DicId');
+            } else {
+                SetEventForm3aGuRecord3('#' + kindObject + '_' + nextIndex + '__EnergyConsumEquipName');
+            }
+
+            SetEventForm3aGuRecord3('#' + kindObject + '_' + nextIndex + '__Amount');
+            SetEventForm3aGuRecord3('#' + kindObject + '_' + nextIndex + '__Power');
+            SetEventForm3aGuRecord3('#' + kindObject + '_' + nextIndex + '__HoursPerDay');
+        });
+
+        $("#table3agu3").on("click", ".deleteRow", function () {
+
+            var row = $(this).closest('tr');
+            var success = function () {
+
+                var entityId = row.attr('rowid');
+                DeleteRecord("form3aGuRecord3", entityId);
+                row.remove();
+                $('#addTable3agu3').attr('disabled', false).prop('value', "Добавить");
+            }
+            var cancel = function () {
+            };
+            showConfirmation('@ResourceSetting.Delete', '@ResourceSetting.deleteconfirm', success, cancel);
+        });
+
+        //----
+
+
+
+    });
+</script>
+
+  @*$(".add-btn-from5").on("click", function () {
+
+            var typeOfHeatingList = JSON.parse('@Html.Raw(Json.Encode(ViewData["TypeOfHeatingList"]))');
+
+            var row = $(this).closest("tr").prev();
+            var rowindex = parseInt(row.attr('rowindex'), 10) || 0;
+            var nextIndex = rowindex + 1;
+            var kindObject = "";
+            if ($(this).attr('id') == "addTable5") {
+            kindObject = "SubForm5Records";
+            } else {
+            kindObject = "SubForm5RecordsOther";
+            }
+
+            var cols = '<tr rowid="0" rowindex="' + nextIndex + '">
+                ';
+                var idTypeOfHeating = "TypeOfHeating_" + nextIndex;
+                var idIndicatorName = "IndicatorName_" + nextIndex;
+                var idNormEnergy = "energyindicator_id_" + nextIndex;
+                var divNormEnergy = "NormEnergyDiv_" + nextIndex;
+                var idRegularStandart = "RegularStandart_" + nextIndex;
+                var idUnitMeasure = "UnitMeasure_" + nextIndex;
+                var idCalcFormula = "CalcFormula_" + nextIndex;
+                var idEnergyValue = "EnergyValue_" + nextIndex;
+                cols += '
+                <td class="disabletd">' + nextIndex + '</td>';
+
+                var _option = '
+                <option value="0">-</option>';
+                $.map(typeOfHeatingList, function (item) {
+                _option += '
+                <option value="' + item.Value + '">' + item.Text + '</option>';
+                });
+
+                cols += '
+                <td><div class="input-group"><select id="'+kindObject+'_' + nextIndex + '__TypeOfHeating" class="form5Field  form-edit" name="'+kindObject+'['+ nextIndex + '].TypeOfHeating">'+_option+'</select><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+
+                var normDiv = document.getElementById("normDivContent");
+                var envetStr = '
+                <div class="norm-select" selectid="0" id="' + divNormEnergy + '">' + normDiv.innerHTML+ '</div>';
+
+                if ($(this).attr('id') == "addTable5") {
+                cols += '
+                <td><div class="input-group">' + envetStr + '<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+
+                } else {
+                cols += '
+                <td><div class="input-group"><input type="text" name="SubForm5RecordsOther[' + nextIndex + '].IndicatorName" id="' + idIndicatorName + '" class="form5Field  form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+                }
+
+                cols += '
+                <td class="disabletd column-hide"></td>';
+                cols += '
+                <td><div class="input-group"><input type="text" name="' + kindObject + '[' + nextIndex + '].UnitMeasure" id="' + idUnitMeasure + '" class="form5Field  form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+                cols += '
+                <td><div class="input-group"><input type="text" name="' + kindObject + '[' + nextIndex + '].CalcFormula" id="' + idCalcFormula + '" class="form5Field  form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+                cols += '
+                <td><div class="input-group"><input type="text" name="' + kindObject + '[' + nextIndex + '].EnergyValue" id="' + idEnergyValue + '" class="form5Field  form-edit from-float" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+
+                cols += '
+                <td><i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></td>';
+                cols += '
+            </tr>';
+            //            console.log(cols);
+            row.after(cols);
+
+            var normDiv1 = $("#norm").clone();
+            normDiv1.attr('id', idNormEnergy);
+            $('#' + divNormEnergy).append(normDiv1);
+            $("#" + idNormEnergy).select2().on("change", function (e) {
+            var val = e.val;
+            var row = $(this).closest('tr');
+            var entityId = row.attr('rowid');
+            var unitId = idNormEnergy.replace("energyindicator_id", "UnitMeasure");
+            $("#" + unitId).val($("#" + idNormEnergy).find(":selected").attr('unit'));
+            var columnhide = row.find('.column-hide');
+            columnhide.text($("#" + idNormEnergy).find(":selected").attr('rate'));
+            UpdateModel("form5", entityId, $(this).attr('id'), "energyindicator_id", val, "long", 0);
+
+            });
+
+            SetEventForm5("#" + idIndicatorName);
+            SetEventForm5("#" + idUnitMeasure);
+            SetEventForm5("#" + idCalcFormula);
+            SetEventForm5("#" + idEnergyValue);
+            if (window.location.href.indexOf('AppForm') < 0) {
+            $('.column-hide').hide();
+
+            }
+            counterTable5++;
+            });*@

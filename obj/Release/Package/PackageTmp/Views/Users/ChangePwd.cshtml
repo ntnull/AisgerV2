@@ -1,0 +1,83 @@
+﻿@using Aisger
+@using GridMvc.Html
+@using GridMvc.Sorting
+@model Aisger.Models.SEC_User
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.admin  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>   @ResourceSetting.Users </li>
+
+    </ul>
+
+    <div id="wrapper_grid" style="margin-left: 50px">
+        @using (Html.BeginForm("ChangePwd", "Users", FormMethod.Post, new { id = "demoForm", name = "demoForm" }))
+        {
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.IsConfirm)
+            @Html.HiddenFor(model => model.Address)
+            @Html.HiddenFor(model => model.BINIIN)
+            @Html.HiddenFor(model => model.CreateDate)
+            @Html.HiddenFor(model => model.DeparmentId)
+            @Html.HiddenFor(model => model.EditDate)
+            @Html.HiddenFor(model => model.Email)
+            @Html.HiddenFor(model => model.FirstName)
+            @Html.HiddenFor(model => model.InternalPhone)
+            @Html.HiddenFor(model => model.IsCvazy)
+            @Html.HiddenFor(model => model.IsDisabled)
+            @Html.HiddenFor(model => model.IsGuest)
+            @Html.HiddenFor(model => model.JuridicalName)
+            @Html.HiddenFor(model => model.LastName)
+            @Html.HiddenFor(model => model.Login)
+            @Html.HiddenFor(model => model.Mobile)
+            @Html.HiddenFor(model => model.Oblast)
+            @Html.HiddenFor(model => model.OrganizationId)
+            @Html.HiddenFor(model => model.Post)
+            @Html.HiddenFor(model => model.Region)
+            @Html.HiddenFor(model => model.SecondName)
+            @Html.HiddenFor(model => model.SubRegion)
+            @Html.HiddenFor(model => model.Village)
+            @Html.HiddenFor(model => model.WorkPhone)
+            @Html.HiddenFor(model => model.RolesId)
+            
+            if (@Model != null && @Model.IsConfirm)
+            {
+                @Html.ValidationSummary(true, ResourceSetting.validconfirm)
+            }
+            <div class="clearfixmandatory">
+                @Html.LabelFor(model => model.Login)
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Login, new {@readonly="readonly"}) 
+                </div>
+            </div>
+                <div class="clearfixmandatory">
+                    @Html.LabelFor(model => model.Pwd)
+                    <div class="input">
+                        @Html.PasswordFor(model => model.Pwd) @Html.ValidationMessageFor(model => model.Pwd)
+                    </div>
+                </div>
+                <div class="clearfixmandatory">
+                    @Html.LabelFor(model => model.ConfirmPwd)
+                    <div class="input">
+                        @Html.PasswordFor(model => model.ConfirmPwd) @Html.ValidationMessageFor(model => model.ConfirmPwd)
+                    </div>
+                </div>
+          
+            <button id="saveUpdate" type="submit" name="SaveUpdate" value="SaveUpdate" style="visibility: hidden;"></button>
+
+        }
+        <div>
+            <button type="button" class="btn btn-success btn-lg" onclick="location.href='@Url.Action("Index", "Users")'">
+                <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Return
+            </button>
+            <button type="button" class="btn btn-success btn-lg" onclick=" SaveChange() " style="float: right; margin-right: 30px">
+                <span class="glyphicon glyphicon-save" aria-hidden="true"></span> @ResourceSetting.Save
+            </button>
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>

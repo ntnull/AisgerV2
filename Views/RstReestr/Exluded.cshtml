@@ -1,0 +1,237 @@
+﻿@using Aisger
+@model Aisger.Models.RST_Reestr
+@{
+    ViewBag.Title = ResourceSetting.RST_Reestr;
+}
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+<script src="@Url.Content("~/Scripts/jquery.inputfile.js")" type="text/javascript"> </script>
+<link href="@Url.Content("~/Content/custom/jquery.inputfile.css")" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    function wrapInputFile(fileInputId) {
+        $('#' + fileInputId).inputfile({
+            uploadText: '<span class="glyphicon glyphicon-upload"></span> Загрузить файл',
+            removeText: '<span class="glyphicon glyphicon-trash"></span>',
+            restoreText: '<span class="glyphicon glyphicon-remove"></span>',
+
+            uploadButtonClass: 'btn btn-primary',
+            removeButtonClass: 'btn btn-default'
+        });
+    }
+</script>
+
+
+<script type="text/javascript">
+    var counterBuff = 0;
+    $(document).ready(function () {
+
+        $("#addfileBtn").on("click", function () {
+            var fileInputId = 'fileUpload_' + counterBuff;
+            $("#fileTable tbody").append('<tr><td><input id="' + fileInputId + '" type="file" name="files" /></td></tr>');
+            counterBuff++;
+            wrapInputFile(fileInputId);
+        });
+
+        $("table.file_list").on("click", ".deleteFile", function () {
+            $(this).closest("tr").remove();
+            counterBuff -= 1;
+        });
+
+      
+
+    });
+</script>
+<div id="B">
+    @Html.Partial("~/Views/Home/TitleItem.cshtml", ResourceSetting.Reestr + "," + ResourceSetting.RST_Reestr)
+    <div id="wrapper_grid" style="margin-left: 50px; margin-bottom: 100px">
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active"><a data-target="#home" data-toggle="tab">Решение</a></li>
+            <li><a data-target="#main" data-toggle="tab">@ResourceSetting.Reestr</a></li>
+        </ul>
+        <div class="tab-content">
+
+            <div class="tab-pane active" id="home">
+                @using (Html.BeginForm("Exluded", "RstReestr", FormMethod.Post, new { id = "demoForm", name = "demoForm", enctype = "multipart/form-data" }))
+                {
+                    @Html.ValidationSummary(true)
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.ApplicationId)
+                    @Html.HiddenFor(model => model.StatusId)
+                    @Html.HiddenFor(model => model.Note)
+                    @Html.HiddenFor(model => model.KadastNumber)
+                    @Html.HiddenFor(model => model.ObjectName)
+                    @Html.HiddenFor(model => model.OwnerName)
+                    @Html.HiddenFor(model => model.ReportYear)
+                    @Html.HiddenFor(model => model.Address)
+                    @Html.HiddenFor(model => model.BINIIN)
+                    @Html.HiddenFor(model => model.CreateDate)
+
+                    <div class="clearfixmandatory form-group">
+                        @Html.Label("Дата исключение")
+                        <div class="input">
+                            @Html.TextBoxFor(model => model.EditDateStr, new { @class = "form-control", style = "width:200px;", id = "datepicker" })
+                            @Html.ValidationMessageFor(model => model.EditDateStr)
+                        </div>
+      
+                    </div>
+    <div class="clearfixmandatory">
+        @Html.Label("Причина исключение")
+        <div class="input">
+            @Html.DropDownList("ReasonId", (IEnumerable<SelectListItem>)(ViewData["reasonList"]), String.Empty)
+            @Html.ValidationMessageFor(model => model.ReasonId)
+        </div>
+    </div>
+
+                    <div style="margin-top: 20px">
+                    
+                        <div class="input" style="margin-left: 0;">
+                            <textarea cols="20" id="ResponceMessage" name="ResponceMessage" rows="2" placeholder="Причина исключения" style="width: 98%; height: 200px;">@Model.Note</textarea>
+                        </div>
+                    </div>
+                    <button id="saveUpdate" type="submit" name="SaveUpdate" value="SaveUpdate" style="visibility: hidden;"></button>
+
+
+    <table id="fileTable" class="file_list" style="margin-top: 20px">
+
+        <tbody>
+            @if (Model.AttachFiles != null)
+            {
+                for (int i = 0; i < Model.AttachFiles.Count; i++)
+                {
+                    <tr>
+
+                        <td>
+                        </td>
+                        <td>
+                            <i class="glyphicon glyphicon-remove deleteFile" title="@ResourceSetting.Delete"></i>
+                        </td>
+
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5" style="text-align: left;">
+
+                    <button type="button" class="btn btn-success btn-sm" id="addfileBtn">
+                        <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>Добавить файл
+                    </button>
+
+
+
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+                }
+            </div>
+            <div class="tab-pane" id="main">
+                <div class="panel panel-info">
+                    <div class="panel-heading">Данные реестра</div>
+                    <div class="panel-body">
+                        <div class="clearfix">
+                            @Html.Label(ResourceSetting.ReportYear)
+                            <div class="input">
+                                @Html.TextBoxFor(model => model.ReportYear, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            @Html.Label(ResourceSetting.Oblast)
+                            <div class="input">
+                                @Html.TextBoxFor(model => model.OblastName, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            @Html.Label(ResourceSetting.biniinOwner)
+                            <div class="input">
+                                @Html.TextBoxFor(model => model.BINIIN, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            @Html.Label(ResourceSetting.KadastrNumber)
+                            <div class="input">
+                                @Html.TextBoxFor(model => model.KadastNumber, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            @Html.Label(ResourceSetting.OwnerName)
+                            <div class="input">
+                                @Html.TextAreaFor(model => model.OwnerName, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            @Html.Label(ResourceSetting.ObjectName)
+                            <div class="input">
+                                @Html.TextAreaFor(model => model.ObjectName, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+
+                        <div class="clearfix">
+                            @Html.Label(ResourceSetting.Address)
+                            <div class="input">
+                                @Html.TextAreaFor(model => model.Address, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @if (@Model.RST_Application != null)
+                {
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Регистрация</div>
+                        <div class="panel-body">
+                            <div class="clearfix">
+                                @Html.Label(ResourceSetting.RegDate)
+                                <div class="input">
+                                    <input class="form-control" data-val="true" data-val-required="Введите значение" id="CreateDate" name="CreateDate" readonly="readonly" type="text" value="@Model.RST_Application.CreateDate.ToShortDateString()">
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                @Html.Label(ResourceSetting.Executer)
+                                <div class="input">
+                                    <input class="form-control" data-val="true" data-val-required="Введите значение" id="FullName" name="FullName" readonly="readonly" type="text" value="@Model.RST_Application.SEC_User.FullName">
+
+                                </div>
+                            </div>
+                            <table>
+                                @for (var i = 0; i < Model.RST_Application.AttachFiles.Count; i++)
+                                {
+                                    <tr>
+
+                                        <td>
+                                            <input type="hidden" name="AttachFiles" value="@Model.RST_Application.AttachFiles[i]" />
+                                            <a href="@Url.Action("ShowFile", "RstApplication", new { id = @Model.Id })">
+                                                @Model.RST_Application.AttachFiles[i]
+                                            </a>
+
+                                        </td>
+
+
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+    <div style="margin-top: 20px">
+        <button type="button" class="btn btn-success btn-lg" onclick="location.href='@Url.Action("Index", "RstReestr")'">
+            <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Back
+        </button>
+        <button id="saveBtn" type="button" class="btn btn-success btn-lg" onclick=" SaveChange() " style="float: right; margin-right: 30px">
+            <span class="glyphicon glyphicon-save" aria-hidden="true"></span> @ResourceSetting.Save
+        </button>
+    </div>
+            </div>
+            </div>
+<script type="text/javascript">
+    $(function () {
+        $("#datepicker").datepicker({
+            format: 'dd/mm/yyyy',
+        language: 'ru',
+        autoclose: true
+    });
+    });
+</script>   

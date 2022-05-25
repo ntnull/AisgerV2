@@ -1,0 +1,174 @@
+﻿@using Aisger
+@using GridMvc.Html
+@model Aisger.Models.SubActionCommonFilter
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+<style type="text/css">
+    .lotLihk {
+    }
+</style>
+<style type="text/css">
+    .just-read {
+        background-color: #eee;
+    }
+</style>
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 12px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel">@ResourceSetting.SubjectPage  <span></span></li>
+        <li id="selectLabel"><span class="glyphicon glyphicon-arrow-right"></span>@ResourceSetting.SubActionPlan (@ResourceSetting.countRecord: <span id="countGridRecord"></span>) </li>
+        <li style="float: right">
+            @Html.Partial("~/Views/Shared/ExportExcelBtn.cshtml")
+        </li>
+    </ul>
+    <div id="wrapper_grid" style="margin-left: 50px; margin-bottom: 100px">
+        @using (Html.BeginForm("Design", "AppAction", FormMethod.Post, new { id = "demoForm", name = "demoForm" }))
+        {
+            @Html.ValidationSummary(true)
+            <div class="panel panel-success">
+                <div class=" panel-heading">
+                    <div class="row" style="margin-bottom: 10px">
+                        <div class="col-sm-3">
+                            <label for="" style="width: 40px;">@ResourceSetting.Year</label>
+                            <div class="input" style="margin-left: 20px">
+                                @Html.DropDownListFor(model => model.ReportYear, (IEnumerable<SelectListItem>)(ViewData["Years"]), String.Empty, new { @style = "width: 150px", data_placeholder = "Укажите год" })
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-4">
+                            <label for="" style="width: 60px;">@ResourceSetting.SubPerson</label>
+                            <div class="input" style="margin-left: 70px">
+                                @Html.TextBoxFor(model => model.SubjectName, new { @style = "width: 100%" })
+                            </div>
+
+                        </div>
+                    </div>
+                    <div style="float: right">
+                        <button type="button" class="btn btn-info btn-sm" id="addBtn">
+                            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>@ResourceSetting.refresh
+                        </button>
+                    </div>
+                    <h4 class="panel-title">
+                        <a class="lotLihk" style="font-weight: bold"><span class="glyphicon glyphicon-forward"></span>@ResourceSetting.advansedFilter </a>
+                    </h4>
+
+                </div>
+                <div class="panel-body divpanel">
+                    <div class="col-sm-6">
+                        @Html.Label(ResourceSetting.IDK)
+                        <div class="input">
+                            @Html.TextBoxFor(model => model.IDK, new { @style = "width: 80%" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.Label(ResourceSetting.biniinOwner)
+                        <div class="input">
+                            @Html.TextBoxFor(model => model.BINIIN, new { @style = "width: 80%" })
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.Label(ResourceSetting.Address)
+                        <div class="input">
+                            @Html.TextBoxFor(model => model.Adress, new { @style = "width: 80%" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.Label(ResourceSetting.RstDicStatus)
+                        <div class="input">
+                            <div class="chzn-select">
+                                @Html.ListBoxFor(x => Model.Statuses, Model.StatusList,
+                            new { @class = "chzn-select", data_placeholder = ResourceSetting.Statuses, @style = "width: 80%" })
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-12">
+                        @Html.Label(ResourceSetting.Oblast)
+                        <div class="input">
+                            <div class="chzn-select">
+                                @Html.ListBoxFor(x => Model.Oblasts, Model.OblastList,
+                     new { @class = "chzn-select", data_placeholder = ResourceSetting.chooseOblast, @style = "width: 90%" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @Html.Partial("~/Views/AppAction/CommonGridView.cshtml", @Model.SubActionPlanFilters)
+    </div>
+
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#SubjectName").on('keyup', function (e) {
+            if (e.keyCode == 13) {
+                updatePage();
+            }
+        });
+
+        $(".expactCombox").attr('disabled', 'disabled');
+        $(".expactCombox").addClass('just-read');
+        $("#HideInform").click(function () {
+            if ($(this).val() == "hide") {
+                $(this).val("show");
+                $(".expactCombox").attr('disabled', 'disabled');
+                $(".expactCombox").addClass('just-read');
+                $("#HideInformCheck").addClass("glyphicon-unchecked");
+                $("#HideInformCheck").removeClass("glyphicon-check");
+                //                showInformIcon(false);
+            } else {
+                $(this).val("hide");
+                $("#HideInformCheck").removeClass("glyphicon-unchecked");
+                $("#HideInformCheck").addClass("glyphicon-check");
+                $(".expactCombox").removeAttr('disabled');
+                $(".expactCombox").removeClass('just-read');
+                //                showInformIcon(true);
+            }
+        });
+
+        /*  $("#exportBtn").click(function (event) {
+  
+              updatePage("ExportExcel");
+  
+          });*/
+        $("#addBtn").click(function (event) {
+            window.Showbusy(event);
+            updatePage();
+        });
+
+    });
+</script>
+<script>
+
+    function updatePage() {
+        var status = "";
+        var oblast = "";
+        if ($("#Statuses").val() != null) {
+            status = $("#Statuses").val().join(',');
+        }
+
+        if ($("#Oblasts").val() != null) {
+            oblast = $("#Oblasts").val().join(',');
+        }
+
+        var url = "/AppAction/CommonView?year=" + $("#ReportYear").val() + '&idk=' + $("#IDK").val() + '&biniin=' + $("#BINIIN").val() + '&adress=' + $("#Adress").val() + '&owner=' + $("#SubjectName").val() + '&sendId=' + $("#SendId").val();
+        if (status.length > 0) {
+            url += '&status=' + status;
+        }
+
+        if (oblast.length > 0) {
+            url += '&oblast=' + oblast;
+        }
+        window.location = url;
+    }
+    $(function () {
+        $(".divpanel").toggle();
+        $("a.lotLihk").click(function () {
+            $(".divpanel").toggle();
+        });
+    });
+</script>

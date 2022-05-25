@@ -1,0 +1,59 @@
+﻿@using Aisger
+@using Aisger.Helpers
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+
+@Styles.Render("~/Content/reportCss")
+@Scripts.Render("~/bundles/kendoui")
+@Scripts.Render("~/bundles/reportJs")
+
+<div id="B">
+	@Html.Partial("~/Views/Home/TitleItem.cshtml", ResourceSetting.Collerctor + "," + ResourceSetting.ReportAskuerCase)
+	<div id="main-container" class="wrapper">
+		<div class="container-fluid">
+			<div id="tabstrip" class="s-tabstrip tab-view2">
+				<ul>
+					<li class="k-state-active tab-item1">Часть</li>
+				</ul>
+				<div>
+					<div class="wrapper report1-container" id="report1-container">
+						<div class="sidebar sidebar-menu-collapsed" data-background-color="white" data-active-color="danger">
+							<div class="sidebar-wrapper">
+								<div class="row">
+									<div class="col-md-11">
+										<div class="object-grid1"></div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-11">
+										<div class="object-grid2"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="main-panel">
+							<div class="content">
+								<div class="container-fluid report1">
+									<div class="row">
+										<div class="col-md-9">
+											<br />
+											<div class="card">	
+												<div class="view-chart aisger-chart">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+</div>
+<script src="~/Scripts/askureview.js"></script>

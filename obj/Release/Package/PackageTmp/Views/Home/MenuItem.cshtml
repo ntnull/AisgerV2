@@ -1,0 +1,695 @@
+﻿@using Aisger
+@using Aisger.Utils
+
+<link rel="stylesheet" href="@Url.Content("~/Content/menu/font-awesome.min.css")">
+
+<link rel="stylesheet" href="@Url.Content("~/Content/menu/style.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/menu/responsive.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/menu/skins/skin3.css")">
+
+<style>
+    .collapse_private_menu {
+        position: fixed;
+        display: block;
+        width: 135px;
+        z-index: 99999;
+        background-color: #144bb1;
+        color: #fff;
+        font-size: 10px;
+    }
+
+        .collapse_private_menu li {
+            width: 135px;
+            border-left: 0px #E9E9E9 solid;
+            background-color: #0072bc;
+            color: #fff;
+            border-bottom: 1px solid #144bb1;
+        }
+
+        .collapse_private_menu a {
+            padding-left: 10px;
+            color: #fff;
+        }
+
+        .collapse_private_menu li a:hover {
+            /*text-decoration: underline;*/
+            cursor: pointer;
+            color: #fff;
+            background-color: #144bb1 !important;
+        }
+
+    .publish-date {
+        opacity: 0;
+    }
+
+        .publish-date:hover {
+            opacity: 1;
+            cursor: pointer;
+        }
+
+    .my-live {
+        position: absolute;
+        float: right;
+    }
+</style>
+
+<div id="headWrapper" class="clearfix">
+    <input type=hidden id="selectSubMenuTitle" value='@ViewContext.RouteData.GetRequiredString("controller")' />
+    <input type=hidden id="selectaActionTitle" value='@ViewContext.RouteData.GetRequiredString("action")' />
+
+    <div class="hide my-live" style="z-index:0;">
+
+        <script type="text/javascript">
+            document.write("<a href='//www.liveinternet.ru/click' " +
+                "target=_blank><img src='//counter.yadro.ru/hit?t29.2;r" +
+                escape(document.referrer) + ((typeof (screen) == "undefined") ? "" :
+                    ";s" + screen.width + "*" + screen.height + "*" + (screen.colorDepth ?
+                        screen.colorDepth : screen.pixelDepth)) + ";u" + escape(document.URL) +
+                ";h" + escape(document.title.substring(0, 150)) + ";" + Math.random() +
+                "' alt='' title='LiveInternet: показано количество просмотров и" +
+                " посетителей' " +
+                "border='0' width='88' height='120'><\/a>")
+        </script>
+
+    </div>
+
+    <!-- top bar start -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="row">
+                <div class="cell-5" style="height:35px;">
+                    <ul>
+                        <li class="hide"><a href="mailto:info@aisger.kz"><i class="fa fa-envelope"></i>info@aisger.kz</a></li>
+                        <li><span class="app-phone"><i class="fa fa-phone"></i>Открыть контакты региональных филиалов</span></li>
+                        <!-- <li><span class="app-phone"><i class="fa fa-phone"></i>Телефон: +7 (7172) 91-65-71</span></li> -->
+                        <li class="publish-date"><span><i class="fa fa-clock-o"></i>В:@MyExtensions.GetCurrentPublishDate()</span></li>
+                    </ul>
+
+                </div>
+                <div class="cell-7 right-bar">
+                    @*  <ul>
+                            <li><span style="color:red">Тестовая версия</span></li>
+                        </ul>*@
+                    <ul class="right" style="float: right">
+                        @if (MyExtensions.GetCurrentUserId() != null)
+                        {
+                            <li style="float: right" onclick="location.href='@Url.Action("LogOff", "Account")'"><a href="@Url.Action("LogOff", "Account")" class="login-btn"><i class="fa fa-unlock-alt"></i>@ResourceSetting.Exit</a></li>
+
+                            <li style="float: right">
+                                <a href="#" title="@MyExtensions.GetCurrentUserApplicationName()" class="collapse_private_office"><i class="fa fa-user"></i>@MyExtensions.GetShortCurrentUserApplicationName()</a>
+                                <ul class="collapse_private_menu hide" ismenuopen="false">
+                                    @if (MyExtensions.GetRolesId() != 4)
+                                    {
+                                        <li class="collapse_private_menu-li"><a href="@Url.Action("Index", "PrivateSetting")" id='@CodeConstManager.PrivateSetting'>@ResourceSetting.AccountSetting</a></li>
+                                    }
+                                    <li class="collapse_private_menu-li change-login"><a href="@Url.Action("ChangePassword", "Account")" class="login-btn">@ResourceSetting.ChangePassword</a></li>
+                                </ul>
+                            </li>
+
+                        }
+                    </ul>
+                    <ul class="left" style="float: right;">
+                        <li><a href="@Url.Action("ChangeCulture", "Account", new { lang = Aisger.Helpers.CultureHelper.Kk })">ҚАЗ</a></li>
+                        <li><a href="@Url.Action("ChangeCulture", "Account", new { lang = Aisger.Helpers.CultureHelper.Ru })">РУС</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- top bar end -->
+    <!-- Logo, global navigation menu and search start -->
+    <header class="top-head" data-sticky="true">
+        <div class="container" style="width: 100%">
+            <div class="row" style="width:100%">
+                @*<div class="logo cell-3">
+                    <a href="index.html" style="background-size: 95px 47px;"></a>
+                     </div>*@
+                <div class="cell-9 top-menu">
+
+                    <!-- top navigation menu start -->
+                    <nav class="top-nav mega-menu">
+                        <ul>
+
+
+
+                            <li id="SubjectPage" class="panel-page">
+                                <a href="#"><i class="fa fa-users"></i><span>@ResourceSetting.SubjectPage</span></a>
+                                <ul class="nav nav-list" obj-id="tester">
+                                    <li><a href="@Url.Action("CommonView", "RstReport")" id='@CodeConstManager.RstReport'>@ResourceSetting.RST_Reestr</a></li>
+                                    <li><a href="@Url.Action("CommonView", "RstExluded")" id='@CodeConstManager.RstExluded'>@ResourceSetting.ExpectantName</a></li>
+
+                                    <li><a href="@Url.Action("Index", "SubActionPlan")" id='@CodeConstManager.SubActionPlan'>@ResourceSetting.SubActionPlan</a></li>
+                                    <li>
+                                        <a href="@Url.Action("Index", "RegisterForm")" id='@CodeConstManager.RegisterForm'>
+                                            @ResourceSetting.RegisterForm
+                                            @if (@ViewBag.RejectCount != 0)
+                                            {
+                                                <span class="badge pull-right" title="Отказанные">@ViewBag.RejectCount</span>
+                                            }
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("CommonView", "AppAction")" id='@CodeConstManager.AppAction'>
+                                            @ResourceSetting.SubActionPlan
+                                            @if (@ViewBag.AppActionCount != 0)
+                                            {
+                                                <span class="badge pull-right" title="Зарегистрированные">@ViewBag.AppActionCount</span>
+                                            }
+                                        </a>
+                                    </li>
+                                    <li><a href="@Url.Action("Index", "SourceController")" id="@CodeConstManager.SourceController">@ResourceSetting.SourceController</a></li>
+                                </ul>
+                            </li>
+
+                            <li id="AuditPage" class="AuditPage panel-page">
+                                <a href="#"><i class="fa fa-gavel"></i><span>@ResourceSetting.AuditPage</span></a>
+                                <ul class="nav nav-list">
+                                    <li><a href="@Url.Action("Index", "AuditReestr")" id='@CodeConstManager.AuditReestr'>@ResourceSetting.AuditReestr</a></li>
+                                    <li><a href="@Url.Action("RequiredAudits2", "AuditReestr")">@ResourceSetting.AuditRequired</a></li>
+                                    <li><a href="@Url.Action("Index", "EnergyAudit")" id='@CodeConstManager.EnergyAudit'>@ResourceSetting.tConclusions</a></li>
+                                    <li><a href="@Url.Action("AuditReport", "GraReports")">@ResourceSetting.Reports</a></li>
+                                    @*                                    <li><a href="@Url.Action("Index", "EnergyAudit")">@ResourceSetting.tConclusions</a></li>*@
+                                </ul>
+                            </li>
+                            <li id="EscoPage" class="panel-page hide">
+                                <a href="#"><i class="fa fa-money"></i><span>@ResourceSetting.EscoPage</span></a>
+                                <ul class="nav nav-list">
+                                    <li><a href="@Url.Action("Index", "EscoReestr")" id='@CodeConstManager.EscoReestr'>@ResourceSetting.EscoReestr</a></li>
+                                    <li><a href="@Url.Action("Index", "EscoDicProductKind")" id='@CodeConstManager.EscoDicProductKind'>@ResourceSetting.EscoDicProductKind</a></li>
+                                    <li><a href="@Url.Action("Index", "EscoSearch")" id='@CodeConstManager.EscoSearch'>@ResourceSetting.EscoSearch</a></li>
+                                </ul>
+                            </li>
+                            @*<li id="MapEnergy" class="panel-page">
+                                    <a href="#"><i class="fa fa-map-marker"></i><span>@ResourceSetting.MapEnergy</span></a>
+                                    <ul class="nav nav-list">
+                                        <li><a href="@Url.Action("Index", "MapApplication")" id='@CodeConstManager.MapApplication'>@ResourceSetting.MAP_Application</a></li>
+                                        <li><a href="@Url.Action("Index", "MapApp")" id='@CodeConstManager.MapApp'>@ResourceSetting.MapApp</a></li>
+                                        <li><a href="@Url.Action("Index", "MapInpbox")" id='@CodeConstManager.MapInpbox'>@ResourceSetting.MapInpbox</a></li>
+                                        <li><a href="@Url.Action("Index", "MapProject")" id='@CodeConstManager.MapProject'>@ResourceSetting.MapProject</a></li>
+                                        <li><a href="@Url.Action("Index", "MapApplivcantReestr")" id='@CodeConstManager.MapApplivcantReestr'>@ResourceSetting.MapApplivcantReestr</a></li>
+                                        <li><a href="@Url.Action("mIndex", "MapApplicationEE2")" id="@CodeConstManager.MapRegisterEE2">@ResourceSetting.MapRegisterEE2</a></li>
+                                        <li><a href="@Url.Action("Index", "MapApplicationEE2")" id="@CodeConstManager.MapApplicationEE2">Заявление в программу энергоэффективность 2.0</a></li>
+                                    </ul>
+                                </li>*@
+                            <li id="ReportPage" class="panel-page">
+                                <a href="#"><i class="fa fa-newspaper-o"></i><span>@ResourceSetting.Reports</span></a>
+                                <ul class="nav nav-list">
+                                    <li>
+                                        <a href="@Url.Action("ReestrReport", "GraReports")">@ResourceSetting.ReportReestr</a>
+                                        <ul class="nav nav-list" style="height:300px;display:block;overflow-y:auto;">
+                                            <li><a href="@Url.Action("ReestrReport", "GraReports",new { id=1 })">@ResourceSetting.reestrReport1</a></li>
+                                            <li><a href="@Url.Action("ReestrReport", "GraReports",new { id=2 })">@ResourceSetting.reestrReport2</a></li>
+                                            <li><a href="@Url.Action("ReestrReport", "GraReports",new { id=3 })">@ResourceSetting.reestrReport3</a></li>
+                                            <li><a href="@Url.Action("ReestrReport", "GraReports",new { id=4 })">@ResourceSetting.reestrReport4</a></li>
+                                            <li><a href="@Url.Action("ReestrReport", "GraReports",new { id=40 })">@ResourceSetting.reestrReport40</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">@ResourceSetting.ReportGer</a>
+                                        <ul class="nav nav-list" style="height:400px;display:block;overflow-y:scroll;">
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=8 })">@ResourceSetting.gerReport8</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=9 })">@ResourceSetting.gerReport9</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=10 })">@ResourceSetting.gerReport10</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=11 })">@ResourceSetting.gerReport11</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=12 })">@ResourceSetting.gerReport12</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=13 })">@ResourceSetting.gerReport13</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id = 14 })">@ResourceSetting.gerReport14</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=15 })">@ResourceSetting.gerReport15</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=16 })">@ResourceSetting.gerReport16</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=17 })">@ResourceSetting.gerReport17</a></li>
+
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=25 })">@ResourceSetting.gerReport25</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=26 })">@ResourceSetting.gerReport26</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=27 })">@ResourceSetting.gerReport27</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=28 })">@ResourceSetting.gerReport28</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=29 })">@ResourceSetting.gerReport29</a></li>
+
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=30 })">@ResourceSetting.gerReport30</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=31 })">@ResourceSetting.gerReport31</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=32 })">@ResourceSetting.gerReport32</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=33 })">@ResourceSetting.gerReport33</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=34 })">@ResourceSetting.gerReport34</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=37 })">@ResourceSetting.gerReport37</a></li>
+
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=42 })">@ResourceSetting.gerReport42</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=43 })">@ResourceSetting.gerReport43</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=44 })">@ResourceSetting.gerReport44</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=45 })">@ResourceSetting.gerReport45</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=46 })">@ResourceSetting.gerReport46</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=47 })">@ResourceSetting.gerReport47</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=48 })">@ResourceSetting.gerReport48</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=49 })">@ResourceSetting.gerReport49</a></li>
+
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=50 })">@ResourceSetting.gerReport50</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=51 })">@ResourceSetting.gerReport51</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=52 })">@ResourceSetting.gerReport52</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=53 })">@ResourceSetting.gerReport53</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=54 })">@ResourceSetting.gerReport54</a></li>
+                                            <li><a href="@Url.Action("GerReport", "GraReports",new { id=55 })">@ResourceSetting.gerReport55</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li id="AnalisePage" class="panel-page">
+                                <a href="#"><i class="fa fa-pie-chart"></i><span>@ResourceSetting.AnalisePage</span></a>
+                                <ul class="nav nav-list">
+                                    <li><a href="@Url.Action("Index", "ReportAnalyse")" id='@CodeConstManager.ReportAnalyse'>@ResourceSetting.ReportAnalyse</a></li>
+                                    <li><a href="@Url.Action("Index", "ReportShowCase")" id='@CodeConstManager.ReportShowCase'>@ResourceSetting.ReportShowCase</a></li>
+                                </ul>
+                            </li>
+                            <li id="CollectorPage" class="panel-page">
+                                <a href="#"><i class="fa fa-pie-chart"></i><span>@ResourceSetting.Collerctor</span></a>
+                                <ul class="nav nav-list">
+                                    <li><a href="@Url.Action("Index", "Collector")" id='@CodeConstManager.CollectorReestr'>@ResourceSetting.Cmdevices</a></li>
+                                    <li><a href="@Url.Action("Index", "ReportAskuerCase")" id='@CodeConstManager.ReportAskuerCase'>@ResourceSetting.ReportAskuerCase</a></li>
+                                </ul>
+                            </li>
+                            <li id="AdminPage" class="panel-page">
+                                <a href="#"><i class="fa fa-caret-square-o-down "></i><span>@ResourceSetting.Other</span></a>
+                                <ul class="nav nav-list">
+                                    <li><a href="@Url.Action("Index", "Users")" id='@CodeConstManager.Users'>@ResourceSetting.Users</a></li>
+                                    <li><a href="@Url.Action("Index", "SecRules")" id='@CodeConstManager.SecRules'>@ResourceSetting.Roles</a></li>
+                                    <li><a href="@Url.Action("Index", "JurEvent")" id='@CodeConstManager.JurEvent'>@ResourceSetting.eventJur</a></li>
+                                    <li><a href="@Url.Action("Index", "Guest")" id='@CodeConstManager.Guest'>@ResourceSetting.Guest</a></li>
+                                    @*	<li><a href="@Url.Action("Index", "SubDicKindResource")" id='@CodeConstManager.SubDicKindResource'>@ResourceSetting.SubDicKindRes</a></li>
+                                        <li><a href="@Url.Action("Index", "SubDicTypeResource")" id='@CodeConstManager.SubDicTypeResource'>@ResourceSetting.SubDicTypeRes</a></li>
+                                        <li><a href="@Url.Action("Index", "DicOrganisation")" id='@CodeConstManager.DicOrganisation'>@ResourceSetting.Organisation</a></li>
+                                        <li><a href="@Url.Action("Index", "DicDepartment")" id='@CodeConstManager.DicDepartment'>@ResourceSetting.DIC_Department</a></li>
+                                        <li><a href="@Url.Action("Index", "DicUnit")" id='@CodeConstManager.DicUnit'>@ResourceSetting.DicUnit</a></li>
+                                        <li><a href="@Url.Action("Index", "DicOked")" id='@CodeConstManager.DicOked'>@ResourceSetting.DicOked</a></li>
+                                        <li><a href="@Url.Action("Index", "DicHolidays")" id='@CodeConstManager.DicHolidays'>@ResourceSetting.DicHolidays</a></li>*@
+                                    <li><a href="@Url.Action("RegistredYear", "RstReport")" id='@CodeConstManager.RegistredYear'>@ResourceSetting.RegistredYear</a></li>
+                                    <li><a href="@Url.Action("Index", "RemoveDuplicate")">@ResourceSetting.RemoveDuplicate</a></li>
+                                    <li><a href="@Url.Action("ChangeBiniin", "RemoveDuplicate")">@ResourceSetting.ChangeBinii</a></li>
+                                    <li><a href="@Url.Action("RestoreRemovedSubject", "RemoveDuplicate")">@ResourceSetting.RemoveDuplicate</a></li>
+                                    <li><a href="@Url.Action("Index", "Directories")">@ResourceSetting.Dictionary</a></li>
+                                    <li><a href="@Url.Action("UserAuditIndex", "JurEvent")">@ResourceSetting.UserAuditIndex</a></li>
+                                    <li><a href="@Url.Action("PdfUpload", "RstReport")">Выгрузка PDF</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+</div>
+
+@*------phone info begin-----*@
+<div class="phone-window modal fade" style="padding-top: 100px; ">
+    <div class="modal-dialog" style="width:900px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"><span class="glyphicon glyphicon-earphone"></span>Телефоны региональных филиалов</h4>
+            </div>
+            <div class="modal-body" style="padding:0px;">
+                <table class="phone-table">
+                    <tr style="font-weight:bold;text-align:center;">
+                        <td>Область</td>
+                        <td style="width:150px;">Телефон</td>
+                        <td>Адрес, Email</td>
+                    </tr>
+                    <tr>
+                        <td>   г.Нур-Султан</td>
+                        <td>
+                            8 (7172) 91-65-67,<br />
+                            8 702-333-05-55
+                        </td>
+                        <td>
+                            г. Нур-Султан, ул. Шарль де Голля 3А
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Актюбинская область</td>
+                        <td>
+                            8 (7132) 59-79-60,<br /> 8 707-394-80-92
+                        </td>
+                        <td>
+                            г. Актобе, 030006, г.Актобе, ул.Бурабай (бывш. Кобозева), 139А, 3 этаж, каб. 43, aktobe_ger@kazee.kz, aktobe_ger@mail.ru
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> г.Алматы</td>
+                        <td>
+                            8 (727) 378-02-36,<br /> 378-07-52,<br /> 8 701-116-44-13,<br /> 8 747-227-23-68
+
+                        </td>
+                        <td>
+                            г. Алматы, пр. Абая 76/109, 3 этаж, каб.315А, индекс 050057, almaty_ger@kazee.kz, almaty_ger@mail.ru
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Алматинская область(Талдыкорган)</td>
+                        <td>
+                            8 (7282) 24-44-72,<br /> 8 777-364-85-85
+                        </td>
+                        <td>
+                            г.Талдыкорган, ул. Акын Сара 207/а , индекс 040000, taldykorgan_ger@kazee.kz, taldykorgan_ger@mail.ru
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Жамбылская область</td>
+                        <td>
+                            8 (7262) 45-42-81,<br /> 8 701-382-08-09
+                        </td>
+                        <td>
+                            г. Тараз, ул. Сыпатай батыра 5, индекс 080015, zhambyl_ger@kazee.kz, zhambyl_ger@mail.ru
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Атырауская область</td>
+                        <td>
+                            8 (7122) 32-15-56,<br /> 8 775-355-05-06
+                        </td>
+                        <td>
+                            г. Атырау, ул.Махамбета,100, БЦ Нурсаулет, 2 этаж, 10 каб , индекс: 060002, atyrau_ger@kazee.kz, atyrau_ger@mail.ru
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Акмолинская область</td>
+                        <td>
+                            8 (7162) 31-52-14,<br /> 8 777-380-69-62
+                        </td>
+                        <td>
+                            г. Кокшетау, ул. Кенесары 89/а, каб. 314 индекс 020000, akmola_ger@kazee.kz, akmola_ger@mail.ru
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Восточно-Казахстанская область</td>
+                        <td>
+                            8 (7232) 59-79-60,<br /> 8 702-725-44-14
+                        </td>
+                        <td>
+                            г. Усть-Каменогорск, пр. Сатпаева 62, 2 этаж, 208 каб, индекс 070002, vko_ger@kazee.kz, vko_ger@mail.ru
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Западно-Казахстанская область</td>
+                        <td>
+                            8 (7112) 50-41-16,<br /> 8 707-585-00-11,<br /> 8 778-181-57-54,<br /> ‎8 705-638-72-21
+                        </td>
+                        <td>
+                            г. Уральск, ул. Аманжолова 98, каб.19 БЦ "АРС", индекс 090002, zko_ger@kazee.kz, zko_ger@mail.ru
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Карагандинская область</td>
+                        <td>
+                            8 (7212) 55-98-79 <br /> 55-98-72<br /> 8 775-644-88-77,<br /> 8 701-559-20-62
+                        </td>
+                        <td>
+                            г.Караганда, ул. Ерубаева 50, каб 9, индекс 100000, karaganda_ger@kazee.kz, karaganda_ger@mail.ru
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Кызылординская область</td>
+                        <td>
+                            8 (7242) 27-44-40,<br /> 8 708-440-97-95,<br /> 8 778-181-57-54
+                        </td>
+                        <td>
+                            г. Кызылорда, ул. Айтеке би 52, каб. 308, 3 этаж, индекс: 120014, kyzylorda_ger@kazee.kz, kyzylorda_ger@mail.ru
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Костанайская область</td>
+                        <td>
+                            8 (7142) 56-88-74,<br /> 8 702-829-48-78,<br /> 8 705-759-14-12
+                        </td>
+                        <td>
+                            г. Костанай, пр. Аль-Фараби 109, индекс: 110000, kost_ger@kazee.kz, kost_ger@mail.ru
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Мангистауская область</td>
+                        <td>
+                            8 (7292) 43-02-12,<br /> 8 701-370-33-23,<br /> 8 747-704-81-66
+                        </td>
+                        <td>
+                            г. Актау, 26 мкр. Дом 58, БЦ «Отар» каб.413, индекс 130000, mangystau_ger@kazee.kz, mangystau_ger@mail.ru
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Павлодарская область</td>
+                        <td>
+                            8 (7182) 54-70-13,<br /> 8 702-333-05-55
+                        </td>
+                        <td>
+                            г. Павлодар, ул. Катаева 18, индекс 140011, pavlodar_ger@kazee.kz, pavlodar_ger@mail.ru
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Северо-Казахстанская область</td>
+                        <td>
+                            8 (7152) 46-78-29,<br /> 8 778-205-55-78,<br /> 8 747-704-81-66
+                        </td>
+                        <td>
+                            г. Петропавловск, ул. Конституции Казахстана 11, каб. 408, индекс 150000, sko_ger@kazee.kz, sko_ger@mail.ru
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Туркестанская область
+                        </td>
+                        <td>
+                            8 (7252) 54-80-11,<br /> 8 747-678-60-62,<br /> 8 705-759-14-12
+                        </td>
+                        <td>
+                            г. Шымкент, пр. Тауке-хана,82 , 3 этаж, индекс 160011, uko_ger@kazee.kz, , uko_ger@mail.ru
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            г. Шымкент
+                        </td>
+                        <td>
+                            8 (7252) 54-80-11,<br /> 8 707-274-28-27,<br /> 8 705-759-14-12
+                        </td>
+                        <td>
+                            г. Шымкент, пр. Тауке-хана,82, 3 этаж, индекс 160011, uko_ger@kazee.kz, uko_ger@mail.ru
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer" style="padding:5px;">
+                <button type="button" class="btn btn-default" id="btnclose" data-dismiss="modal">@ResourceSetting.close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="message-info-window modal fade" style="padding-top: 100px; ">
+    <div class="modal-dialog" style="width:450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"><span class="glyphicon glyphicon-info-sign"></span>Инфо</h4>
+            </div>
+            <div class="modal-body" style="padding:10px;">
+                Субъекты ГЭР авторизуются в системе посредством персональной ЭЦП. Смена пароля субъекту ГЭР не возможна
+            </div>
+            <div class="modal-footer" style="padding:5px;">
+                <button type="button" class="btn btn-default" id="message-info-btnclose" data-dismiss="modal">@ResourceSetting.close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*------phone info end-----*@
+<script type="text/javascript">
+	$(document).ready(function () {
+		var str = '@MyExtensions.GetListRight()';
+
+		var list = str.split('#');
+		$(".panel-page").each(function () {
+			var div = $(this).attr("id");
+			if (list.indexOf(div) < 0) {
+				$("#" + div).remove();
+			}
+
+		});
+		//        $(".PrivatePage").addClass("selected");
+		$(".nav-list li a").each(function () {
+			var div = $(this).attr("id");
+			if (list.indexOf(div) < 0) {
+				$("#" + div).remove();
+			}
+
+		});
+		if (document.getElementById("selectSubMenuTitle") == null) {
+			return;
+		}
+
+		//---- click phone list
+		$('.app-phone').click(function () {
+
+		    console.log("phone");
+		    var message = "test";
+		    var modal = $(".phone-window");
+		    //.find(".modal-body").html(message).end()
+		    modal
+		   .modal({ backdrop: 'static', keyboard: false })
+		   .on('hidden.bs.modal', function () {
+		   	modal.unbind();
+		   });
+
+		});
+
+		//---- login
+		$('.change-login').click(function () {
+			var roleId = '@MyExtensions.GetRolesId()';
+			if (roleId == 4) {
+				var modal = $(".message-info-window");
+
+				modal.modal({ backdrop: 'static', keyboard: false }).on('hidden.bs.modal', function () {
+					modal.unbind();
+				});
+
+			} else {
+				location.href = '@Url.Action("ChangePassword", "Account")'
+			}
+
+		})
+
+		//----
+		$.map(list, function (item) {
+			if (item.indexOf('-') != -1) {
+
+				var flag = false;
+
+				var elementsWithAccessCode = $("*[accesscode]");
+				$.map(elementsWithAccessCode, function (inItem) {
+
+					var element = $(inItem);
+					var tagName = $(element).prop("tagName");
+
+					var code = element.attr('accesscode');
+					if (item == code) {
+
+						$(element).prop("disabled", false);
+
+						$(element).removeAttr("disabled");
+						flag = true;
+					}
+				});
+
+				if (flag == false) {
+
+				}
+			}
+		});
+
+		//----toggle
+		$("a.collapse_private_office").click(function () {
+			var val = $(".collapse_private_menu").attr('ismenuopen');
+			var ismenuopen = (val == 'true');
+			if (ismenuopen)
+				$(".collapse_private_menu").addClass('hide');
+			else
+				$(".collapse_private_menu").removeClass('hide');
+
+			$('.collapse_private_menu').attr('ismenuopen', (!ismenuopen).toString());
+		});
+
+		//----window click events
+		$(window).click(function (e) {
+
+			//----
+			var target_classname = e.target.className;
+			if (target_classname.indexOf('collapse_private_office') == -1 && target_classname.indexOf('collapse_private_menu') == -1 && target_classname.indexOf('collapse_private_menu-li') == -1) {
+
+				var val = $(".collapse_private_menu").attr('ismenuopen');
+				var ismenuopen = (val == 'true');
+				if (ismenuopen) {
+					$(".collapse_private_menu").addClass('hide');
+					$('.collapse_private_menu').attr('ismenuopen', "false");
+				}
+
+			}
+		});
+
+		//----
+		$('#headWrapper').find('.top-head').click(function (e) {
+			e.stopPropagation();
+
+			var pWidth = $(this).innerWidth(); //use .outerWidth() if you want borders
+			var pOffset = $(this).offset();
+			var x = e.pageX - pOffset.left;
+			if (93 > x) {
+
+				window.location = '@Url.Content("~/")' + "Home/Index";
+			}
+		});
+
+		//----
+		$('#headWrapper').find('.top-head').mousemove(function (e) {
+			e.stopPropagation();
+
+			var pWidth = $(this).innerWidth(); //use .outerWidth() if you want borders
+			var pOffset = $(this).offset();
+			var x = e.pageX - pOffset.left;
+			if (93 > x) {
+				$(this).css("cursor", "pointer");
+			} else {
+				$(this).css("cursor", "auto");
+			}
+		});
+
+
+	});
+</script>
+<script src="@Url.Content("~/Scripts/menu/waypoints.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/menu/slick.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/menu/jquery.easypiechart.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/menu/jquery.prettyPhoto.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/menu/jquery.sharrre.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/menu/jquery.elevateZoom-3.0.8.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/menu/jquery.placeholder.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/menu/jflickrfeed.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/menu/jquery.nicescroll.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/menu/own.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/menu/script.js")" type="text/javascript"></script>
+
+
+<style>
+    .current {
+        background-color: #0072bc;
+        color: #fff;
+    }
+
+    .collapse_private_office:after {
+        content: "\f107";
+        font-family: FontAwesome;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        top: 10px;
+        border-radius: 50%;
+        /*background: #EAEAEA;*/
+        color: #000;
+        text-align: center;
+        line-height: 20px;
+    }
+
+    .app-phone:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    .phone-window {
+        color: #4b4b4b;
+    }
+
+    .phone-table {
+        border-collapse: collapse;
+    }
+
+        .phone-table td {
+            border: 1px solid #ccc;
+            padding: 3px;
+            padding-left: 5px;
+        }
+</style>

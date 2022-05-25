@@ -1,0 +1,101 @@
+﻿@using Aisger
+@using Aisger.Models
+@using Aisger.Utils
+@using GridMvc.Html
+@model IList<Aisger.Models.DIC_OKED>
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+<script src="@Url.Content("~/Scripts/jquery.jstree.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/default/style.css")" rel="stylesheet" type="text/css" />
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.Dictionary  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  @ResourceSetting.DicOked </li>      
+    </ul>
+    <div id="wrapper_grid" style="margin-left: 50px">
+        <input type="hidden" id="current_tree_id" value="" />
+        <div id="divtree" style="font-size: 14px">
+            <ul id="tree">
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    <li id="@Model[i].Id">
+                        <a href="#" class="usr">
+                            @Model[i].FullName
+                        </a>
+                        @Html.Partial("Childrens", @Model[i])
+                    </li>
+                }
+            </ul>
+        </div>
+        </div>
+    </div>
+<script type="text/javascript">
+    $("#divtree")
+        // call `.jstree` with the options object
+        .jstree({
+            "plugins": ["themes", "html_data", "ui", "crrm", "sort", "contextmenu"],
+            "contextmenu": {
+                "items": function ($node) {
+
+                    return {
+                        "Create": {
+                            "label": "@ResourceSetting.add",
+                            "action": function (obj) {
+                                window.location = "/DicOked/Create/" + obj.attr("id");
+
+                            }
+                        },
+                        "Rename": {
+                            "label": "@ResourceSetting.Edit",
+                            "action": function (obj) {
+
+                                window.location = "/DicOked/Edit/" + obj.attr("id");
+                            }
+                        },
+                        "Delete": {
+                            "label": "@ResourceSetting.Delete",
+                            "action": function (obj) {
+                                var success = function () {
+                                    window.location.href = '@Url.Action("Delete", "DicOked")/' + obj.attr("id");
+                                }
+                                var cancel = function () {
+                                };
+                                showConfirmation("@ResourceSetting.Save", "@ResourceSetting.sAreYouSureYouWantToSend?", success, cancel);
+                                //                                this.remove(obj);
+                            }
+                        }
+                    };
+                }
+            }
+        })
+        .bind("loaded.jstree", function (event, data) {
+            // you get two params - event & data - check the core docs for a detailed description
+            $(this).jstree("close_all");
+        })
+        /*.bind("rename_node.jstree", function(node, data) {
+            window.location = "/DicOked/Edit/" + data.rslt.attr("id");
+        });*/
+        /*  .on('create_node.jstree', function (e, data) {
+               window.location = "/DicOked/Create/" + data.rslt.parent.attr("id");
+           })
+           .on('rename_node.jstree', function (e, data) {
+               window.location = "/DicOked/Edit/" + data.rslt.attr("id");
+           });*/
+
+</script>
+<script type="text/javascript">
+    function sendCreate() {
+        $.ajax({
+            url: '@Url.Action("ChooseKato", "DicOked")',
+            type: 'GET',
+            dataType: 'json',
+            // we set cache: false because GET requests are often cached by browsers
+            // IE is particularly aggressive in that respect
+            data: { id: $("#current_tree_id").val() },
+            cache: false,
+            success: function () {
+            }
+        });
+    }
+
+</script>

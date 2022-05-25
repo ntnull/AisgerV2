@@ -1,0 +1,229 @@
+DEBUG 2019-06-07 01:04:49,057  6530ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+INFO  2019-06-07 01:05:02,354 19826ms MyExtensions           CheckRight         - CheckRight 1100000000 - False 
+INFO  2019-06-07 01:05:02,359 19831ms MyExtensions           CheckRight         - CheckRight 1500000000 - False 
+INFO  2019-06-07 01:05:02,360 19832ms MyExtensions           CheckRight         - CheckRight 1900000000 - False 
+INFO  2019-06-07 01:05:02,361 19833ms MyExtensions           CheckRight         - CheckRight 2300000000 - False 
+INFO  2019-06-07 01:05:02,361 19833ms MyExtensions           CheckRight         - CheckRight 2700000000 - False 
+INFO  2019-06-07 01:05:02,362 19834ms MyExtensions           CheckRight         - CheckRight 3100000000 - False 
+INFO  2019-06-07 01:05:02,363 19835ms MyExtensions           CheckRight         - CheckRight 3500000000 - False 
+INFO  2019-06-07 01:05:02,363 19835ms MyExtensions           CheckRight         - CheckRight 3900000000 - False 
+INFO  2019-06-07 01:05:02,363 19835ms MyExtensions           CheckRight         - CheckRight 4300000000 - False 
+INFO  2019-06-07 01:05:02,364 19836ms MyExtensions           CheckRight         - CheckRight 4700000000 - False 
+INFO  2019-06-07 01:05:02,364 19836ms MyExtensions           CheckRight         - CheckRight 5100000000 - False 
+INFO  2019-06-07 01:05:02,364 19836ms MyExtensions           CheckRight         - CheckRight 5500000000 - False 
+INFO  2019-06-07 01:05:02,365 19837ms MyExtensions           CheckRight         - CheckRight 5900000000 - False 
+INFO  2019-06-07 01:05:02,365 19837ms MyExtensions           CheckRight         - CheckRight 6300000000 - False 
+INFO  2019-06-07 01:05:02,366 19838ms MyExtensions           CheckRight         - CheckRight 7100000001 - False 
+INFO  2019-06-07 01:05:02,366 19838ms MyExtensions           CheckRight         - CheckRight 7500000001 - False 
+DEBUG 2019-06-07 01:05:02,367 19839ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+DEBUG 2019-06-07 01:05:03,177 20649ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+DEBUG 2019-06-07 01:05:18,481 35953ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+INFO  2019-06-07 01:05:35,311 52783ms AccountController      LogOn              - User azim logon
+DEBUG 2019-06-07 01:05:35,324 52796ms MyExtensions           GetRolesId         - GetRolesId
+DEBUG 2019-06-07 01:05:35,845 53318ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+INFO  2019-06-07 01:05:35,876 53349ms MyExtensions           CheckRight         - CheckRight 1100000000 - True 
+INFO  2019-06-07 01:05:35,877 53350ms MyExtensions           CheckRight         - CheckRight 1500000000 - True 
+INFO  2019-06-07 01:05:35,877 53350ms MyExtensions           CheckRight         - CheckRight 1900000000 - True 
+INFO  2019-06-07 01:05:35,877 53350ms MyExtensions           CheckRight         - CheckRight 2300000000 - True 
+INFO  2019-06-07 01:05:35,878 53351ms MyExtensions           CheckRight         - CheckRight 2700000000 - True 
+INFO  2019-06-07 01:05:35,878 53351ms MyExtensions           CheckRight         - CheckRight 3100000000 - True 
+INFO  2019-06-07 01:05:35,879 53352ms MyExtensions           CheckRight         - CheckRight 3500000000 - True 
+INFO  2019-06-07 01:05:35,880 53353ms MyExtensions           CheckRight         - CheckRight 3900000000 - True 
+INFO  2019-06-07 01:05:35,880 53353ms MyExtensions           CheckRight         - CheckRight 4300000000 - True 
+INFO  2019-06-07 01:05:35,880 53353ms MyExtensions           CheckRight         - CheckRight 4700000000 - True 
+INFO  2019-06-07 01:05:35,881 53354ms MyExtensions           CheckRight         - CheckRight 5100000000 - True 
+INFO  2019-06-07 01:05:35,881 53354ms MyExtensions           CheckRight         - CheckRight 5500000000 - True 
+INFO  2019-06-07 01:05:35,882 53355ms MyExtensions           CheckRight         - CheckRight 5900000000 - True 
+INFO  2019-06-07 01:05:35,882 53355ms MyExtensions           CheckRight         - CheckRight 6300000000 - True 
+INFO  2019-06-07 01:05:35,883 53356ms MyExtensions           CheckRight         - CheckRight 7100000001 - True 
+INFO  2019-06-07 01:05:35,883 53356ms MyExtensions           CheckRight         - CheckRight 7500000001 - True 
+DEBUG 2019-06-07 01:05:36,160 53632ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+DEBUG 2019-06-07 01:05:36,173 53646ms MyExtensions           serApplicationName - GetCurrentEmployee
+DEBUG 2019-06-07 01:05:36,175 53648ms MyExtensions           serApplicationName - GetCurrentEmployee
+DEBUG 2019-06-07 01:05:36,206 53679ms MyExtensions           GetRolesId         - GetRolesId
+DEBUG 2019-06-07 01:05:36,207 53680ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+DEBUG 2019-06-07 01:05:45,567 63040ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+INFO  2019-06-07 01:05:45,606 63079ms MyExtensions           CheckRight         - CheckRight 1100000000 - True 
+INFO  2019-06-07 01:05:45,607 63080ms MyExtensions           CheckRight         - CheckRight 1500000000 - True 
+INFO  2019-06-07 01:05:45,607 63080ms MyExtensions           CheckRight         - CheckRight 1900000000 - True 
+INFO  2019-06-07 01:05:45,607 63080ms MyExtensions           CheckRight         - CheckRight 2300000000 - True 
+INFO  2019-06-07 01:05:45,608 63081ms MyExtensions           CheckRight         - CheckRight 2700000000 - True 
+INFO  2019-06-07 01:05:45,608 63081ms MyExtensions           CheckRight         - CheckRight 3100000000 - True 
+INFO  2019-06-07 01:05:45,608 63081ms MyExtensions           CheckRight         - CheckRight 3500000000 - True 
+INFO  2019-06-07 01:05:45,609 63082ms MyExtensions           CheckRight         - CheckRight 3900000000 - True 
+INFO  2019-06-07 01:05:45,609 63082ms MyExtensions           CheckRight         - CheckRight 4300000000 - True 
+INFO  2019-06-07 01:05:45,609 63082ms MyExtensions           CheckRight         - CheckRight 4700000000 - True 
+INFO  2019-06-07 01:05:45,609 63082ms MyExtensions           CheckRight         - CheckRight 5100000000 - True 
+INFO  2019-06-07 01:05:45,610 63083ms MyExtensions           CheckRight         - CheckRight 5500000000 - True 
+INFO  2019-06-07 01:05:45,610 63083ms MyExtensions           CheckRight         - CheckRight 5900000000 - True 
+INFO  2019-06-07 01:05:45,610 63083ms MyExtensions           CheckRight         - CheckRight 6300000000 - True 
+INFO  2019-06-07 01:05:45,611 63084ms MyExtensions           CheckRight         - CheckRight 7100000001 - True 
+INFO  2019-06-07 01:05:45,611 63084ms MyExtensions           CheckRight         - CheckRight 7500000001 - True 
+DEBUG 2019-06-07 01:05:48,911 66384ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+DEBUG 2019-06-07 01:05:48,916 66389ms MyExtensions           serApplicationName - GetCurrentEmployee
+DEBUG 2019-06-07 01:05:48,917 66390ms MyExtensions           serApplicationName - GetCurrentEmployee
+DEBUG 2019-06-07 01:05:48,919 66392ms MyExtensions           GetRolesId         - GetRolesId
+DEBUG 2019-06-07 01:05:58,312 75785ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+DEBUG 2019-06-07 01:06:00,797 78269ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+INFO  2019-06-07 01:06:00,829 78301ms MyExtensions           CheckRight         - CheckRight 1100000000 - True 
+INFO  2019-06-07 01:06:00,829 78301ms MyExtensions           CheckRight         - CheckRight 1500000000 - True 
+INFO  2019-06-07 01:06:00,830 78302ms MyExtensions           CheckRight         - CheckRight 1900000000 - True 
+INFO  2019-06-07 01:06:00,830 78302ms MyExtensions           CheckRight         - CheckRight 2300000000 - True 
+INFO  2019-06-07 01:06:00,831 78303ms MyExtensions           CheckRight         - CheckRight 2700000000 - True 
+INFO  2019-06-07 01:06:00,831 78303ms MyExtensions           CheckRight         - CheckRight 3100000000 - True 
+INFO  2019-06-07 01:06:00,831 78303ms MyExtensions           CheckRight         - CheckRight 3500000000 - True 
+INFO  2019-06-07 01:06:00,832 78304ms MyExtensions           CheckRight         - CheckRight 3900000000 - True 
+INFO  2019-06-07 01:06:00,832 78304ms MyExtensions           CheckRight         - CheckRight 4300000000 - True 
+INFO  2019-06-07 01:06:00,833 78305ms MyExtensions           CheckRight         - CheckRight 4700000000 - True 
+INFO  2019-06-07 01:06:00,833 78305ms MyExtensions           CheckRight         - CheckRight 5100000000 - True 
+INFO  2019-06-07 01:06:00,834 78306ms MyExtensions           CheckRight         - CheckRight 5500000000 - True 
+INFO  2019-06-07 01:06:00,835 78307ms MyExtensions           CheckRight         - CheckRight 5900000000 - True 
+INFO  2019-06-07 01:06:00,835 78307ms MyExtensions           CheckRight         - CheckRight 6300000000 - True 
+INFO  2019-06-07 01:06:00,836 78308ms MyExtensions           CheckRight         - CheckRight 7100000001 - True 
+INFO  2019-06-07 01:06:00,836 78308ms MyExtensions           CheckRight         - CheckRight 7500000001 - True 
+DEBUG 2019-06-07 01:06:01,359 78832ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+INFO  2019-06-07 01:06:01,382 78855ms MyExtensions           CheckRight         - CheckRight 1100000000 - True 
+INFO  2019-06-07 01:06:01,383 78856ms MyExtensions           CheckRight         - CheckRight 1500000000 - True 
+INFO  2019-06-07 01:06:01,383 78856ms MyExtensions           CheckRight         - CheckRight 1900000000 - True 
+INFO  2019-06-07 01:06:01,383 78856ms MyExtensions           CheckRight         - CheckRight 2300000000 - True 
+INFO  2019-06-07 01:06:01,384 78857ms MyExtensions           CheckRight         - CheckRight 2700000000 - True 
+INFO  2019-06-07 01:06:01,384 78857ms MyExtensions           CheckRight         - CheckRight 3100000000 - True 
+INFO  2019-06-07 01:06:01,384 78857ms MyExtensions           CheckRight         - CheckRight 3500000000 - True 
+INFO  2019-06-07 01:06:01,384 78857ms MyExtensions           CheckRight         - CheckRight 3900000000 - True 
+INFO  2019-06-07 01:06:01,385 78858ms MyExtensions           CheckRight         - CheckRight 4300000000 - True 
+INFO  2019-06-07 01:06:01,385 78858ms MyExtensions           CheckRight         - CheckRight 4700000000 - True 
+INFO  2019-06-07 01:06:01,385 78858ms MyExtensions           CheckRight         - CheckRight 5100000000 - True 
+INFO  2019-06-07 01:06:01,385 78858ms MyExtensions           CheckRight         - CheckRight 5500000000 - True 
+INFO  2019-06-07 01:06:01,386 78859ms MyExtensions           CheckRight         - CheckRight 5900000000 - True 
+INFO  2019-06-07 01:06:01,386 78859ms MyExtensions           CheckRight         - CheckRight 6300000000 - True 
+INFO  2019-06-07 01:06:01,386 78859ms MyExtensions           CheckRight         - CheckRight 7100000001 - True 
+INFO  2019-06-07 01:06:01,386 78859ms MyExtensions           CheckRight         - CheckRight 7500000001 - True 
+DEBUG 2019-06-07 01:16:57,686  8079ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+INFO  2019-06-07 01:16:59,662 10056ms MyExtensions           CheckRight         - CheckRight 1100000000 - False 
+INFO  2019-06-07 01:16:59,664 10058ms MyExtensions           CheckRight         - CheckRight 1500000000 - False 
+INFO  2019-06-07 01:16:59,665 10059ms MyExtensions           CheckRight         - CheckRight 1900000000 - False 
+INFO  2019-06-07 01:16:59,665 10059ms MyExtensions           CheckRight         - CheckRight 2300000000 - False 
+INFO  2019-06-07 01:16:59,665 10059ms MyExtensions           CheckRight         - CheckRight 2700000000 - False 
+INFO  2019-06-07 01:16:59,665 10059ms MyExtensions           CheckRight         - CheckRight 3100000000 - False 
+INFO  2019-06-07 01:16:59,666 10060ms MyExtensions           CheckRight         - CheckRight 3500000000 - False 
+INFO  2019-06-07 01:16:59,666 10060ms MyExtensions           CheckRight         - CheckRight 3900000000 - False 
+INFO  2019-06-07 01:16:59,666 10060ms MyExtensions           CheckRight         - CheckRight 4300000000 - False 
+INFO  2019-06-07 01:16:59,667 10061ms MyExtensions           CheckRight         - CheckRight 4700000000 - False 
+INFO  2019-06-07 01:16:59,667 10061ms MyExtensions           CheckRight         - CheckRight 5100000000 - False 
+INFO  2019-06-07 01:16:59,667 10061ms MyExtensions           CheckRight         - CheckRight 5500000000 - False 
+INFO  2019-06-07 01:16:59,667 10061ms MyExtensions           CheckRight         - CheckRight 5900000000 - False 
+INFO  2019-06-07 01:16:59,668 10062ms MyExtensions           CheckRight         - CheckRight 6300000000 - False 
+INFO  2019-06-07 01:16:59,668 10062ms MyExtensions           CheckRight         - CheckRight 7100000001 - False 
+INFO  2019-06-07 01:16:59,668 10062ms MyExtensions           CheckRight         - CheckRight 7500000001 - False 
+DEBUG 2019-06-07 01:16:59,668 10062ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+DEBUG 2019-06-07 01:17:12,139 22532ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+INFO  2019-06-07 01:17:52,960 63353ms AccountController      CheckRoles         - User azim authenthicated by cookie
+DEBUG 2019-06-07 01:17:53,648 64041ms MyExtensions           GetRolesId         - GetRolesId
+DEBUG 2019-06-07 01:17:53,703 64096ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+INFO  2019-06-07 01:17:53,720 64113ms MyExtensions           CheckRight         - CheckRight 1100000000 - True 
+INFO  2019-06-07 01:17:53,721 64114ms MyExtensions           CheckRight         - CheckRight 1500000000 - True 
+INFO  2019-06-07 01:17:53,721 64114ms MyExtensions           CheckRight         - CheckRight 1900000000 - True 
+INFO  2019-06-07 01:17:53,721 64114ms MyExtensions           CheckRight         - CheckRight 2300000000 - True 
+INFO  2019-06-07 01:17:53,721 64114ms MyExtensions           CheckRight         - CheckRight 2700000000 - True 
+INFO  2019-06-07 01:17:53,722 64115ms MyExtensions           CheckRight         - CheckRight 3100000000 - True 
+INFO  2019-06-07 01:17:53,722 64115ms MyExtensions           CheckRight         - CheckRight 3500000000 - True 
+INFO  2019-06-07 01:17:53,722 64115ms MyExtensions           CheckRight         - CheckRight 3900000000 - True 
+INFO  2019-06-07 01:17:53,722 64115ms MyExtensions           CheckRight         - CheckRight 4300000000 - True 
+INFO  2019-06-07 01:17:53,723 64116ms MyExtensions           CheckRight         - CheckRight 4700000000 - True 
+INFO  2019-06-07 01:17:53,723 64116ms MyExtensions           CheckRight         - CheckRight 5100000000 - True 
+INFO  2019-06-07 01:17:53,723 64116ms MyExtensions           CheckRight         - CheckRight 5500000000 - True 
+INFO  2019-06-07 01:17:53,723 64116ms MyExtensions           CheckRight         - CheckRight 5900000000 - True 
+INFO  2019-06-07 01:17:53,723 64116ms MyExtensions           CheckRight         - CheckRight 6300000000 - True 
+INFO  2019-06-07 01:17:53,724 64117ms MyExtensions           CheckRight         - CheckRight 7100000001 - True 
+INFO  2019-06-07 01:17:53,724 64117ms MyExtensions           CheckRight         - CheckRight 7500000001 - True 
+DEBUG 2019-06-07 01:18:00,127 70520ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+DEBUG 2019-06-07 01:18:00,140 70533ms MyExtensions           serApplicationName - GetCurrentEmployee
+DEBUG 2019-06-07 01:18:00,141 70534ms MyExtensions           serApplicationName - GetCurrentEmployee
+DEBUG 2019-06-07 01:18:00,162 70556ms MyExtensions           GetRolesId         - GetRolesId
+DEBUG 2019-06-07 01:18:00,164 70558ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+DEBUG 2019-06-07 01:23:56,667  5321ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+INFO  2019-06-07 01:23:59,555  8210ms MyExtensions           CheckRight         - CheckRight 1100000000 - False 
+INFO  2019-06-07 01:23:59,557  8212ms MyExtensions           CheckRight         - CheckRight 1500000000 - False 
+INFO  2019-06-07 01:23:59,558  8213ms MyExtensions           CheckRight         - CheckRight 1900000000 - False 
+INFO  2019-06-07 01:23:59,558  8213ms MyExtensions           CheckRight         - CheckRight 2300000000 - False 
+INFO  2019-06-07 01:23:59,558  8213ms MyExtensions           CheckRight         - CheckRight 2700000000 - False 
+INFO  2019-06-07 01:23:59,558  8213ms MyExtensions           CheckRight         - CheckRight 3100000000 - False 
+INFO  2019-06-07 01:23:59,559  8214ms MyExtensions           CheckRight         - CheckRight 3500000000 - False 
+INFO  2019-06-07 01:23:59,559  8214ms MyExtensions           CheckRight         - CheckRight 3900000000 - False 
+INFO  2019-06-07 01:23:59,559  8214ms MyExtensions           CheckRight         - CheckRight 4300000000 - False 
+INFO  2019-06-07 01:23:59,559  8214ms MyExtensions           CheckRight         - CheckRight 4700000000 - False 
+INFO  2019-06-07 01:23:59,559  8214ms MyExtensions           CheckRight         - CheckRight 5100000000 - False 
+INFO  2019-06-07 01:23:59,560  8215ms MyExtensions           CheckRight         - CheckRight 5500000000 - False 
+INFO  2019-06-07 01:23:59,560  8215ms MyExtensions           CheckRight         - CheckRight 5900000000 - False 
+INFO  2019-06-07 01:23:59,560  8215ms MyExtensions           CheckRight         - CheckRight 6300000000 - False 
+INFO  2019-06-07 01:23:59,560  8215ms MyExtensions           CheckRight         - CheckRight 7100000001 - False 
+INFO  2019-06-07 01:23:59,561  8216ms MyExtensions           CheckRight         - CheckRight 7500000001 - False 
+DEBUG 2019-06-07 01:23:59,561  8216ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+DEBUG 2019-06-07 01:24:15,810 24464ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+INFO  2019-06-07 01:25:02,093 70748ms AccountController      CheckRoles         - User azim authenthicated by cookie
+DEBUG 2019-06-07 01:25:03,290 71945ms MyExtensions           GetRolesId         - GetRolesId
+DEBUG 2019-06-07 01:25:03,343 71998ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+INFO  2019-06-07 01:25:03,364 72019ms MyExtensions           CheckRight         - CheckRight 1100000000 - True 
+INFO  2019-06-07 01:25:03,364 72019ms MyExtensions           CheckRight         - CheckRight 1500000000 - True 
+INFO  2019-06-07 01:25:03,365 72020ms MyExtensions           CheckRight         - CheckRight 1900000000 - True 
+INFO  2019-06-07 01:25:03,365 72020ms MyExtensions           CheckRight         - CheckRight 2300000000 - True 
+INFO  2019-06-07 01:25:03,365 72020ms MyExtensions           CheckRight         - CheckRight 2700000000 - True 
+INFO  2019-06-07 01:25:03,365 72020ms MyExtensions           CheckRight         - CheckRight 3100000000 - True 
+INFO  2019-06-07 01:25:03,365 72020ms MyExtensions           CheckRight         - CheckRight 3500000000 - True 
+INFO  2019-06-07 01:25:03,366 72021ms MyExtensions           CheckRight         - CheckRight 3900000000 - True 
+INFO  2019-06-07 01:25:03,366 72021ms MyExtensions           CheckRight         - CheckRight 4300000000 - True 
+INFO  2019-06-07 01:25:03,366 72021ms MyExtensions           CheckRight         - CheckRight 4700000000 - True 
+INFO  2019-06-07 01:25:03,366 72021ms MyExtensions           CheckRight         - CheckRight 5100000000 - True 
+INFO  2019-06-07 01:25:03,367 72022ms MyExtensions           CheckRight         - CheckRight 5500000000 - True 
+INFO  2019-06-07 01:25:03,367 72022ms MyExtensions           CheckRight         - CheckRight 5900000000 - True 
+INFO  2019-06-07 01:25:03,367 72022ms MyExtensions           CheckRight         - CheckRight 6300000000 - True 
+INFO  2019-06-07 01:25:03,367 72022ms MyExtensions           CheckRight         - CheckRight 7100000001 - True 
+INFO  2019-06-07 01:25:03,367 72022ms MyExtensions           CheckRight         - CheckRight 7500000001 - True 
+DEBUG 2019-06-07 01:25:11,043 79697ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+DEBUG 2019-06-07 01:25:11,053 79707ms MyExtensions           serApplicationName - GetCurrentEmployee
+DEBUG 2019-06-07 01:25:11,054 79708ms MyExtensions           serApplicationName - GetCurrentEmployee
+DEBUG 2019-06-07 01:25:11,071 79725ms MyExtensions           GetRolesId         - GetRolesId
+DEBUG 2019-06-07 01:25:11,073 79727ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+DEBUG 2019-06-07 01:29:48,861  4611ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+INFO  2019-06-07 01:29:50,045  5795ms MyExtensions           CheckRight         - CheckRight 1100000000 - False 
+INFO  2019-06-07 01:29:50,048  5798ms MyExtensions           CheckRight         - CheckRight 1500000000 - False 
+INFO  2019-06-07 01:29:50,048  5798ms MyExtensions           CheckRight         - CheckRight 1900000000 - False 
+INFO  2019-06-07 01:29:50,048  5798ms MyExtensions           CheckRight         - CheckRight 2300000000 - False 
+INFO  2019-06-07 01:29:50,049  5799ms MyExtensions           CheckRight         - CheckRight 2700000000 - False 
+INFO  2019-06-07 01:29:50,049  5799ms MyExtensions           CheckRight         - CheckRight 3100000000 - False 
+INFO  2019-06-07 01:29:50,049  5799ms MyExtensions           CheckRight         - CheckRight 3500000000 - False 
+INFO  2019-06-07 01:29:50,049  5799ms MyExtensions           CheckRight         - CheckRight 3900000000 - False 
+INFO  2019-06-07 01:29:50,050  5800ms MyExtensions           CheckRight         - CheckRight 4300000000 - False 
+INFO  2019-06-07 01:29:50,050  5800ms MyExtensions           CheckRight         - CheckRight 4700000000 - False 
+INFO  2019-06-07 01:29:50,050  5800ms MyExtensions           CheckRight         - CheckRight 5100000000 - False 
+INFO  2019-06-07 01:29:50,050  5800ms MyExtensions           CheckRight         - CheckRight 5500000000 - False 
+INFO  2019-06-07 01:29:50,051  5801ms MyExtensions           CheckRight         - CheckRight 5900000000 - False 
+INFO  2019-06-07 01:29:50,051  5801ms MyExtensions           CheckRight         - CheckRight 6300000000 - False 
+INFO  2019-06-07 01:29:50,051  5801ms MyExtensions           CheckRight         - CheckRight 7100000001 - False 
+INFO  2019-06-07 01:29:50,051  5801ms MyExtensions           CheckRight         - CheckRight 7500000001 - False 
+DEBUG 2019-06-07 01:29:50,052  5802ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+DEBUG 2019-06-07 01:30:01,333 17083ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+INFO  2019-06-07 01:30:09,414 25164ms AccountController      CheckRoles         - User azim authenthicated by cookie
+DEBUG 2019-06-07 01:30:09,984 25735ms MyExtensions           GetRolesId         - GetRolesId
+DEBUG 2019-06-07 01:30:10,071 25821ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+INFO  2019-06-07 01:30:10,094 25844ms MyExtensions           CheckRight         - CheckRight 1100000000 - True 
+INFO  2019-06-07 01:30:10,095 25845ms MyExtensions           CheckRight         - CheckRight 1500000000 - True 
+INFO  2019-06-07 01:30:10,095 25845ms MyExtensions           CheckRight         - CheckRight 1900000000 - True 
+INFO  2019-06-07 01:30:10,096 25846ms MyExtensions           CheckRight         - CheckRight 2300000000 - True 
+INFO  2019-06-07 01:30:10,096 25846ms MyExtensions           CheckRight         - CheckRight 2700000000 - True 
+INFO  2019-06-07 01:30:10,096 25846ms MyExtensions           CheckRight         - CheckRight 3100000000 - True 
+INFO  2019-06-07 01:30:10,096 25846ms MyExtensions           CheckRight         - CheckRight 3500000000 - True 
+INFO  2019-06-07 01:30:10,097 25847ms MyExtensions           CheckRight         - CheckRight 3900000000 - True 
+INFO  2019-06-07 01:30:10,097 25847ms MyExtensions           CheckRight         - CheckRight 4300000000 - True 
+INFO  2019-06-07 01:30:10,098 25848ms MyExtensions           CheckRight         - CheckRight 4700000000 - True 
+INFO  2019-06-07 01:30:10,098 25848ms MyExtensions           CheckRight         - CheckRight 5100000000 - True 
+INFO  2019-06-07 01:30:10,099 25849ms MyExtensions           CheckRight         - CheckRight 5500000000 - True 
+INFO  2019-06-07 01:30:10,099 25849ms MyExtensions           CheckRight         - CheckRight 5900000000 - True 
+INFO  2019-06-07 01:30:10,099 25849ms MyExtensions           CheckRight         - CheckRight 6300000000 - True 
+INFO  2019-06-07 01:30:10,100 25850ms MyExtensions           CheckRight         - CheckRight 7100000001 - True 
+INFO  2019-06-07 01:30:10,100 25850ms MyExtensions           CheckRight         - CheckRight 7500000001 - True 
+DEBUG 2019-06-07 01:30:21,638 37389ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee
+DEBUG 2019-06-07 01:30:21,647 37397ms MyExtensions           serApplicationName - GetCurrentEmployee
+DEBUG 2019-06-07 01:30:21,649 37399ms MyExtensions           serApplicationName - GetCurrentEmployee
+DEBUG 2019-06-07 01:30:21,677 37427ms MyExtensions           GetRolesId         - GetRolesId
+DEBUG 2019-06-07 01:30:21,679 37429ms MyExtensions           GetCurrentUserId   - GetCurrentEmployee

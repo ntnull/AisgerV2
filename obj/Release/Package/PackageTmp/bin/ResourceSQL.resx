@@ -1,0 +1,423 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="R25" xml:space="preserve">
+    <value>select  t.resource_id , t.resource_name		
+, ROUND(t.qty_state_inst) as qty_state_inst, ROUND(qty_state_inst_prev) as qty_state_inst_prev		
+, CASE WHEN (qty_state_inst=0) THEN 0 ELSE  ROUND( ((qty_state_inst-qty_state_inst_prev)/ qty_state_inst *100)::numeric,1) END  as qty_state_prev_prc		
+, ROUND(qty_quasi_state_inst) as qty_quasi_state_inst, ROUND(qty_quasi_state_inst_prev) as qty_quasi_state_inst_prev		
+, CASE WHEN (qty_quasi_state_inst=0) THEN 0 ELSE   ROUND( ((qty_quasi_state_inst-qty_quasi_state_inst_prev)/qty_quasi_state_inst*100)::numeric,1) END  as qty_quasi_prev_prc		
+, ROUND(qty_jur) as qty_jur, ROUND(qty_jur_prev) as qty_jur_prev		
+, CASE WHEN (qty_jur=0) THEN 0 ELSE  ROUND( ((qty_jur-qty_jur_prev)/qty_jur*100)::numeric,1) END as	qty_jur_prev_prc	
+, ROUND(t.qty_ip) as qty_ip, ROUND(qty_ip_prev) as qty_ip_prev		
+, CASE WHEN (t.qty_ip=0) THEN 0 ELSE ROUND( ((qty_ip-qty_ip_prev)/qty_ip*100)::numeric,1) END as qty_ip_prev_prc		
+, ROUND(qty_sum) as qty_sum, ROUND(qty_sum_prev) as qty_sum_prev		
+, CASE WHEN (qty_sum=0) THEN 0 ELSE ROUND( ((qty_sum-qty_sum_prev)/qty_sum*100)::numeric,1) END as qty_sum_prev_prc		
+		
+from 		
+(		
+select res."Id" as resource_id, res."NameRu" as resource_name		
+/*'гу'*/ 		
+,  coalesce((select  sum((coalesce(f2."OwnSource", 0) + coalesce(f2."NotOwnSource", 0)) * coalesce(tr."Keof", 1))  		
+from  "RST_ReportReestr" rr 		
+inner join   "RST_Report" r on rr."ReportId" = r."Id" 		
+inner join  "SUB_Form" f on f."Id"=rr."FormId" 		
+inner join  "SUB_Form2Record" f2 on f2."FormId" = f."Id" 		
+inner join  "SUB_DIC_TypeResource" tr on f2."TypeResourceId" = tr."Id"  		
+where r."ReportYear" = &lt;year&gt;   and f2."TypeResourceId" = res."Id"  		
+and rr.usrfscode=3 /* (+)'гу'*/		
+and rr."IsExcluded"=false		
+and rr."IsDeleted" = false and r."IsDeleted" = false 		
+and f."IsDeleted" = false and tr."IsDeleted" = false  ), 0) as qty_state_inst		
+/*'гу'*/ 		
+,  coalesce((select  sum((coalesce(f2."OwnSource", 0) + coalesce(f2."NotOwnSource", 0)) * coalesce(tr."Keof", 1))  		
+from  "RST_ReportReestr" rr 		
+inner join   "RST_Report" r on rr."ReportId" = r."Id" 		
+inner join  "SUB_Form" f on f."Id" = rr."FormId" /*(+)*/		
+inner join  "SUB_Form2Record" f2 on f2."FormId" = f."Id" 		
+inner join  "SUB_DIC_TypeResource" tr on f2."TypeResourceId" = tr."Id"  		
+where r."ReportYear" = &lt;year&gt;-1  and f2."TypeResourceId" = res."Id" 		
+and rr.usrfscode=3 /* (+)*/		
+and rr."IsExcluded"=false		
+and rr."IsDeleted" = false and r."IsDeleted" = false 		
+and f."IsDeleted" = false and tr."IsDeleted" = false  ), 0) as qty_state_inst_prev		
+		
+/* 'кв'*/ 		
+,  coalesce((select  sum((coalesce(f2."OwnSource", 0) + coalesce(f2."NotOwnSource", 0)) * coalesce(tr."Keof", 1))  		
+from  "RST_ReportReestr" rr 		
+inner join   "RST_Report" r on rr."ReportId" = r."Id" 		
+inner join  "SUB_Form" f on f."Id" = rr."FormId"		
+inner join  "SUB_Form2Record" f2 on f2."FormId" = f."Id" 		
+inner join  "SUB_DIC_TypeResource" tr on f2."TypeResourceId" = tr."Id"  		
+where 		
+r."ReportYear" = &lt;year&gt;   and f2."TypeResourceId" = res."Id" 		
+and rr.usrfscode=2  		
+and rr."IsExcluded"=false		
+and rr."IsDeleted" = false and r."IsDeleted" = false		
+and f."IsDeleted" = false and tr."IsDeleted" = false  ), 0) as qty_quasi_state_inst		
+		
+/* 'кв'*/ 		
+,  coalesce((select  sum((coalesce(f2."OwnSource", 0) + coalesce(f2."NotOwnSource", 0)) * coalesce(tr."Keof", 1))  		
+from  "RST_ReportReestr" rr 		
+inner join   "RST_Report" r on rr."ReportId" = r."Id" 		
+inner join  "SUB_Form" f on f."Id" = rr."FormId" 		
+inner join  "SUB_Form2Record" f2 on f2."FormId" = f."Id" 		
+inner join  "SUB_DIC_TypeResource" tr on f2."TypeResourceId" = tr."Id"   		
+where  r."ReportYear" = &lt;year&gt;-1  and f2."TypeResourceId" = res."Id" 		
+and rr.usrfscode=2 		
+and rr."IsExcluded"=false		
+and rr."IsDeleted" = false and r."IsDeleted" = false 		
+and f."IsDeleted" = false and tr."IsDeleted" = false  ), 0) as qty_quasi_state_inst_prev		
+		
+/*'юр'*/ 		
+,  coalesce((select  sum((coalesce(f2."OwnSource", 0) + coalesce(f2."NotOwnSource", 0)) * coalesce(tr."Keof", 1))  		
+from  "RST_ReportReestr" rr		
+inner join   "RST_Report" r on rr."ReportId" = r."Id" 		
+inner join  "SUB_Form" f on f."Id" = rr."FormId" 		
+inner join  "SUB_Form2Record" f2 on f2."FormId" = f."Id" 		
+inner join  "SUB_DIC_TypeResource" tr on f2."TypeResourceId" = tr."Id"  		
+where  r."ReportYear" = &lt;year&gt;   and f2."TypeResourceId" = res."Id" 		
+and rr.usrfscode=1 		
+and rr."IsExcluded"=false		
+and rr."IsDeleted" = false and r."IsDeleted" = false 		
+and f."IsDeleted" = false and tr."IsDeleted" = false  ), 0) as qty_jur		
+		
+/*'юр'*/ 		
+,  coalesce((select  sum((coalesce(f2."OwnSource", 0) + coalesce(f2."NotOwnSource", 0)) * coalesce(tr."Keof", 1))  		
+from  "RST_ReportReestr" rr 		
+inner join   "RST_Report" r on rr."ReportId" = r."Id" 		
+inner join  "SUB_Form" f on f."Id" = rr."FormId" 		
+inner join  "SUB_Form2Record" f2 on f2."FormId" = f."Id" 		
+inner join  "SUB_DIC_TypeResource" tr on f2."TypeResourceId" = tr."Id"  		
+where  r."ReportYear" = &lt;year&gt;-1  and f2."TypeResourceId" = res."Id" 		
+and rr.usrfscode=1  		
+and rr."IsExcluded"=false		
+and rr."IsDeleted" = false and r."IsDeleted" = false 		
+and f."IsDeleted" = false and tr."IsDeleted" = false  ), 0) as qty_jur_prev  		
+, 0 as qty_jur_prev_prc 		
+		
+/* 'ип'*/ 		
+,  coalesce((select  sum((coalesce(f2."OwnSource", 0) + coalesce(f2."NotOwnSource", 0)) * coalesce(tr."Keof", 1))  		
+from  "RST_ReportReestr" rr		
+inner join   "RST_Report" r on rr."ReportId" = r."Id" 		
+inner join  "SUB_Form" f on f."Id" = rr."FormId" 		
+inner join  "SUB_Form2Record" f2 on f2."FormId" = f."Id" 		
+inner join  "SUB_DIC_TypeResource" tr on f2."TypeResourceId" = tr."Id"  		
+where  r."ReportYear" = &lt;year&gt;   and f2."TypeResourceId" = res."Id" 		
+and rr.usrfscode=4		
+and rr."IsExcluded"=false		
+and rr."IsDeleted" = false and r."IsDeleted" = false 		
+and f."IsDeleted" = false and tr."IsDeleted" = false  ), 0) as qty_ip		
+		
+/*'ип'*/ 		
+,  coalesce((select  sum((coalesce(f2."OwnSource", 0) + coalesce(f2."NotOwnSource", 0)) * coalesce(tr."Keof", 1)) 		
+from  "RST_ReportReestr" rr 		
+inner join   "RST_Report" r on rr."ReportId" = r."Id" 		
+inner join  "SUB_Form" f on f."Id" = rr."FormId" 		
+inner join  "SUB_Form2Record" f2 on f2."FormId" = f."Id" 		
+inner join  "SUB_DIC_TypeResource" tr on f2."TypeResourceId" = tr."Id"  		
+where  r."ReportYear" = &lt;year&gt;-1  and f2."TypeResourceId" = res."Id" 		
+and rr.usrfscode=4  		
+and rr."IsExcluded"=false		
+and rr."IsDeleted" = false and r."IsDeleted" = false 		
+and f."IsDeleted" = false and tr."IsDeleted" = false  ), 0) as qty_ip_prev  		
+		
+/* 'сум'*/ 		
+,  coalesce((select  sum((coalesce(f2."OwnSource", 0) + coalesce(f2."NotOwnSource", 0)) * coalesce(tr."Keof", 1))  		
+from  "RST_ReportReestr" rr		
+inner join   "RST_Report" r on rr."ReportId" = r."Id" 		
+inner join  "SUB_Form" f on f."Id" = rr."FormId" 		
+inner join  "SUB_Form2Record" f2 on f2."FormId" = f."Id" 		
+inner join  "SUB_DIC_TypeResource" tr on f2."TypeResourceId" = tr."Id"  		
+where  r."ReportYear" = &lt;year&gt;   and f2."TypeResourceId" = res."Id" 		
+		
+and rr."IsExcluded"=false		
+and rr."IsDeleted" = false and r."IsDeleted" = false 		
+and f."IsDeleted" = false and tr."IsDeleted" = false  ), 0) as qty_sum		
+		
+/*'сум'*/ 		
+,  coalesce((select  sum((coalesce(f2."OwnSource", 0) + coalesce(f2."NotOwnSource", 0)) * coalesce(tr."Keof", 1)) 		
+from  "RST_ReportReestr" rr 		
+inner join   "RST_Report" r on rr."ReportId" = r."Id" 		
+inner join  "SUB_Form" f on f."Id" = rr."FormId" 		
+inner join  "SUB_Form2Record" f2 on f2."FormId" = f."Id" 		
+inner join  "SUB_DIC_TypeResource" tr on f2."TypeResourceId" = tr."Id"  		
+where  r."ReportYear" = &lt;year&gt;-1  and f2."TypeResourceId" = res."Id" 		
+
+and rr."IsExcluded"=false		
+and rr."IsDeleted" = false and r."IsDeleted" = false 		
+and f."IsDeleted" = false and tr."IsDeleted" = false  ), 0) as qty_sum_prev  		
+		
+from  "SUB_DIC_TypeResource" res  		
+where res."IsDeleted" = false  		
+/*order by res."Id"*/ 		
+) as t		
+		
+UNION		
+		
+
+select  s.resource_id , s.resource_name		
+, ROUND(qty_state_inst) as qty_state_inst, ROUND(qty_state_inst_prev) as qty_state_inst_prev		
+, CASE WHEN (qty_state_inst=0) THEN 0 ELSE  ROUND( ((qty_state_inst-qty_state_inst_prev)/ qty_state_inst *100)::numeric,1) END  as qty_state_prev_prc		
+, ROUND(qty_quasi_state_inst) as qty_quasi_state_inst, ROUND(qty_quasi_state_inst_prev) as qty_quasi_state_inst_prev		
+, CASE WHEN (qty_quasi_state_inst=0) THEN 0 ELSE   ROUND( ((qty_quasi_state_inst-qty_quasi_state_inst_prev)/qty_quasi_state_inst*100)::numeric,1) END  as qty_quasi_prev_prc		
+, ROUND(qty_jur) as qty_jur, ROUND(qty_jur_prev) as qty_jur_prev		
+, CASE WHEN (qty_jur=0) THEN 0 ELSE  ROUND( ((qty_jur-qty_jur_prev)/qty_jur*100)::numeric,1) END as	qty_jur_prev_prc	
+, ROUND(qty_ip) as qty_ip, ROUND(qty_ip_prev) as qty_ip_prev		
+, CASE WHEN (qty_ip=0) THEN 0 ELSE ROUND( ((qty_ip-qty_ip_prev)/qty_ip*100)::numeric,1) END as qty_ip_prev_prc		
+, ROUND(qty_sum) as qty_sum, ROUND(qty_sum_prev) as qty_sum_prev		
+, CASE WHEN (qty_sum=0) THEN 0 ELSE ROUND( ((qty_sum-qty_sum_prev)/qty_sum*100)::numeric,1) END as qty_sum_prev_prc		
+		
+from (		
+select null as resource_id, 'Итого по Республике' as resource_name		
+/*'гу'*/ 		
+,  coalesce((select  sum((coalesce(f2."OwnSource", 0) + coalesce(f2."NotOwnSource", 0)) * coalesce(tr."Keof", 1))  		
+from  "RST_ReportReestr" rr 		
+inner join   "RST_Report" r on rr."ReportId" = r."Id" 		
+inner join  "SUB_Form" f on f."Id"=rr."FormId" 		
+inner join  "SUB_Form2Record" f2 on f2."FormId" = f."Id" 		
+inner join  "SUB_DIC_TypeResource" tr on f2."TypeResourceId" = tr."Id"  		
+where r."ReportYear" = &lt;year&gt;  	
+and rr.usrfscode=3 	
+and rr."IsExcluded"=false		
+and rr."IsDeleted" = false and r."IsDeleted" = false 		
+and f."IsDeleted" = false and tr."IsDeleted" = false  ), 0) as qty_state_inst		
+/*'гу'*/ 		
+,  coalesce((select  sum((coalesce(f2."OwnSource", 0) + coalesce(f2."NotOwnSource", 0)) * coalesce(tr."Keof", 1))  		
+from  "RST_ReportReestr" rr 		
+inner join   "RST_Report" r on rr."ReportId" = r."Id" 		
+inner join  "SUB_Form" f on f."Id" = rr."FormId" 	
+inner join  "SUB_Form2Record" f2 on f2."FormId" = f."Id" 		
+inner join  "SUB_DIC_TypeResource" tr on f2."TypeResourceId" = tr."Id"  		
+where r."ReportYear" = &lt;year&gt;-1  	
+and rr.usrfscode=3 	
+and rr."IsExcluded"=false		
+and rr."IsDeleted" = false and r."IsDeleted" = false 		
+and f."IsDeleted" = false and tr."IsDeleted" = false  ), 0) as qty_state_inst_prev		
+	
+		
+/*'кв'*/  		
+,  coalesce((select  sum((coalesce(f2."OwnSource", 0) + coalesce(f2."NotOwnSource", 0)) * coalesce(tr."Keof", 1))  		
+from  "RST_ReportReestr" rr 		
+inner join   "RST_Report" r on rr."ReportId" = r."Id" 		
+inner join  "SUB_Form" f on f."Id" = rr."FormId"		
+inner join  "SUB_Form2Record" f2 on f2."FormId" = f."Id" 		
+inner join  "SUB_DIC_TypeResource" tr on f2."TypeResourceId" = tr."Id"  		
+where 		
+r."ReportYear" = &lt;year&gt;   
+and rr.usrfscode=2  		
+and rr."IsExcluded"=false		
+and rr."IsDeleted" = false and r."IsDeleted" = false		
+and f."IsDeleted" = false and tr."IsDeleted" = false  ), 0) as qty_quasi_state_inst		
+		
+/*'кв'*/ 		
+,  coalesce((select  sum((coalesce(f2."OwnSource", 0) + coalesce(f2."NotOwnSource", 0)) * coalesce(tr."Keof", 1))  		
+from  "RST_ReportReestr" rr 		
+inner join   "RST_Report" r on rr."ReportId" = r."Id" 		
+inner join  "SUB_Form" f on f."Id" = rr."FormId" 		
+inner join  "SUB_Form2Record" f2 on f2."FormId" = f."Id" 		
+inner join  "SUB_DIC_TypeResource" tr on f2."TypeResourceId" = tr."Id"   		
+where  r."ReportYear" = &lt;year&gt;-1  
+and rr.usrfscode=2 		
+and rr."IsExcluded"=false		
+and rr."IsDeleted" = false and r."IsDeleted" = false 		
+and f."IsDeleted" = false and tr."IsDeleted" = false  ), 0) as qty_quasi_state_inst_prev		
+, 0 as qty_quasi_prev_prc		
+		
+/*'юр'*/		
+,  coalesce((select  sum((coalesce(f2."OwnSource", 0) + coalesce(f2."NotOwnSource", 0)) * coalesce(tr."Keof", 1))  		
+from  "RST_ReportReestr" rr		
+inner join   "RST_Report" r on rr."ReportId" = r."Id" 		
+inner join  "SUB_Form" f on f."Id" = rr."FormId" 		
+inner join  "SUB_Form2Record" f2 on f2."FormId" = f."Id" 		
+inner join  "SUB_DIC_TypeResource" tr on f2."TypeResourceId" = tr."Id"  		
+where  r."ReportYear" = &lt;year&gt;  
+and rr.usrfscode=1 		
+and rr."IsExcluded"=false		
+and rr."IsDeleted" = false and r."IsDeleted" = false 		
+and f."IsDeleted" = false and tr."IsDeleted" = false  ), 0) as qty_jur		
+		
+/*'юр'*/			
+,  coalesce((select  sum((coalesce(f2."OwnSource", 0) + coalesce(f2."NotOwnSource", 0)) * coalesce(tr."Keof", 1))  		
+from  "RST_ReportReestr" rr 		
+inner join   "RST_Report" r on rr."ReportId" = r."Id" 		
+inner join  "SUB_Form" f on f."Id" = rr."FormId" 		
+inner join  "SUB_Form2Record" f2 on f2."FormId" = f."Id" 		
+inner join  "SUB_DIC_TypeResource" tr on f2."TypeResourceId" = tr."Id"  		
+where  r."ReportYear" = &lt;year&gt;-1 	
+and rr.usrfscode=1  		
+and rr."IsExcluded"=false		
+and rr."IsDeleted" = false and r."IsDeleted" = false 		
+and f."IsDeleted" = false and tr."IsDeleted" = false  ), 0) as qty_jur_prev  	
+		
+/*'ип'*/			
+,  coalesce((select  sum((coalesce(f2."OwnSource", 0) + coalesce(f2."NotOwnSource", 0)) * coalesce(tr."Keof", 1))  		
+from  "RST_ReportReestr" rr		
+inner join   "RST_Report" r on rr."ReportId" = r."Id" 		
+inner join  "SUB_Form" f on f."Id" = rr."FormId" 		
+inner join  "SUB_Form2Record" f2 on f2."FormId" = f."Id" 		
+inner join  "SUB_DIC_TypeResource" tr on f2."TypeResourceId" = tr."Id"  		
+where  r."ReportYear" = &lt;year&gt;  		
+and rr.usrfscode=4		
+and rr."IsExcluded"=false		
+and rr."IsDeleted" = false and r."IsDeleted" = false 		
+and f."IsDeleted" = false and tr."IsDeleted" = false  ), 0) as qty_ip		
+		
+/*'ип'*/		
+,  coalesce((select  sum((coalesce(f2."OwnSource", 0) + coalesce(f2."NotOwnSource", 0)) * coalesce(tr."Keof", 1)) 		
+from  "RST_ReportReestr" rr 		
+inner join   "RST_Report" r on rr."ReportId" = r."Id" 		
+inner join  "SUB_Form" f on f."Id" = rr."FormId" 		
+inner join  "SUB_Form2Record" f2 on f2."FormId" = f."Id" 		
+inner join  "SUB_DIC_TypeResource" tr on f2."TypeResourceId" = tr."Id"  		
+where  r."ReportYear" = &lt;year&gt;-1 
+and rr.usrfscode=4		
+and rr."IsExcluded"=false		
+and rr."IsDeleted" = false and r."IsDeleted" = false 		
+and f."IsDeleted" = false and tr."IsDeleted" = false  ), 0) as qty_ip_prev  		
+		
+/*'sum'*/		
+,  coalesce((select  sum((coalesce(f2."OwnSource", 0) + coalesce(f2."NotOwnSource", 0)) * coalesce(tr."Keof", 1))  		
+from  "RST_ReportReestr" rr		
+inner join   "RST_Report" r on rr."ReportId" = r."Id" 		
+inner join  "SUB_Form" f on f."Id" = rr."FormId" 		
+inner join  "SUB_Form2Record" f2 on f2."FormId" = f."Id" 		
+inner join  "SUB_DIC_TypeResource" tr on f2."TypeResourceId" = tr."Id"  		
+where  r."ReportYear" = &lt;year&gt;  		
+	
+and rr."IsExcluded"=false		
+and rr."IsDeleted" = false and r."IsDeleted" = false 		
+and f."IsDeleted" = false and tr."IsDeleted" = false  ), 0) as qty_sum		
+		
+/*'sum'*/		
+,  coalesce((select  sum((coalesce(f2."OwnSource", 0) + coalesce(f2."NotOwnSource", 0)) * coalesce(tr."Keof", 1)) 		
+from  "RST_ReportReestr" rr 		
+inner join   "RST_Report" r on rr."ReportId" = r."Id" 		
+inner join  "SUB_Form" f on f."Id" = rr."FormId" 		
+inner join  "SUB_Form2Record" f2 on f2."FormId" = f."Id" 		
+inner join  "SUB_DIC_TypeResource" tr on f2."TypeResourceId" = tr."Id" 		
+where  r."ReportYear" = &lt;year&gt;-1  		
+	
+and rr."IsExcluded"=false 		
+and rr."IsDeleted" = false and r."IsDeleted" = false 		
+and f."IsDeleted" = false and tr."IsDeleted" = false  ), 0) as qty_sum_prev 		
+) s				
+order by resource_id</value>
+  </data>
+</root>

@@ -1,0 +1,16 @@
+﻿@model Aisger.Models.DIC_OKED
+@foreach (var item in Model.DIC_OKED1)
+{
+    <ul>
+        @if (item != null && !item.IsDeleted)
+        {
+            <li id="@item.Id" title="@item.FullName">
+                <a href="#" class="usr">@item.FullName </a>
+                @if (item.DIC_OKED1.Count > 0)
+                {
+                    @Html.Partial("Childrens", item)
+                }
+            </li>
+        }
+    </ul>
+}

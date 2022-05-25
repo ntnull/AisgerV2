@@ -1,0 +1,23 @@
+﻿@using Aisger
+@model Aisger.Models.SUB_Form
+<div id="CSSTableGenerator">
+    <table class="wast-list" style="width: 100%">
+        <thead>
+            <tr>
+                <td>@ResourceSetting.responcePostFio :</td>
+                @{ var responceInfo = "";}
+                @if (@Model.SEC_User1 != null)
+                {
+                    responceInfo = @Model.SEC_User1.ResponceFIO + ", " + @Model.SEC_User1.ResponcePost;
+                }
+                <td id="responceInfo">
+                    @responceInfo
+                </td>
+            </tr>
+            <tr>
+                <td>@ResourceSetting.bossFioPost:  </td>
+                <td id="SubjectBoss1">@Model.SubjectBoss</td>
+            </tr>
+        </thead>
+    </table>
+</div>

@@ -1,0 +1,223 @@
+﻿@using Aisger
+@model Aisger.Models.DicHolidayEntity
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+<style type="text/css">
+    span.ui-datepicker-year {
+        display: none;
+    }
+
+    .date-edit {
+        width: 100px;
+    }
+</style>
+
+
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.Dictionary <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  @ResourceSetting.DicHolidays </li>
+
+    </ul>
+
+    <div id="wrapper_grid" style="margin-left: 50px">
+        @using (Html.BeginForm("Create", "DicHolidays", FormMethod.Post, new { id = "demoForm", name = "demoForm" }))
+        {
+            @Html.ValidationSummary(true)
+
+            <div class="clearfixmandatory">
+                @Html.Label(ResourceSetting.Year)
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Year)
+                    @Html.ValidationMessageFor(model => model.Year)
+                </div>
+            </div>
+    <div class="alert alert-warning" role="alert" id="tempInfoId" style="display: none">По данному году и запись уже существует</div>
+
+            <div class="panel panel-success" style="width: 40%;display: inline-block;">
+                <div class="panel-heading">@ResourceSetting.DicHolidays</div>
+                <div class="panel-body">
+                    <table id="table1">
+                        <tbody id="form1">
+                            @for (var i = 0; i < Model.DicHolidayses.Count; i++)
+                            {
+                            <tr rowindex="@i">
+                                @Html.HiddenFor(model => model.DicHolidayses[i].Id)
+                                <td>
+                                    @Html.TextBoxFor(model => model.DicHolidayses[i].RegDateStr, new { @class = "form-control date-edit" })
+                                </td>
+                                @if (i == 0)
+                                    {
+                                    <td class="disabletd"><a class="deleteRow"></a></td>
+                                    }
+                                    else
+                                    {
+                                    <td class="disabletd">
+                                        <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete" />
+                                    </td>
+                                    }
+                            </tr>
+                            }
+                            <tr>
+                                <td colspan="2" style="text-align: left;">
+                                    <button type="button" class="btn btn-success btn-sm" id="addevent">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.add
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+    <div class="panel panel-warning" style="width: 50%;display: inline-block;">
+        <div class="panel-heading">@ResourceSetting.WorkDays</div>
+        <div class="panel-body">
+            <table id="table2">
+                <tbody id="form2">
+                    @for (var i = 0; i < Model.DicWorkes.Count; i++)
+                    {
+                        <tr rowindex="@i">
+                            @Html.HiddenFor(model => model.DicWorkes[i].Id)
+                            <td>
+                                @Html.TextBoxFor(model => model.DicWorkes[i].RegDateStr, new { @class = "form-control date-edit" })
+                            </td>
+                            @if (i == 0)
+                            {
+                                <td class="disabletd"><a class="deleteRow"></a></td>
+                            }
+                            else
+                            {
+                                <td class="disabletd">
+                                    <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete" />
+                                </td>
+                            }
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="2" style="text-align: left;">
+                            <button type="button" class="btn btn-success btn-sm" id="addevent1">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.add
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+            <button id="saveUpdate" type="submit" name="SaveUpdate" value="SaveUpdate" style="visibility: hidden;"></button>
+        }
+        <div style="width: 100%">
+            <button type="button" class="btn btn-success btn-lg" onclick="history.go(-1);return false;">
+                <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Return
+            </button>
+            <button type="button" id="saveBtn" class="btn btn-success btn-lg" onclick=" SaveChange() " style="float: right; margin-right: 30px">
+                <span class="glyphicon glyphicon-save" aria-hidden="true"></span> @ResourceSetting.Save
+            </button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function setupDate(idocntrol) {
+        $(idocntrol).datepicker({
+            changeYear: false, dateFormat: 'dd/mm',
+        });
+    }
+
+    $(document).ready(function () {
+        if (window.location.href.indexOf('Edit') > -1) {
+            $("#Year").prop("readonly", true);
+
+        }
+
+        $("#Year").change(function () {
+            var params = JSON.stringify({ 'year': $(this).val() });
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetInfoReportYear")',
+                data: params,
+                dataType: 'json',
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                success: function(data) {
+                    if (data.Success) {
+                        $("#tempInfoId").show();
+                        $("#saveBtn").hide();
+
+                    } else {
+                        $("#tempInfoId").hide();
+                        $("#saveBtn").show();
+                    }
+                },
+                error: function() {
+                    alert("Connection Failed. Please Try Again");
+                }
+            });
+        });
+
+        setupDate('.date-edit');
+        var counterBuff = 0;
+        $("#addevent").on("click", function () {
+
+            var row = $(this).closest("tr").prev();
+            var rowindex = parseInt(row.attr('rowindex'), 10) || 0;
+            var nextIndex = rowindex + 1;
+            var idcontrol = "DicHolidayses_" + nextIndex;
+            var cols = '<tr rowindex="' + nextIndex + '">';
+            cols += '<td><input type="text" name="DicHolidayses[' + nextIndex + '].RegDateStr" id="' + idcontrol + '"  class="form-control date-edit" /></td>';
+            cols += '<td  class="disabletd"><i class="glyphicon glyphicon-remove deleteRow"  title="@ResourceSetting.Delete"></td>';
+            cols += '</tr>';
+            row.after(cols);
+            setupDate('#' + idcontrol);
+            counterBuff++;
+        });
+
+        $("#table1").on("click", ".deleteRow", function () {
+            var row = $(this).closest('tr');
+            var success = function () {
+
+                row.remove();
+                counterBuff -= 1;
+                $('#addevent').attr('disabled', false).prop('value', "@ResourceSetting.add");
+            }
+            var cancel = function () {
+            };
+            showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.sAreYouSureYouWantToSend?", success, cancel);
+
+        });
+
+        var counterBuff1 = 0;
+        $("#addevent1").on("click", function () {
+
+            var row = $(this).closest("tr").prev();
+            var rowindex = parseInt(row.attr('rowindex'), 10) || 0;
+            var nextIndex = rowindex + 1;
+            var idcontrol = "DicWorkes_" + nextIndex;
+            var cols = '<tr rowindex="' + nextIndex + '">';
+            cols += '<td><input type="text" name="DicWorkes[' + nextIndex + '].RegDateStr" id="' + idcontrol + '"  class="form-control date-edit" /></td>';
+            cols += '<td  class="disabletd"><i class="glyphicon glyphicon-remove deleteRow"  title="@ResourceSetting.Delete"></td>';
+            cols += '</tr>';
+            row.after(cols);
+            setupDate('#' + idcontrol);
+            counterBuff1++;
+        });
+
+        $("#table2").on("click", ".deleteRow", function () {
+            var row = $(this).closest('tr');
+            var success = function () {
+
+                row.remove();
+                counterBuff1 -= 1;
+                $('#addevent1').attr('disabled', false).prop('value', "@ResourceSetting.add");
+            }
+            var cancel = function () {
+            };
+            showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.sAreYouSureYouWantToSend?", success, cancel);
+
+        });
+
+    });
+</script>

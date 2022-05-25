@@ -1,0 +1,108 @@
+﻿@using System.Threading
+@using Aisger
+@using Aisger.Helpers
+@using Aisger.Utils
+@using GridMvc.Html
+@using GridMvc.Sorting
+@model IEnumerable<Aisger.Models.SEC_User>
+
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+
+@helper GridManageItemColumn(long id)
+{
+
+    <a href="@Url.Action("Edit", "Guest", new { id })">
+        <i class="glyphicon glyphicon-edit" title="@ResourceSetting.Edit"></i>
+    </a>
+    <a href="@Url.Action("ChangePwd", "Guest", new { id })">
+        <i class="glyphicon glyphicon-lock" title="@ResourceSetting.ChangePassword"></i>
+    </a>
+    <a href="#" class="btn-guest-delete" obj-id="@id">
+        <i class="glyphicon glyphicon-remove" style="margin-left: 5px" title="@ResourceSetting.Delete"></i>
+    </a>
+}
+@helper GridCvazy(bool isCvazy)
+{
+    if (isCvazy)
+    {
+        if (CultureHelper.GetCurrentCulture() == CultureHelper.FieldKz)
+        {
+    <text>Иә</text>
+        }
+        else
+        {
+    <text>Да</text>
+        }
+    }
+    else
+    {
+        if (CultureHelper.GetCurrentCulture() == CultureHelper.FieldKz)
+        {
+    <text>Жоқ</text>
+        }
+        else
+        {
+    <text>Нет</text>
+        }
+    }
+}
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel">@ResourceSetting.admin  <span></span></li>
+        <li id="selectLabel"><span class="glyphicon glyphicon-arrow-right"></span>@ResourceSetting.Guest </li>
+        <li style="float: right">
+            <button type="button" class="btn btn-success btn-sm" onclick="location.href='@Url.Action("Create", "Guest")'">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.add
+            </button>
+            @*  <button type="button" class="btn btn-primary btn-sm" id="exportBtn">
+                <span class="glyphicon glyphicon-open" aria-hidden="true"></span> Экспорт Excel
+            </button>*@
+        </li>
+    </ul>
+    <div id="CSSTableGenerator">
+        @Html.Grid(Model).Named("ordersGrid").TableId("data-table").SetLanguage(Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName).Columns(columns =>
+                {
+                    columns.Add(o => o.Id, true)
+                    .Titled("Id").SetWidth(0);
+                    columns.Add(o => o.ApplicationName).Titled(ResourceSetting.ApplicationName)
+                    .SetWidth(60);
+                    columns.Add(o => o.BINIIN).Titled(ResourceSetting.BININ)
+                    .SetWidth(60);
+                    columns.Add(o => o.FullName).Titled(ResourceSetting.boss)
+                    .SetWidth(60);
+                    columns.Add(o => o.TypeNames).Titled(ResourceSetting.KindUser)
+                    .SetWidth(60);
+
+                    columns.Add(o => o.IsCvazy).Titled(ResourceSetting.IsCvazy2)
+                    .SetWidth(40).RenderValueAs(o => GridCvazy(o.IsCvazy));
+                    
+                    columns.Add(o => o.IDK).Titled(ResourceSetting.IDK)
+                    .SetWidth(40);
+                    
+                    columns.Add().Encoded(false).Sanitized(false).SetWidth(60)
+                    .RenderValueAs(o => GridManageItemColumn(o.Id).ToHtmlString());
+
+                }).WithPaging(50).Sortable().Filterable().WithMultipleFilters()
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        bindTodeleteBtn('@ResourceSetting.Delete', '@ResourceSetting.deleteconfirm');
+
+        $('.btn-guest-delete').click(function () {
+            var objid = $(this).attr('obj-id');
+
+            var success = function () {
+                location.href = "/Guest/Delete?id=" + objid;  //Url.Action("Delete", "Guest", new { id })
+            }
+
+            var cancel = function () {
+            };
+
+            showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+
+        });
+    });
+</script>

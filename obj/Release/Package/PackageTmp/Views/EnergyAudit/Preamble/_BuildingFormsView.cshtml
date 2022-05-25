@@ -1,0 +1,298 @@
+﻿@using Aisger
+@using Aisger.CustomResources
+@model Aisger.Models.EAUDIT_Preamble
+
+<div id="divBuildingWizard" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bwizard">
+    <ul style="overflow-x: auto;" id="BuildingFormTabs">
+        <li>
+            <a href="#bformtab" data-toggle="tab">
+                <span class="label badge-inverse"></span>
+                @EauditResource.Buildings
+                <small>
+                    <!-- зарегистрируйте здания, строения, сооружения-->
+                </small>
+            </a>
+        </li>
+        <li>
+            <a href="#bform1tab" data-toggle="tab">
+                <span class="label badge-inverse">1</span>
+                @ResourceSetting.tTable 1
+                <small>
+                    1. @EauditResource.BuildingForm1Name
+                </small>
+            </a>
+        </li>
+        <li>
+            <a href="#bform2tab" data-toggle="tab">
+                <span class="label badge-inverse">2</span>
+                @ResourceSetting.tTable 2
+                <small>
+                    2. @EauditResource.BuildingForm2Name
+                </small>
+            </a>
+        </li>
+        <li>
+            <a href="#bform3tab" data-toggle="tab">
+                <span class="label badge-inverse">3</span>
+                @ResourceSetting.tTable 3
+                <small>
+                    3.@EauditResource.BuildingForm3Name
+                </small>
+            </a>
+        </li>
+        <li>
+            <a href="#bform4tab" data-toggle="tab">
+                <span class="label badge-inverse">4</span>
+                @ResourceSetting.tTable 4
+                <small>
+                    4. @EauditResource.BuildingForm4Name
+                </small>
+            </a>
+        </li>
+        <li>
+            <a href="#bform5tab" data-toggle="tab">
+                <span class="label badge-inverse">5</span>
+                @ResourceSetting.tTable 5
+                <small>
+                    5. @EauditResource.BuildingForm5Name
+                </small>
+            </a>
+        </li>
+        <li>
+            <a href="#bform6tab" data-toggle="tab">
+                <span class="label badge-inverse">6</span>
+                @ResourceSetting.tTable 6
+                <small>
+                    6. @EauditResource.BuildingForm6Name
+                </small>
+            </a>
+        </li>
+        <li>
+            <a href="#bform7tab" data-toggle="tab">
+                <span class="label badge-inverse">7</span>
+                @ResourceSetting.tTable 7
+                <small>
+                    7. @EauditResource.BuildingForm7Name.Substring(0,30)...
+                </small>
+            </a>
+        </li>
+        <li>
+            <a href="#bform8tab" data-toggle="tab">
+                <span class="label badge-inverse">8</span>
+                @ResourceSetting.tTable 8
+                <small>
+                    8. @EauditResource.BuildingForm8Name.Substring(0, 30)...
+                </small>
+            </a>
+        </li>
+        <li>
+            <a href="#bform9tab" data-toggle="tab">
+                <span class="label badge-inverse">9</span>
+                @ResourceSetting.tTable 9
+                <small>
+                    9. @EauditResource.BuildingForm9Name
+                </small>
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="bformtab">
+            @Html.Action("GetBuildingView", "BuildingAttachment2", new { id = Model == null ? 0 : Model.Id, isReadOnly = Model != null && Model.IsReadOnly })
+        </div>
+        <div class="tab-pane" id="bform1tab">
+            <div id="bform1tabContent">
+
+            </div>
+        </div>
+        <div class="tab-pane" id="bform2tab">
+            <div id="bform2tabContent">
+
+            </div>
+        </div>
+        <div class="tab-pane" id="bform3tab">
+            <div id="bform3tabContent">
+
+            </div>
+        </div>
+        <div class="tab-pane" id="bform4tab">
+            <div id="bform4tabContent">
+
+            </div>
+        </div>
+        <div class="tab-pane" id="bform5tab">
+            <div id="bform5tabContent">
+
+            </div>
+        </div>
+        <div class="tab-pane" id="bform6tab">
+            <div id="bform6tabContent">
+
+            </div>
+        </div>
+        <div class="tab-pane" id="bform7tab">
+            <div id="bform7tabContent">
+
+            </div>
+        </div>
+        <div class="tab-pane" id="bform8tab">
+            <div id="bform8tabContent">
+
+            </div>
+        </div>
+        <div class="tab-pane" id="bform9tab">
+            <div id="bform9tabContent">
+
+            </div>
+        </div>
+    </div>
+    <ul class="pager wizard bwizard-buttons">
+        <li class="exit" role="button" aria-disabled="False">
+            <a href="@Url.Action("Index","EnergyAudit")">
+                &#10005; @ResourceSetting.Return
+            </a>
+        </li>
+        <li class="previous" role="button" aria-disabled="False">
+            <a href="#">
+                &larr; @ResourceSetting.Back1
+            </a>
+        </li>
+        <li class="next" role="button" aria-disabled="False">
+            <a>
+                @ResourceSetting.Forward &rarr;
+            </a>
+        </li>
+        <li class="finish">
+            <a href="@Url.Action("Edit", "EnergyAudit", new { id = Model.Id })">
+                @ResourceSetting.Finish &#10003;
+            </a>
+        </li>
+    </ul>
+</div>
+<script>
+    var BuiildingParentForm = {
+        init: function () {
+            if (window.IndustryFormB)
+                window.IndustryFormB.init();
+        },
+        reloadForm1: function (pId, buildingId) {
+            $("#bform1tabContent").load('@Url.Action("GetBuildingForm1View", "BuildingAttachment2")', { "preambleId": pId, "buildingId": buildingId, "isReadOnly": @Model.IsReadOnly.ToString().ToLower() }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.BuildingForm1)
+                        window.BuildingForm1.init();
+                });
+        },
+        reloadForm2: function (pId, buildingId) {
+            $("#bform2tabContent").load('@Url.Action("GetBuildingForm2View", "BuildingAttachment2")', { "preambleId": pId, "buildingId": buildingId, "isReadOnly": @Model.IsReadOnly.ToString().ToLower() }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.BuildingForm2)
+                        window.BuildingForm2.init();
+                });
+        },
+        reloadForm3: function (pId, buildingId) {
+            $("#bform3tabContent").load('@Url.Action("GetBuildingForm3View", "BuildingAttachment2")', { "preambleId": pId, "buildingId": buildingId, "isReadOnly": @Model.IsReadOnly.ToString().ToLower() }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.BuildingForm3)
+                        window.BuildingForm3.init();
+                });
+        },
+        reloadForm4: function (pId, buildingId) {
+            $("#bform4tabContent").load('@Url.Action("GetBuildingForm4View", "BuildingAttachment2")', { "preambleId": pId, "buildingId": buildingId, "isReadOnly": @Model.IsReadOnly.ToString().ToLower() }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.BuildingForm4)
+                        window.BuildingForm4.init();
+                });
+        },
+        reloadForm5: function (pId, buildingId) {
+            $("#bform5tabContent").load('@Url.Action("GetBuildingForm5View", "BuildingAttachment2")', { "preambleId": pId, "buildingId": buildingId, "isReadOnly": @Model.IsReadOnly.ToString().ToLower() }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.BuildingForm5)
+                        window.BuildingForm5.init();
+                });
+        },
+        reloadForm6: function (pId, buildingId) {
+            $("#bform6tabContent").load('@Url.Action("GetBuildingForm6View", "BuildingAttachment2")', { "preambleId": pId, "buildingId": buildingId, "isReadOnly": @Model.IsReadOnly.ToString().ToLower() }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.BuildingForm6)
+                        window.BuildingForm6.init();
+                });
+        },
+        reloadForm7: function (pId, buildingId) {
+            $("#bform7tabContent").load('@Url.Action("GetBuildingForm7View", "BuildingAttachment2")', { "preambleId": pId, "buildingId": buildingId, "isReadOnly": @Model.IsReadOnly.ToString().ToLower() }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.BuildingForm7)
+                        window.BuildingForm7.init();
+                });
+        },
+        reloadForm8: function (pId, buildingId) {
+            $("#bform8tabContent").load('@Url.Action("GetBuildingForm8View", "BuildingAttachment2")', { "preambleId": pId, "isReadOnly": @Model.IsReadOnly.ToString().ToLower() }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.BuildingForm8)
+                        window.BuildingForm8.init();
+                });
+        },
+        reloadForm9: function (pId, buildingId) {
+            $("#bform9tabContent").load('@Url.Action("GetBuildingForm9View", "BuildingAttachment2")', { "preambleId": pId, "buildingId": buildingId, "isReadOnly": @Model.IsReadOnly.ToString().ToLower() }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.BuildingForm9)
+                        window.BuildingForm9.init();
+                });
+        }
+    };
+
+    var bwizardBuildingInitFn = function () {
+        $('#divBuildingWizard').bootstrapWizard({
+            tabClass: 'bwizard-steps',
+            onNext: function (tab, navigation, index) {
+                if (index == 1) {
+
+                } else if (index == 2) {
+
+                } else if (index == 3) {
+
+                } else if (index == 4) {
+
+                } else if (index == 5) {
+
+                }
+                return true;
+            },
+            onTabShow: function (tab, navigation, index) {
+                $('.previous').show();
+                $('.exit').hide();
+                if (index == 0) {
+                    $('.previous').hide();
+                    $('.exit').show();
+                }
+
+                var pId = $("#hfPreamleId").val();
+                if (!pId || pId == "0") return false;
+
+
+                if (index == 1) {
+                    BuiildingParentForm.reloadForm1(pId);
+                } else if (index == 2) {
+                    BuiildingParentForm.reloadForm2(pId);
+                } else if (index == 3) {
+                    BuiildingParentForm.reloadForm3(pId);
+                } else if (index == 4) {
+                    BuiildingParentForm.reloadForm4(pId);
+                } else if (index == 5) {
+                    BuiildingParentForm.reloadForm5(pId);
+                } else if (index == 6) {
+                    BuiildingParentForm.reloadForm6(pId);
+                } else if (index == 7) {
+                    BuiildingParentForm.reloadForm7(pId);
+                } else if (index == 8) {
+                    BuiildingParentForm.reloadForm8(pId);
+                } else if (index == 9) {
+                    BuiildingParentForm.reloadForm9(pId);
+                }
+            }
+        });
+    };
+
+    $(document).ready(function () {
+        //BuiildingParentForm.init();
+        bwizardBuildingInitFn();
+    });
+</script>

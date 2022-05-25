@@ -1,0 +1,30 @@
+﻿@using Aisger
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+<style type="text/css">
+    .title-label {
+        font-weight: bold;
+        color: gray;
+    }
+</style>
+<link rel="stylesheet" href="@Url.Content("~/Content/jquery-ui.css")" />
+<link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.css")">
+
+
+<div id="content" style="height: 200px">
+  
+    <div class="panel panel-default">
+        
+        <!-- Default panel contents -->
+        <!-- List group -->
+        <ul class="list-group" style="text-align: left">
+            <li class="list-group-item">
+                <h4>@ResourceSetting.sAdminContactForRestorePass <span style="color: lightseagreen">1058@kazee.kz</span></h4>
+            </li>
+            <li class="list-group-item">
+               <h4> @ResourceSetting.sAdminContactInputText</h4>
+            </li>
+
+          
+        </ul>
+    </div>
+</div>

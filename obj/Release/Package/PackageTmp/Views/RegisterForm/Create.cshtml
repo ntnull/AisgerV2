@@ -1,0 +1,1178 @@
+﻿@using System.Globalization
+@using System.Text
+@using Aisger
+@using Aisger.Helpers
+@using Aisger.Utils
+@model Aisger.Models.SUB_Form
+@{
+    ViewBag.Title = ResourceSetting.SubForm;
+}
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+
+<style type="text/css">
+    .form1Field {
+        width: 100%;
+        height: 120px;
+        font-size: 12px;
+        white-space: pre-wrap;
+    }
+
+    .input-group {
+        width: 100%;
+    }
+
+    .is-rent {
+        width: 13px;
+        vertical-align: middle;
+        display: inline;
+    }
+</style>
+<link rel="stylesheet" href="@Url.Content("~/Content/custom/subform-comment-style.css")" />
+
+
+<div id="B">
+    @Html.Partial("~/Views/Home/TitleItem.cshtml", ResourceSetting.Reestr + "," + ResourceSetting.RegisterForm)
+    <div id="wrapper_grid" style="margin-left: 10px; margin-bottom: 100px">
+        <input type="hidden" id="currentDataViewId" value="@Model.Id">
+        <input type="hidden" id="IsExistForm" value="false">
+        <input type="hidden" id="IsHaveGESForm" value="@Model.SEC_User1.IsHaveGES">
+        @if (Model.DesignNote != null && Model.DesignNote != "")
+        {
+            <div class="row" style="margin-bottom:10px;">
+                <div class="col-sm-10" style="min-width:300px;">
+                    <label style="width: 100%; font-weight: bold; font-style:italic;">Замечанием от Менеджера:<span style="color:red;"> @Model.DesignNote</span></label>
+                </div>
+            </div>
+        }
+        <div style="display: none" id="showTutBySubject">
+            @foreach (var kind in Model.SubDicTypeResources)
+            {
+                var idkind = "tut_" + kind.Id;
+                <input id="@idkind" value="@kind.Keof" />
+            }
+        </div>
+        <div class="clearfixmandatory form-group">
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.CreateDate)
+            @Html.HiddenFor(model => model.UserId)
+            @Html.HiddenFor(model => model.Editor)
+            @Html.HiddenFor(model => model.SEC_User1.Id, new { @id = "OwnerId" })
+            <div class="row" style="margin-bottom: 10px ">
+                <div class="col-sm-3">
+                    <label style="width:140px;font-weight:bold;">@ResourceSetting.ReportYear :</label>
+                    <div class="input" style="margin-top:5px;">
+                        @Html.TextBoxFor(model => model.ReportYear, new { @class = "form-control", @readonly = "readonly", @disabled = "disabled", style = "width:140px;" })
+                        @Html.ValidationMessageFor(model => model.ReportYear)
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label style="width:70px;font-weight:bold;">@ResourceSetting.Oblast :</label>
+                    <div class="input" style="margin-top:5px;display:flex;">
+                        <input type="text" value="@ViewData["Oblast"]" readonly="readonly" disabled="disabled" style="width:140px;" />
+                    </div>
+                </div>
+                <div style="float: right">
+                    <button type="button" class="btn btn-success btn-sm" id="ShowValueId">
+                        Показать в значениях
+                    </button>
+                    <button type="button" class="btn btn-default btn-sm" id="ShowTutId">
+                        Показать в Т.У.T.
+                    </button>
+                    <button type="button" class="btn btn-info btn-sm" id="HideInform" value="hide">
+                        <span class="glyphicon glyphicon-check" aria-hidden="true" id="HideInformCheck"></span> <span id="HideInformText">@ResourceSetting.HideNote</span>
+                    </button>
+                </div>
+            </div>
+            <div class="alert alert-warning" role="alert" id="tempInfoId" style="display: none">@ResourceSetting.yearsExists</div>
+            <div class="input" style="margin-left: 0;">
+                <textarea cols="20" id="Note" name="Note" rows="2" placeholder="@ResourceSetting.sWholeReportСlarification" style="width: 100%; height: 70px; margin-top: 10px">@Model.Note</textarea>
+            </div>
+        </div>
+        @if (Model.StatusId == CodeConstManager.STATUS_REJECT_ID)
+        {
+            <div class="alert alert-warning" role="alert">
+                <h4>Причина отказа:</h4>
+                @Model.DesignNote
+            </div>
+        }
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active"><a data-target="#form1tab" data-toggle="tab">@ResourceSetting.form1</a></li>
+            <li><a data-target="#form2tab" data-toggle="tab">@ResourceSetting.form2</a></li>
+            <li><a data-target="#form3tab" data-toggle="tab">@ResourceSetting.form3</a></li>
+            <li><a data-target="#form4tab" data-toggle="tab">@ResourceSetting.form4</a></li>
+            <li><a data-target="#form5tab" data-toggle="tab">@ResourceSetting.form5</a></li>
+            <li><a data-target="#form6tab" data-toggle="tab">@ResourceSetting.form6</a></li>
+            <li id="plan_li" style="display: none"><a data-target="#plan_div" data-toggle="tab">@ResourceSetting.SubActionPlan</a></li>
+            @if (Model.StatusId == CodeConstManager.STATUS_REJECT_ID)
+            {
+                <li><a data-target="#formHistorytab" data-toggle="tab">@ResourceSetting.History</a></li>
+            }
+        </ul>
+        <div class="tab-content">
+
+            <div class="tab-pane active" id="form1tab">
+                <h4 style="text-align: center">@ResourceSetting.form11</h4>
+                <div id="CSSTableGenerator">
+                    <table class="wast-list" style="width: 100%; text-align: center">
+                        <thead>
+                            <tr style="font-weight: bold; font-size: 12px">
+                                <td>№</td>
+                                <td style="width: 20%">@ResourceSetting.form12</td>
+                                <td style="width: 20%">@ResourceSetting.form13</td>
+                                <td style="width: 20%">@ResourceSetting.form14</td>
+                                <td style="width: 20%">@ResourceSetting.form15</td>
+                                <td style="width: 40px">@ResourceSetting.form16</td>
+                                <td style="width: 20%">@ResourceSetting.form17</td>
+                                <td style="width: 20%">@ResourceSetting.form18</td>
+                            </tr>
+                            <tr style="font-style: italic;font-weight: bold">
+                                @for (int i = 1; i < 9; i++)
+                                {
+                                    <td>@i</td>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody id="mainTable">
+                            <tr rowid="1">
+
+                                <td>1</td>
+                                <td>
+                                    <div class="input-group">
+                                        @Html.TextAreaFor(model => model.SEC_User1.ApplicationName, new { @class = "form1Field form-edit", @id = "ApplicationName" })<span class="input-group-addon">
+                                            <a class="commentDialog" href="#">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        @Html.TextAreaFor(model => model.SEC_User1.Address, new { @class = "form1Field form-edit", @id = "Address" })<span class="input-group-addon">
+                                            <a class="commentDialog" href="#">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        @Html.TextAreaFor(model => model.SEC_User1.FullName, new { @class = "form1Field form-edit", @id = "FullName" })<span class="input-group-addon">
+                                            <a class="commentDialog" href="#">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        @Html.TextAreaFor(model => model.SEC_User1.Post, new { @class = "form1Field form-edit", @id = "Post" })<span class="input-group-addon">
+                                            <a class="commentDialog" href="#">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        @Html.CheckBoxFor(model => model.SEC_User1.IsCvazy, new { @class = "form1Field form-edit", @style = "float: left;margin: 0 auto;width: 100%;", @id = "IsCvazy" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    <div class="input-group">
+                                        @Html.DropDownListFor(e => e.SEC_User1.OkedId, (IEnumerable<SelectListItem>)(ViewData["OKEDList"]), String.Empty, new { @class = "form1Field form-edit", @id = "OkedId" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <div class="chzn-select" id="wastesDiv">
+                                            @Html.ListBoxFor(x => Model.Wastes, Model.WastList, new { @class = "chzn-select form1Field", data_placeholder = "Укажите вид детельности...", style = "width:100%;" })
+                                        </div>
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                @if (Model.StatusId != 0)
+                {
+                    <button style="float: right;margin:5px;" type="button" class="btn btn-primary btn-sm" onclick="location.href='@Url.Action("ApplicationEditForRstRR", "AppForm", new { id = @Model.SEC_User1.Id, ReportYear = @Model.ReportYear })'">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>@ResourceSetting.Edit
+                    </button>
+                }
+                <div class="row">
+                    <div class="col-sm-12">
+                        @{
+                            var isRentChecked = "";
+                            if (Model.IsRent != null && Model.IsRent == true)
+                            {
+                                isRentChecked = "checked";
+                            }
+                            <br />
+                            <input class="is-rent" type="checkbox" @isRentChecked /> <span>Аренда</span>
+                        }
+
+                        <ul class="form1-ul-file-list list-group" style="margin-top:5px; border-top:1px solid #808080;padding-top:5px;"></ul>
+                        <div class="upload-button" style="margin-top: 20px; border: 1px solid #b2aeae; padding: 5px;">
+                            <button class="btn btn-primary btn-form1-fileupload" type="button"><span class="glyphicon glyphicon-upload"></span>Загрузить файл</button>
+                            <input type="file" name="files" class="form1-fileUpload hide" multiple="multiple">
+                            <span class="span-form1-filename">Файл не выбран</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="font-size: 11px; font-style: italic; margin-top: 20px; margin-bottom: 30px">
+                    @if (CultureHelper.GetCurrentCulture() == "kz")
+                    {
+                        <div>
+                            <p style="font-weight: bold">* Ескертпе: </p>
+                            1)Егер МЭТ субъектісі бірнеше қызмет түрлерін жүзеге асыратын болса, ондай жағдайда барлық қызмет түрін көрсету.<br>
+                            2)  Ұйым қызметінің түрлерін экономикалық қызмет түрлерінің жалпы жіктеушіне сәйкес көрсету керек. <br>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <p style="font-weight: bold">* Примечание: </p>
+                            1) В случае, если субъект ГЭР осуществляет несколько видов деятельности, указать все виды деятельности<br>
+                            2) Виды деятельности организации указывать в соответствии с общим классификатором видов экономической деятельности - ОКЭД <br>
+                            (справка по видам ОКЭД прилагается в электронном виде) <br>
+                            3) <b>Учреждение квазигосударственного сектора</b> - организация, участником или акционером которых является государство;<br>
+                        </div>
+                    }
+                </div>
+
+            </div>
+
+            <div class="tab-pane" id="form2tab">
+                @Html.Partial("~/Views/RegisterForm/Form2View.cshtml", @Model)
+                @*                @Html.Partial("~/Views/RegisterForm/FoodView.cshtml", @Model)*@
+            </div>
+            <div class="tab-pane" id="form3tab">
+                @Html.Partial("~/Views/RegisterForm/Form3View.cshtml", @Model)
+                @*                @Html.Partial("~/Views/RegisterForm/FoodView.cshtml", @Model)*@
+            </div>
+            <div class="tab-pane" id="form4tab">
+                @Html.Partial("~/Views/RegisterForm/Form4View.cshtml", @Model)
+                @*                @Html.Partial("~/Views/RegisterForm/FoodView.cshtml", @Model)*@
+            </div>
+            <div class="tab-pane" id="form5tab">
+                @Html.Partial("~/Views/RegisterForm/Form5View.cshtml", @Model)
+                @*                @Html.Partial("~/Views/RegisterForm/FoodView.cshtml", @Model)*@
+            </div>
+            <div class="tab-pane" id="form6tab">
+                @Html.Partial("~/Views/RegisterForm/Form6View.cshtml", @Model)
+
+                @if (Model.StatusId != CodeConstManager.STATUS_SEND_ID && Model.StatusId != CodeConstManager.STATUS_ACCEPT_ID)
+                {
+                    <div style="margin-top:10px;float:right;padding: 20px;">
+                        <div id="dlgPasswordModal" class="modal fade">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">
+                                            @ResourceSetting.sInputPassword
+                                        </h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="wrapper_logon" style="min-height: auto; margin-top: 0px;">
+                                            <p>
+                                                <label for="passwordCert" class="youpasswd" data-icon="p" style="width: 60px;">
+                                                    @ResourceSetting.sPassword
+                                                </label>
+                                                <input id="passwordCert" name="passwordCert" required="required" type="password" placeholder='Введите ваш пароль'>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="btnCancel" type="button" class="btn btn-default" data-dismiss="modal">@ResourceSetting.Cancel</button>
+                                        <button id="btnAccept" type="button" class="btn btn-primary">@ResourceSetting.sAccept</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <input id="paramcontroller" type="hidden" value="" />
+                            @Html.Hidden("hfStoragePath", "")
+                            @Html.Hidden("hfKeyAlias", "")
+                            @Html.Hidden("hfXmlToSign", "")
+                            @Html.Hidden("hfCurrentBin", "")
+                            @Html.Hidden("signBIN", "")
+                            @Html.Hidden("Certificate", "")
+                            @Html.Password("Password", "", new { hidden = "hidden" })
+                            <span class="hide" id="ger_wo_ecp"></span>
+                            <span class="hide" id="signFIO"></span>
+                        </div>
+                        <button class="btn btn-warning btn-lg" onclick="sendApp(@Model.Id, @Model.ReportYear)" title="@ResourceSetting.SendReportTooltip"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> @ResourceSetting.Send </button>
+                    </div>
+                }
+            </div>
+            <div class="tab-pane" id="plan_div">
+                @Html.Partial("~/Views/RegisterForm/FormPlanView.cshtml", @Model)
+            </div>
+            @if (Model.StatusId == CodeConstManager.STATUS_REJECT_ID)
+            {
+                <div class="tab-pane" id="formHistorytab">
+                    @Html.Partial("~/Views/RegisterForm/FormHistoryView.cshtml", @Model)
+                </div>
+            }
+
+        </div>
+
+        <div style="margin-bottom:5px;">
+            @Html.Partial("~/Views/RegisterForm/FormKadastrView.cshtml", @Model)
+            <br />
+            @Html.Partial("~/Views/RegisterForm/ContactInfoView.cshtml", @Model)
+        </div>
+
+    </div>
+
+  
+
+    @if (Model.SubFornMessages != null)
+    {
+        foreach (var mess in Model.SubFornMessages)
+        {
+            if (mess.TypeMessage == 1)
+            {
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong></strong> Форма @mess.FormIndex @mess.Message
+                </div>
+            }
+            else if (mess.TypeMessage == 2)
+            {
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong></strong> Форма @mess.FormIndex @mess.Message
+                </div>
+            }
+        }
+    }
+
+    <div style="margin-bottom: 40px">
+        <button type="button" class="btn btn-success btn-lg" onclick="location.href='@Url.Action("Index", "RegisterForm")'">
+            <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Back
+        </button>
+
+        <button type="button" class="btn btn-success btn-lg" id="buttonSave">
+            <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Save
+        </button>
+        <button type="button" class="btn btn-default btn-lg" id="buttonCheck" onclick="checkVAlid()" style="margin-right: 30px">
+            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>  @ResourceSetting.Check
+        </button>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/custom/subform-comment.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/custom/subform-edit.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+    function checkYear() {
+        var modelId = parseInt($("#currentDataViewId").val(), 10) || 0;
+        if (modelId > 0) {
+            return;
+        }
+        var params = JSON.stringify({ 'id': $("#UserId").val(), 'year': $("#ReportYear").val(), 'modelId': '@Model.Id' });
+    	window.Showbusy(this);
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetInfoReportYear")',
+            data: params,
+            dataType: 'json',
+            cache: false,
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                $("#loading").hide();
+
+                if (data.Success) {
+                    $("#IsExistForm").val("true");
+                    readOnlyControl(true);
+                    $("#tempInfoId").text(data.message);
+                    $("#tempInfoId").show();
+
+                } else {
+                    $("#IsExistForm").val("false");
+                    readOnlyControl(false);
+                    $("#tempInfoId").hide();
+                }
+            },
+            error: function () {
+                alert("Connection Failed. Please Try Again");
+            }
+        });
+
+    }
+
+	function readOnlyControl(readonly) {
+
+        $(function () {
+
+            $("input").prop("readonly", readonly);
+            $("textarea").prop("readonly", readonly);
+            $("#ResponceFIO").prop("readonly", readonly);
+            $("#ResponcePost").prop("readonly", readonly);
+            $("#SubjectBoss").prop("readonly", readonly);
+            $("#ContactInfo").prop("readonly", readonly);
+            $("#SubjectAddress").prop("readonly", readonly);
+            $("#Wastes").attr('disabled', readonly).trigger("liszt:updated");
+            $('[id*=NormEnergyId]').attr('disabled', readonly).trigger("liszt:updated");
+            if (readonly) {
+                $("#OkedId").attr('disabled', 'disabled');
+                $('[id*=TypeCounterId]').attr('disabled', 'disabled');
+                $("#IsPlan").attr('disabled', 'disabled');
+                $("#IsCvazy").attr('disabled', 'disabled');
+                $("#IsConfirmPlan").attr('disabled', 'disabled');
+                $('select.dropdown').attr('disabled', false);
+                $(".deleteRow").hide();
+                $("#addCoordrrow").hide();
+                $("#addCoordrrow1").hide();
+                $("#addTable5").hide();
+                $("#addTable51").hide();
+                $(".add-plan-btn").hide();
+                $("#addTable6").hide();
+                $("#addtabplan3").hide();
+                $("#addtabKadastr").hide();
+                $("#buttonCheck").hide();
+                $("#buttonSave").hide();
+
+
+            } else {
+                $("#OkedId").removeAttr('disabled');
+                $('[id*=TypeCounterId]').removeAttr('disabled');
+                $("#IsCvazy").removeAttr('disabled');
+                $("#IsPlan").removeAttr('disabled');
+                $("#IsConfirmPlan").removeAttr('disabled');
+                $(".deleteRow").show();
+                $("#addCoordrrow").show();
+                $("#addTable5").show();
+                $("#addTable51").show();
+                $(".add-plan-btn").show();
+                $("#addTable6").show();
+                $("#addtabplan3").show();
+                $("#addtabKadastr").show();
+                $("#buttonCheck").show();
+                $("#buttonSave").show();
+
+            }
+
+
+
+
+        });
+    }
+
+	function checkVAlid() {
+
+        var modelId = parseInt($("#currentDataViewId").val(), 10) || 0;
+        if (modelId == 0) {
+            return;
+        }
+
+        var isplan_checked = $('#IsPlan').is(':checked');
+        var isplan_notchecked = $('.is-not-plan').is(':checked');
+        var isnotevents_checked = $('.is-not-events').is(':checked');
+
+        if (isplan_checked == false && isplan_notchecked == false && isnotevents_checked==false) {
+        	showWarning('Выберите В Форме 3 Энергоаудит проводился или не проводился?');
+
+        } else {
+        	window.location.href = '/RegisterForm/Edit/' + modelId;
+        }
+
+
+    }
+
+    function replaceAll(find, replace, str) {
+        while (str.indexOf(find) > -1) {
+            str = str.replace(find, replace);
+        }
+        return str;
+    }
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+		//----Сохранить
+    	$('#buttonSave ').click(function (e) {
+    		var isplan_checked = $('.is-plan').is(':checked');
+    		var isplan_notchecked = $('.is-not-plan').is(':checked');
+    		if (isplan_checked == false && isplan_notchecked == false) {
+    			showWarning('Выберите Форма 3 Энергоаудит проводился или не проводился?');
+
+    		} else {
+    			window.location.href = '@Url.Action("Index", "RegisterForm")';
+    		}
+    	});
+
+		//----
+        $("#HideInform").click(function () {
+            if ($(this).val() == "hide") {
+                $("#HideInformText").text('@ResourceSetting.HideInformTextShow');
+                $(this).val("show");
+                $("#HideInformCheck").addClass("glyphicon-unchecked");
+                $("#HideInformCheck").removeClass("glyphicon-check");
+                showInformIcon(false);
+            } else {
+                $("#HideInformText").text('@ResourceSetting.HideInformTextHide');
+                $(this).val("hide");
+                $("#HideInformCheck").removeClass("glyphicon-unchecked");
+                $("#HideInformCheck").addClass("glyphicon-check");
+                showInformIcon(true);
+            }
+        });
+
+		//----
+    	$("#ShowValueId").click(function () {
+    		if ($(this).hasClass('btn-success')) {
+    			return;
+    		}
+    		$(this).removeClass('btn-default');
+    		$(this).addClass('btn-success');
+
+    		$("#ShowTutId").removeClass('btn-success');
+    		$("#ShowTutId").addClass('btn-default');
+    		showTutOrValue(false);
+    	});
+
+		//----
+    	$("#ShowTutId").click(function () {
+    		if ($(this).hasClass('btn-success')) {
+    			return;
+    		}
+    		$(this).removeClass('btn-default');
+    		$(this).addClass('btn-success');
+
+    		$("#ShowValueId").removeClass('btn-success');
+    		$("#ShowValueId").addClass('btn-default');
+    		showTutOrValue(true);
+    	});
+
+
+        $(".form1Field").change(function () {
+            if ($(this).val() == null || $(this).val().length == 0) {
+                return;
+            }
+            var fieldValue = $(this).val();
+            if ($(this).attr('id') == "FullName") {
+                $("#fullNameTd").text($(this).val());
+            }
+
+            if ($(this).attr('id') == "Wastes") {
+            	fieldValue = fieldValue.toString();
+            }
+
+            if ($(this).attr('id') == "IsCvazy") {
+            	console.log("IsCvazy=", $(this).is(':checked'));
+            	fieldValue = $(this).is(':checked');
+            }
+
+
+            var params = JSON.stringify({ 'ReportYear': $('#ReportYear').val(), 'ownerId': $("#OwnerId").val(), 'fieldName': $(this).attr('id'), 'fieldValue': fieldValue });
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateUserInfo")',
+                data: params,
+                dataType: 'json',
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                },
+                error: function () {
+                    alert("Connection Failed. Please Try Again");
+                }
+            });
+        });
+
+    	//-----Энергоаудит проводился
+    	$('.is-plan').click(function () {
+
+    		var fieldValue;
+    		var checked = $(this).is(":checked");
+    		if (checked) {
+    			$('.form4Field').removeAttr("disabled");
+    			$('[id*=SubForm4Records]').attr('disabled', false).trigger("liszt:updated");
+    			$('#addCoordrrow').show();
+    			fieldValue = "true";
+    			$('#IsPlan').val(checked);
+    		} else {
+    			fieldValue = "false";
+    			$('.form4Field').attr('disabled', 'disabled');
+    			$('[id*=SubForm4Records]').attr('disabled', true).trigger("liszt:updated");
+    			$('#addCoordrrow').hide();
+    		}
+
+    		$(this).prop("disabled", checked);
+    		$('.is-not-plan').prop("disabled", !checked);
+    		$('.is-not-plan').prop("checked", !checked);
+    		UpdateModel("form4", 0, $(this).attr('id'), "IsPlan", fieldValue, "string", 0);
+    	});
+
+    	//----Энергоаудит не проводился
+    	$('.is-not-plan').click(function () {
+
+    		var fieldValue;
+    		var checked = $(this).is(":checked");
+    		if (checked) {
+    			fieldValue = "false";
+    			$('.form4Field').attr('disabled', 'disabled');
+    			$('[id*=SubForm4Records]').attr('disabled', true).trigger("liszt:updated");
+    			$('#addCoordrrow').hide();
+    			$('#IsPlan').val(false);
+    		} else {
+    			$('.form4Field').removeAttr("disabled");
+    			$('[id*=SubForm4Records]').attr('disabled', false).trigger("liszt:updated");
+    			$('#addCoordrrow').show();
+    			fieldValue = "true";
+    		}
+
+    		$(this).prop("disabled", checked);
+    		$('.is-plan').prop("disabled", !checked);
+    		$('.is-plan').prop("checked", !checked);
+    		UpdateModel("form4", 0, $(this).attr('id'), "IsPlan", fieldValue, "string", 0);
+    	});
+
+    	//----Не проводились планы мероприятий
+    	$('.is-not-events').click(function () {
+    		var checked = $(this).is(":checked");
+    		var fieldValue;
+    		if (checked) {
+    			fieldValue = "true";
+    		} else {
+    			fieldValue = "false";
+    		}
+
+    		UpdateModel("form4", 0, $(this).attr('id'), "IsNotEvents", fieldValue, "string", 0);
+    	})
+
+		//----
+        $('#IsConfirmPlan').change(function () {
+            var fieldValue;
+            if ($(this).is(":checked")) {
+                $('#plan_li').show();
+                fieldValue = "true";
+            } else {
+                fieldValue = "false";
+                $('#plan_li').hide();
+            }
+            UpdateModel("form4", 0, $(this).attr('id'), "IsConfirmPlan", fieldValue, "string", 0);
+        });
+
+        $("#ReportYear").change(function () {
+            checkYear();
+        });
+        $("#refTypes").change(function () {
+            var t = $("#refTypes").val();
+            if (t == null || t.length == 0) {
+                return;
+            }
+            CallPointChanged(t);
+        });
+
+        //----аренда
+        $('.is-rent').click(function () {
+            console.log("is rent");
+            var fieldValue;
+            var checked = $(this).is(":checked");
+            if (checked) {
+                fieldValue = "true";
+                $('#IsRent').val(checked);
+            } else {
+                fieldValue = "false";
+                $('#IsRent').val(false);
+            }
+
+            UpdateModel("main", 0, $(this).attr('id'), "IsRent", fieldValue, "string", 0);
+        });
+
+		//----
+        checkYear();
+
+        //============================file upload
+        setForm1Access();
+        getForm1Files();
+        $('.btn-form1-fileupload').click(function () {
+            $('.form1-fileUpload').trigger('click');
+        });
+
+        $('.form1-fileUpload').click(function () {
+            $(".span-form1-filename").text("Файл не выбран");
+        });
+
+
+        $('.form1-fileUpload').change(function () {
+
+            var files = $('.form1-fileUpload').get(0).files;
+
+            if (files.length == 0) {
+                $(".span-form1-filename").text("Файл не выбран");
+            } else {
+
+                $(".span-form1-filename").text("Число файлов:" + files.length);
+
+                if (files && files.length > 0) {
+
+                    var fd = new FormData();
+                    var reportYear = $('#ReportYear').val();
+                    fd.append('ReportYear', reportYear);
+
+                    for (var j = 0; j < files.length; j++) {
+                        fd.append('files', files[j]);
+                    }
+
+                    $.ajax({
+                        url: '@Url.Action("Form1SaveFile", "RegisterForm")',
+                        type: "POST",
+                        data: fd,
+                        async: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+
+                            if (data.ErrorMessage != "") {
+                                showWarning(data.ErrorMessage);
+                                return;
+                            } else {
+                                $('.form1-fileUpload').empty();
+                                $(".span-form1-filename").text("Файл не выбран");
+                                console.log(data);
+                                getForm1Files();
+                            }
+
+                        },
+                        error: function (request, status, error) {
+                            showWarning("file upload error form4 " + error);
+                        }
+                    });
+                }
+
+            }
+
+        });
+
+        //---- get files
+        function getForm1Files() {
+            var userId = '@Model.UserId';
+            $.post('@Url.Action("GetForm1Files", "RegisterForm")', { ReportYear: $('#ReportYear').val(), userId: userId }, function (data) {
+
+                if (data.ErrorMessage != "") {
+                    showWarning(data.ErrorMessage);
+                    return;
+                }
+
+                var isEdit = true;
+                if (location.href.indexOf('ShowDetails') != -1 || location.href.indexOf('Design') != -1) {
+                    isEdit = false;
+                }
+
+                //----clear
+                $('.form1-ul-file-list').empty();
+
+                var $ul = $('.form1-ul-file-list');
+
+                $ul.append('<span>Файлы</span>');
+                if (data.list) {
+
+                    $.map(data.list, function (item) {
+                        var $li = $('li');
+                        var url = '@Url.Action("Form1Upload", "RegisterForm")';
+                        var del = (isEdit == true) ? "<span class='glyphicon glyphicon-remove remove-file' filename='" + item.filename + "'></span>" : "";
+
+                        $ul.append("<li class='list-group-item'><a href='" + url + "?reportYear=" + $('#ReportYear').val() + "&userId=" + userId + "&fname=" + item.filename + "' >" + item.filename + "</a>" + del + "</li>");
+                    });
+                }
+            })
+        }
+
+        //----remove file
+        $('.form1-ul-file-list').on('click', 'span.remove-file', function () {
+            var userId = '@Model.UserId';
+            var filename = $(this).attr('filename');
+
+            var success = function () {
+                $.post('@Url.Action("DeleteForm1File", "RegisterForm")', { reportYear: $('#ReportYear').val(), userId: userId, fname: filename }, function (data) {
+
+                    if (data.ErrorMessage != "") {
+                        showWarning(data.ErrorMessage);
+                        return;
+                    }
+                    getForm1Files();
+                });
+            }
+            var cancel = function () {
+            };
+
+            showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+        });
+
+        //----
+        function setForm1Access() {
+            var url = location.href;
+            if (url.indexOf('ShowDetails') != -1 || location.href.indexOf('Design') != -1) {
+                $('.form1-ul-file-list').prop('disabled', true);
+                $('.btn-form1-fileupload').prop('disabled', true);
+            }
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    function floatCheck(val) {
+        if (val == 0) {
+            return 0;
+        }
+        val = val.replace(',', '.');
+        return parseFloat(val);
+    }
+
+    function floatChange(val) {
+        if (val == null) {
+            return null;
+        }
+        return val.toString().replace('.', ',');
+    }
+    $("select[id*='TypeResourceId']").change(function () {
+        var idControl = $(this).attr('id');
+        var typeForm = "";
+        if (idControl.indexOf('SubForm4Records') > -1) {
+            typeForm = "form4";
+        }
+        if (idControl.indexOf('SubForm6Records') > -1) {
+            typeForm = "form6";
+        }
+        var row = $(this).parent().closest('tr');
+        var entityId = row.attr('rowid');
+        UpdateModel(typeForm, entityId, $(this).attr('id'), "TypeResourceId", $(this).val(), "long", 0);
+    });
+
+    function DeleteRecord(code, recordId) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("DeleteRecord")',
+            data: { 'code': code, 'recordId': recordId },
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+            },
+            error: function (data) {
+                alert("1Error" + data);
+            }
+        });
+    }
+
+    function UpdateModel(code, recordId, fieldId, fieldName, fieldValue, type, typeId) {
+        if ($("#IsExistForm").val() != "false") {
+            showWarning("По данному году уже отчет зарегистрирован");
+            $('#' + fieldId).val("");
+            return false;
+        }
+        if (type == "float") {
+            if (fieldValue != null && fieldValue.length > 0) {
+                fieldValue = replaceAll1(' ', '', fieldValue);
+                if (fieldValue.indexOf(',') > 0) {
+                    fieldValue = fieldValue.replace(',', '.');
+                }
+                if (fieldValue != '' && !$.isNumeric(fieldValue)) {
+                    showWarning('@ResourceSetting.sInputNumberRequired');
+                    $('#' + fieldId).val("");
+                    return false;
+                }
+                if (fieldValue.indexOf('-') > -1) {
+                    showWarning('@ResourceSetting.enterNumberNotMinus');
+                    $('#' + fieldId).val("");
+                    return false;
+                }
+                $('#' + fieldId).val(formatNumber(fieldValue));
+            }
+        }
+        if (type == "long") {
+            if (fieldValue != null && fieldValue.length > 0) {
+                if (fieldValue.indexOf(',') > 0 || fieldValue.indexOf('.') > 0) {
+                    showWarning("Введите целое число");
+                    $('#' + fieldId).val("");
+                    return false;
+                }
+                if (fieldValue != '' && !$.isNumeric(fieldValue)) {
+                    showWarning('@ResourceSetting.sInputNumberRequired');
+                    $('#' + fieldId).val("");
+                    return false;
+                }
+                if (fieldValue.indexOf('-') > -1) {
+                    showWarning('@ResourceSetting.enterNumberNotMinus');
+                    $('#' + fieldId).val("");
+                    return false;
+                }
+            }
+        }
+
+        var modelId = parseInt($("#currentDataViewId").val(), 10) || 0;
+        var year = $("#ReportYear").val();
+        var userId = $("#UserId").val();
+        var editorId = $("#Editor").val();
+        if (modelId == 0 || recordId == 0) {
+            window.Showbusy(this);
+        }
+
+    	//        var unique = $('#' + fieldId).attr('unique');
+        $.post('@Url.Action("UpdateModel")', {
+        	'code': code, 'modelId': modelId, 'userId': userId, 'editorId': editorId, 'recordId': recordId, 'year': year, 'fieldName': fieldName, 'fieldValue': fieldValue, 'typeId': typeId
+        }, function (data) {
+
+            console.log("updatemodel=", data);
+        	if (modelId == 0) {
+        		$("#currentDataViewId").val(data.formId);
+        		$("#loading").hide();
+
+        	}
+        	if (data.fromRecordId > 0) {
+        		var row = $('#' + fieldId).parent().closest('tr');
+        		row.attr("rowid", data.fromRecordId);
+        	}
+
+        	$("#loading").hide();
+        });
+
+
+    }
+</script>
+
+<!-- ECP scripts begin $('#IsPlan').is(":checked");-->
+<script type="text/javascript" src="~/Scripts/plugins/jqBlockUI/jquery.blockUI.js" charset="utf-8"></script>
+<script type="text/javascript" src="~/Scripts/plugins/crypto/crypto_object.js" charset="utf-8"></script>
+<script type="text/javascript" src="~/Scripts/plugins/crypto/eds.js" charset="utf-8"></script>
+
+<script>
+
+    //
+    function doSign() {
+
+        $.blockUI({ message: '<h1><img src="../../Content/images/loading.gif"/> Идет подпись отчета...</h1>', css: { opacity: 1 } });
+        var isSuceess = signXmlCall(function () {
+
+            var model = { preambleId: $("#paramcontroller").val(), xmlAuditForm: $("#Certificate").val(), signFio: $('#signFIO').text() };
+
+            $.ajax({
+                url: '@Url.Action("SignForm", "RegisterForm")',
+                type: "POST",
+                dataType: 'json',
+                contentType: "application/json",
+                async: false,
+                data: JSON.stringify(model),
+                success: function (data) {
+                    console.log("sing result=", data);
+                    if (data.isSuccess)
+                        window.location = "/RegisterForm/Index"; //window.location = data.url;
+                    else {
+                        $("#formCertValidation").show();
+                    }
+                    $.unblockUI();
+                },
+                error: function (data) {
+                    $.unblockUI();
+                }
+            });
+        }, $("#hfXmlToSign").val());
+
+        if (!isSuceess)
+            $.unblockUI();
+    }
+
+    //----send without ecp
+    function doSignWoEcp() {
+
+        $.blockUI({ message: '<h1><img src="../../Content/images/loading.gif"/> Идет загрузка ...</h1>', css: { opacity: 1 } });
+
+        var model = { preambleId: $("#paramcontroller").val() };
+        $.ajax({
+            url: '@Url.Action("SignFormWoEcp", "RegisterForm")',
+            type: "POST",
+            dataType: 'json',
+            contentType: "application/json",
+            async: false,
+            data: JSON.stringify(model),
+            success: function (data) {
+                if (data.isSuccess)
+                    window.location = "/RegisterForm/Index";
+                else {
+                    $("#formCertValidation").show();
+                }
+                $.unblockUI();
+            },
+            error: function (data) {
+            }
+        });
+
+    }
+
+    function sendApp(id, reportYear) {
+
+        //----
+        var isplan = $('#IsPlan').is(":checked");
+        console.log('isplan=' + isplan);
+
+        var str = '@ViewBag.IsCommentNotFill';
+        var array = str.split(',');
+        for (var h = 0; h < array.length; h++) {
+            if (array[h] == id) {
+                showWarning("В данной форме, имеются ячейки с указанием электроэнергия, затраченная на собственные нужды ГЭС, нужно в примечание указать и его источник");
+                return;
+            }
+        }
+
+        //-----
+        $.post('@Url.Action("CheckBeforeSendReport", "RegisterForm")',
+            {
+                subFormId: id,
+                reportYear: reportYear
+            }, function (data) {
+
+
+                if (isplan == true && data.IsExistFile == false) {
+                    showWarning("В Форме 3 включена галочка \"Энергоаудит проводился\", пожалуйста, вложите в Форму 3  электронные копии заключения энергоаудита и плана мероприятий разработанного по итогам энергоаудита");
+                    return;
+                }
+
+                if (data.isRent == false) {
+                    showWarning("Включена галочка \"Аренда\", обязательно вложите скан копию договора аренды.");
+                    return;
+                }
+
+                if (data.isGu) {
+
+                    if (data.isFillFormGu21 == false && reportYear<2019) {
+                        showWarning("В Форме 2 есть не заполненные ячеки, пожалуйста, заполните их и повторите отправку данного отчета (количество сотрудников по штатному расписанию )");
+                        return;
+                    }
+                    if (data.isFillFormGu22 == false && reportYear<2019) {
+                        showWarning("В Форме 2 есть не заполненные ячеки, пожалуйста, заполните их и повторите отправку данного отчета (количество учащихся(воспитанников))");
+                        return;
+                    }
+
+                    if (data.isFillFormGu23 == false && reportYear<2019) {
+                        showWarning("В Форме 2 есть не заполненные ячеки, пожалуйста, заполните их и повторите отправку данного отчета (количество койко-мест (посещений))");
+                        return;
+                    }
+
+                    if (data.isFillFormGu31 == false && reportYear<2019) {
+                        showWarning("В Форме 4 есть не заполненные ячеки, пожалуйста, заполните их и повторите отправку данного отчета (Год постройки*)");
+                        return;
+                    }
+                    if (data.isFillFormGu32 == false && reportYear<2019) {
+                        showWarning("В Форме 4 есть не заполненные ячеки, пожалуйста, заполните их и повторите отправку данного отчета (Общая площадь субъекта ГЭР, м2**)");
+                        return;
+                    }
+
+                    if (data.isFillFormGu33 == false && reportYear<2019) {
+                        showWarning("В Форме 4 есть не заполненные ячеки, пожалуйста, заполните их и повторите отправку данного отчета (Отапливаемая площадь субъекта ГЭР, м2)");
+                        return;
+                    }
+                }
+
+                //----
+                var success = function () {
+
+                    $("#paramcontroller").val(id);
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("CheckSendWOEcp", "RegisterForm")',
+                        data: '',
+                        dataType: 'json',
+                        cache: false,
+                        success: function (data) {
+
+                            //----without ecp
+                            if (data.ger_wo_ecp) {
+                                doSignWoEcp();
+                                return;
+                            }
+
+                            //---- with ecp
+                            $.blockUI({ message: '<h1><img src="../../Content/images/ajax-loader.gif"/> Идет формирование отчета для подписи...</h1>', css: { opacity: 1 } });
+                            $.ajax({
+                                type: "POST",
+                                url: '@Url.Action("DoOperation", "RegisterForm")',
+                                data: 'id=' + id,
+                                dataType: 'json',
+                                cache: false,
+                                success: function (data) {
+                                    $.unblockUI();
+                                    if (data.IsSuccess) {
+                                        console.log("data", data);
+                                        console.log("xml=", data.preambleXml);
+                                        $("#hfXmlToSign").val(data.preambleXml);
+                                        $("#hfCurrentBin").val(data.Bin);
+
+                                        if (!crypt_object_init("chooseStoragePath")) {
+                                            chooseStoragePath();
+                                        }
+                                    }
+                                },
+                                error: function (data) {
+                                    $.unblockUI();
+                                }
+                            });
+
+                        },
+                        error: function (data) {
+
+                        }
+                    });
+
+                    return false;
+                }
+
+                var cancel = function () { };
+
+                showConfirmation("@ResourceSetting.Save", "@ResourceSetting.sAreYouSureYouWantToSend?", success, cancel);
+
+            });
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.modal').on('shown.bs.modal', function () {
+            $(this).find('input:password:visible:first').focus();
+        });
+
+        $("#passwordCert").on('keyup', function (e) {
+            if (e.keyCode == 13) {
+                $("#formLogin").find("#Password").val($('#passwordCert').val());
+                fillKeys();
+                $("#dlgPasswordModal").modal('toggle');
+            }
+        });
+
+        $("#btnAccept").click(function () {
+            fillKeySign(doSign);
+            $("#dlgPasswordModal").modal('toggle');
+        });
+
+        $("#btnCancel").click(function () {
+            $(this).closest('div.modal').modal('toggle');
+        });
+
+    });
+</script>
+<!-- ECP scripts end-->

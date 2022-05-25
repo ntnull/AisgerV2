@@ -1,0 +1,231 @@
+﻿@using System.Globalization
+@using Aisger
+@model Aisger.Models.SUB_Form
+<style type="text/css">
+   
+
+    .tabPlan2Field {
+        width: 100%;
+    }
+
+   
+</style>
+<h5 style="font-weight: bold; text-align: center">
+    Таблица 2
+</h5>
+
+<div id="CSSTableGenerator">
+    <table id="table_plan2" class="wast-list" style="width: 100%; text-align: center">
+        <thead>
+            <tr style="font-weight: bold">
+                <td rowspan="2">Код и номер</td>
+                <td rowspan="2">Наименование энергетического ресурса</td>
+                <td colspan="5">Объем планируемого снижения потребления энергетических ресурсов</td>
+                <td colspan="5">Планируемая экономия, млн. тнг</td>
+                <td rowspan="2">Возможное уменьшение максимальной мощности</td>
+                <td rowspan="2">Отметка о выполнении</td>
+            </tr>
+            <tr>
+                <td id="year1_head2"></td>
+                <td id="year2_head2"></td>
+                <td id="year3_head2"></td>
+                <td id="year4_head2"></td>
+                <td id="year5_head2"></td>
+                <td id="expend1_head2"></td>
+                <td id="expend2_head2"></td>
+                <td id="expend3_head2"></td>
+                <td id="expend4_head2"></td>
+                <td id="expend5_head2"></td>
+            </tr>
+            <tr style="font-weight: bold">
+                @for (int i = 1; i < 15; i++)
+                {
+                    <td>@i</td>
+                }
+
+            </tr>
+            <tr style="font-weight: bold">
+                <td colspan="14">Снижение объема потребления энергетических ресурсов на единицу продукции/площади</td>
+            </tr>
+        </thead>
+        <tbody id="tab2">
+            @for (var i = 0; i < Model.SubFormTab2s.Count; i++)
+            {
+                var entity = Model.SubFormTab2s[i];
+                <tr rowid="@entity.KindId">
+                    <td class="disabletd">@entity.SUB_DIC_KindTabTwo.IndexCode</td>
+                    <td class="disabletd">@entity.SUB_DIC_KindTabTwo.NameRu</td>
+                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab2s[i].Volume1, new { @class = "tabPlan2Field 2volume_1" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab2s[i].Volume2, new { @class = "tabPlan2Field 2volume_2" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab2s[i].Volume3, new { @class = "tabPlan2Field 2volume_3" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab2s[i].Volume4, new { @class = "tabPlan2Field 2volume_4" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab2s[i].Volume5, new { @class = "tabPlan2Field 2volume_5" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab2s[i].Expend1, new { @class = "tabPlan2Field 2exp_1" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab2s[i].Expend2, new { @class = "tabPlan2Field 2exp_2" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab2s[i].Expend3, new { @class = "tabPlan2Field 2exp_3" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab2s[i].Expend4, new { @class = "tabPlan2Field 2exp_4" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab2s[i].Expend5, new { @class = "tabPlan2Field 2exp_5" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab2s[i].Possible, new { @class = "tabPlan2Field" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab2s[i].Note, new { @class = "tabPlan2Field" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                </tr>
+            }
+<tfoot>
+          <tr style="font-weight: bold" class="sum_row">
+                <td colspan="2" class="disabletd">Итого:</td>
+                @for (int i = 1; i < 6; i++)
+                {
+                    var volumeSum = "volumeSum_" + i;
+                    <td class="disabletd"><input id="@volumeSum" readonly="readonly" class="form-control volumeAllSum" /></td>
+                }
+                @for (int i = 1; i < 6; i++)
+                {
+                    var expSum = "expSum_" + i;
+                    <td class="disabletd"><input id="@expSum" readonly="readonly" class="form-control expAllSum" /></td>
+                }
+                <td class="disabletd">-</td>
+                <td class="disabletd">-</td>
+            </tr>
+            <tr style="font-weight: bold">
+                <td colspan="2" class="disabletd">Всего:</td>
+                <td colspan="5" class="disabletd"><input id="2allValume" readonly="readonly" class="form-control" /></td>
+                <td colspan="5" class="disabletd"><input id="2allExpend" readonly="readonly" class="form-control" /></td>
+                <td class="disabletd">-</td>
+                <td class="disabletd">-</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<script type="text/javascript">
+    function calcColumnType(colm) {
+        var allcl = "";
+        var allInput = "";
+        for (var i = 1; i < 6; i++) {
+            var sum = 0;
+            var className = colm+"_" + i;
+            $('.' + className).each(function (index, obj) {
+                var val = $(this).val().replace(',','.');
+                if (!isNaN(val) && val.length != 0) {
+                    sum += parseFloat(val);
+                }
+            });
+            var sumColumn = "";
+         
+           
+            if (className.indexOf('2volume') > -1)
+            {
+                sumColumn = className.replace('2volume', 'volumeSum');
+                allcl = "volumeAllSum";
+                allInput = "2allValume";
+            }
+            if (className.indexOf('2exp') > -1) {
+                sumColumn = className.replace('2exp', 'expSum');
+                allcl = "expAllSum";
+                allInput = "2allExpend";
+            }
+            if (sum > 0)
+            {
+                $("#" + sumColumn).val(sum);
+            }
+}
+            var allSum = 0;
+            $('.' + allcl).each(function (index, obj) {
+                var val = $(this).val().replace(',', '.');
+                if (!isNaN(val) && val.length != 0) {
+                    allSum += parseFloat(val);
+                }
+            });
+               
+            if (allSum > 0)
+            {
+                $("#"+allInput).val(allSum);
+            }
+
+    }
+
+    function calcSumm2() {
+        calcColumnType("2volume");
+        calcColumnType("2exp");
+
+    }
+    function calcColumn2(idColumn) {
+        var className = $('#' + idColumn).attr('class').split(' ')[1];
+        var sum=0;
+        $('.' + className).each(function (index, obj) {
+            var val = $(this).val().replace(',','.');
+
+            if (!isNaN(val) && val.length != 0) {
+                sum += parseFloat(val);
+            }
+        });
+        var sumColumn = "";
+        var allcl = "";
+        var allInput = "";
+        if (className.indexOf('2volume') > -1) {
+            sumColumn = className.replace('2volume', 'volumeSum');
+            allcl = "volumeAllSum";
+            allInput = "2allValume";
+        }
+        if (className.indexOf('2exp') > -1) {
+            sumColumn = className.replace('2exp', 'expSum');
+            allcl = "expAllSum";
+            allInput = "2allExpend";
+        }
+        if (sum > 0) {
+            $("#" + sumColumn).val(sum);
+        }
+        var allSum = 0;
+        $('.' + allcl).each(function (index, obj) {
+            var val = $(this).val().replace(',', '.');
+            if (!isNaN(val) && val.length != 0) {
+                allSum += parseFloat(val);
+            }
+        });
+
+        if (allSum > 0) {
+            $("#" + allInput).val(allSum);
+        }
+        // console.log($('#' + idColumn).attr('class'));
+
+    }
+    function SetEventFormPlan2(idcontrol) {
+        $(idcontrol).change(function () {
+            var idAttr = $(this).attr('name');
+            var fieldName = idAttr.split('.')[1];
+            var type = "string";
+            if (fieldName.indexOf("Expend") > -1 || fieldName.indexOf("Volume") > -1) {
+                type = "float";
+            }
+            var fieldValue = $(this).val();
+            if (type == "float") {
+                if (fieldValue != null && fieldValue.length > 0) {
+                    if (fieldValue.indexOf(',') > 0) {
+                        fieldValue = fieldValue.replace(',', '.');
+                        $(this).val(fieldValue);
+                    }
+                    if (fieldValue != '' && !$.isNumeric(fieldValue)) {
+                        showWarning('@ResourceSetting.enterNumber');
+                        $(this).val("");
+                        return;
+                    }
+                    if (fieldValue.indexOf('-') > -1) {
+                        showWarning('@ResourceSetting.enterNumberNotMinus');
+                        $(this).val("");
+                        return;
+                    }
+                }
+
+                calcColumn2($(this).attr('id'));
+            }
+
+            var row = $(this).closest('tr');
+            var entityId = row.attr('rowid');
+            UpdateModel("tab2", entityId, $(this).attr('id'), fieldName, $(this).val(), type,0);
+        });
+    }
+    //bird
+    $(document).ready(function () {
+        SetEventFormPlan2(".tabPlan2Field");
+           calcSumm2();
+    });
+</script>

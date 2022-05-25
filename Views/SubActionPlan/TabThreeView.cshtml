@@ -1,0 +1,262 @@
+﻿@using System.Globalization
+@using Aisger
+@model Aisger.Models.SUB_ActionPlan
+<style type="text/css">
+    .tabPlan3Field {
+        width: 100%;
+          font-size: 11px;
+    }
+</style>
+<h5 style="font-weight: bold; text-align: center">
+    @ResourceSetting.table3
+</h5>
+
+<div id="CSSTableGenerator">
+    <table id="table_plan3" class="wast-list" style="width: 100%; text-align: center">
+        <thead>
+            <tr style="font-weight: bold">
+                <td rowspan="2" style="width: 50px">@ResourceSetting.table11</td>
+                <td rowspan="2" >@ResourceSetting.table31</td>
+                <td rowspan="2" style="width: 40px">@ResourceSetting.table32</td>
+                <td colspan="5">@ResourceSetting.table33</td>
+                <td rowspan="3"></td>
+            </tr>
+            <tr>
+                <td id="year1_tab3" style="width: 100px"></td>
+                <td id="year2_tab3" style="width: 100px"></td>
+                <td id="year3_tab3" style="width: 100px"></td>
+                <td id="year4_tab3" style="width: 100px"></td>
+                <td id="year5_tab3" style="width: 100px"></td>
+                
+            </tr>
+            <tr style="font-weight: bold">
+                @for (int i = 1; i < 9; i++)
+                {
+                    <td>@i</td>
+                }
+
+            </tr>
+        </thead>
+        <tbody id="tab3">
+            @for (var i = 0; i < Model.SubFormTab3s.Count; i++)
+            {
+                var entity = Model.SubFormTab3s[i];
+                var index = i + 1;
+                <tr rowid="@entity.Id">
+                    <td class="disabletd">@index</td>
+                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab3s[i].ShareIndex, new { @class = "tabPlan3Field  form-edit" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab3s[i].UnitKoef, new { @class = "tabPlan3Field form-edit" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab3s[i].Volume1, new { @class = "tabPlan3Field 3volume_1 form-edit from-float" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab3s[i].Volume2, new { @class = "tabPlan3Field 3volume_2 form-edit from-float" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab3s[i].Volume3, new { @class = "tabPlan3Field 3volume_3 form-edit from-float" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab3s[i].Volume4, new { @class = "tabPlan3Field 3volume_4 form-edit from-float" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab3s[i].Volume5, new { @class = "tabPlan3Field 3volume_5 form-edit from-float" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                    @if (i == 0)
+                    {
+                        <td><a class="deleteRow"></a></td>
+                    }
+                    else
+                    {
+                        <td>
+                            <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+                        </td>
+                    }
+                </tr>
+            }
+<tfoot>
+            <tr>
+                <td colspan="9" style="text-align: left;">
+
+                    <button type="button" class="btn btn-success btn-sm" id="addtabplan3">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>"@ResourceSetting.addNew
+                    </button>
+
+                </td>
+            </tr>
+
+            <tr style="font-weight: bold" class="sum_row">
+                <td colspan="3" class="disabletd">@ResourceSetting.Sum:</td>
+                @for (int i = 1; i < 6; i++)
+                {
+                    var volumeSum = "volume3Sum_" + i;
+                    <td class="disabletd"><input id="@volumeSum" readonly="readonly" class="form-control volume3AllSum from-float" /></td>
+                }
+                <td class="disabletd"></td>
+            </tr>
+            <tr style="font-weight: bold">
+                <td colspan="3" class="disabletd">@ResourceSetting.all:</td>
+                <td colspan="5" class="disabletd"><input id="allVolume3" readonly="readonly" class="form-control from-float" /></td>
+                <td class="disabletd"></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<script type="text/javascript">
+    function calcColumnType() {
+        for (var i = 1; i < 6; i++) {
+            var sum = 0;
+            var className = "3volume_" + i;
+            var maxindex = 0;
+            $('.' + className).each(function (index, obj) {
+                var val = $(this).val().replace(',', '.');
+                val = replaceAll1(' ', '', val);
+                if (!isNaN(val) && val.length != 0) {
+                    if (val.indexOf('.') > 0) {
+                        var dec = val.split('.')[1].length;
+                        if (dec > maxindex) {
+                            maxindex = dec;
+                        }
+                    }
+                    sum += parseFloat(val);
+                }
+            });
+            var sumColumn = "";
+
+
+            sumColumn = className.replace('3volume', 'volume3Sum');
+            if (sum > 0) {
+                sum = sum.toFixed(maxindex);
+                $("#" + sumColumn).val(formatNumber(sum));
+            }
+        }
+        var allSum = 0;
+        $('.volume3AllSum').each(function (index, obj) {
+            var val = $(this).val().replace(',', '.');
+            val = replaceAll1(' ', '', val);
+            if (!isNaN(val) && val.length != 0) {
+                allSum += parseFloat(val);
+            }
+        });
+
+        if (allSum > 0) {
+            allSum = allSum.toFixed(maxindex);
+            $("#allVolume3").val(formatNumber(allSum));
+        }
+
+    }
+
+    function calcColumn3(idColumn) {
+        var className = $('#' + idColumn).attr('class').split(' ')[1];
+        var sum = 0;
+        var maxindex = 0;
+        $('.' + className).each(function (index, obj) {
+            var val = $(this).val().replace(',', '.');
+            val = replaceAll1(' ', '', val);
+            if (!isNaN(val) && val.length != 0) {
+                if (val.indexOf('.') > 0) {
+                    var dec = val.split('.')[1].length;
+                    if (dec > maxindex) {
+                        maxindex = dec;
+                    }
+                }
+                sum += parseFloat(val);
+            }
+        });
+        var sumColumn = className.replace('3volume', 'volume3Sum');
+
+        if (sum > 0) {
+            sum = sum.toFixed(maxindex);
+            $("#" + sumColumn).val(formatNumber(sum));
+        }
+        var allSum = 0;
+        $('.volume3AllSum').each(function (index, obj) {
+            var val = $(this).val().replace(',', '.');
+            val = replaceAll1(' ', '', val);
+            if (!isNaN(val) && val.length != 0) {
+                allSum += parseFloat(val);
+            }
+        });
+
+        if (allSum > 0) {
+            allSum = allSum.toFixed(maxindex);
+            $("#allVolume3").val(formatNumber(allSum));
+        }
+
+    }
+    function SetEventFormPlan3(idcontrol) {
+        $(idcontrol).change(function () {
+            var idAttr = $(this).attr('name');
+            var fieldName = idAttr.split('.')[1];
+            var type = "string";
+            if (fieldName.indexOf("Volume") > -1) {
+                type = "float";
+            }
+            var fieldValue = $(this).val();
+            if (type == "float") {
+
+                if (fieldValue != null && fieldValue.length > 0) {
+                    fieldValue = replaceAll1(' ', '', fieldValue);
+                    if (fieldValue.indexOf(',') > 0) {
+                        fieldValue = fieldValue.replace(',', '.');
+                        $(this).val(fieldValue);
+                    }
+                    if (fieldValue != '' && !$.isNumeric(fieldValue)) {
+                        showWarning('@ResourceSetting.enterNumber');
+                        $(this).val("");
+                        return;
+                    }
+                    if (fieldValue.indexOf('-') > -1) {
+                        showWarning('@ResourceSetting.enterNumberNotMinus');
+                        $(this).val("");
+                        return;
+                    }
+                    $(this).val(formatNumber(fieldValue));
+                }
+
+                calcColumn3($(this).attr('id'));
+            }
+
+            var row = $(this).closest('tr');
+            var entityId = row.attr('rowid');
+            UpdateModel("tab3", entityId, $(this).attr('id'), fieldName, fieldValue, type, 0);
+        });
+    }
+    //bird
+    $(document).ready(function () {
+        SetEventFormPlan3(".tabPlan3Field");
+        calcColumnType();
+        $("#addtabplan3").on("click", function () {
+            var nextIndex = $('#table_plan3 tbody tr').length;
+            var row = $('#table_plan3 tbody');
+            var cols = '<tr rowid="0">';
+
+
+            var poss = nextIndex + 1;
+            var idIndicatorName = "ShareIndex_" + nextIndex;
+            var idRegularStandart = "UnitKoef_" + nextIndex;
+            cols += '<td class="disabletd">' + poss + '</td>';
+            cols += '<td><div class="input-group"><input type="text" name="SubFormTab3s[' + nextIndex + '].ShareIndex" id="' + idIndicatorName + '" class="tabPlan3Field form-edit"/><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            cols += '<td><div class="input-group"><input type="text" name="SubFormTab3s[' + nextIndex + '].UnitKoef" id="' + idRegularStandart + '" class="tabPlan3Field form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            for (var j = 1; j < 6; j++) {
+                var volumeId = "Volume" + j + "_" + nextIndex;
+                cols += '<td><div class="input-group"><input type="text" name="SubFormTab3s[' + nextIndex + '].Volume' + j + '" id="' + volumeId + '" class="tabPlan3Field form-edit from-float 3volume_' + j + '"/><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            }
+            cols += '<td><i class="glyphicon glyphicon-remove deleteRow"  title="@ResourceSetting.Delete"></td>';
+            cols += '</tr>';
+            row.append(cols);
+
+            SetEventFormPlan3("#" + idIndicatorName);
+            SetEventFormPlan3("#" + idRegularStandart);
+            for (var k = 1; k < 6; k++) {
+                var volumeDiv = "Volume" + k + "_" + nextIndex;
+                SetEventFormPlan3("#" + volumeDiv);
+            }
+        });
+
+        $("#table_plan3").on("click", ".deleteRow", function () {
+
+            var row = $(this).closest('tr');
+            var success = function () {
+
+                var entityId = row.attr('rowid');
+                DeleteRecord("tab3", entityId);
+                row.remove();
+                //                counterTable5 -= 1;
+            }
+            var cancel = function () {
+            };
+            showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+        });
+    });
+</script>

@@ -1,0 +1,250 @@
+﻿@using System.Globalization
+@using Aisger
+@using Aisger.Helpers
+@model Aisger.Models.Entity.Subject.Sub_FormGu
+<style type="text/css">
+    .form6Field {
+        width: 100%;
+    }
+</style>
+@if (CultureHelper.GetCurrentCulture() == "kz")
+{
+    <div>
+        <h5 style="font-weight: bold; text-align: center;margin-top:15px;">Энергетикалық ресурстарды есепке алу аспаптарымен жарақтандырылуы туралы ақпарат</h5>
+    </div>
+}
+else
+{
+    <div>
+        <h5 style="font-weight: bold; text-align: center;margin-top:15px;"> Информация об оснащенности приборами учета энергетических ресурсов</h5>
+    </div>
+
+}
+<div class="row" style="margin:10px 0px 10px 0px;">
+    <div class="col-lg-12">
+        <span>Наименование субъекта Государственного энергетического реестра:<i> @Model.SEC_User1.JuridicalName</i></span>
+    </div>
+</div>
+
+<div id="CSSTableGenerator" style="margin-bottom: 40px">
+    <div style="display:none;" id="counterDiv">
+        @Html.DropDownList("TypeCounterId", (IEnumerable<SelectListItem>)(ViewData["TypeCounters"]), String.Empty, new { @class = "form-control  form-edit" })
+    </div>
+    <table id="table6" class="wast-list" style="width: 100%; text-align: center">
+        <thead>
+            <tr style="font-weight: bold">
+                <td>@ResourceSetting.form61</td>
+                <td id="form6TypeCol">@ResourceSetting.form62Gu</td>
+                <td>@ResourceSetting.form63</td>
+                <td>@ResourceSetting.form64</td>
+                <td rowspan="2"></td>
+            </tr>
+            <tr style="font-style: italic;font-weight: bold">
+                @for (int i = 1; i < 5; i++)
+                {
+                <td>@i</td>
+                }
+            </tr>
+
+        </thead>
+        <tbody id="form6">
+            @{
+                Aisger.Models.SUB_Form6Record signedObj = null;
+            }
+            @for (var i = 0; i < Model.SubForm6Records.Count; i++)
+            {
+                if (Model.SignedSubForm != null)
+                {
+                    var id = Model.SubForm6Records[i].Id;
+                    signedObj = Model.SignedSubForm.SUB_Form6Record.FirstOrDefault(f => f.Id == id);
+                }
+
+                var index = i + 1;
+            <tr rowid="@Model.SubForm6Records[i].Id">
+                <td class="disabletd">@index</td>
+                <td>
+                    <div class="input-group">
+                        @(ViewBag.SubReadonly == true ? Html.TextBoxFor(model => model.SubForm6Records[i].SUB_DIC_TypeCounter.NameRu, new { @style = "width: 100%" }) : Html.DropDownList("SubForm6Records[" + @i + "].TypeCounterId", (IEnumerable<SelectListItem>)(ViewData["TypesFrom6" + i.ToString(CultureInfo.InvariantCulture)]), String.Empty, new { @class = "form-control   form-edit" }))
+                        <span class="input-group-addon">
+                            <a class="commentDialog" href="#">
+                                <i class="glyphicon glyphicon-info-sign"></i>
+                            </a>
+                        </span>
+                    </div>
+                    @if (signedObj != null && signedObj.SUB_DIC_TypeCounter != null)
+                        {
+                        <div class="signed signed-color">
+                            @signedObj.SUB_DIC_TypeCounter.NameRu
+                        </div>
+                        }
+                </td>
+                <td>
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.SubForm6Records[i].CountDevice, new { @class = "form6Field  form-edit" })
+                        <span class="input-group-addon">
+                            <a class="commentDialog" href="#">
+                                <i class="glyphicon glyphicon-info-sign"></i>
+                            </a>
+                        </span>
+                    </div>
+                    @if (signedObj != null)
+                        {
+                        <div class="signed signed-color">
+                            @signedObj.CountDevice
+                        </div>
+                        }
+                </td>
+                <td>
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.SubForm6Records[i].Equipment, new { @class = "form6Field  form-edit", @placeholder = "от 0 до 100" })
+                        <span class="input-group-addon">
+                            <a class="commentDialog" href="#">
+                                <i class="glyphicon glyphicon-info-sign"></i>
+                            </a>
+                        </span>
+                    </div>
+                    @if (signedObj != null)
+                        {
+                        <div class="signed signed-color">
+                            @signedObj.Equipment
+                        </div>
+                        }
+                </td>
+                @if (i == 0)
+                    {
+                    <td><a class="deleteRow"></a></td>
+                    }
+                    else
+                    {
+                    <td>
+                        <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+                    </td>
+                    }
+            </tr>
+
+            }
+        </tbody>
+        <tfoot id="foodForm6">
+            <tr>
+                <td colspan="5" style="text-align: left;">
+                    <button type="button" class="btn btn-success btn-sm" id="addTable6">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.addNew
+                    </button>
+
+                </td>
+            </tr>
+
+
+        </tfoot>
+    </table>
+</div>
+
+<script type="text/javascript">
+            function createTypeForm6(idAnimal) {
+                $('#' + idAnimal).chosen();
+                var wid = $('#SubForm6Records_0__TypeCounterId_chzn').width();
+                $('#' + idAnimal + '_chzn').width(wid);
+            }
+</script>
+<script type="text/javascript">
+    function SetEventForm6(idcontrol) {
+    	$(idcontrol).change(function () {
+
+    		console.log("form6=", $(this).attr('id'));
+
+            var idAttr = $(this).attr('name');
+            var fieldName = idAttr.split('.')[1];
+            var type = "long";
+            if (fieldName == "Equipment") {
+                var vall = $(this).val();
+                if (vall != null && vall.length > 0) {
+                    if (vall.indexOf(',') > 0) {
+                        vall = vall.replace(',', '.');
+                    }
+                    if (vall != '' && !$.isNumeric(vall)) {
+                        showWarning('@ResourceSetting.enterNumber');
+                        $(this).val("");
+                        return;
+                    }
+                    if (vall < 0 || vall > 100) {
+                        showWarning("Введите число с 0 до 100");
+                        $(this).val("");
+                        return;
+                    }
+
+                }
+                type = "float";
+            }
+
+            var row = $(this).closest('tr');
+            var entityId = row.attr('rowid');
+            UpdateModel("form6", entityId, $(this).attr('id'), fieldName, $(this).val(), type, 0);
+        });
+    }
+    //bird
+    $(document).ready(function () {
+        SetEventForm6(".form6Field");
+        var counterTable6 = 0;
+        $("#addTable6").on("click", function () {
+
+            counterTable6 = $('#table6 tr').length - 2;
+
+            var newRow = $('<tr rowid="0">');
+            var cols = "";
+
+            var table = document.getElementById("table6");
+
+            var lastRowIndex = table.rows.length - 2;
+
+            var levelCellIndex = 1;
+
+            var levelCell = table.rows[lastRowIndex].cells[levelCellIndex];
+
+            var indexStart = levelCell.innerHTML.indexOf('[');
+            var indexEnd = levelCell.innerHTML.indexOf(']');
+            var index1 = levelCell.innerHTML.substring(indexStart + 1, indexEnd);
+            var animalDiv = document.getElementById("counterDiv");
+            var nextIndex = parseInt(index1) + 1;
+            var idAnimal = 'SubForm6Records_' + nextIndex + '__TypeCounterId';
+            var nameAnimal = 'SubForm6Records[' + nextIndex + '].TypeCounterId';
+
+            var animalStr = replaceAll('id="TypeCounterId"', 'id="' + idAnimal + '"', animalDiv.innerHTML);
+            animalStr = replaceAll('name="TypeCounterId"', 'name="' + nameAnimal + '"', animalStr);
+            animalStr = animalStr.replace('(0)', '(' + nextIndex + ')');
+            var poss = nextIndex + 1;
+            cols += '<td class="disabletd">' + poss + '</td>';
+            cols += '<td><div class="input-group">' + animalStr + '<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            var idCountDevice = "CountDevice_" + nextIndex;
+            var idEquipment = "Equipment_" + nextIndex;
+            cols += '<td><div class="input-group"><input type="text" name="SubForm6Records[' + nextIndex + '].CountDevice" id="' + idCountDevice + '" class="form6Field  form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            cols += '<td><div class="input-group"><input type="text" name="SubForm6Records[' + nextIndex + '].Equipment" id="' + idEquipment + '" class="form6Field  form-edit" placeholder="от 0 до 100"/><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+
+            cols += '<td><i class="glyphicon glyphicon-remove deleteRow"  title="' +'@ResourceSetting.Delete' +'"></td>';
+            newRow.append(cols);
+
+            if (counterTable6 == 100) $('#addTable6').attr('disabled', true).prop('value', "Превышен лимит");
+            $("#table6").append(newRow);
+            SetEventForm6("#" + idCountDevice);
+            SetEventForm6("#" + idEquipment);
+            SetComboBoxEvent("#" + idAnimal);
+            counterTable6++;
+            //            createTypeForm6(idAnimal);
+        });
+
+        $("#table6").on("click", ".deleteRow", function () {
+            var row = $(this).closest('tr');
+            var success = function () {
+
+                var entityId = row.attr('rowid');
+                DeleteRecord("form6", entityId);
+                row.remove();
+                counterTable6 -= 1;
+                $('#addTable6').attr('disabled', false).prop('value', '@ResourceSetting.addNew');
+            }
+            var cancel = function () {
+            };
+            showConfirmation('@ResourceSetting.Delete', '@ResourceSetting.deleteconfirm', success, cancel);
+                });
+
+            });
+</script>

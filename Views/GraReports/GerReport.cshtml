@@ -1,0 +1,71 @@
+﻿@using Aisger
+@using Aisger.Helpers
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+
+@Styles.Render("~/Content/reportCss")
+@Scripts.Render("~/bundles/kendoui")
+@Scripts.Render("~/bundles/reportJs")
+<style>
+    #main-container {
+        height: calc(100% - 59px);
+    }
+
+    .divReportViewer {
+        height: 100%;
+    }
+</style>
+
+<div id="B">
+    @*@Html.Partial("~/Views/Home/TitleItem.cshtml", ResourceSetting.Reports + "," + ResourceSetting.ReportGer)*@
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.Reports <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  @ResourceSetting.ReportGer </li>
+        <li > <span class="glyphicon glyphicon-arrow-right"></span> <span id="selectedReportText"></span> </li>
+    </ul>
+
+     <div id="divFormsGer" style="height: 100%;">
+    <div class="divMenu">
+        <menu class="menu1">
+            <li class="liCmbx1 hide">
+                <select class="cmbx1" style="width:200px;"></select>
+            </li>
+            <li class="liCmbx2">
+                @ResourceSetting.Year*
+            <select class="cmbx2"></select>
+        </li>
+        <li class="liCmbx3">
+            @ResourceSetting.Oblast
+        <select class="cmbx3"></select>
+        </li>
+
+        <li class="liDp1">
+            @ResourceSetting.dtBeg*
+        <input class="dp1" style="width:120px;" />
+        </li>
+        <li class="liDp2">
+            @ResourceSetting.dtEnd*
+        <input class="dp2" style="width:120px;" />
+        </li>
+        <li class="liCmbx4">
+            @ResourceSetting.SubjectCount
+            <select class="cmbx4" style="width:80px;"></select>
+        </li>
+        <li class="liCmbx5">
+            @ResourceSetting.FormOfOwnership
+            <select class="cmbx5" style="width:80px;"></select>
+        </li>
+        <li class="liCmbx6">
+            @ResourceSetting.DicOked
+            <select class="cmbx6" style="width:200px;"></select>
+        </li>
+        <li class="btnRun">@ResourceSetting.Run</li>
+        </menu>
+    </div>
+    <div class="divReportViewer"></div>
+</div>
+
+<script src="~/Scripts/reports/formsGer.js"></script>
+<link href="~/ReportViewer/styles/telerikReportViewer-9.0.15.225.css" rel="stylesheet" />
+<script src="~/ReportViewer/js/telerikReportViewer-9.0.15.225.js"></script>
+
+</div>

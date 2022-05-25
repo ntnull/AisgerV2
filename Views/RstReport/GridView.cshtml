@@ -1,0 +1,55 @@
+﻿@using System.Threading
+@using Aisger
+@using FlowDoc.Models
+@using GridMvc.Html
+@model IEnumerable<Aisger.Models.RST_TEMP_ReportReestr>
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+<script src="@Url.Content("~/Scripts/custom/gridmvc.reestr.status.js")" type="text/javascript"> </script>
+<script src="@Url.Content("~/Scripts/custom/gridmvc.oblast.js")" type="text/javascript"> </script>
+@helper GridManageItemColumn(long id)
+{
+@*
+    <a class="openDialog" data-dialog-id="emailDialog" data-dialog-title="@ResourceSetting.ecoInfo" href="@Url.Action("ShowDetails", "ReestrDocs", new { id })" title="@ResourceSetting.ecoInfo">
+        <i class="glyphicon glyphicon-search" title="Просмотр"></i>
+    </a>*@
+}
+
+
+<style type="text/css">
+    td {
+        border-left: 1px solid #dddddd;
+    }
+</style>
+<div id="CSSTableGenerator">
+    @Html.Grid(Model).Named("ordersGrid").SetLanguage(Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName).Columns(columns =>
+            {
+                columns.Add(o => o.Id, true)
+                    .Titled("Id").SetWidth(0);
+               columns.Add(o => o.BINIIN).Titled(ResourceSetting.biniinSubject)
+                  .SetWidth(40);
+                columns.Add(o => o.OwnerName).Titled(ResourceSetting.SubPerson)
+                  .SetWidth(40);
+                columns.Add(o => o.Address).Titled(ResourceSetting.Address)
+            .SetWidth(40);
+                columns.Add(o => o.OblastName).Titled(ResourceSetting.Oblast)
+           .SetWidth(40).SetFilterWidgetType("OblastNameFilterWidget"); 
+                columns.Add(o => o.StatusName).Titled(ResourceSetting.RstDicStatus)
+        .SetWidth(40).SetFilterWidgetType("StatusReestrNameFilterWidget"); 
+                columns.Add()
+                       .Encoded(false)
+                       .Sanitized(false).SetWidth(20)
+                       .RenderValueAs(o => GridManageItemColumn(o.Id).ToHtmlString());
+
+            }).WithPaging(50).Sortable().Filterable()
+</div>
+
+
+<script>
+    $(function () {
+        pageGrids.ordersGrid.addFilterWidget(new StatusReestrFilterWidget());
+        pageGrids.ordersGrid.addFilterWidget(new OblastFilterWidget());
+
+    });
+</script>
+
+

@@ -1,0 +1,496 @@
+﻿@using Aisger
+@using Aisger.CustomResources
+@using Aisger.Models
+@using Aisger.Models.Constants
+@model EauditAttachment2         
+
+@Html.HiddenFor(model => model.Preamble.Id, new { id = "refPreambleId" })
+
+<div id="raitingBform8">
+    @foreach (EAUDIT_FieldComments comment in Model.FieldComments)
+    {
+        @Html.Hidden(comment.Id.ToString(), comment.Comment, new
+        {
+            rowId = comment.RowId
+            , fieldName = comment.FieldName
+            , isError=comment.IsError
+            , formCode=comment.FormCode
+            , @class = "raiting"
+        });
+    }
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="center-block">
+            <h4 class="text-center">
+                8. @EauditResource.BuildingForm8Name
+            </h4>
+        </div>
+    </div>
+</div>
+
+<div id="CSSTableGenerator">
+    <table id="tbBuildingForm8" class="table-center">
+        <thead>
+            <tr>
+                <th>@EauditResource.BuildingForm8Column1</th>
+                <th>@EauditResource.BuildingForm8Column2</th>
+                <th>@EauditResource.BuildingForm8Column3</th>
+                <th>@EauditResource.BuildingForm8Column4</th>
+                <th>@EauditResource.BuildingForm8Column5</th>
+                <th>@EauditResource.BuildingForm8Column51</th>
+                <th>@EauditResource.BuildingForm8Column6</th>
+                <th>@EauditResource.BuildingForm8Column7</th>
+                <th>@EauditResource.BuildingForm8Column8</th>
+                <th>@EauditResource.BuildingForm8Column9</th>
+                <th>@EauditResource.BuildingForm8Column10</th>
+            </tr>
+            <tr>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+                <th>8</th>
+                <th>9</th>
+                <th>10</th>
+                <th>11</th>
+            </tr>
+        </thead>
+        <tbody id="@EnergyAuditFormConsts.BuildingForm8">
+            @{
+                EAUDIT_Building signedIform = null;
+            }
+            @foreach (EAUDIT_Building formRow in Model.Buildings)
+            {
+                if (Model.SignedEauditPreamble != null
+                    && Model.SignedEauditPreamble.EAUDIT_Building != null)
+                {
+                    signedIform = Model.SignedEauditPreamble.EAUDIT_Building
+                        .FirstOrDefault(iform => iform.Id == formRow.Id);
+                }
+                <tr id="@formRow.Id" >
+                    <td class="disabletd">
+                        @Html.Raw(formRow.Name)
+                        @Html.HiddenFor(model => formRow.Name, new { @class = "form-edit formb8Field" })
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.Customer)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.Customer, new { @class = "form-edit formb8Field" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.Customer
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.Address)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.Address, new { @class = "form-edit formb8Field" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.Address
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.YearOfConstruction)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.YearOfConstruction, new { @class = "form-edit formb8Field integer" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.YearOfConstruction
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.Type)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.Type, new { @class = "form-edit formb8Field" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.Type
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.NumberofFloors)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.NumberofFloors, new { @class = "form-edit formb8Field integer" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.NumberofFloors
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.GeneralArea)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.GeneralArea, new { @class = "form-edit formb8Field numeric" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.GeneralArea
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.HeatingArea)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.HeatingArea, new { @class = "form-edit formb8Field numeric" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.HeatingArea
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.EnergyEfficiencyClass)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.EnergyEfficiencyClass, new { @class = "form-edit formb8Field" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.EnergyEfficiencyClass
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.NormativeHeatConsumption)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.NormativeHeatConsumption, new { @class = "form-edit formb8Field numeric" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.NormativeHeatConsumption
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.ActualHeatConsumption)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.ActualHeatConsumption, new { @class = "form-edit formb8Field numeric" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.ActualHeatConsumption
+                                </div>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="11">
+                    @EauditResource.BuildingForm8SubText
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<script>
+    var BuildingForm8 = {
+        SaveOrUpdateFormFn: function (form, row, urlParam) {
+            $.ajax({
+                type: "POST",
+                url: urlParam,
+                data: form,
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    if (data.IsSuccess) {
+                        $(row).attr("id", data.Id);
+                    }
+                },
+            });
+        },
+        DeleteFormFn: function (rowId, urlParam, formCode) {
+            $.ajax({
+                type: "POST",
+                url: urlParam,
+                data: { id: rowId, buildingFormCode: formCode },
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                },
+            });
+        },
+        init: function () {
+            var updateUrl = '@Url.Action("UpdateBuilding", "BuildingAttachment2")';
+            var deleteUrl = '@Url.Action("Delete", "BuildingAttachment2")';
+            var buildingCode = "@EnergyAuditFormConsts.BuildingForm8";
+            var fieldClass = "formb8Field";
+
+            if (window.EAuditGeneral) {
+                EAuditGeneral.msgFieldMustBeDigit = '@ResourceSetting.sInputNumberRequired';
+                EAuditGeneral.tTitle = '@ResourceSetting.sComment';
+                EAuditGeneral.sSave = '@ResourceSetting.Save';
+                window.EAuditGeneral.init("tbBuildingForm8");
+            }
+
+            $("table ." + fieldClass).blur(function () {
+                BuildingForm8.onBlurFieldFn(this, updateUrl, fieldClass);
+            });
+
+            $("#btnAddNewForm8").click(function () {
+                BuildingForm8.addNewRowFn(buildingCode
+                    , "tbFormB8RowTemplate"
+                    , "tbBuildingForm8"
+                    , fieldClass
+                    , updateUrl);
+            });
+
+            $("#tbBuildingForm8").on("click", ".deleteRow", function () {
+                BuildingForm8.deleteRowFn($(this)
+                    , deleteUrl
+                    , buildingCode);
+            });
+
+            $('#ddlForm8Building').change(function () {
+                var refBuilding = $(this).val();
+                var refPreamble = $("#refPreambleId").val();
+                window.BuiildingParentForm.reloadForm8(refPreamble, refBuilding);
+            });
+
+            $(".integer").autoNumeric('init', {
+                aSep: EAuditGeneral.NumberGroupSeparatorConst,
+                mDec: 0
+            }, EAuditGeneral._alerWrongInput);
+            $(".numeric").autoNumeric('init', {
+                aSep: EAuditGeneral.NumberGroupSeparatorConst,
+                aDec: EAuditGeneral.NumberDecimalSeparatorConst,
+                mDec: 10,
+                aPad: false
+            }, EAuditGeneral._alerWrongInput);
+        },
+        serializeFormFn: function (row, fieldClass) {
+            var form = {};
+            var refPreamble = $("#refPreambleId").val();
+            form.refPreamble = refPreamble;
+
+            var id = row.attr("id");
+            form.Id = id;
+
+            var refTypeResource = row.attr("data-typeid");
+            form.refTypeResource = refTypeResource;
+            form.refBuilding = $("#ddlForm8Building").val();
+
+            row.find("." + fieldClass).each(function () {
+                var name = $(this).attr("name");
+                if (name.indexOf('.') > -1) {
+                    var nameArr = name.split('.');
+                    name = nameArr[nameArr.length - 1];
+                }
+                var value = $(this).val();
+                if ($(this).hasClass('numeric') || $(this).hasClass('integer')) {
+                    value = $(this).autoNumeric('get');
+                    value = EAuditGeneral.fixDecimalSeparatorFn(value);
+                }
+                form[name] = value;
+            });
+
+            return form;
+        },
+        addNewRowFn: function (className, templateId, mainTableId, fieldClass, urlParam) {
+            var row = $("#" + templateId + " tbody").html();
+            //row = $(row).addClass(className);
+            var lastRow = $("#" + mainTableId + " tr." + className).last();
+            var rowCount = $("#" + mainTableId + " tr." + className).length + 1;
+            debugger;
+            var rowElement = $.parseHTML(row);
+            $(rowElement).find(".ordern").text(rowCount);
+            $("." + fieldClass, rowElement).blur(function () {
+                BuildingForm8.onBlurFieldFn(this, urlParam, fieldClass);
+            });
+
+            $(".integer", rowElement).autoNumeric('init', {
+                aSep: EAuditGeneral.NumberGroupSeparatorConst,
+                mDec: 0
+            }, EAuditGeneral._alerWrongInput);
+            $(".numeric", rowElement).autoNumeric('init', {
+                aSep: EAuditGeneral.NumberGroupSeparatorConst,
+                aDec: EAuditGeneral.NumberDecimalSeparatorConst,
+                mDec: 10,
+                aPad: false
+            }, EAuditGeneral._alerWrongInput);
+
+            lastRow.after(rowElement);
+        },
+        deleteRowFn: function (element, urlParam, className) {
+            var row = $(element).closest('tr');
+            var success = function() {
+                var entityId = row.attr('id');
+                if (entityId)
+                    BuildingForm8.DeleteFormFn(entityId, urlParam, className);
+                row.remove();
+            };
+            var cancel = function () {
+
+            };
+            showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+        },
+        changeRowSpanHelperFn: function (row, value) {
+
+        },
+        onBlurFieldFn: function (element, urlParam, fieldClass) {
+            debugger;
+            var row = $(element).closest("tr");
+            var form = BuildingForm8.serializeFormFn(row, fieldClass);
+            if (form.refPreamble) {
+                BuildingForm8.SaveOrUpdateFormFn(form, row, urlParam);
+            }
+        }
+    };
+</script>

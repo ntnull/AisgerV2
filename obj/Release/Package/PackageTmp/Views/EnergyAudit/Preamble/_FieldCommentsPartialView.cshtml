@@ -1,0 +1,25 @@
+﻿@using Aisger
+@model Aisger.Models.EauditFieldCommentViewModel
+<div class="input-group">
+    <span class="input-group-addon">
+        @Html.CheckBoxFor(model => model.FieldComment.IsError, new { id = "isError"})
+    </span>
+    <input type="text" class="form-control" aria-label="..." value="@ResourceSetting.FieldError" readonly="readonly">
+</div>
+@Html.TextAreaFor(m => m.FieldComment.Comment, new { id = "comment", @class = "comment" })
+<div id="divHistory">
+    <h4>@ResourceSetting.History</h4>
+    @foreach (var comment in Model.FieldCommentHistory.OrderByDescending(fc => fc.DatetimeStamp))
+    {
+        var className = "alert alert-info";
+        if (comment.IsError)
+        {
+            className = "alert alert-danger";
+        }
+        <div class="@className" role="alert" style="text-align: left">
+            <p>@comment.Comment</p>
+            <p><b>@ResourceSetting.sFieldValue:</b> @comment.FieldValue</p>
+            <p style="text-align: right;font-size: 0.8em"><b>@ResourceSetting.RegDate:</b> @comment.DatetimeStamp <b>  @ResourceSetting.Autor:</b>@comment.UserName</p>
+        </div>
+    }
+</div>

@@ -1,0 +1,129 @@
+﻿@using System.Threading
+@using Aisger
+@using Aisger.Models
+@using Aisger.Utils
+@using GridMvc.Html
+@model IEnumerable<Aisger.Models.MAP_Project>
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+
+@helper GridManageItemColumn(MAP_Project form)
+{
+    /* if (MyExtensions.CheckRightEdit(CodeConstManager.ReestrDocument))
+    {*/
+   @* <button type="button" class="btn btn-default btn-sm" onclick="location.href='@Url.Action("ShowDetails", "MapProject", new { form.Id })'">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Просмотр
+    </button>
+    <br>
+
+    <button type="button" class="btn btn-info btn-sm" onclick="location.href='@Url.Action("Edit", "MapProject", new { form.Id })'">
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> @ResourceSetting.Edit
+    </button>*@
+
+    <button type="button" class="btn btn-danger btn-sm" accesscode="MapProject-delete" disabled onclick="DeleteRecord(@form.Id)">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> @ResourceSetting.Delete
+    </button>
+}
+@helper ProjectName(MAP_Project o)
+{
+    var customer = o.ProjectName;
+    <a href="@Url.Action("ShowDetails", "MapProject", new { id = o.Id })">
+        @customer
+    </a>
+}
+@helper SubjectView(MAP_Project o)
+{
+    if (o.MAP_Application != null && o.MAP_Application.SEC_User1 != null)
+    {
+        var customer = o.MAP_Application.SEC_User1.ApplicationName + '/' + o.MAP_Application.SEC_User1.Address;
+        <a  href="@Url.Action("Index", "SubjectInfo", new { id = o.MAP_Application.SEC_User1.Id })">
+            @customer
+        </a>
+    }
+}
+@helper SubjectView1(MAP_Project o)
+{
+    if (o.SEC_User1 != null)
+    {
+        var customer = o.SEC_User1.ApplicationName + '/' + o.SEC_User1.Address;
+        <a href="@Url.Action("Index", "SubjectInfo", new { id = o.SEC_User1.Id })">
+            @customer
+        </a>
+    }
+}
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.MapEnergy  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  @ResourceSetting.MapProject (<span id="countGridRecord"></span>)<span></span></li>
+        <li style="float: right">
+            <button type="button" class="btn btn-success btn-sm" accesscode="MapProject-create" disabled id="addRegister">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> @ResourceSetting.add
+            </button>
+            @Html.Partial("~/Views/Shared/ExportExcelBtn.cshtml")
+        </li>
+    </ul>
+    <div id="CSSTableGenerator">
+        @Html.Grid(Model).SetLanguage(Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName).Columns(columns =>
+            {
+                columns.Add(o => o.Id, true)
+                    .Titled("Id").SetWidth(0);
+                columns.Add()
+                  .Encoded(false)
+                  .Sanitized(false).Titled(ResourceSetting.ProjectName)
+                  .SetWidth(80)
+                  .RenderValueAs(o => ProjectName(o).ToHtmlString());
+                columns.Add(o => o.ProjectName, true).Titled(ResourceSetting.ProjectName)
+                  .SetWidth(40);
+                columns.Add()
+               .Encoded(false)
+               .Sanitized(false).Titled(ResourceSetting.RecipientName)
+               .SetWidth(80)
+               .RenderValueAs(o => SubjectView(o).ToHtmlString());
+                columns.Add(o => o.RecipientName, true).Titled(ResourceSetting.RecipientName)
+                .SetWidth(40);
+                columns.Add()
+            .Encoded(false)
+            .Sanitized(false).Titled(ResourceSetting.EscoName)
+            .SetWidth(80)
+            .RenderValueAs(o => SubjectView1(o).ToHtmlString());
+                columns.Add(o => o.EscoName, true).Titled(ResourceSetting.EscoName)
+                  .SetWidth(40);
+                columns.Add(o => o.RegDate).Titled(ResourceSetting.RegDate)
+    .Format("{0:dd/MM/yyyy}")
+    .SetWidth(40);
+                columns.Add(o => o.BeginDate).Titled(ResourceSetting.BeginDate)
+  .Format("{0:dd/MM/yyyy}")
+  .SetWidth(40);
+                columns.Add(o => o.EndDate).Titled(ResourceSetting.EndDate)
+.Format("{0:dd/MM/yyyy}")
+.SetWidth(40);
+
+                columns.Add()
+                       .Encoded(false)
+                       .Sanitized(false).SetWidth(20)
+                       .RenderValueAs(o => GridManageItemColumn(o).ToHtmlString());
+
+            }).WithPaging(50).Sortable().Filterable().WithMultipleFilters()
+    </div>
+</div>
+<script type="text/javascript">
+    function DeleteRecord(id) {
+        var success = function () {
+            var url = '/MapProject/Delete/' + id;
+            window.location.href = url;
+        }
+        var cancel = function () {
+        };
+        showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+
+    }
+    $(document).ready(function () {
+
+        $("#addRegister").click(function () {
+            window.location.href = '@Url.Action("Create", "MapProject")';
+            return;
+
+        });
+    });
+</script>

@@ -1,0 +1,1394 @@
+﻿@using Aisger
+@using Aisger.Models
+@using Aisger.Models.Constants
+@using Aisger.Models.ControlModels
+@using Aisger.CustomResources;
+@model EauditAttachment1
+           
+@Html.HiddenFor(model => model.Preamble.Id, new {id="refPreambleId"})
+<div id="raitingForm1">
+    @foreach (EAUDIT_FieldComments comment in Model.FieldComments)
+    {
+        @Html.Hidden(comment.Id.ToString(), comment.Comment, new
+        {
+            rowId = comment.RowId
+            , fieldName = comment.FieldName
+            , isError=comment.IsError
+            , formCode=comment.FormCode
+            , @class = "raiting"
+        });
+    }
+</div>
+<!-- Заголовок-->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="center-block">
+            <h4 class="text-center">
+                1. @ResourceSetting.tOverview
+            </h4>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div id="sllForm1Industry" class="form-inline link-selector">
+            <label>
+                @ResourceSetting.sReportObject
+            </label>
+            @Html.Partial("_SelectLinkList", new SelectLinkListModel()
+            {
+                CurrentLink = Model.RefOwnedFacilities.HasValue ? Model.RefOwnedFacilities.Value.ToString() : null,
+                SelectListItems = Model.OwnedFacilityList
+            })
+        </div>
+
+@*        <div class="alert alert-success">*@
+@*            <strong>Success!</strong> Indicates a successful or positive action.*@
+@*            <i class="glyphicon glyphicon-ok-circle"></i>*@
+@*        </div>*@
+    </div>
+</div>
+
+<div id="CSSTableGenerator">
+    <table id="tbIndustryForm1" class="table-center">
+        <thead>
+            <tr>
+                <th rowspan="2">№</th>
+                <th rowspan="2">@EauditResource.IndustryForm1Column2</th>
+                <th rowspan="2">@EauditResource.Unit</th>
+                <th>@EauditResource.IndustryForm1Column4</th>
+                <th>@EauditResource.IndustryForm1Column5</th>
+                <th rowspan="2">@EauditResource.Note</th>
+                <th rowspan="2"></th>
+            </tr>
+            <tr>
+                <th>
+                    @*                    @Html.TextBoxFor(model => model.Preamble.BaseYear*@
+                    @*                    , new { @class = "text-center integer", id ="inputBaseyear" })*@
+                    @Model.Preamble.BaseYear
+                </th>
+                <th>
+                    @*                    @Html.TextBoxFor(model => model.Preamble.ReportYear*@
+                    @*                    , new { @class = "text-center integer", id = "inputCurrentyear" })*@
+                    @Model.Preamble.ReportYear
+                </th>
+            </tr>
+            <tr>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="@EnergyAuditFormConsts.IndustryForm1">
+            @{
+                var arrayIndustryForm1Rows = Model.IndustryForm1Rows;
+                EAUDIT_IndustryForm1 signedIform = null;
+            }
+
+            @for(int i = 0; i < arrayIndustryForm1Rows.Count(); i++)
+            {
+                var form1Row = arrayIndustryForm1Rows[i];
+                if (Model.SignedEauditPreamble != null && Model.SignedEauditPreamble.EAUDIT_IndustryForm1 != null)
+                {
+                    signedIform = Model.SignedEauditPreamble.EAUDIT_IndustryForm1.FirstOrDefault(iform => iform.Id == form1Row.Id);
+                }
+                // command row
+                if (form1Row.IsCommand)
+                {
+                    <tr data-typeid="@form1Row.EAUDIT_DIC_TypeResource.Id">
+                        <td>
+                            @if (!Model.IsReadOnly)
+                            {
+                                <button id="btnAddNewRowForm1" type="button" class="btn btn-info btn-xs btn-add" data-code="@form1Row.EAUDIT_DIC_TypeResource.Code">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                </button>
+                            }
+                        </td>
+                        <td>
+                            <!--3-->
+                        </td>
+                        <td>
+                            <!--4-->
+                        </td>
+                        <td>
+                            <!--5-->
+                        </td>
+                        <td>
+                            <!--6-->
+                        </td>
+                        <td></td>
+                    </tr>
+                }
+                else if ((form1Row.DIC_Units != null && form1Row.DIC_Units.Count == 2) || (form1Row.EAUDIT_DIC_TypeResource.Code.StartsWith("03")))
+                {
+                    if (string.IsNullOrEmpty(form1Row.ProductName))
+                    {
+                        <tr id="@form1Row.Id" data-typeid="@form1Row.EAUDIT_DIC_TypeResource.Id" class="@form1Row.EAUDIT_DIC_TypeResource.Code first-row" data-rowcount="2">
+                            <td class="disabletd" rowspan="@form1Row.RowSpan" id="@form1Row.EAUDIT_DIC_TypeResource.Id">
+                                <!--1-->
+                                @form1Row.EAUDIT_DIC_TypeResource.PosIndex
+                            </td>
+                            <td class="disabletd" rowspan="2">
+                                <!--2-->
+                                @Html.Raw(form1Row.EAUDIT_DIC_TypeResource.NameRu)
+                            </td>
+                            <td class="disabletd">
+                                <!--3-->
+                                @if (form1Row.DIC_Units != null)
+                                {
+                                    var du1 = form1Row.DIC_Units.OrderBy(du => du.PosIndex).FirstOrDefault();
+                                    if (du1 != null)
+                                    {
+                                        @du1.NameRu
+                                        @Html.HiddenFor(model => form1Row.Unit, new { @class = "form-edit form1Field unit-control", @Value = @du1.NameRu })
+                                    }
+                                }
+                            </td>
+                            <td>
+                                <!--4-->
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        <span class="numeric-display">
+                                            @Html.DisplayFor(model => form1Row.BaseYearVolume)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => form1Row.BaseYearVolume, new { @class = "form-edit form1Field numeric" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color">
+                                            @signedIform.BaseYearVolume
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <!--5-->
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        <span class="numeric-display">
+                                            @Html.DisplayFor(model => form1Row.Volume)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => form1Row.Volume, new { @class = "form-edit form1Field numeric" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color">
+                                            @signedIform.Volume
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <!--6-->
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        <span class="text-display">
+                                            @Html.DisplayFor(model => form1Row.Note)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => form1Row.Note, new { @class = "form-edit form1Field" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color text-display text-display">
+                                            @signedIform.Note
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
+                        if (!arrayIndustryForm1Rows[i + 1].IsCommand)
+                        {
+                            form1Row = arrayIndustryForm1Rows[++i];
+                            if (Model.SignedEauditPreamble != null && Model.SignedEauditPreamble.EAUDIT_IndustryForm1 != null)
+                            {
+                                signedIform = Model.SignedEauditPreamble.EAUDIT_IndustryForm1
+                                    .FirstOrDefault(iform => iform.Id == form1Row.Id);
+                            }
+                        }
+                        <tr id="@form1Row.Id" data-typeid="@form1Row.EAUDIT_DIC_TypeResource.Id" class="@form1Row.EAUDIT_DIC_TypeResource.Code second-row">
+                            <td class="disabletd">
+                                <!--3-->
+                                @if (form1Row.DIC_Units != null)
+                                {
+                                    var du2 = form1Row.DIC_Units.OrderBy(du => du.PosIndex).LastOrDefault();
+                                    if (du2 != null)
+                                    {
+                                        @du2.NameRu
+                                        @Html.HiddenFor(model => form1Row.Unit, new { @class = "form-edit form1Field unit-control", @Value = @du2.NameRu })
+                                    }
+                                }
+                            </td>
+                            <td>
+                                <!--4-->
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        <span class="numeric-display">
+                                            @Html.DisplayFor(model => form1Row.BaseYearVolume)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => form1Row.BaseYearVolume, new { @class = "form-edit form1Field numeric" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color">
+                                            @signedIform.BaseYearVolume
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <!--5-->
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        <span class="numeric-display">
+                                            @Html.DisplayFor(model => form1Row.Volume)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => form1Row.Volume, new { @class = "form-edit form1Field numeric" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color">
+                                            @signedIform.Volume
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <!--6-->
+                                <div class="input-group">
+                                   @if (Model.IsReadOnly)
+                                   {
+                                       <span class="text-display">
+                                            @Html.DisplayFor(model => form1Row.Note)
+                                       </span>
+                                   }
+                                   else
+                                   {
+                                       @Html.TextBoxFor(model => form1Row.Note, new {@class = "form-edit form1Field"})
+                                       <span class="input-group-addon">
+                                           <a class="commentDialog" href="#" tabindex="-1">
+                                               <i class="glyphicon glyphicon-info-sign"></i>
+                                           </a>
+                                       </span>
+                                   }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color text-display">
+                                            @signedIform.Note
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr id="@form1Row.Id" data-typeid="@form1Row.EAUDIT_DIC_TypeResource.Id" class="@form1Row.EAUDIT_DIC_TypeResource.Code first-row">
+                            <td rowspan="2">
+                                <!--2-->
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        <span class="text-display">
+                                            @Html.DisplayFor(model => form1Row.ProductName)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => form1Row.ProductName, new { @class = "form-edit form1Field" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color">
+                                            @signedIform.ProductName
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <!--3-->
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        @Html.DisplayFor(model => form1Row.Unit, new { @class = "text-display" })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => form1Row.Unit, new { @class = "form-edit form1Field unit-control" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color">
+                                            @signedIform.Unit
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <!--4-->
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        <span class="numeric-display">
+                                            @Html.DisplayFor(model => form1Row.BaseYearVolume)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => form1Row.BaseYearVolume, new { @class = "form-edit form1Field numeric" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color">
+                                            @signedIform.BaseYearVolume
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <!--5-->
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        <span class="numeric-display">
+                                            @Html.DisplayFor(model => form1Row.Volume)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => form1Row.Volume, new { @class = "form-edit form1Field numeric" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color">
+                                            @signedIform.Volume
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <!--6-->
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        <span class="text-display">
+                                            @Html.DisplayFor(model => form1Row.Note)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => form1Row.Note, new { @class = "form-edit form1Field" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color text-display">
+                                            @signedIform.Note
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td style="text-align: center" rowspan="2">
+                                @if (!Model.IsReadOnly)
+                                {
+                                    <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+                                }
+                            </td>
+                        </tr>
+                        if (!arrayIndustryForm1Rows[i + 1].IsCommand)
+                        {
+                            form1Row = arrayIndustryForm1Rows[++i];
+                            if (Model.SignedEauditPreamble != null && Model.SignedEauditPreamble.EAUDIT_IndustryForm1 != null)
+                            {
+                                signedIform = Model.SignedEauditPreamble.EAUDIT_IndustryForm1
+                                    .FirstOrDefault(iform => iform.Id == form1Row.Id);
+                            }
+                        }
+                        <tr id="@form1Row.Id" data-typeid="@form1Row.EAUDIT_DIC_TypeResource.Id" class="@form1Row.EAUDIT_DIC_TypeResource.Code second-row">
+                            <td>
+                                <!--3-->
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        @Html.DisplayFor(model => form1Row.Unit, new { @class = "text-display" })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => form1Row.Unit, new { @class = "form-edit form1Field unit-control" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color">
+                                            @signedIform.Unit
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <!--4-->
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        <span class="numeric-display">
+                                            @Html.DisplayFor(model => form1Row.BaseYearVolume)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => form1Row.BaseYearVolume, new { @class = "form-edit form1Field numeric" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color">
+                                            @signedIform.BaseYearVolume
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <!--5-->
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        <span class="numeric-display">
+                                            @Html.DisplayFor(model => form1Row.Volume)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => form1Row.Volume, new { @class = "form-edit form1Field numeric" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color">
+                                            @signedIform.Volume
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <!--6-->
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        <span class="text-display">
+                                            @Html.DisplayFor(model => form1Row.Note)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => form1Row.Note, new { @class = "form-edit form1Field" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color text-display">
+                                            @signedIform.Note
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(form1Row.ProductName))
+                    {
+                        if (form1Row.EAUDIT_DIC_TypeResource.Code.StartsWith("02"))
+                        {
+                            <tr id="@form1Row.Id" data-typeid="@form1Row.EAUDIT_DIC_TypeResource.Id" class="@form1Row.EAUDIT_DIC_TypeResource.Code">
+                                @if (form1Row.EAUDIT_DIC_TypeResource.Code == "02-0")
+                                {
+                                    <td id="productNum" class="disabletd" rowspan="@form1Row.RowSpan">
+                                        <!--1-->
+                                        @form1Row.EAUDIT_DIC_TypeResource.PosIndex
+                                    </td>
+                                }
+                                <td class="disabletd" colspan="5">
+                                    <!--2-->
+                                    @form1Row.EAUDIT_DIC_TypeResource.NameRu
+                                </td>
+                                @*                                <td class="disabletd">*@
+                                @*                                    <!--3-->*@
+                                @*                                </td>*@
+                                @*                                <td>*@
+                                @*                                    <!--4-->*@
+                                @*                                </td>*@
+                                @*                                <td>*@
+                                @*                                    <!--5-->*@
+                                @*                                </td>*@
+                                @*                                <td>*@
+                                @*                                    <!--6-->*@
+                                @*                                </td>*@
+                                @*                                <td></td>*@
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr id="@form1Row.Id" data-typeid="@form1Row.EAUDIT_DIC_TypeResource.Id" class="@form1Row.EAUDIT_DIC_TypeResource.Code">
+
+                                @if (form1Row.EAUDIT_DIC_TypeResource.Code.EndsWith("-0"))
+                                {
+                                    <td class="disabletd" rowspan="@form1Row.RowSpan">
+                                        <!--1-->
+                                        @form1Row.EAUDIT_DIC_TypeResource.PosIndex
+                                    </td>
+                                }
+                                <td class="disabletd">
+                                    <!--2-->
+                                    @Html.Raw(form1Row.EAUDIT_DIC_TypeResource.NameRu)
+                                </td>
+                                <td class="disabletd">
+                                    <!--3-->
+                                    @if (form1Row.DIC_Units != null)
+                                    {
+                                        var dicUnit = form1Row.DIC_Units.FirstOrDefault();
+                                        if (dicUnit != null)
+                                        {
+                                            @dicUnit.NameRu
+                                            @Html.HiddenFor(model => form1Row.Unit, new { @class = "form1Field", @Value = @dicUnit.NameRu })
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    <!--4-->
+                                    <div class="input-group">
+                                        @if (Model.IsReadOnly)
+                                        {
+                                            <span class="numeric-display">
+                                                @Html.DisplayFor(model => form1Row.BaseYearVolume)
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(model => form1Row.BaseYearVolume, new { @class = "form-edit form1Field numeric" })
+                                            <span class="input-group-addon">
+                                                <a class="commentDialog" href="#" tabindex="-1">
+                                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                                </a>
+                                            </span>
+                                        }
+                                        @if (signedIform != null)
+                                        {
+                                            <div class="signed signed-color">
+                                                @signedIform.BaseYearVolume
+                                            </div>
+                                        }
+                                    </div>
+                                </td>
+                                <td>
+                                    <!--5-->
+                                    <div class="input-group">
+                                        @if (Model.IsReadOnly)
+                                        {
+                                            <span class="numeric-display">
+                                                @Html.DisplayFor(model => form1Row.Volume)
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(model => form1Row.Volume, new { @class = "form-edit form1Field numeric" })
+                                            <span class="input-group-addon">
+                                                <a class="commentDialog" href="#" tabindex="-1">
+                                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                                </a>
+                                            </span>
+                                        }
+                                        @if (signedIform != null)
+                                        {
+                                            <div class="signed signed-color">
+                                                @signedIform.Volume
+                                            </div>
+                                        }
+                                    </div>
+                                </td>
+                                <td>
+                                    <!--6-->
+                                    <div class="input-group">
+                                        @if (Model.IsReadOnly)
+                                        {
+                                            <span class="text-display">
+                                                @Html.DisplayFor(model => form1Row.Note)
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(model => form1Row.Note, new { @class = "form-edit form1Field" })
+                                            <span class="input-group-addon">
+                                                <a class="commentDialog" href="#" tabindex="-1">
+                                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                                </a>
+                                            </span>
+                                        }
+                                        @if (signedIform != null)
+                                        {
+                                            <div class="signed signed-color text-display">
+                                                @signedIform.Note
+                                            </div>
+                                        }
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr id="@form1Row.Id" data-typeid="@form1Row.EAUDIT_DIC_TypeResource.Id" class="@form1Row.EAUDIT_DIC_TypeResource.Code">
+                            <td>
+                                <!--2-->
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        <span class="text-display">
+                                            @Html.DisplayFor(model => form1Row.ProductName)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => form1Row.ProductName, new { @class = "form-edit form1Field" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color">
+                                            @signedIform.ProductName
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <!--3-->
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        <span class="text-display">
+                                            @Html.DisplayFor(model => form1Row.Unit)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => form1Row.Unit, new { @class = "form-edit form1Field unit-control" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color">
+                                            @signedIform.Unit
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <!--4-->
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        <span class="numeric-display">
+                                            @Html.DisplayFor(model => form1Row.BaseYearVolume)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => form1Row.BaseYearVolume, new { @class = "form-edit form1Field numeric" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color">
+                                            @signedIform.BaseYearVolume
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <!--5-->
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        <span class="numeric-display">
+                                            @Html.DisplayFor(model => form1Row.Volume)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => form1Row.Volume, new { @class = "form-edit form1Field numeric" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color">
+                                            @signedIform.Volume
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <!--6-->
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        <span class="text-display">
+                                            @Html.DisplayFor(model => form1Row.Note)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => form1Row.Note, new { @class = "form-edit form1Field" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color text-display">
+                                            @signedIform.Note
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td style="text-align: center">
+                                @if (!Model.IsReadOnly)
+                                {
+                                    <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p style="font-size: 90%;">
+                                @Html.Raw(EauditResource.industryForm1FootText)
+                            </p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    @if (!Model.IsReadOnly)
+                    {
+                        <button id="btnForm1Save" type="button" class="btn btn-success btn-lg pull-right">
+                            <i class="glyphicon glyphicon-save" aria-hidden="true"></i>  @ResourceSetting.Save
+                        </button>
+                    }
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<table id="tbRowTemplate" class="hidden">
+    <tr>
+        <td>
+            <!--2-->
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryForm1Rows.FirstOrDefault().ProductName, new { @class = "form-edit form1Field", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <!--3-->
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryForm1Rows.FirstOrDefault().Unit, new { @class = "form-edit form1Field unit-control", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <!--4-->
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryForm1Rows.FirstOrDefault().BaseYearVolume, new { @class = "form-edit form1Field numeric", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <!--5-->
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryForm1Rows.FirstOrDefault().Volume, new { @class = "form-edit form1Field numeric", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <!--6-->
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryForm1Rows.FirstOrDefault().Note, new { @class = "form-edit form1Field", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td style="text-align: center">
+            <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>    
+        </td>
+    </tr>
+</table>
+
+<table id="tbRowDoubleTemplate" class="hidden">
+    <tr class="first-row">
+        <td rowspan="2">
+            <!--2-->
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryForm1Rows.FirstOrDefault().ProductName, new { @class = "form-edit form1Field", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <!--3-->
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryForm1Rows.FirstOrDefault().Unit, new { @class = "form-edit form1Field unit-control", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <!--4-->
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryForm1Rows.FirstOrDefault().BaseYearVolume, new { @class = "form-edit form1Field numeric", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <!--5-->
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryForm1Rows.FirstOrDefault().Volume, new { @class = "form-edit form1Field numeric", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <!--6-->
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryForm1Rows.FirstOrDefault().Note, new { @class = "form-edit form1Field", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td style="text-align: center" rowspan="2">
+            <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+        </td>
+    </tr>
+    <tr class="second-row">
+        @*        <td>*@
+        @*            <!--2-->*@
+        @*            <div class="input-group@ResourceSetting.Delete
+        @*                @Html.TextBoxFor(model => model.IndustryForm1Rows.FirstOrDefault().ProductName, new { @class = "form-edit form1Field text-right", @Value = "" })*@
+        @*                <span class="input-group-addon">*@
+        @*                    <a class="commentDialog" href="#" tabindex="-1">*@
+        @*                        <i class="glyphicon glyphicon-info-sign"></i>*@
+        @*                    </a>*@
+        @*                </span>*@
+        @*            </div>*@
+        @*        </td>*@
+        <td>
+            <!--3-->
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryForm1Rows.FirstOrDefault().Unit, new { @class = "form-edit form1Field unit-control", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <!--4-->
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryForm1Rows.FirstOrDefault().BaseYearVolume, new { @class = "form-edit form1Field numeric", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <!--5-->
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryForm1Rows.FirstOrDefault().Volume, new { @class = "form-edit form1Field numeric", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <!--6-->
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryForm1Rows.FirstOrDefault().Note, new { @class = "form-edit form1Field", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<script>
+    var IndustryForm1 = {
+        SaveOrUpdateFormFn: function (form1, row, urlParam) {
+            $.ajax({
+                type: "POST",
+                url: urlParam,
+                data: form1,
+                async: false,
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    if (data.IsSuccess) {
+                        $(row).attr("id", data.Id);
+                    }
+                },
+            });
+        },
+        DeleteFormFn: function (rowId, deleteUrl, formCode) {
+            $.ajax({
+                type: "POST",
+                url: deleteUrl,
+                data: { id: rowId, industryFormCode: formCode },
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                },
+            });
+        },
+        init: function () {
+            var updateUrl = '@Url.Action("UpdateForm1", "IndustryAttachment1")';
+            var deleteUrl = '@Url.Action("Delete", "IndustryAttachment1")';
+            var industryCode = '@EnergyAuditFormConsts.IndustryForm1';
+            var fieldClass = "form1Field";
+
+            if (window.EAuditGeneral) {
+                EAuditGeneral.msgFieldMustBeDigit = '@ResourceSetting.sInputNumberRequired';
+                EAuditGeneral.tTitle = '@ResourceSetting.sComment';
+                EAuditGeneral.sSave = '@ResourceSetting.Save';
+                window.EAuditGeneral.init("tbIndustryForm1");
+            }
+
+            $("#tbIndustryForm1 .btn-add").click(function () {
+                var rowClass = $(this).attr("data-code");
+                IndustryForm1.addNewRowFn(rowClass, updateUrl);
+            });
+
+            $("#btnForm1Save").click(function () {
+                var refPreamble = $("#refPreambleId").val();
+                var baseyear = $("#inputBaseyear").val();
+                var currentyear = $("#inputCurrentyear").val();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SaveForm1", "IndustryAttachment1")',
+                    data: { refPreamble: refPreamble, baseyear: baseyear, currentyear: currentyear },
+                    datatype: 'json',
+                    cache: false,
+                    success: function (data) {
+                        $.notify({
+                            icon: "glyphicon glyphicon-ok-circle",
+                            message: "Успешно сохранено"
+                        });
+                    }
+                });
+            });
+
+            $("#tbIndustryForm1").on("click", ".deleteRow", function () {
+                var row = $(this).closest('tr');
+                var rowClass = $(row).attr("class");
+
+                var code = rowClass.split(' ')[0]; //rowClass.match("/^\d{1,2}-\d{1,2}$/gi");
+                IndustryForm1.deleteRowFn(row, code, deleteUrl, industryCode);
+                return false;
+            });
+            $("table .form1Field").blur(function () {
+                IndustryForm1.onBlurFieldFn(this, updateUrl, fieldClass);
+            });
+
+            $('#ddlOwnedFacility').change(function () {
+                var refOwnedFacility = $(this).val();
+                var refPreamble = $("#refPreambleId").val();
+                window.EnergyAuditParentForm.reloadForm1(refPreamble, refOwnedFacility);
+            });
+
+            $('.link-selector-item').click(function () {
+                var refOwnedFacility = $(this).attr('value');
+                var refPreamble = $("#refPreambleId").val();
+                window.EnergyAuditParentForm.reloadForm1(refPreamble, refOwnedFacility);
+                //                $('.link-selector-item').each(function (index, value) {
+                //                    $(this).removeClass("selected");
+                //                });
+                //                $(this).addClass("selected");
+            });
+
+            jQuery.fn.extend({
+                propAttr: $.fn.prop || $.fn.attr
+            });
+
+            $(".numeric").autoNumeric('init', {
+                aSep: EAuditGeneral.NumberGroupSeparatorConst,
+                aDec: EAuditGeneral.NumberDecimalSeparatorConst,
+                mDec: '10',
+                aPad: false
+            }, EAuditGeneral._alerWrongInput);
+
+            $(".unit-control").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '@Url.Action("GetUnitComplete", "EnergyAudit")',
+                        type: "POST",
+                        dataType: "json",
+                        data: { Prefix: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item.Name, value: item.Name };
+                            }));
+                        }
+                    });
+                },
+                messages: {
+                    noResults: "",
+                    results: ""
+                }
+            });
+        },
+        serializeForm1Fn: function (row, fieldClass) {
+            var form = {};
+            var refPreamble = $("#refPreambleId").val();
+            form.refPreamble = refPreamble;
+            var id = row.attr("id");
+            form.Id = id;
+            var refTypeResource = row.attr("data-typeid");
+            form.refTypeResource = refTypeResource;
+            form.BaseYear = $("#inputBaseyear").val();
+            form.CurrentYear = $("#inputCurrentyear").val();
+            //form1.refOwnedFacility = $("#ddlOwnedFacility").val();
+            form.refOwnedFacility = $("#sllForm1Industry").children(".link-selector-item.selected").attr('value');
+            row.find("." + fieldClass).each(function () {
+                var name = $(this).attr("name");
+                if (name.indexOf('.') > -1) {
+                    var nameArr = name.split('.');
+                    name = nameArr[nameArr.length - 1];
+                }
+                var value = $(this).val();
+                if ($(this).hasClass('numeric') || $(this).hasClass('integer')) {
+                    value = $(this).autoNumeric('get');
+                    value = EAuditGeneral.fixDecimalSeparatorFn(value);
+                }
+                form[name] = value;
+            });
+
+            if (row.hasClass("second-row")) {
+                var rowPrev = row.prev("tr");
+
+                rowPrev.find("." + fieldClass).each(function () {
+                    var name = $(this).attr("name");
+                    if (name.indexOf('.') > -1) {
+                        var nameArr = name.split('.');
+                        name = nameArr[nameArr.length - 1];
+                    }
+
+                    if (name == "ProductName") {
+                        var value = $(this).attr('class');
+                        form[name] = $(this).val();
+                        return;
+                    }
+                });
+            }
+            return form;
+        },
+        addNewRowFn: function (className, urlParam) {
+            debugger;
+            var lastRow = $("#tbIndustryForm1 tr." + className).last();
+
+            var firstRowClassName = className;
+            var classArr = className.split('-');
+            if (classArr.length > 1 && classArr[1] != '0') {
+                firstRowClassName = classArr[0] + '-0';
+            }
+
+            var firstRow = $("#tbIndustryForm1 tr." + firstRowClassName).first();
+
+            var rowCount = 1;
+            if (firstRow.attr("data-rowcount")) {
+                rowCount = parseInt(firstRow.attr("data-rowcount"));
+            }
+            var row = IndustryForm1._chooseTemplate(rowCount);
+            row = $(row);
+            IndustryForm1._prependClass(row, className);
+
+            row = row.attr("data-typeid", lastRow.attr("data-typeid"));
+            IndustryForm1.changeRowSpanHelperFn(firstRow, rowCount);
+
+            $(".form1Field", row).blur(function () {
+                IndustryForm1.onBlurFieldFn(this, urlParam, "form1Field");
+            });
+
+            $(".numeric", row).autoNumeric('init', {
+                aSep: EAuditGeneral.NumberGroupSeparatorConst,
+                aDec: EAuditGeneral.NumberDecimalSeparatorConst,
+                mDec: '10',
+                aPad: false
+            }, EAuditGeneral._alerWrongInput);
+
+
+            $(".unit-control", row).autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '@Url.Action("GetUnitComplete", "EnergyAudit")',
+                        type: "POST",
+                        dataType: "json",
+                        data: { Prefix: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item.Name, value: item.Name };
+                            }));
+                        }
+                    });
+                },
+                messages: {
+                    noResults: "",
+                    results: ""
+                }
+            });
+
+            lastRow.after(row);
+        },
+        deleteRowFn: function (row, className, urlParam, formCode) {
+            debugger;
+            var success = function () {
+                var firstRowClassName = className;
+                var classArr = className.split('-');
+                if (classArr.length > 1 && classArr[1] != '0') {
+                    firstRowClassName = classArr[0] + '-0';
+                }
+
+                var firstRow = $("#tbIndustryForm1 tr." + firstRowClassName).first();
+
+                var rowCount = 1;
+                if (firstRow.attr("data-rowcount")) {
+                    rowCount = parseInt(firstRow.attr("data-rowcount"));
+                }
+                IndustryForm1.changeRowSpanHelperFn(firstRow, -rowCount);
+
+                var entityId = 0;
+
+                if (rowCount == 2) {
+                    var rowNext = row.next("tr");
+                    entityId = rowNext.attr('id');
+                    if (entityId)
+                        IndustryForm1.DeleteFormFn(entityId, urlParam, formCode);
+                    rowNext.remove();
+                }
+                entityId = row.attr('id');
+                if (entityId)
+                    IndustryForm1.DeleteFormFn(entityId, urlParam, formCode);
+                row.remove();
+            }
+            var cancel = function () {
+
+            };
+            showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+        },
+        changeRowSpanHelperFn: function (row, value) {
+            var td = $("td:eq(0)", row);
+            var rowcount = parseInt(td.attr("rowspan")) + value;
+            td.attr("rowspan", rowcount);
+        },
+        onBlurFieldFn: function (element, urlParam, fieldClass) {
+            var row = $(element).closest("tr");
+            var form1 = IndustryForm1.serializeForm1Fn(row, fieldClass);
+            if (form1.refPreamble && form1.refTypeResource) {
+                IndustryForm1.SaveOrUpdateFormFn(form1, row, urlParam);
+            }
+
+            // for double row
+            if (row.hasClass("first-row")) {
+                row = row.next("tr");
+                form1 = IndustryForm1.serializeForm1Fn(row, fieldClass);
+                if (form1.refPreamble && form1.refTypeResource) {
+                    IndustryForm1.SaveOrUpdateFormFn(form1, row, urlParam);
+                }
+            } else if (row.hasClass("second-row")) {
+                row = row.prev("tr");
+                form1 = IndustryForm1.serializeForm1Fn(row, fieldClass);
+                if (form1.refPreamble && form1.refTypeResource) {
+                    IndustryForm1.SaveOrUpdateFormFn(form1, row, urlParam);
+                }
+            }
+        },
+        _chooseTemplate: function (rowCount) {
+            if (rowCount == 2) {
+                return $("#tbRowDoubleTemplate tbody").html();
+            }
+            return $("#tbRowTemplate tbody").html();
+        },
+        _prependClass: function (row, strClass) {
+            /* prepend class */
+            $(row).each(function (i, el) {
+                var $el = $(el);
+                var classes = $el.attr('class');
+                classes = strClass + ' ' + classes;
+                $el.attr('class', classes);
+            });
+
+
+        }
+    };
+
+    $(document).ready(function () {
+        // IndustryForm1.init();
+    });
+</script>

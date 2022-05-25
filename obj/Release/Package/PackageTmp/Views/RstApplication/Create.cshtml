@@ -1,0 +1,549 @@
+﻿@using System.Globalization
+@using Aisger
+@using Aisger.Models
+@model Aisger.Models.RST_Application
+@{
+	ViewBag.Title = ResourceSetting.RST_Application;
+}
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+<style type="text/css">
+    .fileUpload {backface-visibility 
+        margin: 10px;
+    }
+
+    .loading {
+        background-color: #ffffff;
+        background-image: url(../../Content/images/3.gif);
+        background-size: 25px 25px;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+
+    .fileUpload input.upload {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+        cursor: pointer;
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+</style>
+<script src="@Url.Content("~/Scripts/jquery.inputfile.js")" type="text/javascript"> </script>
+<link href="@Url.Content("~/Content/custom/jquery.inputfile.css")" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+    function wrapInputFile(fileInputId) {
+        $('#' + fileInputId).inputfile({
+            uploadText: '<span class="glyphicon glyphicon-upload"></span> @ResourceSetting.UploadFile',
+            removeText: '<span class="glyphicon glyphicon-trash"></span>',
+            restoreText: '<span class="glyphicon glyphicon-remove"></span>',
+
+            uploadButtonClass: 'btn btn-primary',
+            removeButtonClass: 'btn btn-default'
+        });
+    }
+</script>
+<script type="text/javascript">
+    var counterBuff = 0;
+    $(document).ready(function () {
+
+        $("#addfileBtn").on("click", function () {
+            var fileInputId = 'fileUpload_' + counterBuff;
+            $("#fileTable tbody").append('<tr><td><input id="' + fileInputId + '" type="file" name="files" /></td></tr>');
+            counterBuff++;
+            wrapInputFile(fileInputId);
+        });
+
+        $("table.file_list").on("click", ".deleteFile", function () {
+            $(this).closest("tr").remove();
+            counterBuff -= 1;
+        });
+
+    });
+</script>
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.Reestr  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  @ResourceSetting.RST_Application </li>
+        <li style="float: right">
+			<button type="button" class="btn btn-success btn-sm btn-reset">@ResourceSetting.Clear</button>
+            <button type="button" class="btn btn-success btn-sm" onclick="location.href='@Url.Action("DownLoadTempl", "RstApplication")'">
+                <span class="glyphicon glyphicon-open" aria-hidden="true"></span>@ResourceSetting.templLoad
+            </button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="uploadEvent()">
+                <span class="glyphicon glyphicon-save" aria-hidden="true"></span> @ResourceSetting.importRecord
+            </button>
+            @*  <div class="fileUpload btn btn-primary" style="margin-top: 0px;margin-bottom: 0px;">
+                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span> <span>Загрузить список</span>
+
+                </div>*@
+        </li>
+    </ul>
+
+    <div id="wrapper_grid" style="margin-left:5px;box-sizing:border-box">
+        @using (Html.BeginForm("Create", "RstApplication", FormMethod.Post, new { id = "demoForm", name = "demoForm", enctype = "multipart/form-data" }))
+		{
+            <input type="file" class="upload" onchange="UploadFile()" name="files" style="display: none" id="uploadInput" />
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.CreateDate)
+            @Html.HiddenFor(model => model.UserId)
+            <div class="row">
+                <div class="col-sm-2">
+                    <label for="" style="width: 40px;">@ResourceSetting.Year</label>
+                    <div class="input" style="margin-left: 20px">
+                        @Html.TextBoxFor(model => model.ReportYear, new { @class = "form-control", style = "width:80px;", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.ReportYear)
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label for="" style="width: 60px;">@ResourceSetting.Oblast</label>
+                    <div class="input">
+                        @Html.DropDownList("Oblast", (IEnumerable<SelectListItem>)(ViewData["OblastList"]), String.Empty, new { style = "width:100%;", data_placeholder = "Укажите область", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Oblast)
+                    </div>
+
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb" style="margin-top: 5px">
+                        <li class="active">@ResourceSetting.all:<span id="countAll"></span></li>
+                        <li class="active">@ResourceSetting.news:<span id="countNew"></span></li>
+                        <li class="active">@ResourceSetting.existList:<span id="countExist"></span></li>
+                        <li class="active">@ResourceSetting.erroneous:<span id="countExtand"></span></li>
+                    </ol>
+
+
+                </div>
+            </div>
+
+
+
+            <div id="CSSTableGenerator">
+                <table id="wastTable" class="wast-list" style="width: 100%">
+                    <thead>
+                        <tr>                     
+                            <td>№</td>
+							<td style="border-right:1px solid #bbb6b6;"></td>
+                            <td style="width:80px;border-right:1px solid #bbb6b6;" title="Имеется ли Субъект в БД">БД</td>
+							<td style="width:80px;border-right:1px solid #bbb6b6;" title="Имеется ли Субъект в реестре ГЭР указанного года">ГЭР</td>							
+							<td style="width:150px;border-right:1px solid #bbb6b6;">@ResourceSetting.IDK</td>
+                            <td style="width:150px;border-right:1px solid #bbb6b6;">@ResourceSetting.biniinOwner</td>
+                            <td style="border-right:1px solid #bbb6b6;">@ResourceSetting.SubPerson</td>
+                            <td style="border-right:1px solid #bbb6b6;">@ResourceSetting.Address</td>
+							<td style="width:220px;">Примечание</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @for (int i = 0; i < Model.RstReestrs.Count; i++)
+						{
+							var statusComments = "";
+							var color = "none";
+							 <tr row-index="@i">
+                                @Html.HiddenFor(model => model.RstReestrs[i].Id)
+                                @Html.HiddenFor(model => model.RstReestrs[i].StatusReestr)
+                                @{  var index = i + 1;
+									var idIndex = "RstReestrs_" + i + "__INDEX";
+                                }
+                                <td class="disabletd" style="text-align:center;">
+                                    @index
+                                </td>
+								@if (Model.RstReestrs[i].StatusReestr == StatusReestr.NEW_REESTR && Model.RstReestrs[i].IsExistSecUser == 1)
+		{
+			statusComments = "будет внесен в реестр";
+                                    <td class="disabletd" id="@idIndex" style="text-align:center; border-right:1px solid #bbb6b6;"><i class="text-success glyphicon glyphicon-ok-sign" title="@statusComments"></i></td>
+			
+									<td class="disabletd" style="border-right:1px solid #bbb6b6;" id="subject_existbd_@i"><span>есть</span></td>
+									<td class="disabletd" id="subject_existreestr_@i"><span>нет</span></td> 
+		}
+		else if (Model.RstReestrs[i].StatusReestr == StatusReestr.NEW_REESTR && Model.RstReestrs[i].IsExistSecUser == 0)
+		{
+			statusComments = "будет внесен в реестр в бд";
+                                    <td class="disabletd" id="@idIndex" style="text-align:center; border-right:1px solid #bbb6b6;"><i class="text-success glyphicon glyphicon-ok-sign" title="@statusComments"></i></td>
+			
+									<td class="disabletd" style="border-right:1px solid #bbb6b6;" id="subject_existbd_@i"><span>нет</span></td>
+									<td class="disabletd" id="subject_existreestr_@i"><span>нет</span></td> 
+		}
+		else if (Model.RstReestrs[i].StatusReestr == StatusReestr.DUPLICATE_IIN && Model.RstReestrs[i].IsExistSecUser == 1)
+		{
+			statusComments = "БИН дублируется";
+			color = "red";
+                                    <td class="disabletd" id="@idIndex" style="text-align:center; border-right:1px solid #bbb6b6;"><i class="text-default glyphicon glyphicon-minus-sign" style="color:@color;" title="@statusComments"></i></td>
+									
+									<td class="disabletd" style="border-right:1px solid #bbb6b6;" id="subject_existbd_@i"><span>есть</span></td>
+									<td class="disabletd" id="subject_existreestr_@i"><span>нет</span></td> 
+		}
+		else if (Model.RstReestrs[i].StatusReestr == StatusReestr.DUPLICATE_IIN && Model.RstReestrs[i].IsExistSecUser == 0)
+		{
+			statusComments = "БИН дублируется";
+			color = "red";
+                                    <td class="disabletd" id="@idIndex" style="text-align:center; border-right:1px solid #bbb6b6;"><i class="text-default glyphicon glyphicon-minus-sign" style="color:@color;" title="@statusComments"></i></td>
+									
+									<td class="disabletd" style="border-right:1px solid #bbb6b6;" id="subject_existbd_@i"><span>нет</span></td>
+									<td class="disabletd" id="subject_existreestr_@i"><span>нет</span></td> 
+		}
+		else if (Model.RstReestrs[i].StatusReestr == StatusReestr.DUPLICATE_IIN_EXIST_REESTR)
+		{
+			statusComments = "БИН дублируется";
+			color = "red";
+                                    <td class="disabletd" id="@idIndex" style="text-align:center; border-right:1px solid #bbb6b6;"><i class="text-default glyphicon glyphicon-minus-sign" style="color:@color;" title="@statusComments"></i></td>
+									
+									<td class="disabletd" style="border-right:1px solid #bbb6b6;" id="subject_existbd_@i"><span>есть</span></td>
+									<td class="disabletd" id="subject_existreestr_@i"><span>есть</span></td> 
+		}
+		else if (Model.RstReestrs[i].StatusReestr == StatusReestr.INCLULDE_REESTR)
+		{
+			statusComments = "уже имеется в реестре";
+                                    <td class="disabletd" id="@idIndex" style="text-align:center; border-right:1px solid #bbb6b6;"><i class="text-warning glyphicon glyphicon-exclamation-sign" title="@statusComments"></i></td>
+			
+									<td class="disabletd" style="border-right:1px solid #bbb6b6;" id="subject_existbd_@i"><span>есть</span></td>
+									<td class="disabletd" id="subject_existreestr_@i"><span>есть</span></td> 
+		}else if (Model.RstReestrs[i].StatusReestr == StatusReestr.EXCLUDE_REESTR)
+		{
+			statusComments = "Исключен";
+                                    <td class="disabletd" id="@idIndex" style="text-align:center; border-right:1px solid #bbb6b6;"><i class="text-default glyphicon glyphicon-minus-sign" title="@statusComments"></i></td>
+									
+									<td class="disabletd" style="border-right:1px solid #bbb6b6;" id="subject_existbd_@i"><span>есть</span></td>
+									<td class="disabletd" id="subject_existreestr_@i"><span>есть</span></td> 
+		}else if (Model.RstReestrs[i].StatusReestr == StatusReestr.NOT_BINIIN)
+		{
+									statusComments = "будет внесен в реестр";
+                                    <td class="disabletd" id="@idIndex" style="text-align:center; border-right:1px solid #bbb6b6;"><i class="text-success glyphicon glyphicon-ok-sign" style="color:red;" title="отсутствует бин"></i></td>
+			
+									<td class="disabletd" style="border-right:1px solid #bbb6b6;" id="subject_existbd_@i"><span>нет</span></td>
+									<td class="disabletd" id="subject_existreestr_@i"><span>нет</span></td> 
+		}
+		else
+		{
+                                    <td class="disabletd" id="@idIndex"  style="text-align:center; border-right:1px solid #bbb6b6;"></td>									
+									<td class="disabletd" style="border-right:1px solid #bbb6b6;" id="subject_existbd_@i"><span></span></td>
+									<td class="disabletd" id="subject_existreestr_@i"><span></span></td> 
+		}								                             
+
+								<td>@Html.TextAreaFor(model => model.RstReestrs[i].IDK, new { @class = "form-control idk" })</td>
+                                <td>@Html.TextAreaFor(model => model.RstReestrs[i].BINIIN, new { @class = "form-control biniin", maxlength = 12 })</td>
+                                <td>
+                                    @if (string.IsNullOrEmpty(@Model.RstReestrs[i].TemplOwnerName))
+									{
+                                        @Html.TextAreaFor(model => model.RstReestrs[i].OwnerName, new { @class = "form-control" })
+									}
+									else
+									{
+                                        <div class="input-group">
+                                            @Html.TextAreaFor(model => model.RstReestrs[i].OwnerName, new { @class = "form-control" })
+                                            
+                                            <span class="input-group-addon">
+                                                <a class="openDialog" data-dialog-id="emailDialog" data-dialog-title="@ResourceSetting.History" href="@Url.Action("ShowInfoView", "RstApplication", new { oldname = @Model.RstReestrs[i].OwnerName, newname = @Model.RstReestrs[i].TemplOwnerName })" title="@ResourceSetting.details">
+                                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                                </a>
+                                            </span>
+                                           
+                                        </div>
+									}
+                                </td>
+                                <td>@Html.TextAreaFor(model => model.RstReestrs[i].Address, new { @class = "form-control" })</td>
+								<td class="disabletd" style="border-right:1px solid #bbb6b6;"><textarea id="comment_@i" class="form-control"  style="color:@color;" disabled="disabled">@statusComments</textarea></td>
+                                @if (i == 0)
+								{
+                                    <td><a class="deleteRow"></a></td>
+								}
+								else
+								{
+                                    <td>
+                                        <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete" />
+                                    </td>
+								}
+
+                            </tr>
+
+						}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" style="text-align: left;">
+
+                                <button type="button" class="btn btn-success btn-sm" id="addCoordrrow">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> @ResourceSetting.addNew
+                                </button>
+
+                            </td>
+                        </tr>
+                    </tfoot>
+
+                </table>
+            </div>
+
+            <table id="fileTable" class="file_list" style="margin-top: 20px">
+
+                <tbody>
+                    @if (Model.AttachFiles != null)
+					{
+						for (int i = 0; i < Model.AttachFiles.Count; i++)
+						{
+                            <tr>
+
+                                <td>
+                                    <input type="hidden" name="AttachFiles" value="@Model.AttachFiles[i]" />
+                                    <a href="@Url.Action("ShowFile", "RstApplication", new { id = @Model.Id })">
+                                        @Model.AttachFiles[i]
+                                    </a>
+
+                                </td>
+                                <td>
+                                    <i class="glyphicon glyphicon-remove deleteFile" title="@ResourceSetting.Delete"></i>
+                                </td>
+
+                            </tr>
+						}
+					}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5" style="text-align: left;">
+
+                            <button type="button" class="btn btn-success btn-sm" id="addfileBtn">
+                                <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> @ResourceSetting.addfile
+                            </button>
+
+
+
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <button id="saveUpdate" type="submit" name="SaveUpdate" value="SaveUpdate" style="visibility: hidden;"></button>
+
+		}
+        <div>
+            <button type="button" class="btn btn-success btn-lg" onclick="history.go(-1);return false;">
+                <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Back
+            </button>
+            <button id="saveBtn" type="button" class="btn btn-success btn-lg" onclick=" SaveChange() " style="float: right; margin-right: 30px">
+                <span class="glyphicon glyphicon-save" aria-hidden="true"></span> @ResourceSetting.Save
+            </button>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript">
+    function uploadEvent() {
+        $("#uploadInput").click();
+
+    }
+    function UploadFile() {
+        //        $('#loading').show();
+        $("#demoForm").submit();
+    }
+    function replaceAll(find, replace, str) {
+        while (str.indexOf(find) > -1) {
+            str = str.replace(find, replace);
+        }
+        return str;
+    }
+    function setCountRecord() {
+        $('#countAll').text($('#wastTable').find('tbody').children().length);
+        $('#countNew').text($('.glyphicon-ok-sign').length);
+        $('#countExist').text($('.glyphicon-exclamation-sign').length);
+        $('#countExtand').text($('.glyphicon-minus-sign').length);
+    }
+</script>
+<script type="text/javascript">
+    //bird
+    $(document).ready(function () {
+
+    	setCountRecord();
+
+        $('#objectCount').val('@Model.RstReestrs.Count()');
+
+        var counterBuff = 0;
+        $("#addCoordrrow").on("click", function () {
+
+        	counterBuff = $('#wastTable tr').length - 2;
+        	var newRow = $("<tr row-index='" + counterBuff + "'>");
+
+            var cols = "";
+
+            var table = document.getElementById("wastTable");
+
+            var lastRowIndex = table.rows.length - 2;
+
+            var levelCellIndex = 2;
+
+            var levelCell = table.rows[lastRowIndex].cells[levelCellIndex];
+
+            var indexStart = levelCell.innerHTML.indexOf('[');
+            var indexEnd = levelCell.innerHTML.indexOf(']');
+            var index1 = levelCell.innerHTML.substring(indexStart + 1, indexEnd);
+            var nextIndex = parseInt(index1) + 1;
+						
+            cols += '<td class="disabletd" style="text-align:center;">' + (table.rows.length - 1) + '</td>';
+            cols += '<td class="disabletd" style="border-right:1px solid #bbb6b6;"  id="RstReestrs_' + counterBuff + '__INDEX"></td>';
+            cols += '<td  style="width:140px;border-right:1px solid #bbb6b6;" class="disabletd" id="subject_existbd_'+counterBuff+'"><span></span></td>';
+            cols += '<td  style="width:140px;" class="disabletd" id="subject_existreestr_'+counterBuff+'"><span></span></td>';       
+            cols += '<td ><textarea name="RstReestrs[' + counterBuff + '].IDK" class="form-control idk" id="RstReestrs_' + counterBuff + '__IDK"  /></td>';
+            cols += '<td ><textarea name="RstReestrs[' + counterBuff + '].BINIIN" maxlength="12" class="form-control biniin" id="RstReestrs_' + counterBuff + '__BINIIN"  /></td>';
+            cols += '<td ><textarea  name="RstReestrs[' + counterBuff + '].OwnerName" class="form-control" id="RstReestrs_' + counterBuff + '__OwnerName" /></td>';
+            cols += '<td><textarea  name="RstReestrs[' + counterBuff + '].Address" class="form-control" id="RstReestrs_' + counterBuff + '__Address" /></td>';
+            cols += '<td style="border-right:1px solid #bbb6b6;"><textarea id="comment_' + counterBuff + '" class="form-control"  disabled="disabled"/></td>'
+            cols += '<td><i class="glyphicon glyphicon-remove deleteRow"  title="@ResourceSetting.Delete"></td>';
+            newRow.append(cols);
+
+            if (counterBuff == 100) $('#addCoordrrow').attr('disabled', true).prop('value', "Превышен лимит");
+            $("table.wast-list").append(newRow);
+            SetEvent("#RstReestrs_" + counterBuff + "__BINIIN");
+            var allct = $('#objectCount').val();
+            allct++;
+            $('#objectCount').val(allct);
+            setCountRecord();
+            counterBuff++;
+        });
+
+        $("table.wast-list").on("click", ".deleteRow", function () {
+            $(this).closest("tr").remove();
+            setCountRecord();
+            var allct = $('#objectCount').val();
+            allct--;
+            $('#objectCount').val(allct);
+            counterBuff -= 1;
+            $('#addCoordrrow').attr('disabled', false).prop('value', "Добавить");
+        });
+
+    	//----
+        $('.btn-reset').click(function () {
+        	var curr_year = $('#ReportYear').val();
+        	//console.log("reset click",curr_year);
+        	window.location.href = '@Url.Action("Create", "RstApplication")' + "?year=" + curr_year; 
+        	console.log("reset click");
+        })
+    });
+</script>
+<script type="text/javascript">
+    function SetEvent(cntr) {
+    	$(cntr).change(function () {
+    		var row_index = $(this).parent().parent().attr('row-index');
+    		console.log("row_index=",row_index);
+
+            var binvalue = $(this).val();
+            var ctbin = 0;
+
+            var idcontrol = $(this).attr('id');
+            var ownerId = idcontrol.replace('BINIIN', 'OwnerName');
+
+            var adressId = idcontrol.replace('BINIIN', 'Address');
+            var indexCode = idcontrol.replace('BINIIN', 'INDEX');
+
+            $(".biniin").each(function () {
+                if (binvalue == $(this).val()) {
+                    ctbin = ctbin + 1;
+                }
+            });
+            if (ctbin > 1) {
+                $("#" + indexCode).html('<i class="text-warning glyphicon glyphicon-exclamation-sign" title="Уже включен"></i>');
+                return;
+            }
+
+            $("#" + ownerId).addClass("loading");
+            $("#" + ownerId).prop("readonly", true);
+            $("#" + adressId).addClass("loading");
+            $("#" + adressId).prop("readonly", true);
+
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetInfoSubject")',
+                data: { 'bin': $(this).val(), 'year': $("#ReportYear").val() },
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+
+                    $("#" + ownerId).removeClass("loading");
+                    $("#" + ownerId).prop("readonly", false);
+                    $("#" + adressId).removeClass("loading");
+                    $("#" + adressId).prop("readonly", false);
+                    $("#" + ownerId).val(data.ownerName);
+                    $("#" + adressId).val(data.adress);
+					
+                	//----примечания
+                    if (data.checkUser == 1 && data.code == 2) {
+                    	
+                    	$('#subject_existbd_' + row_index).find('span').text('есть');
+                    	$('#subject_existreestr_' + row_index).find('span').text('есть');
+
+                    	$("#" + indexCode).html('<i class="text-warning glyphicon glyphicon-exclamation-sign" title="уже имеется в реестре"></i>');
+                    	$('#comment_' + row_index).val('уже имеется в реестре');
+
+                    } else if (data.checkUser == 1 && data.code == 1) {
+
+                    	$('#subject_existbd_' + row_index).find('span').text('есть');
+                    	$('#subject_existreestr_' + row_index).find('span').text('нет');
+
+                    	$("#" + indexCode).html('<i class="text-success glyphicon glyphicon-ok-sign" title="будет внесен в реестр"></i>');
+                    	$('#comment_' + row_index).val('будет внесен в реестр');
+
+                    } else if (data.checkUser == 0 && data.code == 1) {
+						
+                    	$('#subject_existbd_' + row_index).find('span').text('нет');
+                    	$('#subject_existreestr_' + row_index).find('span').text('нет');
+
+                    	$("#" + indexCode).html('<i class="text-success glyphicon glyphicon-ok-sign" title="будет внесен в реестр в бд"></i>');
+                    	$('#comment_' + row_index).val('будет внесен в реестр в бд');
+
+                    } else if (data.code == 3) {
+
+                    	$('#subject_existbd_' + row_index).find('span').text('есть');
+                    	$('#subject_existreestr_' + row_index).find('span').text('есть');
+
+                    	$("#" + indexCode).html('<i class="text-default glyphicon glyphicon-minus-sign" title="Исключен"></i>');
+                    	$('#comment_' + row_index).val('Исключен');
+                    }
+
+                    setCountRecord();
+                },
+                error: function () {
+                    alert("Connection Failed. Please Try Again");
+                }
+            });
+        });
+    }  
+    $(document).ready(function () {
+        SetEvent(".biniin");
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.openDialog').live("click", function (e) {
+            e.preventDefault();
+            $("<div style=" + '"' + "text-align: center;" + '"' + "><img src=" + '"' + "../content/images/spinner.gif" + '"' + " style=" + '"' + "display: block; margin: 0 auto;" + '"' + " /></br>" + "....</div>")
+                .addClass("dialog")
+                .attr("id", $(this)
+                    .attr("data-dialog-id"))
+                .appendTo("body")
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove(); },
+                    width: 800,
+                    modal: true
+                })
+                .load(this.href);
+        });
+        $(".close").live("click", function (e) {
+            e.preventDefault();
+            $(this).closest(".dialog").dialog("close");
+        });
+        $('#accordion').on('hidden.bs.collapse', function () {
+            //do something...
+        });
+
+        $('#accordion .accordion-toggle').click(function (e) {
+            var chevState = $(e.target).siblings("i.indicator").toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+            $("i.indicator").not(chevState).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+        });
+
+    });
+</script>

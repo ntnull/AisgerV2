@@ -1,0 +1,160 @@
+﻿@using System.Globalization
+@using Aisger
+@model Aisger.Models.MAP_Application
+<style type="text/css">
+    </style>
+<h5>@ResourceSetting.EventList</h5>
+<div id="CSSTableGenerator">
+    <table id="table-event" style="width: 100%; text-align: center">
+        <thead>
+            <tr style="font-weight: bold">
+                <td style="width:50%">@ResourceSetting.EventName</td>
+                <td style="width:10%">@ResourceSetting.PlanExpend</td>
+                <td style="width:10%">@ResourceSetting.SavedEnergy</td>
+                <td style="width:10%">@ResourceSetting.SavedCost</td>
+                <td style="width:10%">@ResourceSetting.PaybackPeriod</td>
+                <td style="width:10%">@ResourceSetting.Note</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.MapApplicationEvents.Count; i++)
+            {
+                <tr rowindex="@i">
+                    @Html.HiddenFor(model => model.MapApplicationEvents[i].Id)
+                    <td>
+                        @Html.TextBoxFor(model => model.MapApplicationEvents[i].EventName, new { style = "width:100%", @class = "form-control form-edit" })
+                    </td>
+                    <td>@Html.TextBoxFor(model => model.MapApplicationEvents[i].PlanExpend, new { style = "width:100%", @class = "form-control form-edit  from-float  plan-expend-cell" })</td>
+                    <td>@Html.TextBoxFor(model => model.MapApplicationEvents[i].SavedEnergy, new { style = "width:100%", @class = "form-control form-edit" })</td>
+                    <td>@Html.TextBoxFor(model => model.MapApplicationEvents[i].SavedCost, new { style = "width:100%", @class = "form-control form-edit" })</td>
+                    <td>@Html.TextBoxFor(model => model.MapApplicationEvents[i].PaybackPeriod, new { style = "width:100%", @class = "form-control form-edit from-float" })</td>
+                    <td>@Html.TextBoxFor(model => model.MapApplicationEvents[i].Note, new { style = "width:100%", @class = "form-control form-edit" })</td>
+
+                    @if (i == 0)
+                    {
+                        <td class="disabletd"><a class="deleteRow"></a></td>
+                    }
+                    else
+                    {
+                        <td class="disabletd">
+                            <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete" />
+                        </td>
+                    }
+
+                </tr>
+            }
+        
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="disabletd">@ResourceSetting.all</td>
+                <td><input readonly="readonly" class="form-control" id="sumEventCell" style="text-align: right" /></td>
+                <td colspan="4" class="disabletd"></td>
+            </tr>
+            <tr>
+                <td colspan="5" style="text-align: left;">
+                    <button type="button" class="btn btn-success btn-sm" id="addevent">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.addNew
+                    </button>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<h5>@ResourceSetting.StructBudjet</h5>
+<table id="table-cost" style="width: 100%; text-align: center">
+    <tbody>
+        <tr>
+            <td class="disabletd">@ResourceSetting.OwnFonds</td>
+            <td class="disabletd">млн. тенге</td>
+            <td>@Html.TextBoxFor(model => model.OwnFonds, new { style = "width:100%", @class = "form-control form-edit  from-float" })</td>
+        </tr>
+        <tr>
+            <td class="disabletd">@ResourceSetting.BudgetFonds</td>
+            <td class="disabletd">млн. тенге</td>
+            <td>@Html.TextBoxFor(model => model.BudgetFonds, new { style = "width:100%", @class = "form-control form-edit  from-float" })</td>
+        </tr>
+        <tr>
+            <td class="disabletd">@ResourceSetting.RequiredResource</td>
+            <td class="disabletd">млн. тенге</td>
+            <td>@Html.TextBoxFor(model => model.RequiredResource, new { style = "width:100%", @class = "form-control form-edit  from-float" })</td>
+        </tr>
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    function calcSumEvent() {
+        var expend = 0;
+        $('.plan-expend-cell').each(function () {
+            var valueField = $(this).val();
+            if (valueField != null && valueField.length > 0) {
+                expend += parseFloat(replaceAll1(' ', '', valueField));
+            }
+        });
+        $('#sumEventCell').val(formatNumber(expend));
+
+    }
+    //bird
+    $(document).ready(function () {
+        var counterBuff = 0;
+        calcSumEvent();
+       /* $(".plan-expend-cell").change(function () {
+        
+//        });*/
+      
+        $("#addevent").on("click", function () {
+
+            var tbody = $('#table-event tbody');
+
+            var row = $('#table-event tbody tr:last');
+            var rowindex = parseInt(row.attr('rowindex'), 10) || 0;
+            var nextIndex = rowindex + 1;
+//            var row = $(this).closest("tr").prev();
+//            var rowindex = parseInt(row.attr('rowindex'), 10) || 0;
+            var idPaybackPeriod = 'MapApplicationEvents_' + nextIndex + '__PaybackPeriod';
+            var idPlanExpend = 'MapApplicationEvents_' + nextIndex + '__PlanExpend';
+            var cols = '<tr rowindex="' + nextIndex + '">';
+            cols += '<td><input type="text" name="MapApplicationEvents[' + nextIndex + '].EventName"  style="width:100%" class="form-control form-edit"  /></td>';
+            cols += '<td><input type="text" name="MapApplicationEvents[' + nextIndex + '].PlanExpend" id="' + idPlanExpend + '" style="width:100%" class="form-control form-edit from-float plan-expend-cell"  /></td>';
+            cols += '<td><input type="text" name="MapApplicationEvents[' + nextIndex + '].SavedEnergy"  style="width:100%" class="form-control form-edit" /></td>';
+            cols += '<td><input type="text" name="MapApplicationEvents[' + nextIndex + '].SavedCost"  style="width:100%" class="form-control form-edit" /></td>';
+            cols += '<td><input type="text" name="MapApplicationEvents[' + nextIndex + '].PaybackPeriod" id="' + idPaybackPeriod + '"  style="width:100%" class="form-control form-edit  from-float" /></td>';
+            cols += '<td><input type="text" name="MapApplicationEvents[' + nextIndex + '].Note"  style="width:100%" class="form-control form-edit" /></td>';
+
+            cols += '<td  class="disabletd"><i class="glyphicon glyphicon-remove deleteRow"  title="@ResourceSetting.Delete"></td>';
+            cols += '</tr>';
+//            row.after(cols);
+            tbody.append(cols);
+            counterBuff++;
+            floatChange('#' + idPlanExpend);
+            //            floatChange1('#' + idPaybackPeriod);
+        });
+      
+        function floatChange1() {
+            var valueField = $(this).val();
+            if (valueField.indexOf(',') > 0) {
+                valueField = valueField.replace(',', '.');
+            }
+            if (valueField.length > 0) {
+                $(this).val(formatNumber(valueField));
+            }
+        }
+        $("#table-event").on("click", ".deleteRow", function () {
+            var row = $(this).closest('tr');
+            var success = function () {
+
+                row.remove();
+                calcSumEvent();
+                counterBuff -= 1;
+                $('#addevent').attr('disabled', false).prop('value', "@ResourceSetting.addNew");
+            }
+            var cancel = function () {
+            };
+            showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+
+        });
+
+    });
+</script>

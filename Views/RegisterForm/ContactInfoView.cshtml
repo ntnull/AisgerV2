@@ -1,0 +1,131 @@
+﻿@using Aisger
+@model Aisger.Models.SUB_Form
+<div id="CSSTableGenerator">
+    <table class="wast-list" style="width: 100%">
+        <tbody id="contactTable">
+            <tr rowid="1">
+                <td style="width: 300px" class="disabletd">@ResourceSetting.responceFioFull:</td>
+                <td>
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.SEC_User1.ResponceFIO, new { @class = "contact-info form-edit", @id = "ResponceFIO", @style = "width: 100%", @readonly = "readonly" })
+                        <span class="input-group-addon">
+                            <a class="commentDialog" href="#">
+                                <i class="glyphicon glyphicon-info-sign"></i>
+                            </a>
+                        </span>
+                    </div>
+                    @if (Model.SignedSubForm != null && Model.SignedSubForm.SEC_User1 != null)
+                    {
+                        <div class="signed signed-color">
+                            @Model.SignedSubForm.SEC_User1.ResponceFIO
+                        </div>
+                    }
+                </td>
+            </tr>
+            <tr rowid="2">
+                <td class="disabletd"> @ResourceSetting.ResponcePost:</td>
+                <td>
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.SEC_User1.ResponcePost, new { @class = "contact-info form-edit", @id = "ResponcePost", @style = "width: 100%", @readonly = "readonly" })
+                        <span class="input-group-addon">
+                            <a class="commentDialog" href="#">
+                                <i class="glyphicon glyphicon-info-sign"></i>
+                            </a>
+                        </span>
+                    </div>
+                    @if (Model.SignedSubForm != null && Model.SignedSubForm.SEC_User1 != null)
+                    {
+                        <div class="signed signed-color">
+                            @Model.SignedSubForm.SEC_User1.ResponcePost
+                        </div>
+                    }
+                </td>
+              
+            </tr>
+            <tr rowid="3">
+                <td class="disabletd">@ResourceSetting.fullBossName:  </td>
+                <td>
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.SubjectBoss, new { @class = " form-edit", @style = "width: 100%", @readonly = "readonly", @id = "SubjectBoss" })
+                        <span class="input-group-addon">
+                            <a class="commentDialog" href="#">
+                                <i class="glyphicon glyphicon-info-sign"></i>
+                            </a>
+                        </span>
+                    </div>
+                    @if (Model.SignedSubForm != null)
+                    {
+                        <div class="signed signed-color">
+                            @Model.SignedSubForm.SubjectBoss
+                        </div>
+                    }
+                </td>
+            </tr>
+            <tr rowid="4">
+                <td class="disabletd">@ResourceSetting.info:  </td>
+                <td>
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.SEC_User1.ContactInfo, new { @class = " form-edit", @style = "width: 100%", @readonly = "readonly", @id = "ContactInfo" })
+                        <span class="input-group-addon">
+                            <a class="commentDialog" href="#">
+                                <i class="glyphicon glyphicon-info-sign"></i>
+                            </a>
+                        </span>
+                    </div>
+                    @if (Model.SignedSubForm != null && Model.SignedSubForm.SEC_User1 != null)
+                    {
+                        <div class="signed signed-color">
+                            @Model.SignedSubForm.SEC_User1.ContactInfo
+                        </div>
+                    }
+                </td>
+            </tr>
+            <tr rowid="5">
+                <td class="disabletd">Адрес:  </td>
+                <td>
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.SEC_User1.Address, new { @class = " form-edit", @style = "width: 100%", @readonly = "readonly", @id = "SubjectAddress" })
+                        <span class="input-group-addon">
+                            <a class="commentDialog" href="#">
+                                <i class="glyphicon glyphicon-info-sign"></i>
+                            </a>
+                        </span>
+                    </div>
+                    @if (Model.SignedSubForm != null && Model.SignedSubForm.SEC_User1 != null)
+                    {
+                        <div class="signed signed-color">
+                            @Model.SignedSubForm.SEC_User1.Address
+                        </div>
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    $(function () {
+        if (location.href.indexOf("Edit") != -1 || location.href.indexOf("Create") != -1) {
+
+            $('#ResponceFIO').prop('readonly', false);
+            $('#ResponcePost').prop('readonly', false);
+
+        }
+
+        $('.contact-info').change(function () {
+            var fieldName = $(this).attr("id");
+            var val = $(this).val();
+            var modelId = parseInt($("#currentDataViewId").val());
+
+            console.log("id=" + val);
+
+
+            $.post('@Url.Action("ChangeContactInfo", "RegisterForm")', { reportYear: $('#ReportYear').val(), subFormId: modelId, fieldName:fieldName,val:val }, function (data) {
+                console.log("data=", data);
+            });
+
+        });
+    })
+
+</script>

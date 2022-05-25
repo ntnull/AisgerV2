@@ -1,0 +1,50 @@
+﻿@using Aisger
+@model Aisger.Models.SEC_User
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAN12KP6o3aNk49AH9_T3yVZ03OmzuzVqk"></script>
+<style type="text/css">.title-label { font-weight: bold; color: gray}</style>
+<div class="panel panel-success">
+    <div class=" panel-heading">
+        <h4 class="panel-title">
+            <a class="lotLihk">@Model.ApplicationName <span style="margin-left: 20px;margin-right: 10px" class="glyphicon glyphicon-backward"></span><b>@ResourceSetting.details....</b></a>
+        </h4>
+    </div>
+    
+  
+
+    <div class="panel-body divpanel">
+        <ul class="list-group">
+            <li class="list-group-item"><span class="title-label">@ResourceSetting.SubPerson: </span>@Model.ApplicationName</li>
+            <li class="list-group-item"><span class="title-label">БИН:</span>@Model.BINIIN  <span class="title-label">/ @ResourceSetting.TypeApplication: </span>
+				@if (Model.DIC_TypeApplication!=null )
+				{
+		        	@Model.DIC_TypeApplication.Name 
+	            }
+            </li>
+            <li class="list-group-item"><span class="title-label">@ResourceSetting.FactAddress: </span>@Model.FactAddress</li>
+            <li class="list-group-item"><span class="title-label">@ResourceSetting.JuridicalAddress: </span>@Model.Address</li>
+            <li class="list-group-item"><span class="title-label">@ResourceSetting.info: : </span>@Model.ContactInfo</li>
+            <li class="list-group-item"><span class="title-label">@ResourceSetting.BossFio: : </span>@Model.FullName</li>
+            <li class="list-group-item"><span class="title-label">@ResourceSetting.ResponceFIO: : </span>@Model.ResponceFIO (@Model.ResponcePost)</li>
+            <li class="list-group-item"><span class="title-label">@ResourceSetting.Certificate: </span>@Model.Certificate</li>
+           
+        </ul>
+        <a class="openDialog" data-dialog-id="emailDialog" data-dialog-title="Показать на карте" href="@Url.Action("ShowDialogMap","PrivateSetting", new { id = @Model.Id })" title="Показать на карте+">
+            <i class="glyphicon glyphicon-globe" title="На карте"></i>@ResourceSetting.ShowInMap
+        </a>
+        <button style="float: right" type="button" class="btn btn-primary btn-sm" onclick="location.href='@Url.Action("ApplicationEdit", "AppForm", new { id = @Model.Id })'">
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> @ResourceSetting.Edit
+        </button>
+        <button style="float: right" type="button" class="btn btn-primary btn-sm">
+            @Model.Id
+        </button>
+       
+    </div>
+</div>
+<script>
+    $(function () {
+        $(".divpanel").toggle();
+        $("a.lotLihk").click(function () {
+            $(".divpanel").toggle();
+        });
+    });
+</script>

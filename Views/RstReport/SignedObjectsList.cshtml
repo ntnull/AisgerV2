@@ -1,0 +1,59 @@
+﻿@using System.Threading
+@using System.Web.UI.WebControls
+@using Aisger
+@using Aisger.Models
+@using Aisger.Models.ControlModels
+@using Aisger.Utils
+@using GridMvc.Html
+@model IEnumerable<SUB_FormHistory>
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/custom/templatemo_style.css")" />
+
+@if (Model == null)
+{
+    <span>
+        Отсуствуют подписанные данные
+    </span>
+    return;
+}
+
+
+@helper GridManageItemColumn(SUB_FormHistory form)
+{
+    <button type="button" class="btn btn-default btn-sm btn-block" onclick="location.href='@Url.Action("ASubjectExportToExcelSigned", "RstReport", new { form.Id })'">
+        <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> @ResourceSetting.exportExcel
+    </button>
+}
+
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.Reestr  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  @ResourceSetting.History </li>
+    </ul>
+    <div id="CSSTableGenerator">
+        @Html.Grid(Model).SetLanguage(Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName).Columns(columns =>
+        {
+            columns.Add(o => o.Id, true).Titled("Id").SetWidth(0);
+            columns.Add(o => o.Note).Titled(ResourceSetting.Note).SetWidth(40);
+            columns.Add(o => o.CreateDate).Format("{0:dd/MM/yyyy}").Titled(ResourceSetting.RegDate).SetWidth(40);
+            columns.Add()
+                .Encoded(false).Sanitized(false).SetWidth(20)
+                .RenderValueAs(o => GridManageItemColumn(o).ToHtmlString());
+        }).WithPaging(50).Sortable().Filterable().WithMultipleFilters()
+    </div>
+</div>
+
+<script>
+    function DeleteRecord(id) {
+        var success = function () {
+            var url = '@Url.Action("Delete", "Collector")?id=' + id;
+            window.location.href = url;
+        }
+        var cancel = function () {
+        };
+        showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+    }
+</script>

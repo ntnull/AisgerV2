@@ -1,0 +1,2396 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="aisgerModelStoreContainer" CdmEntityContainer="aisgerEntities">
+    <EntitySetMapping Name="COLLECTOR_Cmdevice">
+      <EntityTypeMapping TypeName="aisgerModel.COLLECTOR_Cmdevice">
+        <MappingFragment StoreEntitySet="COLLECTOR_Cmdevice">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="refIndicatorType" ColumnName="refIndicatorType" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="refUnit" ColumnName="refUnit" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="COLLECTOR_DIC_CmdeviceTypes">
+      <EntityTypeMapping TypeName="aisgerModel.COLLECTOR_DIC_CmdeviceTypes">
+        <MappingFragment StoreEntitySet="COLLECTOR_DIC_CmdeviceTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="COLLECTOR_IndicatorValues">
+      <EntityTypeMapping TypeName="aisgerModel.COLLECTOR_IndicatorValues">
+        <MappingFragment StoreEntitySet="COLLECTOR_IndicatorValues">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="refCmdevice" ColumnName="refCmdevice" />
+          <ScalarProperty Name="DatetimeStamp" ColumnName="DatetimeStamp" />
+          <ScalarProperty Name="ReceiveDatetime" ColumnName="ReceiveDatetime" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DIC_Department">
+      <EntityTypeMapping TypeName="aisgerModel.DIC_Department">
+        <MappingFragment StoreEntitySet="DIC_Department">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="ShortNameRu" ColumnName="ShortNameRu" />
+          <ScalarProperty Name="ShortNameKz" ColumnName="ShortNameKz" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DIC_GU">
+      <EntityTypeMapping TypeName="aisgerModel.DIC_GU">
+        <MappingFragment StoreEntitySet="DIC_GU">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DIC_Holidays">
+      <EntityTypeMapping TypeName="aisgerModel.DIC_Holidays">
+        <MappingFragment StoreEntitySet="DIC_Holidays">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+          <ScalarProperty Name="IsWorkDay" ColumnName="IsWorkDay" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DIC_Kato">
+      <EntityTypeMapping TypeName="aisgerModel.DIC_Kato">
+        <MappingFragment StoreEntitySet="DIC_Kato">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="refParent" ColumnName="refParent" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="Lng" ColumnName="Lng" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DIC_KindUser">
+      <EntityTypeMapping TypeName="aisgerModel.DIC_KindUser">
+        <MappingFragment StoreEntitySet="DIC_KindUser">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DIC_OKED">
+      <EntityTypeMapping TypeName="aisgerModel.DIC_OKED">
+        <MappingFragment StoreEntitySet="DIC_OKED">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="refParent" ColumnName="refParent" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="RootId" ColumnName="RootId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DIC_Organization">
+      <EntityTypeMapping TypeName="aisgerModel.DIC_Organization">
+        <MappingFragment StoreEntitySet="DIC_Organization">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="ShortNameRu" ColumnName="ShortNameRu" />
+          <ScalarProperty Name="ShortNameKz" ColumnName="ShortNameKz" />
+          <ScalarProperty Name="Oblast" ColumnName="Oblast" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="SubRegion" ColumnName="SubRegion" />
+          <ScalarProperty Name="Village" ColumnName="Village" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DIC_TypeApplication">
+      <EntityTypeMapping TypeName="aisgerModel.DIC_TypeApplication">
+        <MappingFragment StoreEntitySet="DIC_TypeApplication">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="ShortNameRu" ColumnName="ShortNameRu" />
+          <ScalarProperty Name="ShortNameKz" ColumnName="ShortNameKz" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DIC_Unit">
+      <EntityTypeMapping TypeName="aisgerModel.DIC_Unit">
+        <MappingFragment StoreEntitySet="DIC_Unit">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_AttachedFiles">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_AttachedFiles">
+        <MappingFragment StoreEntitySet="EAUDIT_AttachedFiles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="UploadDatetime" ColumnName="UploadDatetime" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_AuditorReestr">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_AuditorReestr">
+        <MappingFragment StoreEntitySet="EAUDIT_AuditorReestr">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="refStatus" ColumnName="refStatus" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_Building">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_Building">
+        <MappingFragment StoreEntitySet="EAUDIT_Building">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="YearOfConstruction" ColumnName="YearOfConstruction" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="NumberofFloors" ColumnName="NumberofFloors" />
+          <ScalarProperty Name="GeneralArea" ColumnName="GeneralArea" />
+          <ScalarProperty Name="HeatingArea" ColumnName="HeatingArea" />
+          <ScalarProperty Name="EnergyEfficiencyClass" ColumnName="EnergyEfficiencyClass" />
+          <ScalarProperty Name="NormativeHeatConsumption" ColumnName="NormativeHeatConsumption" />
+          <ScalarProperty Name="ActualHeatConsumption" ColumnName="ActualHeatConsumption" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_BuildingForm1">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_BuildingForm1">
+        <MappingFragment StoreEntitySet="EAUDIT_BuildingForm1">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ParameterDesignation" ColumnName="ParameterDesignation" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refBuilding" ColumnName="refBuilding" />
+          <ScalarProperty Name="refTypeResource" ColumnName="refTypeResource" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_BuildingForm2">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_BuildingForm2">
+        <MappingFragment StoreEntitySet="EAUDIT_BuildingForm2">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DesignationAndUnit" ColumnName="DesignationAndUnit" />
+          <ScalarProperty Name="ValueStandart" ColumnName="ValueStandart" />
+          <ScalarProperty Name="ValueEstimatedProject" ColumnName="ValueEstimatedProject" />
+          <ScalarProperty Name="ValueActual" ColumnName="ValueActual" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refBuilding" ColumnName="refBuilding" />
+          <ScalarProperty Name="refTypeResource" ColumnName="refTypeResource" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_BuildingForm3">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_BuildingForm3">
+        <MappingFragment StoreEntitySet="EAUDIT_BuildingForm3">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DesignationAndUnit" ColumnName="DesignationAndUnit" />
+          <ScalarProperty Name="ValueCritic" ColumnName="ValueCritic" />
+          <ScalarProperty Name="ValueEstimatedProject" ColumnName="ValueEstimatedProject" />
+          <ScalarProperty Name="ValueActual" ColumnName="ValueActual" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refBuilding" ColumnName="refBuilding" />
+          <ScalarProperty Name="refTypeResource" ColumnName="refTypeResource" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_BuildingForm4">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_BuildingForm4">
+        <MappingFragment StoreEntitySet="EAUDIT_BuildingForm4">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DesignationAndUnit" ColumnName="DesignationAndUnit" />
+          <ScalarProperty Name="ValueCritic" ColumnName="ValueCritic" />
+          <ScalarProperty Name="ValueEstimatedProject" ColumnName="ValueEstimatedProject" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refBuilding" ColumnName="refBuilding" />
+          <ScalarProperty Name="refTypeResource" ColumnName="refTypeResource" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_BuildingForm5">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_BuildingForm5">
+        <MappingFragment StoreEntitySet="EAUDIT_BuildingForm5">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DesignationAndUnit" ColumnName="DesignationAndUnit" />
+          <ScalarProperty Name="ValueCritic" ColumnName="ValueCritic" />
+          <ScalarProperty Name="ValueEstimatedProject" ColumnName="ValueEstimatedProject" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refBuilding" ColumnName="refBuilding" />
+          <ScalarProperty Name="refTypeResource" ColumnName="refTypeResource" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_BuildingForm6">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_BuildingForm6">
+        <MappingFragment StoreEntitySet="EAUDIT_BuildingForm6">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DesignationAndUnit" ColumnName="DesignationAndUnit" />
+          <ScalarProperty Name="ValueStandart" ColumnName="ValueStandart" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refBuilding" ColumnName="refBuilding" />
+          <ScalarProperty Name="refTypeResource" ColumnName="refTypeResource" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_BuildingForm7">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_BuildingForm7">
+        <MappingFragment StoreEntitySet="EAUDIT_BuildingForm7">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DesignationAndUnit" ColumnName="DesignationAndUnit" />
+          <ScalarProperty Name="ValueStandart" ColumnName="ValueStandart" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refBuilding" ColumnName="refBuilding" />
+          <ScalarProperty Name="refTypeResource" ColumnName="refTypeResource" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_BuildingForm9">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_BuildingForm9">
+        <MappingFragment StoreEntitySet="EAUDIT_BuildingForm9">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refBuilding" ColumnName="refBuilding" />
+          <ScalarProperty Name="refTypeResource" ColumnName="refTypeResource" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_DIC_Statuses">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_DIC_Statuses">
+        <MappingFragment StoreEntitySet="EAUDIT_DIC_Statuses">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_DIC_TypeResource">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_DIC_TypeResource">
+        <MappingFragment StoreEntitySet="EAUDIT_DIC_TypeResource">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="PosIndex" ColumnName="PosIndex" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="refUnit" ColumnName="refUnit" />
+          <ScalarProperty Name="FormCode" ColumnName="FormCode" />
+          <ScalarProperty Name="refUnit2" ColumnName="refUnit2" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_FieldComments">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_FieldComments">
+        <MappingFragment StoreEntitySet="EAUDIT_FieldComments">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FieldName" ColumnName="FieldName" />
+          <ScalarProperty Name="RowId" ColumnName="RowId" />
+          <ScalarProperty Name="FormCode" ColumnName="FormCode" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="DatetimeStamp" ColumnName="DatetimeStamp" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="IsError" ColumnName="IsError" />
+          <ScalarProperty Name="FieldValue" ColumnName="FieldValue" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_FormHistory">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_FormHistory">
+        <MappingFragment StoreEntitySet="EAUDIT_FormHistory">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="XmlSign" ColumnName="XmlSign" />
+          <ScalarProperty Name="DatetimeStamp" ColumnName="DatetimeStamp" />
+          <ScalarProperty Name="Bin" ColumnName="Bin" />
+          <ScalarProperty Name="Iin" ColumnName="Iin" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_IndustryBuildingForm1">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_IndustryBuildingForm1">
+        <MappingFragment StoreEntitySet="EAUDIT_IndustryBuildingForm1">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="YearExplonation" ColumnName="YearExplonation" />
+          <ScalarProperty Name="Wear" ColumnName="Wear" />
+          <ScalarProperty Name="GeneralParamheatingArea" ColumnName="GeneralParamheatingArea" />
+          <ScalarProperty Name="GeneralParamPerimeter" ColumnName="GeneralParamPerimeter" />
+          <ScalarProperty Name="GeneralParamHeight" ColumnName="GeneralParamHeight" />
+          <ScalarProperty Name="GeneralParamInternalTemperature" ColumnName="GeneralParamInternalTemperature" />
+          <ScalarProperty Name="GeneralParamHeatTransferResistanceWall" ColumnName="GeneralParamHeatTransferResistanceWall" />
+          <ScalarProperty Name="GeneralParamHeatTransferResistanceFloor" ColumnName="GeneralParamHeatTransferResistanceFloor" />
+          <ScalarProperty Name="GeneralParamHeatTransferResistanceCoating" ColumnName="GeneralParamHeatTransferResistanceCoating" />
+          <ScalarProperty Name="GeneralparamHeatTransferResistanceWindow" ColumnName="GeneralparamHeatTransferResistanceWindow" />
+          <ScalarProperty Name="SpecificHeatingCurveFact" ColumnName="SpecificHeatingCurveFact" />
+          <ScalarProperty Name="SpecificHeatingCurveStandart" ColumnName="SpecificHeatingCurveStandart" />
+          <ScalarProperty Name="TotalAnnualConsumtionHeatingAndVentilation" ColumnName="TotalAnnualConsumtionHeatingAndVentilation" />
+          <ScalarProperty Name="TotalAnnualConsumtionHotWaterSystem" ColumnName="TotalAnnualConsumtionHotWaterSystem" />
+          <ScalarProperty Name="Deviation" ColumnName="Deviation" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_IndustryForm1">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_IndustryForm1">
+        <MappingFragment StoreEntitySet="EAUDIT_IndustryForm1">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Volume" ColumnName="Volume" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="refTypeResource" ColumnName="refTypeResource" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="BaseYearVolume" ColumnName="BaseYearVolume" />
+          <ScalarProperty Name="refDicUnit" ColumnName="refDicUnit" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="refOwnedFacility" ColumnName="refOwnedFacility" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_IndustryForm10">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_IndustryForm10">
+        <MappingFragment StoreEntitySet="EAUDIT_IndustryForm10">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="EquipmentPurpose" ColumnName="EquipmentPurpose" />
+          <ScalarProperty Name="EquipmentNameYearType" ColumnName="EquipmentNameYearType" />
+          <ScalarProperty Name="EquipmentPerfomancePassport" ColumnName="EquipmentPerfomancePassport" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="OperatingParameterPressure" ColumnName="OperatingParameterPressure" />
+          <ScalarProperty Name="OperatingParameterTemperature" ColumnName="OperatingParameterTemperature" />
+          <ScalarProperty Name="SpecificThermalEnergyConsumption" ColumnName="SpecificThermalEnergyConsumption" />
+          <ScalarProperty Name="EfficiencyPassport" ColumnName="EfficiencyPassport" />
+          <ScalarProperty Name="Condensate" ColumnName="Condensate" />
+          <ScalarProperty Name="HeatRecoveryDevice" ColumnName="HeatRecoveryDevice" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refOwnedFacility" ColumnName="refOwnedFacility" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_IndustryForm11">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_IndustryForm11">
+        <MappingFragment StoreEntitySet="EAUDIT_IndustryForm11">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="FactValueHeating" ColumnName="FactValueHeating" />
+          <ScalarProperty Name="FactValueForcedVentilation" ColumnName="FactValueForcedVentilation" />
+          <ScalarProperty Name="FactValueHotWaterSupply" ColumnName="FactValueHotWaterSupply" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="refTypeResource" ColumnName="refTypeResource" />
+          <ScalarProperty Name="refOwnedFacility" ColumnName="refOwnedFacility" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="IsAdditionalRow" ColumnName="IsAdditionalRow" />
+          <ScalarProperty Name="TechnicalEquipment" ColumnName="TechnicalEquipment" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_IndustryForm12">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_IndustryForm12">
+        <MappingFragment StoreEntitySet="EAUDIT_IndustryForm12">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ParameterHeatTransferAgent" ColumnName="ParameterHeatTransferAgent" />
+          <ScalarProperty Name="ParameterPressure" ColumnName="ParameterPressure" />
+          <ScalarProperty Name="ParameterTemperature" ColumnName="ParameterTemperature" />
+          <ScalarProperty Name="TotalConsumption" ColumnName="TotalConsumption" />
+          <ScalarProperty Name="ConsumtionRegularLossValue" ColumnName="ConsumtionRegularLossValue" />
+          <ScalarProperty Name="ConsumtionRegularLossPercent" ColumnName="ConsumtionRegularLossPercent" />
+          <ScalarProperty Name="Losses" ColumnName="Losses" />
+          <ScalarProperty Name="Condensate" ColumnName="Condensate" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refOwnedFacility" ColumnName="refOwnedFacility" />
+          <ScalarProperty Name="refTypeResource" ColumnName="refTypeResource" />
+          <ScalarProperty Name="IsAdditionalRow" ColumnName="IsAdditionalRow" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_IndustryForm13">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_IndustryForm13">
+        <MappingFragment StoreEntitySet="EAUDIT_IndustryForm13">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+          <ScalarProperty Name="AggregateNameTypeYear" ColumnName="AggregateNameTypeYear" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Performance" ColumnName="Performance" />
+          <ScalarProperty Name="SpecificFuelConsumptionFact" ColumnName="SpecificFuelConsumptionFact" />
+          <ScalarProperty Name="SpecificFuelConsumptionFlowRatio" ColumnName="SpecificFuelConsumptionFlowRatio" />
+          <ScalarProperty Name="HeatRecoveryEquipmentName" ColumnName="HeatRecoveryEquipmentName" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refOwnedFacility" ColumnName="refOwnedFacility" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_IndustryForm14">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_IndustryForm14">
+        <MappingFragment StoreEntitySet="EAUDIT_IndustryForm14">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="TotalConsumption" ColumnName="TotalConsumption" />
+          <ScalarProperty Name="RegulatoryConsumtion" ColumnName="RegulatoryConsumtion" />
+          <ScalarProperty Name="EnergyLoss" ColumnName="EnergyLoss" />
+          <ScalarProperty Name="Efficiency" ColumnName="Efficiency" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="IsAdditionalRow" ColumnName="IsAdditionalRow" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refOwnedFacility" ColumnName="refOwnedFacility" />
+          <ScalarProperty Name="refTypeResource" ColumnName="refTypeResource" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_IndustryForm15">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_IndustryForm15">
+        <MappingFragment StoreEntitySet="EAUDIT_IndustryForm15">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="VehicleNameTypeYear" ColumnName="VehicleNameTypeYear" />
+          <ScalarProperty Name="VehicleQuantity" ColumnName="VehicleQuantity" />
+          <ScalarProperty Name="CapacityAndSeating" ColumnName="CapacityAndSeating" />
+          <ScalarProperty Name="FuelType" ColumnName="FuelType" />
+          <ScalarProperty Name="SpecificFuelConsumtionPassport" ColumnName="SpecificFuelConsumtionPassport" />
+          <ScalarProperty Name="CurrentYearMileage" ColumnName="CurrentYearMileage" />
+          <ScalarProperty Name="CurrentYearVolumeOfCargo" ColumnName="CurrentYearVolumeOfCargo" />
+          <ScalarProperty Name="FuelConsumedAmount" ColumnName="FuelConsumedAmount" />
+          <ScalarProperty Name="FuelConsumtionMesure" ColumnName="FuelConsumtionMesure" />
+          <ScalarProperty Name="FuelConsumtionSpecific" ColumnName="FuelConsumtionSpecific" />
+          <ScalarProperty Name="FuelAmount" ColumnName="FuelAmount" />
+          <ScalarProperty Name="FuelLosses" ColumnName="FuelLosses" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refOwnedFacility" ColumnName="refOwnedFacility" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_IndustryForm16">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_IndustryForm16">
+        <MappingFragment StoreEntitySet="EAUDIT_IndustryForm16">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="TotalConsumption" ColumnName="TotalConsumption" />
+          <ScalarProperty Name="RegularConsumption" ColumnName="RegularConsumption" />
+          <ScalarProperty Name="LossesInavoidable" ColumnName="LossesInavoidable" />
+          <ScalarProperty Name="LossesFact" ColumnName="LossesFact" />
+          <ScalarProperty Name="SpecificConsumption" ColumnName="SpecificConsumption" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="IsAdditionalRow" ColumnName="IsAdditionalRow" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refOwnedFacility" ColumnName="refOwnedFacility" />
+          <ScalarProperty Name="refTypeResource" ColumnName="refTypeResource" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_IndustryForm17">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_IndustryForm17">
+        <MappingFragment StoreEntitySet="EAUDIT_IndustryForm17">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refOwnedFacility" ColumnName="refOwnedFacility" />
+          <ScalarProperty Name="refTypeResource" ColumnName="refTypeResource" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="IsAdditionalRow" ColumnName="IsAdditionalRow" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_IndustryForm18">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_IndustryForm18">
+        <MappingFragment StoreEntitySet="EAUDIT_IndustryForm18">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="ActualConsumtion" ColumnName="ActualConsumtion" />
+          <ScalarProperty Name="EstimatedConsumtionCurrent" ColumnName="EstimatedConsumtionCurrent" />
+          <ScalarProperty Name="EstimatedConsumtion2" ColumnName="EstimatedConsumtion2" />
+          <ScalarProperty Name="EstimatedConsumtion3" ColumnName="EstimatedConsumtion3" />
+          <ScalarProperty Name="EstimatedConsumtion4" ColumnName="EstimatedConsumtion4" />
+          <ScalarProperty Name="EstimatedConsumtion5" ColumnName="EstimatedConsumtion5" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refOwnedFacility" ColumnName="refOwnedFacility" />
+          <ScalarProperty Name="refTypeResource" ColumnName="refTypeResource" />
+          <ScalarProperty Name="IsAdditionalRow" ColumnName="IsAdditionalRow" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_IndustryForm19">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_IndustryForm19">
+        <MappingFragment StoreEntitySet="EAUDIT_IndustryForm19">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Expenses" ColumnName="Expenses" />
+          <ScalarProperty Name="SavingResourceInNatural" ColumnName="SavingResourceInNatural" />
+          <ScalarProperty Name="SavingResourceInValue" ColumnName="SavingResourceInValue" />
+          <ScalarProperty Name="ImplementationDeadline" ColumnName="ImplementationDeadline" />
+          <ScalarProperty Name="PaybackPeriod" ColumnName="PaybackPeriod" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refOwnedFacility" ColumnName="refOwnedFacility" />
+          <ScalarProperty Name="refTypeResource" ColumnName="refTypeResource" />
+          <ScalarProperty Name="IsAdditionalRow" ColumnName="IsAdditionalRow" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_IndustryForm2">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_IndustryForm2">
+        <MappingFragment StoreEntitySet="EAUDIT_IndustryForm2">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="DeviceType" ColumnName="DeviceType" />
+          <ScalarProperty Name="DeviceQuantity" ColumnName="DeviceQuantity" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refTypeResource" ColumnName="refTypeResource" />
+          <ScalarProperty Name="IsAdditionalRow" ColumnName="IsAdditionalRow" />
+          <ScalarProperty Name="refOwnedFacility" ColumnName="refOwnedFacility" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_IndustryForm3">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_IndustryForm3">
+        <MappingFragment StoreEntitySet="EAUDIT_IndustryForm3">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ManufactureFacility" ColumnName="ManufactureFacility" />
+          <ScalarProperty Name="YearOfCommissioning" ColumnName="YearOfCommissioning" />
+          <ScalarProperty Name="TransformerType" ColumnName="TransformerType" />
+          <ScalarProperty Name="TransformerQuantity" ColumnName="TransformerQuantity" />
+          <ScalarProperty Name="TotalPowerSubstation" ColumnName="TotalPowerSubstation" />
+          <ScalarProperty Name="Voltage" ColumnName="Voltage" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refOwnedFacility" ColumnName="refOwnedFacility" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_IndustryForm4">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_IndustryForm4">
+        <MappingFragment StoreEntitySet="EAUDIT_IndustryForm4">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refTypeResource" ColumnName="refTypeResource" />
+          <ScalarProperty Name="refOwnedFacility" ColumnName="refOwnedFacility" />
+          <ScalarProperty Name="IsAdditionalRow" ColumnName="IsAdditionalRow" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_IndustryForm4_Shop">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_IndustryForm4_Shop">
+        <MappingFragment StoreEntitySet="EAUDIT_IndustryForm4_Shop">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="refOwnedFacility" ColumnName="refOwnedFacility" />
+          <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_IndustryForm4_ShopValues">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_IndustryForm4_ShopValues">
+        <MappingFragment StoreEntitySet="EAUDIT_IndustryForm4_ShopValues">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Power" ColumnName="Power" />
+          <ScalarProperty Name="refShop" ColumnName="refShop" />
+          <ScalarProperty Name="refIndustryForm4" ColumnName="refIndustryForm4" />
+          <ScalarProperty Name="refTypeResource" ColumnName="refTypeResource" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_IndustryForm5">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_IndustryForm5">
+        <MappingFragment StoreEntitySet="EAUDIT_IndustryForm5">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ManufactureCompressorType" ColumnName="ManufactureCompressorType" />
+          <ScalarProperty Name="YearOfCommissioning" ColumnName="YearOfCommissioning" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Performance" ColumnName="Performance" />
+          <ScalarProperty Name="Pressure" ColumnName="Pressure" />
+          <ScalarProperty Name="ElectricDrivePower" ColumnName="ElectricDrivePower" />
+          <ScalarProperty Name="CompressorOperatingTime" ColumnName="CompressorOperatingTime" />
+          <ScalarProperty Name="AverageAnnualElectricityConsumption" ColumnName="AverageAnnualElectricityConsumption" />
+          <ScalarProperty Name="SpecificEnergyConsumption" ColumnName="SpecificEnergyConsumption" />
+          <ScalarProperty Name="CoolingSystem" ColumnName="CoolingSystem" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refOwnedFacility" ColumnName="refOwnedFacility" />
+          <ScalarProperty Name="SpecificEnergyConsumptionStr" ColumnName="SpecificEnergyConsumptionStr" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_IndustryForm6">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_IndustryForm6">
+        <MappingFragment StoreEntitySet="EAUDIT_IndustryForm6">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PowerUnitType" ColumnName="PowerUnitType" />
+          <ScalarProperty Name="YearOfCommissioning" ColumnName="YearOfCommissioning" />
+          <ScalarProperty Name="PowerInCold" ColumnName="PowerInCold" />
+          <ScalarProperty Name="TemperatureInrefChamber" ColumnName="TemperatureInrefChamber" />
+          <ScalarProperty Name="InstalledPower" ColumnName="InstalledPower" />
+          <ScalarProperty Name="SpecificEnergyConsumption" ColumnName="SpecificEnergyConsumption" />
+          <ScalarProperty Name="OperatingMode" ColumnName="OperatingMode" />
+          <ScalarProperty Name="HrsCoolantFlowRate" ColumnName="HrsCoolantFlowRate" />
+          <ScalarProperty Name="HrsCoolingInSummer" ColumnName="HrsCoolingInSummer" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refOwnedFacility" ColumnName="refOwnedFacility" />
+          <ScalarProperty Name="HrsCoolantFlowRateStr" ColumnName="HrsCoolantFlowRateStr" />
+          <ScalarProperty Name="HrsCoolingInSummerStr" ColumnName="HrsCoolingInSummerStr" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_IndustryForm7">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_IndustryForm7">
+        <MappingFragment StoreEntitySet="EAUDIT_IndustryForm7">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="YearOfCommissioning" ColumnName="YearOfCommissioning" />
+          <ScalarProperty Name="TppElectricPower" ColumnName="TppElectricPower" />
+          <ScalarProperty Name="TppThermalPower" ColumnName="TppThermalPower" />
+          <ScalarProperty Name="TurbineType" ColumnName="TurbineType" />
+          <ScalarProperty Name="TurbineQuantity" ColumnName="TurbineQuantity" />
+          <ScalarProperty Name="TurbineEfficiency" ColumnName="TurbineEfficiency" />
+          <ScalarProperty Name="TurbineAnnualUse" ColumnName="TurbineAnnualUse" />
+          <ScalarProperty Name="CoefficientOfEfficiency" ColumnName="CoefficientOfEfficiency" />
+          <ScalarProperty Name="SpecificFuelConsumption" ColumnName="SpecificFuelConsumption" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refOwnedFacility" ColumnName="refOwnedFacility" />
+          <ScalarProperty Name="TurbineAnnualUseStr" ColumnName="TurbineAnnualUseStr" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_IndustryForm8">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_IndustryForm8">
+        <MappingFragment StoreEntitySet="EAUDIT_IndustryForm8">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TotalConsumption" ColumnName="TotalConsumption" />
+          <ScalarProperty Name="RegulatoryConsumptionValue" ColumnName="RegulatoryConsumptionValue" />
+          <ScalarProperty Name="RegulatoryConsumptionPercent" ColumnName="RegulatoryConsumptionPercent" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refOwnedFacility" ColumnName="refOwnedFacility" />
+          <ScalarProperty Name="refTypeResource" ColumnName="refTypeResource" />
+          <ScalarProperty Name="IsAdditionalRow" ColumnName="IsAdditionalRow" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_IndustryForm9">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_IndustryForm9">
+        <MappingFragment StoreEntitySet="EAUDIT_IndustryForm9">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BoilerType" ColumnName="BoilerType" />
+          <ScalarProperty Name="YearOfCommissioning" ColumnName="YearOfCommissioning" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Performance" ColumnName="Performance" />
+          <ScalarProperty Name="Pressure" ColumnName="Pressure" />
+          <ScalarProperty Name="GrossEfficiencyLastTest" ColumnName="GrossEfficiencyLastTest" />
+          <ScalarProperty Name="EfficiencyPassport" ColumnName="EfficiencyPassport" />
+          <ScalarProperty Name="SpecificFuelConsumption" ColumnName="SpecificFuelConsumption" />
+          <ScalarProperty Name="AnnualFuelConsumption" ColumnName="AnnualFuelConsumption" />
+          <ScalarProperty Name="AnnualHeatProduction" ColumnName="AnnualHeatProduction" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="refOwnedFacility" ColumnName="refOwnedFacility" />
+          <ScalarProperty Name="PerformanceStr" ColumnName="PerformanceStr" />
+          <ScalarProperty Name="PressureStr" ColumnName="PressureStr" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_OwnedFacility">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_OwnedFacility">
+        <MappingFragment StoreEntitySet="EAUDIT_OwnedFacility">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="refPreamble" ColumnName="refPreamble" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EAUDIT_Preamble">
+      <EntityTypeMapping TypeName="aisgerModel.EAUDIT_Preamble">
+        <MappingFragment StoreEntitySet="EAUDIT_Preamble">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="refEauditObject" ColumnName="refEauditObject" />
+          <ScalarProperty Name="refAuditor" ColumnName="refAuditor" />
+          <ScalarProperty Name="ContractDate" ColumnName="ContractDate" />
+          <ScalarProperty Name="ContractNumber" ColumnName="ContractNumber" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="ReportYear" ColumnName="ReportYear" />
+          <ScalarProperty Name="EauditObjectsFormOfIncorporation" ColumnName="EauditObjectsFormOfIncorporation" />
+          <ScalarProperty Name="EauditObjectAddress" ColumnName="EauditObjectAddress" />
+          <ScalarProperty Name="EauditObjectBankrequisites" ColumnName="EauditObjectBankrequisites" />
+          <ScalarProperty Name="EauditObjectHead" ColumnName="EauditObjectHead" />
+          <ScalarProperty Name="AuditorFormOfIncorporation" ColumnName="AuditorFormOfIncorporation" />
+          <ScalarProperty Name="AuditorAddress" ColumnName="AuditorAddress" />
+          <ScalarProperty Name="AuditorBankrequisites" ColumnName="AuditorBankrequisites" />
+          <ScalarProperty Name="AuditorHead" ColumnName="AuditorHead" />
+          <ScalarProperty Name="BaseYear" ColumnName="BaseYear" />
+          <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
+          <ScalarProperty Name="AuditorName" ColumnName="AuditorName" />
+          <ScalarProperty Name="EauditObjectName" ColumnName="EauditObjectName" />
+          <ScalarProperty Name="refDicStatus" ColumnName="refDicStatus" />
+          <ScalarProperty Name="refInspector" ColumnName="refInspector" />
+          <ScalarProperty Name="IsSigned" ColumnName="IsSigned" />
+          <ScalarProperty Name="temp_id" ColumnName="temp_id" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ESCO_DIC_Product">
+      <EntityTypeMapping TypeName="aisgerModel.ESCO_DIC_Product">
+        <MappingFragment StoreEntitySet="ESCO_DIC_Product">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameProduct" ColumnName="NameProduct" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="KindId" ColumnName="KindId" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="urlSite" ColumnName="urlSite" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ESCO_DIC_ProductKind">
+      <EntityTypeMapping TypeName="aisgerModel.ESCO_DIC_ProductKind">
+        <MappingFragment StoreEntitySet="ESCO_DIC_ProductKind">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameGroup" ColumnName="NameGroup" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ESCO_DIC_ProductKindOked">
+      <EntityTypeMapping TypeName="aisgerModel.ESCO_DIC_ProductKindOked">
+        <MappingFragment StoreEntitySet="ESCO_DIC_ProductKindOked">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="KindId" ColumnName="KindId" />
+          <ScalarProperty Name="OkedId" ColumnName="OkedId" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="i_i18n">
+      <EntityTypeMapping TypeName="aisgerModel.i_i18n">
+        <MappingFragment StoreEntitySet="i_i18n">
+          <ScalarProperty Name="i_i18n1" ColumnName="i_i18n" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAP_Application">
+      <EntityTypeMapping TypeName="aisgerModel.MAP_Application">
+        <MappingFragment StoreEntitySet="MAP_Application">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Editor" ColumnName="Editor" />
+          <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+          <ScalarProperty Name="DesignDate" ColumnName="DesignDate" />
+          <ScalarProperty Name="Deadline" ColumnName="Deadline" />
+          <ScalarProperty Name="DesignNote" ColumnName="DesignNote" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="ProjectObjective" ColumnName="ProjectObjective" />
+          <ScalarProperty Name="ProjectLocation" ColumnName="ProjectLocation" />
+          <ScalarProperty Name="EstimatedPeriod" ColumnName="EstimatedPeriod" />
+          <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+          <ScalarProperty Name="ExpectedResult" ColumnName="ExpectedResult" />
+          <ScalarProperty Name="CurrentState" ColumnName="CurrentState" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="ProjectPowerUnit" ColumnName="ProjectPowerUnit" />
+          <ScalarProperty Name="ProjectPowerVolume" ColumnName="ProjectPowerVolume" />
+          <ScalarProperty Name="TermCost" ColumnName="TermCost" />
+          <ScalarProperty Name="OwnFonds" ColumnName="OwnFonds" />
+          <ScalarProperty Name="BudgetFonds" ColumnName="BudgetFonds" />
+          <ScalarProperty Name="RequiredResource" ColumnName="RequiredResource" />
+          <ScalarProperty Name="AppNumber" ColumnName="AppNumber" />
+          <ScalarProperty Name="RealtermUnit" ColumnName="RealtermUnit" />
+          <ScalarProperty Name="RealtermVolume" ColumnName="RealtermVolume" />
+          <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAP_ApplicationEE2">
+      <EntityTypeMapping TypeName="aisgerModel.MAP_ApplicationEE2">
+        <MappingFragment StoreEntitySet="MAP_ApplicationEE2">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="DicDetailsId" ColumnName="DicDetailsId" />
+          <ScalarProperty Name="DicDetailModelsId" ColumnName="DicDetailModelsId" />
+          <ScalarProperty Name="CountOfFixtures" ColumnName="CountOfFixtures" />
+          <ScalarProperty Name="CountOfLamps" ColumnName="CountOfLamps" />
+          <ScalarProperty Name="Power" ColumnName="Power" />
+          <ScalarProperty Name="CPRA" ColumnName="CPRA" />
+          <ScalarProperty Name="AggregatePower" ColumnName="AggregatePower" />
+          <ScalarProperty Name="AverageTariff" ColumnName="AverageTariff" />
+          <ScalarProperty Name="WorkingHours" ColumnName="WorkingHours" />
+          <ScalarProperty Name="MaintenanceCosts" ColumnName="MaintenanceCosts" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="SecUserId" ColumnName="SecUserId" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAP_ApplicationEvent">
+      <EntityTypeMapping TypeName="aisgerModel.MAP_ApplicationEvent">
+        <MappingFragment StoreEntitySet="MAP_ApplicationEvent">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ApplcationId" ColumnName="ApplcationId" />
+          <ScalarProperty Name="EventName" ColumnName="EventName" />
+          <ScalarProperty Name="PlanExpend" ColumnName="PlanExpend" />
+          <ScalarProperty Name="SavedEnergy" ColumnName="SavedEnergy" />
+          <ScalarProperty Name="SavedCost" ColumnName="SavedCost" />
+          <ScalarProperty Name="PaybackPeriod" ColumnName="PaybackPeriod" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAP_ApplicationHistory">
+      <EntityTypeMapping TypeName="aisgerModel.MAP_ApplicationHistory">
+        <MappingFragment StoreEntitySet="MAP_ApplicationHistory">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="ApplcationId" ColumnName="ApplcationId" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAP_ApplicationProduct">
+      <EntityTypeMapping TypeName="aisgerModel.MAP_ApplicationProduct">
+        <MappingFragment StoreEntitySet="MAP_ApplicationProduct">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ApplcationId" ColumnName="ApplcationId" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="ProductUnit" ColumnName="ProductUnit" />
+          <ScalarProperty Name="ProductVolume" ColumnName="ProductVolume" />
+          <ScalarProperty Name="Disrciminator" ColumnName="Disrciminator" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAP_DIC_EEDetailModels">
+      <EntityTypeMapping TypeName="aisgerModel.MAP_DIC_EEDetailModels">
+        <MappingFragment StoreEntitySet="MAP_DIC_EEDetailModels">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="DICEEDetailsId" ColumnName="DICEEDetailsId" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAP_DIC_EEDetails">
+      <EntityTypeMapping TypeName="aisgerModel.MAP_DIC_EEDetails">
+        <MappingFragment StoreEntitySet="MAP_DIC_EEDetails">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAP_DIC_EEStatus">
+      <EntityTypeMapping TypeName="aisgerModel.MAP_DIC_EEStatus">
+        <MappingFragment StoreEntitySet="MAP_DIC_EEStatus">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAP_DIC_Status">
+      <EntityTypeMapping TypeName="aisgerModel.MAP_DIC_Status">
+        <MappingFragment StoreEntitySet="MAP_DIC_Status">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAP_FormEE2">
+      <EntityTypeMapping TypeName="aisgerModel.MAP_FormEE2">
+        <MappingFragment StoreEntitySet="MAP_FormEE2">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="SecUserId" ColumnName="SecUserId" />
+          <ScalarProperty Name="FSCode" ColumnName="FSCode" />
+          <ScalarProperty Name="TotalArea" ColumnName="TotalArea" />
+          <ScalarProperty Name="NumberOfStoreys" ColumnName="NumberOfStoreys" />
+          <ScalarProperty Name="DicEEStatusId" ColumnName="DicEEStatusId" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Map_FormEE2Record">
+      <EntityTypeMapping TypeName="aisgerModel.Map_FormEE2Record">
+        <MappingFragment StoreEntitySet="Map_FormEE2Record">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FormEE2Id" ColumnName="FormEE2Id" />
+          <ScalarProperty Name="ReportYear" ColumnName="ReportYear" />
+          <ScalarProperty Name="EnergySource" ColumnName="EnergySource" />
+          <ScalarProperty Name="ExpenceEnergy" ColumnName="ExpenceEnergy" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MAP_Project">
+      <EntityTypeMapping TypeName="aisgerModel.MAP_Project">
+        <MappingFragment StoreEntitySet="MAP_Project">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="EscoId" ColumnName="EscoId" />
+          <ScalarProperty Name="Edtor" ColumnName="Edtor" />
+          <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+          <ScalarProperty Name="SourceBudject" ColumnName="SourceBudject" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RST_Application">
+      <EntityTypeMapping TypeName="aisgerModel.RST_Application">
+        <MappingFragment StoreEntitySet="RST_Application">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ReportYear" ColumnName="ReportYear" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Oblast" ColumnName="Oblast" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RST_DIC_CodeOblast">
+      <EntityTypeMapping TypeName="aisgerModel.RST_DIC_CodeOblast">
+        <MappingFragment StoreEntitySet="RST_DIC_CodeOblast">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="OblastCode" ColumnName="OblastCode" />
+          <ScalarProperty Name="OblastId" ColumnName="OblastId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RST_DIC_Reason">
+      <EntityTypeMapping TypeName="aisgerModel.RST_DIC_Reason">
+        <MappingFragment StoreEntitySet="RST_DIC_Reason">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="IsExcluded" ColumnName="IsExcluded" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RST_DIC_Status">
+      <EntityTypeMapping TypeName="aisgerModel.RST_DIC_Status">
+        <MappingFragment StoreEntitySet="RST_DIC_Status">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RST_DIC_StatusHistory">
+      <EntityTypeMapping TypeName="aisgerModel.RST_DIC_StatusHistory">
+        <MappingFragment StoreEntitySet="RST_DIC_StatusHistory">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RST_Executed">
+      <EntityTypeMapping TypeName="aisgerModel.RST_Executed">
+        <MappingFragment StoreEntitySet="RST_Executed">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ReportYear" ColumnName="ReportYear" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="NumberOrder" ColumnName="NumberOrder" />
+          <ScalarProperty Name="DateOrder" ColumnName="DateOrder" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="rst_obl_control">
+      <EntityTypeMapping TypeName="aisgerModel.rst_obl_control">
+        <MappingFragment StoreEntitySet="rst_obl_control">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="sec_user_id" ColumnName="sec_user_id" />
+          <ScalarProperty Name="dic_kato_id" ColumnName="dic_kato_id" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RST_Reestr">
+      <EntityTypeMapping TypeName="aisgerModel.RST_Reestr">
+        <MappingFragment StoreEntitySet="RST_Reestr">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="KadastNumber" ColumnName="KadastNumber" />
+          <ScalarProperty Name="ObjectName" ColumnName="ObjectName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="BINIIN" ColumnName="BINIIN" />
+          <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="ReasonId" ColumnName="ReasonId" />
+          <ScalarProperty Name="IDK" ColumnName="IDK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RST_ReestrHistory">
+      <EntityTypeMapping TypeName="aisgerModel.RST_ReestrHistory">
+        <MappingFragment StoreEntitySet="RST_ReestrHistory">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="ReestrId" ColumnName="ReestrId" />
+          <ScalarProperty Name="ReasonId" ColumnName="ReasonId" />
+          <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RST_ReestrReportHistory">
+      <EntityTypeMapping TypeName="aisgerModel.RST_ReestrReportHistory">
+        <MappingFragment StoreEntitySet="RST_ReestrReportHistory">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="ReestrId" ColumnName="ReestrId" />
+          <ScalarProperty Name="ReasonId" ColumnName="ReasonId" />
+          <ScalarProperty Name="ReportYear" ColumnName="ReportYear" />
+          <ScalarProperty Name="Oblast" ColumnName="Oblast" />
+          <ScalarProperty Name="Expectant" ColumnName="Expectant" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RST_Report">
+      <EntityTypeMapping TypeName="aisgerModel.RST_Report">
+        <MappingFragment StoreEntitySet="RST_Report">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ReportYear" ColumnName="ReportYear" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="isactive" ColumnName="isactive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RST_ReportReestr">
+      <EntityTypeMapping TypeName="aisgerModel.RST_ReportReestr">
+        <MappingFragment StoreEntitySet="RST_ReportReestr">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ReportId" ColumnName="ReportId" />
+          <ScalarProperty Name="ReestrId" ColumnName="ReestrId" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="BINIIN" ColumnName="BINIIN" />
+          <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Oblast" ColumnName="Oblast" />
+          <ScalarProperty Name="ReasonId" ColumnName="ReasonId" />
+          <ScalarProperty Name="IDK" ColumnName="IDK" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="Editor" ColumnName="Editor" />
+          <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="Expectant" ColumnName="Expectant" />
+          <ScalarProperty Name="IsExcluded" ColumnName="IsExcluded" />
+          <ScalarProperty Name="temp_id" ColumnName="temp_id" />
+          <ScalarProperty Name="usrfirstname" ColumnName="usrfirstname" />
+          <ScalarProperty Name="usrlastname" ColumnName="usrlastname" />
+          <ScalarProperty Name="usrsecondname" ColumnName="usrsecondname" />
+          <ScalarProperty Name="usrjuridicalname" ColumnName="usrjuridicalname" />
+          <ScalarProperty Name="usrpost" ColumnName="usrpost" />
+          <ScalarProperty Name="usrmobile" ColumnName="usrmobile" />
+          <ScalarProperty Name="usrworkphone" ColumnName="usrworkphone" />
+          <ScalarProperty Name="usrinternalphone" ColumnName="usrinternalphone" />
+          <ScalarProperty Name="usraddress" ColumnName="usraddress" />
+          <ScalarProperty Name="usriscvazy" ColumnName="usriscvazy" />
+          <ScalarProperty Name="usrresponcefio" ColumnName="usrresponcefio" />
+          <ScalarProperty Name="usrresponcepost" ColumnName="usrresponcepost" />
+          <ScalarProperty Name="usroblast" ColumnName="usroblast" />
+          <ScalarProperty Name="usrregion" ColumnName="usrregion" />
+          <ScalarProperty Name="usrsubregion" ColumnName="usrsubregion" />
+          <ScalarProperty Name="usrvillage" ColumnName="usrvillage" />
+          <ScalarProperty Name="usrtypeapplicationid" ColumnName="usrtypeapplicationid" />
+          <ScalarProperty Name="usrokedid" ColumnName="usrokedid" />
+          <ScalarProperty Name="usrfscode" ColumnName="usrfscode" />
+          <ScalarProperty Name="usridk" ColumnName="usridk" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="usremail" ColumnName="usremail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="rst_reportreestroked">
+      <EntityTypeMapping TypeName="aisgerModel.rst_reportreestroked">
+        <MappingFragment StoreEntitySet="rst_reportreestroked">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="reportreestrid" ColumnName="reportreestrid" />
+          <ScalarProperty Name="okedid" ColumnName="okedid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEC_DIC_EventType">
+      <EntityTypeMapping TypeName="aisgerModel.SEC_DIC_EventType">
+        <MappingFragment StoreEntitySet="SEC_DIC_EventType">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEC_JurEvent">
+      <EntityTypeMapping TypeName="aisgerModel.SEC_JurEvent">
+        <MappingFragment StoreEntitySet="SEC_JurEvent">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Event" ColumnName="Event" />
+          <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="EventTypeId" ColumnName="EventTypeId" />
+          <ScalarProperty Name="ObjId" ColumnName="ObjId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEC_RightPermission">
+      <EntityTypeMapping TypeName="aisgerModel.SEC_RightPermission">
+        <MappingFragment StoreEntitySet="SEC_RightPermission">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEC_RolePermission">
+      <EntityTypeMapping TypeName="aisgerModel.SEC_RolePermission">
+        <MappingFragment StoreEntitySet="SEC_RolePermission">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RolesId" ColumnName="RolesId" />
+          <ScalarProperty Name="RightPermissionId" ColumnName="RightPermissionId" />
+          <ScalarProperty Name="IS_EDIT" ColumnName="IS_EDIT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEC_Roles">
+      <EntityTypeMapping TypeName="aisgerModel.SEC_Roles">
+        <MappingFragment StoreEntitySet="SEC_Roles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEC_User">
+      <EntityTypeMapping TypeName="aisgerModel.SEC_User">
+        <MappingFragment StoreEntitySet="SEC_User">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+          <ScalarProperty Name="JuridicalName" ColumnName="JuridicalName" />
+          <ScalarProperty Name="Post" ColumnName="Post" />
+          <ScalarProperty Name="BINIIN" ColumnName="BINIIN" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+          <ScalarProperty Name="InternalPhone" ColumnName="InternalPhone" />
+          <ScalarProperty Name="IsGuest" ColumnName="IsGuest" />
+          <ScalarProperty Name="IsDisabled" ColumnName="IsDisabled" />
+          <ScalarProperty Name="OrganizationId" ColumnName="OrganizationId" />
+          <ScalarProperty Name="DeparmentId" ColumnName="DeparmentId" />
+          <ScalarProperty Name="RolesId" ColumnName="RolesId" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="IsCvazy" ColumnName="IsCvazy" />
+          <ScalarProperty Name="ResponceFIO" ColumnName="ResponceFIO" />
+          <ScalarProperty Name="ResponcePost" ColumnName="ResponcePost" />
+          <ScalarProperty Name="Oblast" ColumnName="Oblast" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="SubRegion" ColumnName="SubRegion" />
+          <ScalarProperty Name="Village" ColumnName="Village" />
+          <ScalarProperty Name="TypeApplicationId" ColumnName="TypeApplicationId" />
+          <ScalarProperty Name="IsHaveGES" ColumnName="IsHaveGES" />
+          <ScalarProperty Name="IDK" ColumnName="IDK" />
+          <ScalarProperty Name="OkedId" ColumnName="OkedId" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="Lng" ColumnName="Lng" />
+          <ScalarProperty Name="Certificate" ColumnName="Certificate" />
+          <ScalarProperty Name="BankRequisites" ColumnName="BankRequisites" />
+          <ScalarProperty Name="FactAddress" ColumnName="FactAddress" />
+          <ScalarProperty Name="urlSite" ColumnName="urlSite" />
+          <ScalarProperty Name="FactOblast" ColumnName="FactOblast" />
+          <ScalarProperty Name="FactRegion" ColumnName="FactRegion" />
+          <ScalarProperty Name="FactSubRegion" ColumnName="FactSubRegion" />
+          <ScalarProperty Name="FactVillage" ColumnName="FactVillage" />
+          <ScalarProperty Name="FSCode" ColumnName="FSCode" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="BIN_IDK" ColumnName="BIN_IDK" />
+          <ScalarProperty Name="BIN_DEL" ColumnName="BIN_DEL" />
+          <ScalarProperty Name="BIN_Id" ColumnName="BIN_Id" />
+          <ScalarProperty Name="is_obl_control" ColumnName="is_obl_control" />
+          <ScalarProperty Name="ger_wo_ecp" ColumnName="ger_wo_ecp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEC_UserHistory">
+      <EntityTypeMapping TypeName="aisgerModel.SEC_UserHistory">
+        <MappingFragment StoreEntitySet="SEC_UserHistory">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+          <ScalarProperty Name="JuridicalName" ColumnName="JuridicalName" />
+          <ScalarProperty Name="Post" ColumnName="Post" />
+          <ScalarProperty Name="BINIIN" ColumnName="BINIIN" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="WorkPhone" ColumnName="WorkPhone" />
+          <ScalarProperty Name="InternalPhone" ColumnName="InternalPhone" />
+          <ScalarProperty Name="IsGuest" ColumnName="IsGuest" />
+          <ScalarProperty Name="IsDisabled" ColumnName="IsDisabled" />
+          <ScalarProperty Name="OrganizationId" ColumnName="OrganizationId" />
+          <ScalarProperty Name="DeparmentId" ColumnName="DeparmentId" />
+          <ScalarProperty Name="RolesId" ColumnName="RolesId" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="IsCvazy" ColumnName="IsCvazy" />
+          <ScalarProperty Name="ResponceFIO" ColumnName="ResponceFIO" />
+          <ScalarProperty Name="ResponcePost" ColumnName="ResponcePost" />
+          <ScalarProperty Name="Oblast" ColumnName="Oblast" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="SubRegion" ColumnName="SubRegion" />
+          <ScalarProperty Name="Village" ColumnName="Village" />
+          <ScalarProperty Name="TypeApplicationId" ColumnName="TypeApplicationId" />
+          <ScalarProperty Name="IsHaveGES" ColumnName="IsHaveGES" />
+          <ScalarProperty Name="IDK" ColumnName="IDK" />
+          <ScalarProperty Name="OkedId" ColumnName="OkedId" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="Lng" ColumnName="Lng" />
+          <ScalarProperty Name="Certificate" ColumnName="Certificate" />
+          <ScalarProperty Name="BankRequisites" ColumnName="BankRequisites" />
+          <ScalarProperty Name="FactAddress" ColumnName="FactAddress" />
+          <ScalarProperty Name="urlSite" ColumnName="urlSite" />
+          <ScalarProperty Name="FactOblast" ColumnName="FactOblast" />
+          <ScalarProperty Name="FactRegion" ColumnName="FactRegion" />
+          <ScalarProperty Name="FactSubRegion" ColumnName="FactSubRegion" />
+          <ScalarProperty Name="FactVillage" ColumnName="FactVillage" />
+          <ScalarProperty Name="FSCode" ColumnName="FSCode" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEC_UserKind">
+      <EntityTypeMapping TypeName="aisgerModel.SEC_UserKind">
+        <MappingFragment StoreEntitySet="SEC_UserKind">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="KindId" ColumnName="KindId" />
+          <ScalarProperty Name="IsBlocked" ColumnName="IsBlocked" />
+          <ScalarProperty Name="DateEdit" ColumnName="DateEdit" />
+          <ScalarProperty Name="ReasonBlocked" ColumnName="ReasonBlocked" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEC_UserOked">
+      <EntityTypeMapping TypeName="aisgerModel.SEC_UserOked">
+        <MappingFragment StoreEntitySet="SEC_UserOked">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="OkedId" ColumnName="OkedId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEC_UserToken">
+      <EntityTypeMapping TypeName="aisgerModel.SEC_UserToken">
+        <MappingFragment StoreEntitySet="SEC_UserToken">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Token" ColumnName="Token" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_ActionComment">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_ActionComment">
+        <MappingFragment StoreEntitySet="SUB_ActionComment">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+          <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <ScalarProperty Name="RowIndex" ColumnName="RowIndex" />
+          <ScalarProperty Name="ColumnIndex" ColumnName="ColumnIndex" />
+          <ScalarProperty Name="IsError" ColumnName="IsError" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Editor" ColumnName="Editor" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Unique" ColumnName="Unique" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_ActionComRecord">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_ActionComRecord">
+        <MappingFragment StoreEntitySet="SUB_ActionComRecord">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="ValueField" ColumnName="ValueField" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_ActionHistory">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_ActionHistory">
+        <MappingFragment StoreEntitySet="SUB_ActionHistory">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+          <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+          <ScalarProperty Name="XmlSign" ColumnName="XmlSign" />
+          <ScalarProperty Name="IsSign" ColumnName="IsSign" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_ActionPlan">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_ActionPlan">
+        <MappingFragment StoreEntitySet="SUB_ActionPlan">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ReportYear" ColumnName="ReportYear" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Editor" ColumnName="Editor" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="DesignDate" ColumnName="DesignDate" />
+          <ScalarProperty Name="DesignNote" ColumnName="DesignNote" />
+          <ScalarProperty Name="IsPlan" ColumnName="IsPlan" />
+          <ScalarProperty Name="BeginPlanYear" ColumnName="BeginPlanYear" />
+          <ScalarProperty Name="EndPlanYear" ColumnName="EndPlanYear" />
+          <ScalarProperty Name="IsBack" ColumnName="IsBack" />
+          <ScalarProperty Name="IsConfirmPlan" ColumnName="IsConfirmPlan" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_ActionRecordHistory">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_ActionRecordHistory">
+        <MappingFragment StoreEntitySet="SUB_ActionRecordHistory">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+          <ScalarProperty Name="TabName" ColumnName="TabName" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+          <ScalarProperty Name="FieldName" ColumnName="FieldName" />
+          <ScalarProperty Name="TypeValue" ColumnName="TypeValue" />
+          <ScalarProperty Name="FieldValue" ColumnName="FieldValue" />
+          <ScalarProperty Name="RecordId" ColumnName="RecordId" />
+          <ScalarProperty Name="Unique" ColumnName="Unique" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_ActionTab1">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_ActionTab1">
+        <MappingFragment StoreEntitySet="SUB_ActionTab1">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+          <ScalarProperty Name="KindId" ColumnName="KindId" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Events" ColumnName="Events" />
+          <ScalarProperty Name="Year1" ColumnName="Year1" />
+          <ScalarProperty Name="Year2" ColumnName="Year2" />
+          <ScalarProperty Name="Year3" ColumnName="Year3" />
+          <ScalarProperty Name="Year4" ColumnName="Year4" />
+          <ScalarProperty Name="Year5" ColumnName="Year5" />
+          <ScalarProperty Name="Expend1" ColumnName="Expend1" />
+          <ScalarProperty Name="Expend2" ColumnName="Expend2" />
+          <ScalarProperty Name="Expend3" ColumnName="Expend3" />
+          <ScalarProperty Name="Expend4" ColumnName="Expend4" />
+          <ScalarProperty Name="Expend5" ColumnName="Expend5" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="EventId" ColumnName="EventId" />
+          <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+          <ScalarProperty Name="PaybackPeriod" ColumnName="PaybackPeriod" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_ActionTab2">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_ActionTab2">
+        <MappingFragment StoreEntitySet="SUB_ActionTab2">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+          <ScalarProperty Name="KindId" ColumnName="KindId" />
+          <ScalarProperty Name="Volume1" ColumnName="Volume1" />
+          <ScalarProperty Name="Volume2" ColumnName="Volume2" />
+          <ScalarProperty Name="Volume3" ColumnName="Volume3" />
+          <ScalarProperty Name="Volume4" ColumnName="Volume4" />
+          <ScalarProperty Name="Volume5" ColumnName="Volume5" />
+          <ScalarProperty Name="Expend1" ColumnName="Expend1" />
+          <ScalarProperty Name="Expend2" ColumnName="Expend2" />
+          <ScalarProperty Name="Expend3" ColumnName="Expend3" />
+          <ScalarProperty Name="Expend4" ColumnName="Expend4" />
+          <ScalarProperty Name="Expend5" ColumnName="Expend5" />
+          <ScalarProperty Name="Possible" ColumnName="Possible" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+          <ScalarProperty Name="Potential" ColumnName="Potential" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_ActionTab3">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_ActionTab3">
+        <MappingFragment StoreEntitySet="SUB_ActionTab3">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+          <ScalarProperty Name="ShareIndex" ColumnName="ShareIndex" />
+          <ScalarProperty Name="UnitKoef" ColumnName="UnitKoef" />
+          <ScalarProperty Name="Volume1" ColumnName="Volume1" />
+          <ScalarProperty Name="Volume2" ColumnName="Volume2" />
+          <ScalarProperty Name="Volume3" ColumnName="Volume3" />
+          <ScalarProperty Name="Volume4" ColumnName="Volume4" />
+          <ScalarProperty Name="Volume5" ColumnName="Volume5" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sub_dic_energyindicator">
+      <EntityTypeMapping TypeName="aisgerModel.sub_dic_energyindicator">
+        <MappingFragment StoreEntitySet="sub_dic_energyindicator">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="namekz" ColumnName="namekz" />
+          <ScalarProperty Name="nameru" ColumnName="nameru" />
+          <ScalarProperty Name="unitnamekz" ColumnName="unitnamekz" />
+          <ScalarProperty Name="unitnameru" ColumnName="unitnameru" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+          <ScalarProperty Name="forgu" ColumnName="forgu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_DIC_Event">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_DIC_Event">
+        <MappingFragment StoreEntitySet="SUB_DIC_Event">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_DIC_KindResource">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_DIC_KindResource">
+        <MappingFragment StoreEntitySet="SUB_DIC_KindResource">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="PosIndex" ColumnName="PosIndex" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_DIC_KindTabOne">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_DIC_KindTabOne">
+        <MappingFragment StoreEntitySet="SUB_DIC_KindTabOne">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="IndexCode" ColumnName="IndexCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_DIC_KindTabTwo">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_DIC_KindTabTwo">
+        <MappingFragment StoreEntitySet="SUB_DIC_KindTabTwo">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="IndexCode" ColumnName="IndexCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_DIC_NormEnergy">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_DIC_NormEnergy">
+        <MappingFragment StoreEntitySet="SUB_DIC_NormEnergy">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+          <ScalarProperty Name="Rate" ColumnName="Rate" />
+          <ScalarProperty Name="refParent" ColumnName="refParent" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_DIC_Status">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_DIC_Status">
+        <MappingFragment StoreEntitySet="SUB_DIC_Status">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_DIC_TypeCounter">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_DIC_TypeCounter">
+        <MappingFragment StoreEntitySet="SUB_DIC_TypeCounter">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="PosIndex" ColumnName="PosIndex" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_DIC_TypeResource">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_DIC_TypeResource">
+        <MappingFragment StoreEntitySet="SUB_DIC_TypeResource">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="NameRu" ColumnName="NameRu" />
+          <ScalarProperty Name="NameKz" ColumnName="NameKz" />
+          <ScalarProperty Name="PosIndex" ColumnName="PosIndex" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+          <ScalarProperty Name="Keof" ColumnName="Keof" />
+          <ScalarProperty Name="MinValue" ColumnName="MinValue" />
+          <ScalarProperty Name="MaxValue" ColumnName="MaxValue" />
+          <ScalarProperty Name="IsGu" ColumnName="IsGu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_Form">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_Form">
+        <MappingFragment StoreEntitySet="SUB_Form">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ReportYear" ColumnName="ReportYear" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Editor" ColumnName="Editor" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="DesignDate" ColumnName="DesignDate" />
+          <ScalarProperty Name="DesignNote" ColumnName="DesignNote" />
+          <ScalarProperty Name="IsPlan" ColumnName="IsPlan" />
+          <ScalarProperty Name="BeginPlanYear" ColumnName="BeginPlanYear" />
+          <ScalarProperty Name="EndPlanYear" ColumnName="EndPlanYear" />
+          <ScalarProperty Name="IsBack" ColumnName="IsBack" />
+          <ScalarProperty Name="IsConfirmPlan" ColumnName="IsConfirmPlan" />
+          <ScalarProperty Name="temp_id" ColumnName="temp_id" />
+          <ScalarProperty Name="IsNotEvents" ColumnName="IsNotEvents" />
+          <ScalarProperty Name="IsEnergyManagementSystem" ColumnName="IsEnergyManagementSystem" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="IsRent" ColumnName="IsRent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_Form2Gu">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_Form2Gu">
+        <MappingFragment StoreEntitySet="SUB_Form2Gu">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="CountOfEmployees" ColumnName="CountOfEmployees" />
+          <ScalarProperty Name="CountOfStudents" ColumnName="CountOfStudents" />
+          <ScalarProperty Name="CountOfBeds" ColumnName="CountOfBeds" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_Form2Record">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_Form2Record">
+        <MappingFragment StoreEntitySet="SUB_Form2Record">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="TypeResourceId" ColumnName="TypeResourceId" />
+          <ScalarProperty Name="ExtractVolume" ColumnName="ExtractVolume" />
+          <ScalarProperty Name="NotOwnSource" ColumnName="NotOwnSource" />
+          <ScalarProperty Name="LosEnergy" ColumnName="LosEnergy" />
+          <ScalarProperty Name="OwnSource" ColumnName="OwnSource" />
+          <ScalarProperty Name="TransferOtherLegal" ColumnName="TransferOtherLegal" />
+          <ScalarProperty Name="ExpenceEnergy" ColumnName="ExpenceEnergy" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_Form3aGuRecord1">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_Form3aGuRecord1">
+        <MappingFragment StoreEntitySet="SUB_Form3aGuRecord1">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="DicId" ColumnName="DicId" />
+          <ScalarProperty Name="CountOfHeatingSources" ColumnName="CountOfHeatingSources" />
+          <ScalarProperty Name="CoefficientOfPerformance" ColumnName="CoefficientOfPerformance" />
+          <ScalarProperty Name="PowerOfHeatingSources" ColumnName="PowerOfHeatingSources" />
+          <ScalarProperty Name="YearOfCommissioning" ColumnName="YearOfCommissioning" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+          <ScalarProperty Name="SourceName" ColumnName="SourceName" />
+          <ScalarProperty Name="KindIndex" ColumnName="KindIndex" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_Form3aGuRecord2">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_Form3aGuRecord2">
+        <MappingFragment StoreEntitySet="SUB_Form3aGuRecord2">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="DicId" ColumnName="DicId" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Power" ColumnName="Power" />
+          <ScalarProperty Name="HoursPerDay" ColumnName="HoursPerDay" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+          <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
+          <ScalarProperty Name="KindIndex" ColumnName="KindIndex" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_Form3aGuRecord3">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_Form3aGuRecord3">
+        <MappingFragment StoreEntitySet="SUB_Form3aGuRecord3">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="DicId" ColumnName="DicId" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Power" ColumnName="Power" />
+          <ScalarProperty Name="HoursPerDay" ColumnName="HoursPerDay" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+          <ScalarProperty Name="EnergyConsumEquipName" ColumnName="EnergyConsumEquipName" />
+          <ScalarProperty Name="KindIndex" ColumnName="KindIndex" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_Form3Gu">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_Form3Gu">
+        <MappingFragment StoreEntitySet="SUB_Form3Gu">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="YearOfConstruction" ColumnName="YearOfConstruction" />
+          <ScalarProperty Name="AutomateItem" ColumnName="AutomateItem" />
+          <ScalarProperty Name="TotalAreaOfBuilding" ColumnName="TotalAreaOfBuilding" />
+          <ScalarProperty Name="HeatedAreaOfBuilding" ColumnName="HeatedAreaOfBuilding" />
+          <ScalarProperty Name="IndependentHeating" ColumnName="IndependentHeating" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+          <ScalarProperty Name="CentralHeating" ColumnName="CentralHeating" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_Form3GuRecord">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_Form3GuRecord">
+        <MappingFragment StoreEntitySet="SUB_Form3GuRecord">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="CountOfBuildings" ColumnName="CountOfBuildings" />
+          <ScalarProperty Name="YearOfConstruction" ColumnName="YearOfConstruction" />
+          <ScalarProperty Name="AutomateItem" ColumnName="AutomateItem" />
+          <ScalarProperty Name="TotalAreaOfBuilding" ColumnName="TotalAreaOfBuilding" />
+          <ScalarProperty Name="HeatedAreaOfBuilding" ColumnName="HeatedAreaOfBuilding" />
+          <ScalarProperty Name="CountOfEmployees" ColumnName="CountOfEmployees" />
+          <ScalarProperty Name="CountOfStudents" ColumnName="CountOfStudents" />
+          <ScalarProperty Name="CountOfBeds" ColumnName="CountOfBeds" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_Form3Record">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_Form3Record">
+        <MappingFragment StoreEntitySet="SUB_Form3Record">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="KindResourceId" ColumnName="KindResourceId" />
+          <ScalarProperty Name="ConsumptionVolume" ColumnName="ConsumptionVolume" />
+          <ScalarProperty Name="LosTransportVolume" ColumnName="LosTransportVolume" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="ConsumptionPrice" ColumnName="ConsumptionPrice" />
+          <ScalarProperty Name="LosTransportPrice" ColumnName="LosTransportPrice" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_Form4Record">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_Form4Record">
+        <MappingFragment StoreEntitySet="SUB_Form4Record">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="EventName" ColumnName="EventName" />
+          <ScalarProperty Name="EmplPeriod" ColumnName="EmplPeriod" />
+          <ScalarProperty Name="ActualInvest" ColumnName="ActualInvest" />
+          <ScalarProperty Name="TypeResourceId" ColumnName="TypeResourceId" />
+          <ScalarProperty Name="InKind" ColumnName="InKind" />
+          <ScalarProperty Name="InMoney" ColumnName="InMoney" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="TypeCounterId" ColumnName="TypeCounterId" />
+          <ScalarProperty Name="PlanExpend" ColumnName="PlanExpend" />
+          <ScalarProperty Name="EventId" ColumnName="EventId" />
+          <ScalarProperty Name="KindIndex" ColumnName="KindIndex" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_Form5Record">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_Form5Record">
+        <MappingFragment StoreEntitySet="SUB_Form5Record">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="IndicatorName" ColumnName="IndicatorName" />
+          <ScalarProperty Name="RegularStandart" ColumnName="RegularStandart" />
+          <ScalarProperty Name="UnitMeasure" ColumnName="UnitMeasure" />
+          <ScalarProperty Name="CalcFormula" ColumnName="CalcFormula" />
+          <ScalarProperty Name="EnergyValue" ColumnName="EnergyValue" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="NormEnergyId" ColumnName="NormEnergyId" />
+          <ScalarProperty Name="KindIndex" ColumnName="KindIndex" />
+          <ScalarProperty Name="energyindicator_id" ColumnName="energyindicator_id" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+          <ScalarProperty Name="TypeOfHeating" ColumnName="TypeOfHeating" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_Form6Record">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_Form6Record">
+        <MappingFragment StoreEntitySet="SUB_Form6Record">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="TypeResourceId" ColumnName="TypeResourceId" />
+          <ScalarProperty Name="CountDevice" ColumnName="CountDevice" />
+          <ScalarProperty Name="Equipment" ColumnName="Equipment" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="TypeCounterId" ColumnName="TypeCounterId" />
+          <ScalarProperty Name="KindResourceId" ColumnName="KindResourceId" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_FormComment">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_FormComment">
+        <MappingFragment StoreEntitySet="SUB_FormComment">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <ScalarProperty Name="RowIndex" ColumnName="RowIndex" />
+          <ScalarProperty Name="ColumnIndex" ColumnName="ColumnIndex" />
+          <ScalarProperty Name="IsError" ColumnName="IsError" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Editor" ColumnName="Editor" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Unique" ColumnName="Unique" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_FormComRecord">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_FormComRecord">
+        <MappingFragment StoreEntitySet="SUB_FormComRecord">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="ValueField" ColumnName="ValueField" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_FormGuLightingInfo">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_FormGuLightingInfo">
+        <MappingFragment StoreEntitySet="SUB_FormGuLightingInfo">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="LampType" ColumnName="LampType" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_FormHistory">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_FormHistory">
+        <MappingFragment StoreEntitySet="SUB_FormHistory">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+          <ScalarProperty Name="XmlSign" ColumnName="XmlSign" />
+          <ScalarProperty Name="IsSign" ColumnName="IsSign" />
+          <ScalarProperty Name="SignFio" ColumnName="SignFio" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_FormKadastr">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_FormKadastr">
+        <MappingFragment StoreEntitySet="SUB_FormKadastr">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="KadastrNumber" ColumnName="KadastrNumber" />
+          <ScalarProperty Name="ObjectName" ColumnName="ObjectName" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_FormRecordHistory">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_FormRecordHistory">
+        <MappingFragment StoreEntitySet="SUB_FormRecordHistory">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="TabName" ColumnName="TabName" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+          <ScalarProperty Name="FieldName" ColumnName="FieldName" />
+          <ScalarProperty Name="TypeValue" ColumnName="TypeValue" />
+          <ScalarProperty Name="FieldValue" ColumnName="FieldValue" />
+          <ScalarProperty Name="RecordId" ColumnName="RecordId" />
+          <ScalarProperty Name="Unique" ColumnName="Unique" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="editdate" ColumnName="editdate" />
+          <ScalarProperty Name="authorid" ColumnName="authorid" />
+          <ScalarProperty Name="authorlogin" ColumnName="authorlogin" />
+          <ScalarProperty Name="isdeleted" ColumnName="isdeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_FormTab1">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_FormTab1">
+        <MappingFragment StoreEntitySet="SUB_FormTab1">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="KindId" ColumnName="KindId" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Events" ColumnName="Events" />
+          <ScalarProperty Name="Year1" ColumnName="Year1" />
+          <ScalarProperty Name="Year2" ColumnName="Year2" />
+          <ScalarProperty Name="Year3" ColumnName="Year3" />
+          <ScalarProperty Name="Year4" ColumnName="Year4" />
+          <ScalarProperty Name="Year5" ColumnName="Year5" />
+          <ScalarProperty Name="Expend1" ColumnName="Expend1" />
+          <ScalarProperty Name="Expend2" ColumnName="Expend2" />
+          <ScalarProperty Name="Expend3" ColumnName="Expend3" />
+          <ScalarProperty Name="Expend4" ColumnName="Expend4" />
+          <ScalarProperty Name="Expend5" ColumnName="Expend5" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_FormTab2">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_FormTab2">
+        <MappingFragment StoreEntitySet="SUB_FormTab2">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="KindId" ColumnName="KindId" />
+          <ScalarProperty Name="Volume1" ColumnName="Volume1" />
+          <ScalarProperty Name="Volume2" ColumnName="Volume2" />
+          <ScalarProperty Name="Volume3" ColumnName="Volume3" />
+          <ScalarProperty Name="Volume4" ColumnName="Volume4" />
+          <ScalarProperty Name="Volume5" ColumnName="Volume5" />
+          <ScalarProperty Name="Expend1" ColumnName="Expend1" />
+          <ScalarProperty Name="Expend2" ColumnName="Expend2" />
+          <ScalarProperty Name="Expend3" ColumnName="Expend3" />
+          <ScalarProperty Name="Expend4" ColumnName="Expend4" />
+          <ScalarProperty Name="Expend5" ColumnName="Expend5" />
+          <ScalarProperty Name="Possible" ColumnName="Possible" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_FormTab3">
+      <EntityTypeMapping TypeName="aisgerModel.SUB_FormTab3">
+        <MappingFragment StoreEntitySet="SUB_FormTab3">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FormId" ColumnName="FormId" />
+          <ScalarProperty Name="ShareIndex" ColumnName="ShareIndex" />
+          <ScalarProperty Name="UnitKoef" ColumnName="UnitKoef" />
+          <ScalarProperty Name="Volume1" ColumnName="Volume1" />
+          <ScalarProperty Name="Volume2" ColumnName="Volume2" />
+          <ScalarProperty Name="Volume3" ColumnName="Volume3" />
+          <ScalarProperty Name="Volume4" ColumnName="Volume4" />
+          <ScalarProperty Name="Volume5" ColumnName="Volume5" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

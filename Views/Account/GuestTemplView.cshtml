@@ -1,0 +1,425 @@
+﻿@using System.Resources
+@using Aisger
+@model Aisger.Models.Entity.Security.SEC_Guest
+@{ var controllerName = @ViewContext.RouteData.GetRequiredString("controller");}
+@Html.ValidationSummary(true)
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.Oblast)
+@Html.HiddenFor(model => model.Region)
+@Html.HiddenFor(model => model.SubRegion)
+@Html.HiddenFor(model => model.Village)
+@Html.HiddenFor(model => model.FactOblast)
+@Html.HiddenFor(model => model.FactRegion)
+@Html.HiddenFor(model => model.FactSubRegion)
+@Html.HiddenFor(model => model.FactVillage)
+
+<style>
+    label {
+        padding-top: 10px;
+    }
+</style>
+
+@if (@Model != null && @Model.IsError)
+{
+    <div class="alert alert-danger" role="alert">
+        @Html.ValidationSummary(true, @Model.ErrorMessage)
+    </div>
+}
+<div style="width: 100%;float: left">
+    <div class="panel panel-default" style="width: 40%; float: left;">
+
+
+        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 40px;margin-left: 15px">
+            @Html.LabelFor(model => model.BINIIN, new { id = "biniinLabel" })
+            <div class="col-sm-6">
+                @Html.TextBoxFor(m => m.BINIIN, new { @class = "form-control", @maxlength = 12 })
+
+            </div>
+            @Html.ValidationMessageFor(m => m.BINIIN)
+        </div>
+        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 45px;margin-left: 15px">
+            @Html.Label(ResourceSetting.TypeApplication)
+            <div class="col-sm-6">
+                @Html.DropDownList("TypeApplicationId", (IEnumerable<SelectListItem>)(ViewData["TypeApplicationList"]), String.Empty, new { @class = "form-control" })
+            </div>
+            @Html.ValidationMessageFor(model => model.TypeApplicationId)
+        </div>
+        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 40px;margin-left: 15px" id="JuridicalNameDiv">
+            @Html.LabelFor(model => model.JuridicalName)
+            <div class="col-sm-6">
+                @Html.TextBoxFor(m => m.JuridicalName, new { @class = "form-control" })
+
+            </div>
+            @Html.ValidationMessageFor(m => m.JuridicalName)
+        </div>
+
+        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 45px;margin-left: 15px">
+            @Html.Label(ResourceSetting.FsCode)
+            <div class="col-sm-6">
+                @Html.DropDownList("FSCode", (IEnumerable<SelectListItem>)(ViewData["FsCodeList"]), null, new { @class = "form-control" })
+            </div>
+            @Html.ValidationMessageFor(model => model.FSCode)
+        </div>
+        @*<div class="form-group clearfixmandatory" style="min-height: 1px; margin-left: 15px" id="IsCvazyDiv">
+                @Html.LabelFor(model => model.IsCvazy, new { style = "width: 350px" })
+                <div class="form-group">
+                    @Html.CheckBoxFor(m => m.IsCvazy, new { @class = "form-control" })
+                </div>
+            </div>*@
+
+        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 44px;margin-left: 15px">
+            @Html.LabelFor(model => model.OkedId)
+            <div class="col-sm-6">
+                @Html.DropDownList("OkedId", (IEnumerable<SelectListItem>)(ViewData["OKEDList"]), String.Empty, new { @class = "form-control" })
+            </div>
+            @Html.ValidationMessageFor(model => model.OkedId)
+        </div>
+        <div class="form-group" style="min-height: 1px; margin-left: 15px; margin-top: 10px" id="WastesDiv">
+
+            <div class="chzn-select">
+                @Html.ListBoxFor(x => Model.Wastes, Model.WastList,
+                     new { @class = "chzn-select form-control", data_placeholder = ResourceSetting.SubjectAddActivities + "...", style = "width:460px;" })
+            </div>
+        </div>
+
+        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 44px;margin-left: 15px">
+            @Html.LabelFor(model => model.LastName, new { id = "lastNameLabel" })
+            <div class="col-sm-6">
+                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+            </div>
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 44px;margin-left: 15px">
+            @Html.LabelFor(model => model.FirstName, new { id = "firstNameLabel" })
+            <div class="col-sm-6">
+                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
+        </div>
+
+        <div class="form-group" style="min-height: 1px; margin-bottom: 64px;margin-left: 15px">
+            @Html.LabelFor(model => model.SecondName, new { id = "secondNameLabel" })
+            <div class="col-sm-6">
+                @Html.TextBoxFor(model => model.SecondName, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 10px;margin-left: 15px">
+            @Html.LabelFor(model => model.Post)
+            <div class="col-sm-6">
+                @Html.TextBoxFor(m => m.Post, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Post)
+            </div>
+        </div>
+
+
+        @*<div class="form-group clearfix" style="min-height: 1px; margin-left: 15px;">
+                @Html.Label(ResourceSetting.KindUser)
+
+                <div class="chzn-select">
+                    @Html.ListBoxFor(x => Model.Kinds, Model.KindList,
+                        new { @class = "chzn-select", data_placeholder = ResourceSetting.KindUser + "...", @disabled = "disabled", @style = "width: 85%" })
+                </div>
+            </div>
+            <div class="form-group clearfix" style="min-height: 1px;margin-left: 15px">
+                @Html.LabelFor(model => model.Certificate)
+                <div class="col-sm-6" style=" margin-top: 10px;">
+                    @Html.TextAreaFor(m => m.Certificate, new { @class = "form-control", @style = "height: 90px" })
+                    @Html.ValidationMessageFor(m => m.Certificate)
+                </div>
+            </div>
+            <div class="form-group clearfixmandatory" style="min-height: 1px; margin-left: 15px" id="IsCvazyDiv">
+                @Html.Label(ResourceSetting.IsBlokced, new { style = "width: 120px" })
+                <div class="form-group">
+                    @Html.CheckBoxFor(m => m.IsBlokced, new { @class = "form-control", @style = "margin-top: 15px" })
+                </div>
+            </div>
+
+            <div class="form-group clearfix" style="min-height: 1px;margin-left: 15px; display: none" id="reasonBlockedDiv">
+                @Html.TextAreaFor(m => m.ReasonBlocked, new { @class = "form-control", @style = "height: 90px", @placeholder = "причина блокировки" })
+                @Html.ValidationMessageFor(m => m.ReasonBlocked)
+            </div>
+        *@
+    </div>
+    <div class="panel panel-default" style="width: 50%;float: left;margin-left: 10px">
+        <div class="panel panel-default">
+            <div class="panel-heading">@ResourceSetting.JuridicalAddress</div>
+            <div class="panel-body" style="padding-top: 0px;padding-bottom: 0px;">
+                <div class="form-group clearfixmandatory" style="min-height: 1px;margin-left: 15px;margin-bottom: 0px;">
+                    @Html.LabelFor(model => model.JuridicalKato)
+                    <div class="input-group">
+                        @Html.TextAreaFor(m => m.JuridicalKato, new { @class = "form-control", @readonly = "readonly" })
+                        <span class="input-group-btn" style="left: 10px;">
+                            <button class="btn btn-default chooseAdress" type="button" isjur="true">...</button>
+                        </span>
+
+                    </div>
+                    @Html.ValidationMessageFor(m => m.JuridicalKato)
+                </div>
+                <div class="form-group clearfix" style="min-height: 1px; margin-left: 15px">
+                    @Html.LabelFor(model => model.Address)
+                    <div class="input" style="margin-left: 200px;">
+                        @Html.TextAreaFor(m => m.Address, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Address)
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default hide">
+            <div class="panel-heading">
+                @ResourceSetting.FactAddress
+                <a href="#" style="float: right" onclick="CopyFromJurAddress()"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span> @ResourceSetting.CopyFormJurAddess</a>
+
+            </div>
+            <div class="panel-body" style="padding-top: 0px;padding-bottom: 0px;">
+                <div class="form-group clearfix" style="min-height: 1px; margin-bottom: 10px;margin-left: 15px;margin-top: 10px">
+                    @Html.LabelFor(model => model.FactKato)
+                    <div class="input-group">
+                        @Html.TextAreaFor(m => m.FactKato, new { @class = "form-control", @readonly = "readonly" })
+                        <span class="input-group-btn" style="left: 10px;">
+                            <button class="btn btn-default chooseAdress" type="button" isjur="false">...</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group clearfix" style="min-height: 1px; margin-left: 15px">
+                    @Html.LabelFor(model => model.FactAddress)
+                    <div class="input" style="margin-left: 200px;">
+                        @Html.TextAreaFor(m => m.FactAddress, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.FactAddress)
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-group" style="min-height: 1px; margin-bottom: 44px;margin-left: 15px">
+            @Html.LabelFor(model => model.Mobile)
+            <div class="col-sm-6">
+                @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @mask = "(999) 999-9999", @placeholder = "+7" })
+                @Html.ValidationMessageFor(m => m.Mobile)
+            </div>
+        </div>
+        <div class="form-group " style="min-height: 1px; margin-bottom:70px;margin-left: 15px">
+            @Html.LabelFor(model => model.WorkPhone)
+            <div class="col-sm-6">
+                @Html.TextBoxFor(m => m.WorkPhone, new { @class = "form-control", @mask = "(999) 999-9999" })
+                <label style="font-size: 12px;padding-top: 3px;padding-left: 5px;color: #999;">@ResourceSetting.CityCode</label>
+            </div>
+        </div>
+        <div class="form-group " style="min-height: 1px; margin-bottom: 40px;margin-left: 15px">
+            @Html.LabelFor(model => model.InternalPhone)
+            <div class="col-sm-6">
+                @Html.TextBoxFor(m => m.InternalPhone, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.InternalPhone)
+            </div>
+        </div>
+        <div class="form-group" style="min-height: 1px; margin-bottom: 40px;margin-left: 15px">
+            @Html.LabelFor(model => model.Email)
+            <div class="col-sm-6">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
+        </div>
+
+        <div class="form-group" style="min-height: 1px; margin-bottom: 60px;margin-left: 15px">
+            @Html.LabelFor(model => model.ResponceFIO)
+            <div class="col-sm-6">
+                @Html.TextAreaFor(m => m.ResponceFIO, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ResponceFIO)
+            </div>
+        </div>
+        <div class="form-group" style="min-height: 1px; margin-bottom: 40px;margin-left: 15px">
+            @Html.LabelFor(model => model.ResponcePost)
+            <div class="col-sm-6">
+                @Html.TextAreaFor(m => m.ResponcePost, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ResponcePost)
+            </div>
+        </div>
+
+    </div>
+</div>
+<button id="saveUpdate" type="submit" name="SaveUpdate" value="SaveUpdate" style="visibility: hidden;"></button>
+<div style="margin-bottom: 80px">
+    @if (controllerName == "AppForm")
+    {<button type="button" class="btn btn-success btn-lg" onclick="history.go(-1);return false;">
+            <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Return
+        </button>
+
+    }
+    else
+    {
+        <button type="button" class="btn btn-success btn-lg" onclick=" location.href = '@Url.Action("Index", controllerName)' ">
+            <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Return
+        </button>
+    }
+    <button id="saveBtn" type="button" class="btn btn-success btn-lg" onclick=" SaveChange() " style="float: right; margin-right: 30px">
+        <span class="glyphicon glyphicon-save" aria-hidden="true"></span> @ResourceSetting.Save
+    </button>
+</div>
+
+<script type="text/javascript">
+    function chowPlaceControl(isJur) {
+        if (isJur == true) {
+            $("#biniinLabel").text("@ResourceSetting.sBIN");
+            $("#lastNameLabel").text("@ResourceSetting.BossLastName");
+            $("#firstNameLabel").text("@ResourceSetting.BossFirstName");
+            $("#secondNameLabel").text("@ResourceSetting.BossSecondName");
+            $("#JuridicalNameDiv").show();
+
+        } else {
+            $("#biniinLabel").text("@ResourceSetting.sIIN");
+            $("#lastNameLabel").text("@ResourceSetting.SureName");
+            $("#firstNameLabel").text("@ResourceSetting.FirstName");
+            $("#secondNameLabel").text("@ResourceSetting.SecondName");
+            $("#JuridicalNameDiv").hide();
+        }
+    }
+</script>
+<script type="text/javascript">
+    function CopyFromJurAddress() {
+        $("#FactOblast").val($("#Oblast").val());
+        $("#FactRegion").val($("#Region").val());
+        $("#FactSubRegion").val($("#SubRegion").val());
+        $("#FactVillage").val($("#Village").val());
+        $("#FactKato").val($("#JuridicalKato").val());
+        $("#FactAddress").val($("#Address").val());
+
+    }
+
+    function disableControl() {
+        var modelId = parseInt('@Model.Id', 10) || 0;
+        if (modelId > 0) {
+            return;
+        }
+        $("input").prop("readonly", true);
+        $("textarea").prop("readonly", true);
+        $("select").attr('disabled', 'disabled');
+        $("#BINIIN").prop("readonly", false);
+    }
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        if ($("#BINIIN").val() == null || $("#BINIIN").val().length == 0) {
+            disableControl();
+        }
+        $("#BINIIN").change(function() {
+            var bin = $(this).val();
+            if (bin == null || bin.length != 12) {
+                showWarning("@ResourceSetting.eBinMustBe12");
+                return;
+            }
+
+            var params = JSON.stringify({ 'bin': bin });
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CheckBin", "MapApplivcantReestr")',
+                data: params,
+                dataType: 'json',
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                success: function(data) {
+                    if (data.Success) {
+                        $("input").prop("readonly", false);
+                        $("textarea").prop("readonly", false);
+                        $("select").removeAttr('disabled');
+                    } else {
+                        window.location.href = '@Url.Action("Create", @controllerName)?bin=' + bin;
+                    }
+                },
+                error: function () {
+                    alert("Connection Failed. Please Try Again");
+                }
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        if ($("#IsBlokced").is(":checked")) {
+            $("#reasonBlockedDiv").show();
+        }
+        $('#IsBlokced').change(function () {
+            if ($(this).is(":checked")) {
+                $('#reasonBlockedDiv').show();
+            } else {
+                $('#reasonBlockedDiv').hide();
+            }
+        });
+        $('.chooseAdress').live("click", function (e) {
+            var isJur = $(this).attr('isjur');
+            var url = "/Account/ShowKatoDialog?oblast=";
+            if (isJur == "true") {
+                url += $("#Oblast").val();
+                url += "&region=" + $("#Region").val();
+                url += "&subregion=" + $("#SubRegion").val();
+                url += "&village=" + $("#Village").val();
+            } else {
+                url += $("#FactOblast").val();
+                url += "&region=" + $("#FactRegion").val();
+                url += "&subregion=" + $("#FactSubRegion").val();
+                url += "&village=" + $("#FactVillage").val();
+            }
+            e.preventDefault();
+            $("<div style=" + '"' + "text-align: center;" + '"' + "><img src=" + '"' + "../content/images/spinner.gif" + '"' + " style=" + '"' + "display: block; margin: 0 auto;" + '"' + " /></br>" + "....</div>")
+                .addClass("dialog")
+                .attr("id", $(this)
+                    .attr("data-dialog-id"))
+                .appendTo("body")
+                .dialog({
+                    title: "Адрес",
+                    closeText: "",
+                    close: function () { $(this).remove(); },
+                    width: 800,
+                    modal: true,
+                    //   open: function(event, ui) { $(".ui-dialog-titlebar-close").text(''); },
+                    buttons:[{
+                        text: '@ResourceSetting.chooses',
+                        click: function () {
+                            var regionField = $("#RegionDropDownList").val();
+                            if (regionField == null || regionField.length == 0) {
+                                showWarning('@ResourceSetting.chooseRegion');
+                                return;
+                            }
+                            if (isJur == "true") {
+                                $("#Oblast").val($("#OblastDropDownList").val());
+                                $("#Region").val($("#RegionDropDownList").val());
+                                $("#SubRegion").val($("#SubRegionDropDownList").val());
+                                $("#Village").val($("#VillageDropDownList").val());
+                            } else {
+                                $("#FactOblast").val($("#OblastDropDownList").val());
+                                $("#FactRegion").val($("#RegionDropDownList").val());
+                                $("#FactSubRegion").val($("#SubRegionDropDownList").val());
+                                $("#FactVillage").val($("#VillageDropDownList").val());
+
+                            }
+                            var adress = $("#OblastDropDownList  option:selected").text() + ', ' + $("#RegionDropDownList option:selected").text();
+                            var subregion = $("#SubRegionDropDownList  option:selected").text();
+                            if (subregion != null && subregion.length > 0) {
+                                adress = adress + ", " + subregion;
+                            }
+
+                            var villages = $("#VillageDropDownList  option:selected").text();
+                            if (villages != null && villages.length > 0) {
+                                adress = adress + ", " + villages;
+                            }
+                            if (isJur == "true") {
+                                $("#JuridicalKato").val(adress);
+                            } else {
+                                $("#FactKato").val(adress);
+                            }
+                            $(this).dialog("close");
+                        }
+                    }]
+                })
+                .load(url);
+        });
+
+        $(".close").live("click", function (e) {
+            e.preventDefault();
+            $(this).closest(".dialog").dialog("close");
+        });
+    });
+</script>

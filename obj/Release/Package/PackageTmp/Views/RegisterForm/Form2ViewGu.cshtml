@@ -1,0 +1,740 @@
+﻿@using Aisger
+@using Aisger.Helpers
+@model Aisger.Models.Entity.Subject.Sub_FormGu
+<style type="text/css">
+    .form2Field {
+        width: 100%;
+        font-size: 11px;
+        text-align: right;
+    }
+
+    .formSum2Field {
+        width: 100%;
+        font-size: 11px;
+    }
+
+    .from-float {
+        text-align: right;
+    }
+
+    .from-history {
+        font-size: 11px;
+        text-align: right;
+    }
+
+    .isges {
+    }
+
+    .commentDialog {
+    }
+
+    .price-calc {
+        color: #707070;
+        width: 100%;
+        font-weight: normal;
+        background: #f2f2f2;
+        background-color: #f3f3f3;
+        background-image: -moz-linear-gradient(top,#f8f8f8,#ececec);
+        background-image: -webkit-gradient(linear,0 0,0 100%,from(#f8f8f8),to(#ececec));
+        background-image: -webkit-linear-gradient(top,#f8f8f8,#ececec);
+        background-image: -o-linear-gradient(top,#f8f8f8,#ececec);
+        background-image: linear-gradient(to bottom,#d5d81c,#ccc63c);
+        background-repeat: repeat-x;
+        display: none;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff8f8f8',endColorstr='#ffececec',GradientType=0);
+    }
+
+    .mark-limited {
+        color: red;
+    }
+
+    .amount-input{
+        width:80px;
+        display:inline-block;
+    }
+</style>
+@if (Model.SUB_FormComment != null) {
+    foreach (var comment in Model.SUB_FormComment)
+    {
+        var d = comment.FormId;
+        <p class="rating" tablename="@comment.TableName" rowindex="@comment.RowIndex" columnindex="@comment.ColumnIndex" iserror=@comment.IsError>   </p>
+    }
+}
+@if (CultureHelper.GetCurrentCulture() == "kz")
+{
+    <div>
+        <h5 style="font-weight: bold; text-align: center;margin-top:15px;width:70%;margin-left:15%;">
+            Информация об объемах потребления энергетических ресурсов и воды в натуральном и денежном
+            выражении за @Model.ReportYear  календарный год
+        </h5>
+    </div>
+}
+else
+{
+    <div>
+        <h5 style="font-weight: bold; text-align: center;margin-top:15px;width:70%;margin-left:15%;">
+            Информация об объемах потребления энергетических ресурсов и воды в натуральном и денежном
+            выражении за @Model.ReportYear  календарный год
+        </h5>
+    </div>
+}
+
+<div id="CSSTableGenerator">
+    @{ 
+        var sub_form2guId = Model.SUB_Form2Gu.Id;
+    }
+    <div class="row sub-form2gu" style="margin:30px 0px 10px 0px" id="@sub_form2guId">
+        <div class="col-lg-4">
+           @Html.TextBoxFor(model => model.SUB_Form2Gu.CountOfEmployees, new { @class = "amount-input", fieldName = "CountOfEmployees" }) - количество сотрудников по штатному расписанию (работников)
+        </div>
+        <div class="col-lg-4">
+            @Html.TextBoxFor(model => model.SUB_Form2Gu.CountOfStudents, new { @class = "amount-input", fieldName = "CountOfStudents" }) - количество учащихся(воспитанников)
+        </div>
+        <div class="col-lg-4">
+            @Html.TextBoxFor(model => model.SUB_Form2Gu.CountOfBeds, new { @class = "amount-input", fieldName = "CountOfBeds" }) - количество койко-мест (посещений)
+        </div>
+    </div> 
+    <div class="row" style="margin:10px 0px 10px 0px;">
+        <div class="col-lg-12">
+            <span>Наименование субъекта Государственного энергетического реестра:<i>@Model.SEC_User1.JuridicalName</i></span>
+        </div>
+    </div>
+    <button type="button" class="btn btn-warning btn-sm" id="hideControlPrice" value="hide" style="display: none">
+        <span class="glyphicon glyphicon-unchecked" aria-hidden="true" id="hideControlPriceCheck"></span> <span id="hideControlPriceText">@ResourceSetting.showBeforeControlPriceText</span>
+    </button>
+    <table class="wast-list" style="width: 100%; text-align: center">
+        <thead>
+            <tr style="font-weight: bold">
+                <td rowspan="2">№</td>
+                <td rowspan="2">Наименования энергетических ресурсов</td>
+                <td rowspan="2">Единица измерения</td>
+                <td rowspan="2">Потребление энергетических ресурсов</td>
+                <td rowspan="2">Расходы на приобретение энергетических ресурсов, тенге (с учетом НДС)</td>
+                <td rowspan="2" class="hide">Количество приборов учета, шт</td>
+                <td rowspan="2" class="hide">Общий % оснащенности приборами учета</td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr style="font-style: italic;font-weight: bold"><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td class="hide">6</td><td class="hide">7</td>
+            </tr>
+        </thead>
+        <tbody  id="form2">
+            @{
+                var index = 0;
+                Aisger.Models.SUB_Form2Record signedObj = null;
+            }
+            @for (var i = 0; i < Model.SUB_Form2RecordGu.Count; i++)
+            {
+                index = i + 1;
+                var kindId = Model.SUB_Form2RecordGu[i].TypeResourceId;
+                var extractVolumeHistory = "ExtractVolume_History_" + kindId;
+                var notOwnSourceHistory = "NotOwnSource_History_" + kindId;
+                var losEnergyHistory = "LosEnergy_History_" + kindId;
+                var ownSourceHistory = "OwnSource_History_" + kindId;
+                var transferOtherLegalHistory = "TransferOtherLegal_History_" + kindId;
+                var expenceEnergyHistory = "ExpenceEnergy_History_" + kindId;
+                var cssCountPrice = "price-calc";
+                var noteHistory = "Note_History_" + i;
+
+                var entry = Model.SUB_Form2RecordGu[i];
+                double col5A = 0;
+                double col6 = 0;
+                double calcPrice = 0;
+                string calcPriceStr = "";
+                bool isShowClac = false;
+                if (entry.ExpenceEnergy != null)
+                {
+                    calcPrice = entry.ExpenceEnergy.Value;
+                    isShowClac = true;
+                }
+                if (entry.NotOwnSource != null)
+                {
+                    col5A = entry.NotOwnSource.Value;
+                    isShowClac = true;
+                }
+
+                if (isShowClac)
+                {
+                    if (col5A > 0)
+                    {
+                        calcPrice = Math.Round(calcPrice / (col5A), 2);
+                    }
+                    if (entry.SUB_DIC_TypeResource.MinValue > calcPrice || entry.SUB_DIC_TypeResource.MaxValue < calcPrice)
+                    {
+                        cssCountPrice = cssCountPrice + " mark-limited";
+                    }
+                    calcPriceStr = calcPrice.ToString();
+                }
+
+                <tr rowid2="@Model.SUB_Form2RecordGu[i].Form2RecordId" rowid6="@Model.SUB_Form2RecordGu[i].Form6RecordId" typeid="@Model.SUB_Form2RecordGu[i].TypeResourceId">
+                    <!-- 1 -->
+                    <td class="disabletd">@index</td>
+                    <!-- 2 -->
+                    <td class="disabletd">@Model.SUB_Form2RecordGu[i].TypeResourceName</td>
+                    <!-- 3 -->
+                    <td class="disabletd">@Model.SUB_Form2RecordGu[i].TypeResourceUnitName</td>     
+                    <!-- 4 -->         
+                    <td>
+                   
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.SUB_Form2RecordGu[i].NotOwnSource, new { @class = "form2Field form-edit",form="form2" })
+                            <span class="input-group-addon">
+                                <a class="commentDialog" href="#">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </a>
+                            </span>
+                        </div>
+                        <input value="" class="disable-field from-history" id="@notOwnSourceHistory" />
+                        @if (signedObj != null)
+                        {
+                            <div class="signed signed-color">
+                                @signedObj.NotOwnSource
+                            </div>
+                        }
+                    </td>             
+                    <!-- 5 -->
+                    <td>
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.SUB_Form2RecordGu[i].ExpenceEnergy, new { @class = "form2Field form-edit" , form = "form2" })
+                            <span class="input-group-addon">
+                                <a class="commentDialog" href="#">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </a>
+                            </span>
+                        </div>                        
+                        <input value="@calcPriceStr" class="@cssCountPrice" min-value="@entry.SUB_DIC_TypeResource.MinValue" max-value="@entry.SUB_DIC_TypeResource.MaxValue" style="display: none" is-show-clac="@isShowClac" />
+                    </td>
+                    <!-- 6 -->
+                    <td class="hide">
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.SUB_Form2RecordGu[i].CountDevice, new { @class = "form6TypeReourceField form-edit", form = "form6" })
+                            <span class="input-group-addon">
+                                <a class="commentDialog" href="#">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </a>
+                            </span>
+                        </div>   
+                    </td>
+                    <!-- 7 -->
+                    <td class="hide">
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.SUB_Form2RecordGu[i].Equipment, new { @class = "form6TypeReourceField form-edit" })
+                            <span class="input-group-addon">
+                                <a class="commentDialog" href="#">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </a>
+                            </span>
+                        </div>   
+                    </td>
+                </tr>
+            }
+            @for(var i = 0; i < Model.SUB_Form3RecordGu.Count; i++)
+            {
+                index = index + 1;
+                bool isShowClac = false;
+                var entry = Model.SUB_Form3RecordGu[i];
+                double col5A = 0;
+                double col6 = 0;
+                double calcPrice = 0;
+
+                if (entry.LosTransportVolume != null && entry.LosTransportVolume>0)
+                {
+                    calcPrice = entry.LosTransportVolume.Value;
+                    isShowClac = true;
+                }
+                if (entry.ConsumptionVolume != null && entry.ConsumptionVolume > 0)
+                {
+                    col5A = entry.ConsumptionVolume.Value;
+                    isShowClac = true;
+                }
+
+                if (isShowClac)
+                {
+                    if (calcPrice > 0 && col5A > 0)
+                    {
+                        calcPrice = Math.Round(calcPrice / (col5A), 2);
+                    }
+                    
+                }
+                <tr rowid3="@Model.SUB_Form3RecordGu[i].Form3RecordId" rowid6="@Model.SUB_Form3RecordGu[i].Form6RecordId" typeid="@Model.SUB_Form3RecordGu[i].KindResourceId">
+                    <!-- 1 -->
+                    <td class="disabletd">@index</td>
+                    <!-- 2 -->
+                    <td class="disabletd">@Model.SUB_Form3RecordGu[i].KindResourceName</td>
+                    <!-- 3 -->
+                    <td class="disabletd">@Model.SUB_Form3RecordGu[i].KindResourceUnitName</td>
+                    <!-- 4 -->
+                    <td>
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.SUB_Form3RecordGu[i].ConsumptionVolume, new { @class = "form3Field form-edit", form = "form2" })
+                            <span class="input-group-addon">
+                                <a class="commentDialog" href="#">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </td>
+                    <!-- 5 -->
+                    <td>
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.SUB_Form3RecordGu[i].LosTransportVolume, new { @class = "form3Field form-edit", form = "form2" })
+                            <span class="input-group-addon">
+                                <a class="commentDialog" href="#">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </a>
+                            </span>
+                        </div>
+                        <input value="@calcPrice" class="price-calc" min-value="1" max-value="1" style="display: none" is-show-clac="@isShowClac" />
+                    </td>
+                    <!-- 6 -->
+                    <td class="hide">
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.SUB_Form3RecordGu[i].CountDevice, new { @class = "form6KindReourceField form-edit", form = "form6" })
+                            <span class="input-group-addon">
+                                <a class="commentDialog" href="#">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </td>
+                    <!-- 7 -->
+                    <td class="hide">
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.SUB_Form3RecordGu[i].Equipment, new { @class = "form6KindReourceField form-edit" })
+                            <span class="input-group-addon">
+                                <a class="commentDialog" href="#">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            }
+            @{index = index + 1;}
+            <tr style="display: none" id="from2SumRow">
+                <td class="disabletd">@index</td>
+                <td colspan="2" class="disabletd">Итого:</td>               
+                <td>
+                    @Html.TextBox("NotOwnSource_All", null, new { @readonly = "readonly", @class = "form-control formSum2Field" })
+                </td>               
+                <td>
+                    @Html.TextBox("ExpenceEnergy_All", null, new { @readonly = "readonly", @class = "form-control formSum2Field" })
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+
+    function ChangeYear(year) {
+        $('.disable-field').val("");
+        $('#currentYear').text(year);
+        $.ajax({
+            url: '@Url.Action("GetHistoryValues")',
+            data: {'userId': @Model.UserId, 'year': year },
+            type: 'GET',
+            dataType: 'json',
+            cache: 'false',
+            success: function(data) {
+                var ExtractVolume_All = 0;
+                var NotOwnSource_All = 0;
+                var LosEnergy_All = 0;
+                var OwnSource_All = 0;
+                var TransferOtherLegal_All = 0;
+                var ExpenceEnergy_All = 0;
+
+                $.each(data.form2, function(index, optiondata) {
+                    $('#' + optiondata.Value).val(formatNumber(optiondata.Text));
+                    var idField = optiondata.Value;
+                    var newValue = parseFloat($("#currentDataViewId").val(), 10) || 0;
+                    if (idField.indexOf('ExtractVolume') > -1) {
+                        ExtractVolume_All += newValue;
+                    }
+                    if (idField.indexOf('NotOwnSource') > -1) {
+                        NotOwnSource_All += newValue;
+                    }
+                    if (idField.indexOf('LosEnergy') > -1) {
+                        LosEnergy_All += newValue;
+                    }
+                    if (idField.indexOf('OwnSource') > -1 && idField.indexOf('NotOwnSource') < 0) {
+                        OwnSource_All += newValue;
+                    }
+                    if (idField.indexOf('TransferOtherLegal') > -1) {
+                        TransferOtherLegal_All += newValue;
+                    }
+                    if (idField.indexOf('ExpenceEnergy') > -1) {
+                        ExpenceEnergy_All += newValue;
+                    }
+                });
+
+                var sumtut = NotOwnSource_All + OwnSource_All - TransferOtherLegal_All;
+
+                $("#alltutCalc").text(formatNumber(sumtut.toFixed(2)));
+
+                $.each(data.form3, function(index, optiondata) {
+                    $('#' + optiondata.Value).val(formatNumber(optiondata.Text));
+                });
+                $("#foodForm4 tr").remove();
+                var titleForm4 = '<tr><td colspan="9" style="text-align: left;" class="disabletd"><h5 style="font-weight: bold; padding-left: 20px">Данные за ' + year + ' год</h5></td></tr>';
+                $("#foodForm4").append(titleForm4);
+                $.each(data.form4, function(index, optiondata) {
+
+                    var cols = '<td class="disable-rows"></td>';
+                    var empty = '<td class="disable-rows"><input class="form-control  from-history" disabled="disabled" value="" /></td>';
+                    if (optiondata.EventName != null) {
+                        cols += '<td class="disable-rows"><input class="form-control" disabled="disabled" value="' + optiondata.EventName + '" /></td>';
+                    } else {
+                        cols += empty;
+                    }
+                    if (optiondata.EmplPeriodStr != null) {
+                        cols += '<td class="disable-rows"><input class="form-control" disabled="disabled" value="' + optiondata.EmplPeriodStr + '" /></td>';
+                    } else {
+                        cols += empty;
+                    }
+                    if (optiondata.PlanExpend != null) {
+                        cols += '<td class="disable-rows"><input class="form-control " disabled="disabled" value="' + formatNumber(optiondata.PlanExpend) + '" /></td>';
+                    } else {
+                        cols += empty;
+                    }
+                    if (optiondata.ActualInvest != null) {
+                        cols += '<td class="disable-rows"><input class="form-control  from-history" disabled="disabled" value="' + optiondata.ActualInvest + '" /></td>';
+                    } else {
+                        cols += empty;
+                    }
+                    if (optiondata.Note != null) {
+                        cols += '<td class="disable-rows"><input class="form-control" disabled="disabled" value="' + optiondata.Note + '" /></td>';
+                    } else {
+                        cols += empty;
+                    }
+                    if (optiondata.InKind != null) {
+                        cols += '<td class="disable-rows"><input class="form-control  from-history " disabled="disabled" value="' + formatNumber(optiondata.InKind) + '" /></td>';
+                    } else {
+                        cols += empty;
+                    }
+                    if (optiondata.InMoney != null) {
+                        cols += '<td class="disable-rows"><input class="form-control  from-history" disabled="disabled" value="' + formatNumber(optiondata.InMoney) + '" /></td>';
+                    } else {
+                        cols += empty;
+                    }
+
+                    $("#foodForm4").append("<tr>" + cols + "</tr>");
+                });
+
+                $("#foodForm5 tr").remove();
+                var titleForm5 = '<tr><td colspan="9" style="text-align: left;" class="disabletd"><h5 style="font-weight: bold; padding-left: 20px">Данные за ' + year + ' год</h5></td></tr>';
+                $("#foodForm5").append(titleForm5);
+                $.each(data.form5, function(index, optiondata) {
+
+                    var cols = '<td class="disable-rows"></td>';
+                    var empty = '<td class="disable-rows"><input class="form-control" disabled="disabled" value="" /></td>';
+                    if (optiondata.IndicatorName != null) {
+                        cols += '<td class="disable-rows"><input class="form-control" disabled="disabled" value="' + optiondata.IndicatorName + '" /></td>';
+                    } else {
+                        cols += empty;
+                    }
+                    if (optiondata.Note != null) {
+                        cols += '<td class="disable-rows"><input class="form-control" disabled="disabled" value="' + optiondata.Note + '" /></td>';
+                    } else {
+                        cols += empty;
+                    }
+                   
+                    if (optiondata.UnitMeasure != null) {
+                        cols += '<td class="disable-rows"><input class="form-control" disabled="disabled" value="' + optiondata.UnitMeasure + '" /></td>';
+                    } else {
+                        cols += empty;
+                    }
+                    if (optiondata.CalcFormula != null) {
+                        cols += '<td class="disable-rows"><input class="form-control" disabled="disabled" value="' + optiondata.CalcFormula + '" /></td>';
+                    } else {
+                        cols += empty;
+                    }
+                    if (optiondata.EnergyValue != null) {
+                        cols += '<td class="disable-rows"><input class="form-control  from-history" disabled="disabled" value="' + formatNumber(optiondata.EnergyValue) + '" /></td>';
+                    } else {
+                        cols += empty;
+                    }
+
+
+                    $("#foodForm5").append("<tr>" + cols + "</tr>");
+                });
+                $("#foodForm6 tr").remove();
+                var titleForm6 = '<tr><td colspan="4" style="text-align: left;" class="disabletd"><h5 style="font-weight: bold; padding-left: 20px">Данные за ' + year + ' год</h5></td></tr>';
+                $("#foodForm6").append(titleForm6);
+                $.each(data.form6, function(index, optiondata) {
+
+                    var cols = '<td class="disable-rows"></td>';
+                    var empty = '<td class="disable-rows"><input class="form-control" disabled="disabled" value="" /></td>';
+                    if (optiondata.Note != null) {
+                        cols += '<td class="disable-rows"><input class="form-control" disabled="disabled" value="' + optiondata.Note + '" /></td>';
+                    } else {
+                        cols += empty;
+                    }
+                    if (optiondata.CountDevice != null) {
+                        cols += '<td class="disable-rows"><input class="form-control" disabled="disabled" value="' + optiondata.CountDevice + '" /></td>';
+                    } else {
+                        cols += empty;
+                    }
+                    if (optiondata.Equipment != null) {
+                        cols += '<td class="disable-rows"><input class="form-control" disabled="disabled" value="' + optiondata.Equipment + '" /></td>';
+                    } else {
+                        cols += empty;
+                    }
+                    $("#foodForm6").append("<tr>" + cols + "</tr>");
+                });
+            },
+            error: function(data) {
+                console.log("Form2View");
+                console.log("1Error",data);
+                alert("1Error" + data);
+            }
+        });
+
+    }
+
+    $(document).ready(function () {
+
+        $("#HideHistory").click(function () {
+            if ($(this).val() == "hide") {
+                $("#HideHistoryText").text('@ResourceSetting.showBeforeYears');
+                $(this).val("show");
+                $("#yearListId").show();
+                $(".disable-field").show();
+                $("#HideHistoryCheck").removeClass("glyphicon-unchecked");
+                $("#HideHistoryCheck").addClass("glyphicon-check");
+
+            } else {
+                $("#HideHistoryText").text('@ResourceSetting.hideBeforeYears');
+                $(this).val("hide");
+                $("#yearListId").hide();
+                $(".disable-field").hide();
+
+                $("#HideHistoryCheck").addClass("glyphicon-unchecked");
+                $("#HideHistoryCheck").removeClass("glyphicon-check");
+            }
+        });
+
+        $("#hideControlPrice").click(function () {
+            if ($(this).val() == "hide") {
+                $("#hideControlPriceText").text('@ResourceSetting.showBeforeControlPriceText');
+                $(this).val("show");
+                $(".price-calc").show();
+                $("#hideControlPriceCheck").removeClass("glyphicon-unchecked");
+                $("#hideControlPriceCheck").addClass("glyphicon-check");
+
+            } else {
+                $("#hideControlPriceText").text('@ResourceSetting.hideBeforeControlPriceText');
+                $(this).val("hide");
+                $(".price-calc").hide();
+
+                $("#hideControlPriceCheck").addClass("glyphicon-unchecked");
+                $("#hideControlPriceCheck").removeClass("glyphicon-check");
+            }
+        });
+
+        $(".price-calc").each(function () {
+            var valueField = $(this).val();
+            if (valueField.length == 0) {
+                return;
+            }
+            if (valueField.indexOf(',') > 0) {
+                valueField = valueField.replace(',', '.');
+            }
+            valueField = formatNumber(valueField);
+            var minValue = $(this).attr('min-value');
+            var maxValue = $(this).attr('max-value');
+
+            if (minValue != null && maxValue != null) {
+                valueField = valueField + ' (' + formatNumber(minValue) + ':' + formatNumber(maxValue) + ')';
+            }
+            $(this).val(valueField);
+
+        });
+
+        $(".from-float").each(function () {
+            var valueField = $(this).val();
+            if (valueField.indexOf(',') > 0) {
+                valueField = valueField.replace(',', '.');
+            }
+            if (valueField.length > 0) {
+                $(this).val(formatNumber(valueField));
+            }
+        });
+
+        $(".form2Field").each(function () {
+            if ($(this).attr('name').indexOf('Note') < 0) {
+                var valueField = $(this).val();
+                if (valueField.indexOf(',') > 0) {
+                    valueField = valueField.replace(',', '.');
+                }
+                if (valueField.length > 0) {
+                    $(this).val(formatNumber(valueField));
+                }
+            }
+        });
+
+        //----form2gu
+        $(".amount-input").change(function () {
+
+            var code="form2Gu";
+            var fieldName = $(this).attr('fieldName');
+            var fieldValue=$(this).val();
+            var recordId = $('.sub-form2gu').attr('id');
+
+            console.log("fieldname=",fieldName);
+            console.log("fieldvalue=",fieldValue);
+            console.log("fieldId=",recordId);
+
+            var type="long";
+            if (type == "long") {
+                if (fieldValue != null && fieldValue.length > 0) {
+                    if (fieldValue.indexOf(',') > 0 || fieldValue.indexOf('.') > 0) {
+                        showWarning("Введите целое число");
+                        $(this).val("");
+                        return false;
+                    }
+                    if (fieldValue != '' && !$.isNumeric(fieldValue)) {
+                        showWarning('@ResourceSetting.sInputNumberRequired');
+                        $(this).val("");
+                        return false;
+                    }
+                    if (fieldValue.indexOf('-') > -1) {
+                        showWarning('@ResourceSetting.enterNumberNotMinus');
+                        $(this).val("");
+                        return false;
+                    }
+                }
+            }
+
+            var modelId = parseInt($("#currentDataViewId").val(), 10) || 0;
+            var year = $("#ReportYear").val();
+            var userId = $("#UserId").val();
+            var editorId = $("#Editor").val();
+            if (modelId == 0) {
+                window.Showbusy(this);
+            }
+
+            //----
+            $.post('@Url.Action("UpdateModel")', {
+                'code': code, 'modelId': modelId, 'userId': userId, 'editorId': editorId, 'recordId': recordId, 'year': year, 'fieldName': fieldName, 'fieldValue': fieldValue, 'typeId': 0
+            }, function (data) {
+
+                console.log("after update=",data);
+
+                if (modelId == 0) {
+                    $("#currentDataViewId").val(data.formId);
+                    $("#loading").hide();
+                }
+
+                $('.sub-form2gu').attr('id',data.fromRecordId);
+              
+            });
+
+        });
+
+        //----form2
+        $(".form2Field").change(function () {
+            if ($('#showTut').length) {
+                return;
+            }
+            var idAttr = $(this).attr('name');
+            var fieldName = idAttr.split('.')[1];
+            var type = "float";
+            if (fieldName == "Note") {
+                type = "string";
+            }
+            var row = $(this).closest('tr');
+            var entityId = row.attr('rowid2');
+            var typeId = row.attr('typeid');
+
+            UpdateModel("form2", entityId, $(this).attr('id'), fieldName, $(this).val(), type, typeId);
+        });
+
+        //----form3
+        $(".form3Field").change(function () {
+            var idAttr = $(this).attr('name');
+            var fieldName = idAttr.split('.')[1];
+            var type = "float";
+            var row = $(this).closest('tr');
+            var entityId = row.attr('rowid3');
+            var typeId = row.attr('typeid');
+            
+            UpdateModel("form3", entityId, $(this).attr('id'), fieldName, $(this).val(), type, typeId);
+            var classRow = row.attr('class');
+            $("." + classRow).each(function() {
+                $(this).attr('rowid', row.attr('rowid'));
+            });
+        });
+
+        //----form6
+        $(".form6TypeReourceField").change(function () {
+
+            var idAttr = $(this).attr('name');
+            var fieldName = idAttr.split('.')[1];
+            var type = "long";
+            if (fieldName == "Equipment") {
+                var vall = $(this).val();
+                if (vall != null && vall.length > 0) {
+                    if (vall.indexOf(',') > 0) {
+                        vall = vall.replace(',', '.');
+                    }
+                    if (vall != '' && !$.isNumeric(vall)) {
+                        showWarning('@ResourceSetting.enterNumber');
+                        $(this).val("");
+                        return;
+                    }
+                    if (vall < 0 || vall > 100) {
+                        showWarning("Введите число с 0 до 100");
+                        $(this).val("");
+                        return;
+                    }
+
+                }
+                type = "float";
+            }
+
+            var row = $(this).closest('tr');
+            var entityId = row.attr('rowid6');
+            var typeId = row.attr('typeid');
+            UpdateModel("form6TypeReource", entityId, $(this).attr('id'), fieldName, $(this).val(), type, typeId);
+
+        });
+
+
+        $(".form6KindReourceField").change(function () {
+
+            var idAttr = $(this).attr('name');
+            var fieldName = idAttr.split('.')[1];
+            var type = "long";
+            if (fieldName == "Equipment") {
+                var vall = $(this).val();
+                if (vall != null && vall.length > 0) {
+                    if (vall.indexOf(',') > 0) {
+                        vall = vall.replace(',', '.');
+                    }
+                    if (vall != '' && !$.isNumeric(vall)) {
+                        showWarning('@ResourceSetting.enterNumber');
+                        $(this).val("");
+                        return;
+                    }
+                    if (vall < 0 || vall > 100) {
+                        showWarning("Введите число с 0 до 100");
+                        $(this).val("");
+                        return;
+                    }
+
+                }
+                type = "float";
+            }
+
+            var row = $(this).closest('tr');
+            var entityId = row.attr('rowid6');
+            var typeId = row.attr('typeid');
+            UpdateModel("form6KindReource", entityId, $(this).attr('id'), fieldName, $(this).val(), type, typeId);
+
+        });
+    });
+</script>

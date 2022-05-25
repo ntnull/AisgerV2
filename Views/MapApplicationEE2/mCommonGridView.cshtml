@@ -1,0 +1,58 @@
+﻿@using System.Collections
+@using System.Threading
+@using Aisger
+@using Aisger.Models.Entity.Map
+@using Aisger.Utils
+@using FlowDoc.Models
+@using GridMvc.Html
+@model IEnumerable<MAP_FormEE2Manager>
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+    <script src="@Url.Content("~/Scripts/custom/gridmvc.reestr.status.js")" type="text/javascript"> </script>
+    <script src="@Url.Content("~/Scripts/custom/gridmvc.reestr.reason.js")" type="text/javascript"> </script>
+    <script src="@Url.Content("~/Scripts/custom/gridmvc.oblast.js")" type="text/javascript"> </script>
+    <style>
+        .btnmenu > li > a:hover {
+            background-color: transparent;
+        }
+    </style>
+
+    @helper UserView(MAP_FormEE2Manager o)
+    {
+var object_name = o.JuridicalName;
+    <a href="@Url.Action("Index", "SubjectInfo", new { id = o.SecUserId })" class="link-object"> 
+        @object_name
+    </a>
+}
+
+    @helper UserRecordView(MAP_FormEE2Manager o)
+    {
+var object_status = o.Status_Name;
+    <a href="@Url.Action("uIndex", "MapApplicationEE2", new { uId = o.SecUserId })" class="link-object">
+        @object_status
+    </a>
+}
+
+    <div id="CSSTableGenerator">
+        @Html.Grid(Model).Named("ordersGrid").SetLanguage(Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName).Columns(columns =>
+        {
+            columns.Add().Encoded(false).Sanitized(false).Titled(ResourceSetting.sCompanyName).SetWidth(80).RenderValueAs(o => UserView(o).ToHtmlString());
+            columns.Add(o => o.JuridicalName, true).Titled(ResourceSetting.sCompanyName)
+            .SetWidth(40);
+
+            columns.Add(o => o.BINIIN).Titled(ResourceSetting.sBIN).SetWidth(40);
+            columns.Add(o => o.Oked_Name).Titled(ResourceSetting.DicOked).SetWidth(40);
+            columns.Add(o => o.Oblast_Name).Titled(ResourceSetting.Oblast).SetWidth(40);
+            columns.Add(o => o.Region_Name).Titled(ResourceSetting.sRegion).SetWidth(40);           
+            columns.Add().Encoded(false).Sanitized(false).Titled(ResourceSetting.RstDicStatus).SetWidth(40).RenderValueAs(o => UserRecordView(o).ToHtmlString()).Filterable(true);
+            columns.Add(o => o.Status_Name, true).Titled(ResourceSetting.RstDicStatus).SetWidth(40);
+        }).WithPaging(50).Sortable().Filterable().WithMultipleFilters()
+    </div>
+
+	<script>
+		$(function () {			
+			pageGrids.ordersGrid.onRowSelect(function (e) {
+			//	alert(e.row.JuridicalName);
+			});
+
+		});
+	</script>

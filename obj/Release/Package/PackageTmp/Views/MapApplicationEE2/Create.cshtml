@@ -1,0 +1,314 @@
+﻿@using System.Threading
+@using Aisger
+@using Aisger.Models
+@using Aisger.Models.ControlModels
+@using Aisger.Models.Entity.Map;
+@using Aisger.Utils
+@using GridMvc.Html
+@model MAP_ApplicationEE2Info
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/custom/templatemo_style.css")" />
+<link href="@Url.Content("~/Content/custom/jquery.inputfile.css")" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="@Url.Content("~/Content/custom/form1-style.css")" />
+<script src="@Url.Content("~/Scripts/jquery.inputfile.js")" type="text/javascript"> </script>
+
+<style>
+    .remove-file {
+        margin-left: 10px;
+        margin-top: 0px;
+        vertical-align: middle;
+    }
+
+        .remove-file:hover {
+            cursor: pointer;
+            background-color: transparent;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+</style>
+
+@helper GridManageItemColumn(MAP_ApplicationEE2Info form)
+{
+    <button type="button" class="btn btn-default btn-sm btn-block" onclick="location.href='@Url.Action("ShowIndicatorValues", "Collector", new { form.Id })'">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>@ResourceSetting.ViewReadings
+    </button>
+    <button type="button" class="btn btn-warning btn-sm btn-block" onclick="location.href='@Url.Action("Edit", "Collector", new { form.Id })'">
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>@ResourceSetting.Edit
+    </button>
+    <a href="#" onclick="DeleteRecord('@form.Id')" class="btn btn-danger btn-sm btn-block">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>@ResourceSetting.Delete
+    </a>
+}
+
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel">@ResourceSetting.MapEnergy<span></span></li>
+        <li id="selectLabel"><span class="glyphicon glyphicon-arrow-right"></span>@ResourceSetting.MapApplicationEE2</li>
+    </ul>
+    <div id="wrapper_grid" style="margin-left: 50px">
+        @using (Html.BeginForm("Save", "MapApplicationEE2", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            if (@Model != null && @Model.IsError)
+            {
+            <div class="alert alert-danger" role="alert">
+                @Model.ErrorMessage
+            </div>
+            }
+
+            <fieldset>
+                <legend>@ResourceSetting.MapApplicationEE2</legend>
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.CreateDate)
+                @Html.HiddenFor(model => model.EditDate)
+                @Html.HiddenFor(model => model.IsDeleted)
+                @Html.HiddenFor(model => model.SecUserId)
+
+                @*@Html.HiddenFor(ViewData["vDicDetailModelsId"], new { @class="dic-details-modelId"})*@
+
+                <div class="clearfixmandatory">
+                    @Html.LabelFor(model => model.DicDetailsId)
+                    <div class="input">
+                        @Html.DropDownListFor(model => model.DicDetailsId, (IEnumerable<SelectListItem>)(ViewData["DicDetailsList"]))
+                        @Html.ValidationMessageFor(model => model.DicDetailsId)
+                    </div>
+                </div>
+                <div class="clearfixmandatory">
+                    @Html.LabelFor(model => model.DicDetailModelsId)
+                    <div class="input">
+                        @Html.DropDownListFor(model => model.DicDetailModelsId, Model.DicDetailModelsList)
+                        @Html.ValidationMessageFor(model => model.DicDetailModelsId)
+                    </div>
+                </div>
+                <div class="clearfix">
+                    @Html.LabelFor(model => model.CountOfFixtures)
+                    <div class="input">
+                        @Html.EditorFor(model => model.CountOfFixtures)
+                        @Html.ValidationMessageFor(model => model.CountOfFixtures)
+                    </div>
+                </div>
+                <div class="clearfix">
+                    @Html.LabelFor(model => model.CountOfLamps)
+                    <div class="input">
+                        @Html.EditorFor(model => model.CountOfLamps)
+                        @Html.ValidationMessageFor(model => model.CountOfLamps)
+                    </div>
+                </div>
+                <div class="clearfix">
+                    @Html.LabelFor(model => model.Power)
+                    <div class="input">
+                        @Html.EditorFor(model => model.Power)
+                        @Html.ValidationMessageFor(model => model.Power)
+                    </div>
+                </div>
+                <div class="clearfix">
+                    @Html.LabelFor(model => model.CPRA)
+                    <div class="input">
+                        @Html.TextBoxFor(model => model.CPRA, new { @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.CPRA)
+                    </div>
+                </div>
+                <div class="clearfix">
+                    @Html.LabelFor(model => model.AggregatePower)
+                    <div class="input">
+                        @Html.EditorFor(model => model.AggregatePower)
+                        @Html.ValidationMessageFor(model => model.AggregatePower)
+                    </div>
+                </div>
+                <div class="clearfix">
+                    @Html.LabelFor(model => model.AverageTariff)
+                    <div class="input">
+                        @Html.EditorFor(model => model.AverageTariff)
+                        @Html.ValidationMessageFor(model => model.AverageTariff)
+                    </div>
+                </div>
+                <div class="clearfix">
+                    @Html.LabelFor(model => model.WorkingHours)
+                    <div class="input">
+                        @Html.EditorFor(model => model.WorkingHours)
+                        @Html.ValidationMessageFor(model => model.WorkingHours)
+                    </div>
+                </div>
+                <div class="clearfix">
+                    @Html.LabelFor(model => model.MaintenanceCosts)
+                    <div class="input">
+                        @Html.EditorFor(model => model.MaintenanceCosts)
+                        @Html.ValidationMessageFor(model => model.MaintenanceCosts)
+                    </div>
+                </div>
+                 <div class="clearfix">
+                    @Html.LabelFor(model => model.Comments)
+                    <div class="input">
+                        @Html.EditorFor(model => model.Comments)
+                        @Html.ValidationMessageFor(model => model.Comments)
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <label>Файл</label>
+                    <div class="files-div">@Html.Raw(Model.files)</div>
+                </div>
+                <div class="clearfix">  
+                    <label></label>
+                    <div class="input">
+                        <div class="upload-button">
+                            <button class="btn btn-primary btn-fileupload" type="button"><span class="glyphicon glyphicon-upload"></span>Загрузить файл</button>
+                            <input type="file" name="files" class="fileUpload hide" multiple="multiple">
+                            <span class="span-filename">Файл не выбран</span>
+                        </div>
+                    </div>
+                </div>
+                <p>
+                    <div>
+                        <button type="button" class="btn btn-success btn-lg" onclick="history.go(-1);return false;">
+                            <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>@ResourceSetting.Return
+                        </button>
+                        <button type="submit" class="btn btn-success btn-lg" style="float: right; margin-right: 30px">
+                            <span class="glyphicon glyphicon-save" aria-hidden="true"></span>@ResourceSetting.Save
+                        </button>
+                    </div>
+                </p>
+            </fieldset>
+        }
+    </div>
+</div>
+
+<script>
+    $(function () {
+
+        var rootUrl = "@Url.Content("~")";
+        var qwe = {};
+        window.qwe = qwe;
+
+
+        initVars();
+        getUrl();
+        bindEventHandlers();
+        qwe.vDicDetailModelsId = '@ViewBag.vDicDetailModelsId';
+        fillCPRA(1);
+
+        function initVars() {
+            qwe.paramQuery = {};
+        }
+
+        function bindEventHandlers() {
+
+            //----изменить спр
+            $("#DicDetailsId").change(function () {
+
+                var id = $("#DicDetailsId :selected").val();
+                qwe.paramQuery.detailsId = parseInt(id);
+                fillDDModels();
+                fillCPRA(id);
+
+            });
+
+            //----
+            $('.btn-fileupload').click(function () {
+                $('.fileUpload').trigger('click');
+            });
+
+            $('.fileUpload').click(function () {
+                $(".span-filename").text("Файл не выбран");
+            });
+
+            $('.fileUpload').change(function () {
+
+                var _count = $('.fileUpload').get(0).files;
+                if (_count.length == 0) {
+                    $(".span-filename").text("Файл не выбран");
+                } else {
+
+                	$(".span-filename").text("Число файлов:" + _count.length);
+
+                }
+
+            });
+
+            //----remove file
+            $('.files-div').on('click', 'span.remove-file', function () {
+                var filename = $(this).attr('filename');
+                var id = $(this).attr('o-id');
+                console.log("file name", filename);
+                console.log("o-id", id);
+
+                var success = function () {
+                    location.href = "/MapApplicationEE2/DeleteFile?fname=" + filename + "&id=" + id;
+                }
+                var cancel = function () {
+                };
+
+                showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+
+            });
+
+
+        }
+
+        //---- dicdetailsmodels
+        function GetDicDetailModels() {
+
+            $.post(rootUrl + 'MapApplicationEE2/GetDicDetailModels', function (data) {
+
+                if (data.ErrorMessage)
+                    alert(data.ErrorMessage);
+
+                qwe.paramQuery.dicModelSource = data;
+                fillDDModels();
+            });
+        }
+
+        //----
+        function fillDDModels() {
+
+            if (qwe.paramQuery.dicModelSource) {
+
+                var buffer = $.grep(qwe.paramQuery.dicModelSource.ListItems, function (row) { return row.DICEEDetailsId == qwe.paramQuery.detailsId; });
+                var markup = "";
+                $.map(buffer, function (item) {
+                    var selected = null;
+                    if (item.Id == qwe.vDicDetailModelsId)
+                        selected = "selected";
+
+                    markup += "<option value=" + item.Id + " " + selected + " >" + item.DicName + "</option>";
+                });
+
+                $("#DicDetailModelsId").html(markup)
+            }
+
+        }
+
+        //----
+        function fillCPRA(id) {
+            //----
+            if (id == 2)
+                $('#CPRA').val('1');
+            else $('#CPRA').val('1.1.');
+        }
+
+        //----
+        function getUrl() {
+
+            var strHref = window.location.href;
+            var arr = strHref.split('/');
+            var editMode = arr[arr.length - 1];
+
+            if (editMode == 'Create') {
+                qwe.paramQuery.editMode = editMode;
+                qwe.paramQuery.detailsId = 1;
+                GetDicDetailModels();
+            }
+            else {
+                qwe.paramQuery.editMode = "Edit";
+                var id = $("#DicDetailsId :selected").val();
+                qwe.paramQuery.detailsId = id;
+                GetDicDetailModels();
+            }
+
+        }
+
+
+    })
+</script>

@@ -1,0 +1,403 @@
+﻿@using System.Globalization
+@using Aisger
+@model Aisger.Models.SUB_ActionPlan
+<style type="text/css">
+    .formPlanField {
+        width: 100%;
+    }
+
+    .kind_row {
+    }
+
+    .sum_row {
+    }
+
+    .all_row {
+    }
+
+    .add-plan-btn {
+    }
+</style>
+<h5 style="font-weight: bold; text-align: center">
+    План мероприятий по энергосбережению и повышению энергоэффективности
+</h5>
+@*<div class="panel panel-body" style="width: 100%">*@
+<div class="form-group" style="margin-bottom: 20px">
+
+    <div class="col-sm-6">
+        @Html.Label("Начало года")
+        <div class="input">
+            @Html.TextBoxFor(m => m.BeginPlanYear, new { @class = "form-control", @style = "width: 60%" })
+        </div>
+    </div>
+    <div class="col-sm-6">
+        @Html.Label("Конец года")
+        <div class="input">
+            @Html.TextBoxFor(m => m.EndPlanYear, new { @class = "form-control", @readonly = "readonly", @style = "width: 60%" })
+        </div>
+    </div>
+</div>
+@*</div>*@
+<div style="height: 20px"></div>
+<ul class="nav nav-tabs" id="myPlanTab" style="margin-top: 20px">
+    <li class="active"><a data-target="#plantab1" data-toggle="tab">Таблица 1</a></li>
+    <li><a data-target="#plantab2" data-toggle="tab">Таблица 2</a></li>
+    <li><a data-target="#plantab3" data-toggle="tab">Таблица 3</a></li>
+</ul>
+<div class="tab-content">
+
+    <div class="tab-pane active" id="plantab1">
+        <h5 style="font-weight: bold; text-align: center">
+            Таблица 1
+        </h5>
+        <div id="CSSTableGenerator">
+            <table id="table_plan" class="wast-list" style="width: 100%; text-align: center">
+                <thead>
+                    <tr style="font-weight: bold">
+                        <td rowspan="2">Код и номер</td>
+                        <td rowspan="2" style="width: 300px">Мероприятия</td>
+                        <td colspan="5">Срок исполнения, год</td>
+                        <td colspan="5">Планируемые расходы, млн. тнг</td>
+                        <td rowspan="2">Отметка о выполнении</td>
+                        <td rowspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td id="year1_head" ></td>
+                        <td id="year2_head"></td>
+                        <td id="year3_head"></td>
+                        <td id="year4_head"></td>
+                        <td id="year5_head"></td>
+                        <td id="expend1_head"></td>
+                        <td id="expend2_head"></td>
+                        <td id="expend3_head"></td>
+                        <td id="expend4_head"></td>
+                        <td id="expend5_head"></td>
+                    </tr>
+                    <tr style="font-style: italic;font-weight: bold">
+                        @for (int i = 1; i < 13; i++)
+                        {
+                            <td>@i</td>
+                        }
+
+                        <td rowspan="2">13</td>
+                        <td></td>
+                    </tr>
+
+                </thead>
+                <tbody id="tab1">
+                    @foreach (var subDicKindTabOne in Model.SubDicKindTabOnes)
+                    {
+                        <tr> <td colspan="14" style="font-style: italic;font-weight: bold" class="disabletd">@subDicKindTabOne.NameRu</td></tr>
+                        var rwIndex = 1;
+                        for (var i = 0; i < Model.SubFormTab1s.Count; i++)
+                        {
+                            var entity = Model.SubFormTab1s[i];
+                            if (entity.KindId == subDicKindTabOne.Id)
+                            {
+                                <tr rowid="@entity.Id" kind_id="@subDicKindTabOne.Id" class="kind_row" rowindex="@rwIndex" kind_code="@subDicKindTabOne.IndexCode">
+                                    <td class="disabletd">@entity.Code</td>
+                                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab1s[i].Events, new { @class = "formPlanField" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab1s[i].Year1, new { @class = "formPlanField" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab1s[i].Year2, new { @class = "formPlanField" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab1s[i].Year3, new { @class = "formPlanField" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab1s[i].Year4, new { @class = "formPlanField" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab1s[i].Year5, new { @class = "formPlanField" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab1s[i].Expend1, new { @class = "formPlanField expend1_" + subDicKindTabOne.Id })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab1s[i].Expend2, new { @class = "formPlanField expend2_" + subDicKindTabOne.Id })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab1s[i].Expend3, new { @class = "formPlanField expend3_" + subDicKindTabOne.Id })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab1s[i].Expend4, new { @class = "formPlanField expend4_" + subDicKindTabOne.Id })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab1s[i].Expend5, new { @class = "formPlanField expend5_" + subDicKindTabOne.Id })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                                    <td><div class="input-group">@Html.TextBoxFor(model => model.SubFormTab1s[i].Note, new { @class = "formPlanField" })<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>
+                                    @if (rwIndex < 3)
+                                    {
+                                        <td><a class="deleteRow"></a></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+                                        </td>
+                                    }
+                                </tr>
+                                    rwIndex++;
+                            }
+                        }
+                        <tr>
+                            <td colspan="13" style="text-align: left;">
+
+                                <button type="button" class="btn btn-success btn-sm add-plan-btn" kind_id="@subDicKindTabOne.Id">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Добавить
+                                </button>
+
+                            </td>
+                        </tr>
+                        <tr style="font-weight: bold;" class="sum_row" kind_id="@subDicKindTabOne.Id">
+                            <td colspan="2" class="disabletd">Итого:</td>
+                            @{ var expend1Sum = new List<string>();
+                             var allSumm = "allSum_" + @subDicKindTabOne.Id;
+                            }
+                            @for (var i = 0; i < 5; i++)
+                            {
+                                <td class="disabletd"></td>
+                                var ind = i + 1;
+                                expend1Sum.Add("expendSum" + ind + "_" + @subDicKindTabOne.Id);
+                            }
+
+                            <td class="disabletd"><input id="@expend1Sum[0]" readonly="readonly" class="form-control expendSum1" /></td>
+                            <td class="disabletd"><input id="@expend1Sum[1]" readonly="readonly" class="form-control expendSum2" /></td>
+                            <td class="disabletd"><input id="@expend1Sum[2]" readonly="readonly" class="form-control expendSum3" /></td>
+                            <td class="disabletd"><input id="@expend1Sum[3]" readonly="readonly" class="form-control expendSum4" /></td>
+                            <td class="disabletd"><input id="@expend1Sum[4]" readonly="readonly" class="form-control expendSum5" /></td>
+                            <td class="disabletd">-</td>
+                        </tr>
+                        <tr style="font-weight: bold" class="all_row" kind_id="@subDicKindTabOne.Id">
+                            <td colspan="2" class="disabletd">Всего:</td>
+                            @for (int i = 0; i < 5; i++)
+                            {
+                                <td class="disabletd"></td>
+                            }
+                            <td colspan="5" class="disabletd" columnid="all"><input id="@allSumm" readonly="readonly" class="form-control" /></td>
+                            <td class="disabletd">-</td>
+                        </tr>
+                    }
+<tfoot>
+                    <tr style="font-style: italic;font-weight: bold" class="sum_row">
+                        <td colspan="2" class="disabletd">Итого по плану:</td>
+                        @for (int i = 0; i < 5; i++)
+                        {
+                            <td class="disabletd"></td>
+                        }
+                        <td columnid="Expend1" class="disabletd"><input id="expendSum1" readonly="readonly" class="form-control" /></td>
+                        <td columnid="Expend2" class="disabletd"><input id="expendSum2" readonly="readonly" class="form-control" /></td>
+                        <td columnid="Expend3" class="disabletd"><input id="expendSum3" readonly="readonly" class="form-control" /></td>
+                        <td columnid="Expend4" class="disabletd"><input id="expendSum4" readonly="readonly" class="form-control" /></td>
+                        <td columnid="Expend5" class="disabletd"><input id="expendSum5" readonly="readonly" class="form-control" /></td>
+                        <td class="disabletd">-</td>
+                    </tr>
+                    <tr style="font-style: italic;font-weight: bold" class="all_row">
+                        <td colspan="2" class="disabletd">Всего по плану:</td>
+                        <td colspan="5" class="disabletd"></td>
+                        <td colspan="5" class="disabletd"><input id="totalSum" readonly="readonly" class="form-control" /></td>
+                        <td class="disabletd">-</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div class="tab-pane" id="plantab2">
+        @Html.Partial("~/Views/SubActionPlan/TabTwoView.cshtml", @Model)
+    </div>
+    <div class="tab-pane" id="plantab3">
+        @Html.Partial("~/Views/SubActionPlan/TabThreeView.cshtml", @Model)
+    </div>
+    </div>
+        <script type="text/javascript">
+    function calcTotal() {
+        var allSum = 0;
+        for (var i = 1; i < 6; i++) {
+            var sum = 0;
+            var className = "expendSum" + i;
+            $('.' + className).each(function (index, obj) {
+                var val = $(this).val().replace(',', '.');
+                if (!isNaN(val) && val.length != 0) {
+                    sum += parseFloat(val);
+                }
+            });
+            if (sum > 0) {
+                allSum += sum;
+                $("#" + className).val(sum);
+            }
+        }
+        $("#totalSum").val(allSum);
+
+    }
+    function calcSumm() {
+        $('.kind_row').each(function (index, obj) {
+            var kindId = $(this).attr('kind_id');
+            for (var f = 1; f < 6; f++) {
+                var sum = 0;
+                var className = "expend" + f + "_" + kindId;
+                $('.' + className).each(function (index, obj) {
+                    var val = $(this).val().replace(',', '.');
+                    if (!isNaN(val) && val.length != 0) {
+                        sum += parseFloat(val);
+                    }
+                });
+                var sumColumn = className.replace('expend', 'expendSum');
+                if (sum > 0) {
+                    $("#" + sumColumn).val(sum);
+                }
+                var allSum = 0;
+                for (var x = 1; x < 6; x++) {
+                    var value = $("#expendSum" + x + "_" + className.split('_')[1]).val();
+                    if (!isNaN(value) && value.length != 0) {
+                        allSum += parseFloat(value);
+                    }
+                }
+                if (allSum > 0) {
+                    $("#allSum_" + className.split('_')[1]).val(allSum);
+                }
+            }
+
+            /**/
+
+        });
+        calcTotal();
+    }
+    function calcColumn(idColumn, fieldValue) {
+        var className = $('#' + idColumn).attr('class').split(' ')[1];
+        var sum = 0;
+        $('.' + className).each(function (index, obj) {
+            var val = $(this).val().replace(',', '.');
+
+            if (!isNaN(val) && val.length != 0) {
+                sum += parseFloat(val);
+            }
+        });
+        var sumColumn = className.replace('expend', 'expendSum');
+        $("#" + sumColumn).val(sum);
+        var allSum = 0;
+        for (var i = 1; i < 6; i++) {
+            var value = $("#expendSum" + i + "_" + className.split('_')[1]).val();
+            if (!isNaN(value) && value.length != 0) {
+                allSum += parseFloat(value);
+            }
+        }
+        $("#allSum_" + className.split('_')[1]).val(allSum);
+        // console.log($('#' + idColumn).attr('class'));
+        calcTotal();
+    }
+    function SetEventFormPlan(idcontrol) {
+        $(idcontrol).change(function () {
+            var idAttr = $(this).attr('name');
+            var fieldName = idAttr.split('.')[1];
+            var type = "string";
+            if (fieldName.indexOf("Expend") > -1) {
+                type = "float";
+            }
+            var fieldValue = $(this).val();
+            if (type == "float") {
+                if (fieldValue != null && fieldValue.length > 0) {
+                    if (fieldValue.indexOf(',') > 0) {
+                        fieldValue = fieldValue.replace(',', '.');
+                        $(this).val(fieldValue);
+                    }
+                    if (fieldValue != '' && !$.isNumeric(fieldValue)) {
+                        showWarning('@ResourceSetting.enterNumber');
+                        $(this).val("");
+                        return;
+                    }
+                    if (fieldValue.indexOf('-') > -1) {
+                        showWarning('@ResourceSetting.enterNumberNotMinus');
+                        $(this).val("");
+                        return;
+                    }
+                }
+
+                calcColumn($(this).attr('id'), fieldValue);
+            }
+
+            var row = $(this).closest('tr');
+            var entityId = row.attr('rowindex');
+            fieldName += "_" + row.attr('kind_id');
+            UpdateModel("tab1", entityId, $(this).attr('id'), fieldName, $(this).val(), type, 0);
+        });
+    }
+    //bird
+    $(document).ready(function () {
+        SetEventFormPlan(".formPlanField");
+        var beginYear = parseInt($("#BeginPlanYear").val(), 10) || 0;
+        for (var q = 0; q < 5; q++) {
+            var incol = q + 1;
+            $('#year' + incol + '_head').text(beginYear + q);
+            $('#year' + incol + '_head2').text(beginYear + q);
+            $('#year' + incol + '_tab3').text(beginYear + q);
+            $('#expend' + incol + '_head').text(beginYear + q);
+            $('#expend' + incol + '_head2').text(beginYear + q);
+        }
+
+        $("#BeginPlanYear").change(function () {
+            var fieldValue = $(this).val();
+            if (fieldValue == null) {
+                return;
+            }
+            if (fieldValue.indexOf(',') > 0 || fieldValue.indexOf('.') > 0) {
+                showWarning("Введите целое число");
+                $(this).val("");
+                return;
+            }
+            if (fieldValue != '' && !$.isNumeric(fieldValue)) {
+                showWarning('@ResourceSetting.enterNumber');
+                $(this).val("");
+                return;
+            }
+            if (fieldValue.indexOf('-') > -1) {
+                showWarning('@ResourceSetting.enterNumberNotMinus');
+                $(this).val("");
+                return;
+            }
+            var begin = parseInt(fieldValue, 10) || 0;
+            for (var w = 0; w < 5; w++) {
+                var col = w + 1;
+                $('#year' + col + '_head').text(begin + w);
+                $('#year' + col + '_head2').text(begin + w);
+                $('#expend' + col + '_head').text(begin + w);
+                $('#expend' + col + '_head2').text(begin + w);
+            }
+            UpdateModel("form4", 0, $(this).attr('id'), "BeginPlanYear", begin, "int");
+            begin = begin + 4;
+            $("#EndPlanYear").val(begin);
+
+        });
+        $("#table_plan").on("click", ".deleteRow", function () {
+            var row = $(this).closest('tr');
+            var success = function () {
+                var kind = 'tab1_' + $("#currentDataViewId").val() + '_' + row.attr('kind_code');
+                var entityId = row.attr('rowindex');
+                DeleteRecord(kind, entityId);
+                row.remove();
+            }
+            var cancel = function () {
+            };
+            showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+
+                });
+
+                $(".add-plan-btn").on("click", function () {
+                    var row = $(this).closest("tr").prev();
+                    var rowindex = parseInt(row.attr('rowindex'), 10) || 0;
+                    var kindCode = row.attr('kind_code');
+                    rowindex++;
+                    var cols = '<tr rowid="' + row.attr('rowid') + '" kind_id="' + row.attr('kind_id') + '" class="kind_row" rowindex="' + rowindex + '" kind_code="' + kindCode + '">';
+                    var kindIndex = kindCode + ".";
+                    if (rowindex < 10) {
+                        kindIndex += "0";
+                    }
+                    var kindId = row.attr('kind_id');
+                    kindIndex += rowindex;
+                    var ids = "";
+                    var idEventName = "Events_" + rowindex;
+                    cols += '<td class="disabletd">' + kindIndex + '</td>';
+                    cols += '<td><div class="input-group"><input type="text" name="SubFormTab1s[' + rowindex + '].Events" id="' + idEventName + '" class="formPlanField" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+                    for (var k = 1; k < 6; k++) {
+                        var idYear = "Year" + k + "_" + rowindex + "_" + kindId;
+                        cols += '<td><div class="input-group"><input type="text" name="SubFormTab1s[' + rowindex + '].' + 'Year' + k + ' " id="' + idYear + '" class="formPlanField" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+                        ids += "#" + idYear + ";";
+                    }
+                    for (var j = 1; j < 6; j++) {
+                        var idExpend = "Expend" + j + "_" + rowindex + "_" + kindId;
+                        cols += '<td><div class="input-group"><input type="text" name="SubFormTab1s[' + rowindex + '].' + 'Expend' + j + ' " id="' + idExpend + '" class="formPlanField expend' + j + '_' + row.attr('kind_id') + '" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+                        ids += "#" + idExpend + ";";
+                    }
+                    cols += '<td><div class="input-group"><input type="text" name="SubFormTab1s[' + rowindex + '].Note" id="Note_' + rowindex + '" class="formPlanField" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+                    cols += '<td><i class="glyphicon glyphicon-remove deleteRow"  title="@ResourceSetting.Delete"></td>';
+                    cols += "</tr>";
+                    row.after(cols);
+                    var list = ids.split(';');
+                    for (var k = 0; k < list.length; k++) {
+                        SetEventFormPlan(list[k]);
+                    }
+                });
+                calcSumm();
+            });
+        </script>

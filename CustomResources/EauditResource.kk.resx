@@ -1,0 +1,1031 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="buildingForm1Column1" xml:space="preserve">
+    <value>Параметрдің белгіленуі</value>
+    <comment>Наименование расчетных параметров</comment>
+  </data>
+  <data name="IndustryForm1Column2" xml:space="preserve">
+    <value>Атауы</value>
+    <comment>Наименование</comment>
+  </data>
+  <data name="IndustryForm1Column4" xml:space="preserve">
+    <value>Базалық жыл*</value>
+    <comment>Базовый год*</comment>
+  </data>
+  <data name="IndustryForm1Column5" xml:space="preserve">
+    <value>Ағымдағы жыл*</value>
+    <comment>Текущий год*</comment>
+  </data>
+  <data name="IndustryForm1Name" xml:space="preserve">
+    <value>Жалпы мәліметтер</value>
+    <comment>Общие сведения</comment>
+  </data>
+  <data name="IndustryForm2Column2" xml:space="preserve">
+    <value>Энергия тасымалдағыштың атауы</value>
+    <comment>Наименование энергоносителя</comment>
+  </data>
+  <data name="IndustryForm2Column4" xml:space="preserve">
+    <value>Бір жылда тұтынылған көлемі</value>
+    <comment>Потребленное количество в год</comment>
+  </data>
+  <data name="IndustryForm2Column5" xml:space="preserve">
+    <value>Аспаптың типі (маркасы)</value>
+    <comment>Тип прибора (марка)</comment>
+  </data>
+  <data name="IndustryForm2Column6" xml:space="preserve">
+    <value>Саны</value>
+    <comment>Количество</comment>
+  </data>
+  <data name="IndustryForm2Column56" xml:space="preserve">
+    <value>Коммерциялық есепке алу</value>
+    <comment>Коммерческий учет</comment>
+  </data>
+  <data name="IndustryForm2Name" xml:space="preserve">
+    <value>Энергия тасымалдағыштардың жалпы тұтынылуы</value>
+    <comment>Общее потребление энергоносителей</comment>
+  </data>
+  <data name="IndustryForm3Column2" xml:space="preserve">
+    <value>Өндіріс, цех, қосалқы стансаның нөмірі</value>
+    <comment>Производство, цех, номер подстанции</comment>
+  </data>
+  <data name="IndustryForm3Column3" xml:space="preserve">
+    <value>Пайдалануға енгізілген жыл</value>
+    <comment>Год ввода в эксплуатацию</comment>
+  </data>
+  <data name="IndustryForm3Column4" xml:space="preserve">
+    <value>Трансформатор типі</value>
+    <comment>Тип трансформатора</comment>
+  </data>
+  <data name="IndustryForm3Column5" xml:space="preserve">
+    <value>Трансформаторлар саны</value>
+    <comment>Количество трансформаторов</comment>
+  </data>
+  <data name="IndustryForm3Column6" xml:space="preserve">
+    <value>Қосалқы стансаның жиынтық қуаты кВА</value>
+    <comment>Суммарная мощность подстанции кВА</comment>
+  </data>
+  <data name="IndustryForm3Column7" xml:space="preserve">
+    <value>Жоғары/төмен кВ кернеуі</value>
+    <comment>Напряжение кВ высшее/ низшее</comment>
+  </data>
+  <data name="IndustryForm3Name" xml:space="preserve">
+    <value>Трансформаторлық қосалқы стансалар туралы мәліметтер (бар
+болған кезде толтырылады)</value>
+    <comment>Сведения о трансформаторных подстанциях (заполняется при наличии)</comment>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Ескертпе</value>
+    <comment>Примечание</comment>
+  </data>
+  <data name="tTable1SubContent" xml:space="preserve">
+    <value>1) Стоимость топливно-энергетического ресурса (ТЭР) определяется по предъявленным счетам. &lt;br /&gt;
+                                2) Определяется по формуле     Значение п. 3 / Значение п. 1 &lt;br /&gt;
+                                3) Определяется по формуле      Значение п. 1 / Значение п. 3 &lt;br /&gt;
+                                * Текущий год – календарный год, предшествующий году заключения Договора по энергоаудиту; &lt;br /&gt;
+                                * Базовый год – календарный год, предшествующий текущему году. &lt;br /&gt;</value>
+    <comment>1) Стоимость топливно-энергетического ресурса (ТЭР) определяется по предъявленным счетам. &lt;br /&gt;
+                                2) Определяется по формуле     Значение п. 3 / Значение п. 1 &lt;br /&gt;
+                                3) Определяется по формуле      Значение п. 1 / Значение п. 3 &lt;br /&gt;
+                                * Текущий год – календарный год, предшествующий году заключения Договора по энергоаудиту; &lt;br /&gt;
+                                * Базовый год – календарный год, предшествующий текущему году. &lt;br /&gt;</comment>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>Өлшем бірлігі</value>
+    <comment>Единица измерения</comment>
+  </data>
+  <data name="IndustryForm10Column10" xml:space="preserve">
+    <value>Конденсатты бұрғыштар: типі, саны</value>
+    <comment>Конденсатоотводчики: тип, количество</comment>
+  </data>
+  <data name="IndustryForm10Column11" xml:space="preserve">
+    <value>Жылуықшаулағыш құрылғылардың болуы конденсаттың температурасы оС</value>
+    <comment>Наличие теплоутилизационных устройств, температура конденсата оС </comment>
+  </data>
+  <data name="IndustryForm10Column12" xml:space="preserve">
+    <value>Ескертпе (конденсаттың ластану сипаты)</value>
+    <comment>Примечание (характеристика загрязнений конденсата)</comment>
+  </data>
+  <data name="IndustryForm10Column2" xml:space="preserve">
+    <value>Агрегатты пайдаланудың мақсаты, бағыты</value>
+    <comment>Назначение, направление использования агрегата</comment>
+  </data>
+  <data name="IndustryForm10Column3" xml:space="preserve">
+    <value>Агрегаттың атауы, энергия тасымалдаушының енгізілген жылы, типі, маркасы, түрі</value>
+    <comment>Наименование агрегата, год ввода, тип, марка, вид энергоносителя</comment>
+  </data>
+  <data name="IndustryForm10Column4" xml:space="preserve">
+    <value>Агрегаттың өндірімділігі (паспорттық) өнім бойынша.../сағ</value>
+    <comment>Производительность агрегата (паспортная) по продукту../ч</comment>
+  </data>
+  <data name="IndustryForm10Column5" xml:space="preserve">
+    <value>Саны</value>
+    <comment>Количество</comment>
+  </data>
+  <data name="IndustryForm10Column6" xml:space="preserve">
+    <value>Жұмыс қысымы МПа</value>
+    <comment>Давление рабочее МПа</comment>
+  </data>
+  <data name="IndustryForm10Column67" xml:space="preserve">
+    <value>Енгізудегі/шығарудағы жұмыс параметрлері</value>
+    <comment>Рабочие параметры на входе/на выходе</comment>
+  </data>
+  <data name="IndustryForm10Column7" xml:space="preserve">
+    <value>Жұмыс температурасы 0С</value>
+    <comment>Температура рабочая оС</comment>
+  </data>
+  <data name="IndustryForm10Column8" xml:space="preserve">
+    <value>Өнімнің бірлігіне есептегендегі жылу энергиясының меншікті шығыны Гкал/…</value>
+    <comment>Удельный расход теплоэнергии на единицу продукции Гкал/…</comment>
+  </data>
+  <data name="IndustryForm10Column9" xml:space="preserve">
+    <value>Паспорт бойынша ПӘК %</value>
+    <comment>КПД по паспорту %</comment>
+  </data>
+  <data name="IndustryForm10Name" xml:space="preserve">
+    <value>Жылу энергиясын (бу, ыстық су) пайдаланатын технологиялық жабдықтың сипаттамасы</value>
+    <comment>Характеристика технологического оборудования, использующего тепловую энергию (пар, горячая вода)</comment>
+  </data>
+  <data name="IndustryForm11Column2" xml:space="preserve">
+    <value>Объектінің атауы (цех, учаске және басқалар), жылу тасымалдағыш (бу, ыстық су)</value>
+    <comment>Наименование объекта (цех, участок и др.), теплоноситель (пар, горячая вода)</comment>
+  </data>
+  <data name="IndustryForm11Column3" xml:space="preserve">
+    <value>Технологиялық жабдық</value>
+    <comment>Технологическое оборудование</comment>
+  </data>
+  <data name="IndustryForm11Column4" xml:space="preserve">
+    <value>Жылыту</value>
+    <comment>Отопление</comment>
+  </data>
+  <data name="IndustryForm11Column456" xml:space="preserve">
+    <value>Орташа жылдық температураның, оС, және жылыту кезеңінің ұзақтығының, тәул. нақты мәндері кезінде</value>
+    <comment>При фактических значениях среднегодовой температуры, оС, и продолжительности отопительного периода, сут.</comment>
+  </data>
+  <data name="IndustryForm11Column5" xml:space="preserve">
+    <value>Ағынды желдету</value>
+    <comment>Приточная вентиляция</comment>
+  </data>
+  <data name="IndustryForm11Column6" xml:space="preserve">
+    <value>Ыстық сумен қамтамасыз ету</value>
+    <comment>Горячее водоснабжение</comment>
+  </data>
+  <data name="IndustryForm11Name" xml:space="preserve">
+    <value>{0} жылы жылу энергиясын есептік-нормативтік тұтыну</value>
+    <comment>Расчетно-нормативное потребление тепловой энергии в {0} г.</comment>
+  </data>
+  <data name="IndustryForm12Column2" xml:space="preserve">
+    <value>Кіріс/шығыс баптары</value>
+    <comment>Статьи прихода/расхода</comment>
+  </data>
+  <data name="IndustryForm12Column3" xml:space="preserve">
+    <value>Жылу тасымалдаушы</value>
+    <comment>Теплоноситель</comment>
+  </data>
+  <data name="IndustryForm12Column345" xml:space="preserve">
+    <value>Сипаттамалар, параметрлер</value>
+    <comment>Характеристики, параметры</comment>
+  </data>
+  <data name="IndustryForm12Column4" xml:space="preserve">
+    <value>Р қысым МПа</value>
+    <comment>Давление Р Мпа</comment>
+  </data>
+  <data name="IndustryForm12Column5" xml:space="preserve">
+    <value>Температура оС*</value>
+    <comment>Температура оС*</comment>
+  </data>
+  <data name="IndustryForm12Column6" xml:space="preserve">
+    <value>Жиынтық тұтыну</value>
+    <comment>Суммарное Потребление</comment>
+  </data>
+  <data name="IndustryForm12Column7" xml:space="preserve">
+    <value>Нормативтік шығындарды есепке ала отырып, есептік-нормативтік тұтыну</value>
+    <comment>Расчетно-нормативное потребление с учетом нормативных потерь</comment>
+  </data>
+  <data name="IndustryForm12Column8" xml:space="preserve">
+    <value>Шығындар: пайдалануда шарасыз/нақты</value>
+    <comment>Потери: эксплуатационно неизбежные/ факт.</comment>
+  </data>
+  <data name="IndustryForm12Column9" xml:space="preserve">
+    <value>Конденсатты қайтару</value>
+    <comment>Возврат конденсата</comment>
+  </data>
+  <data name="IndustryForm12Name" xml:space="preserve">
+    <value>{0} жылы жылу энергиясын тұтыну теңгерімі</value>
+    <comment>Баланс потребления тепловой энергии в {0} г.</comment>
+  </data>
+  <data name="IndustryForm12SubText1" xml:space="preserve">
+    <value>* Жылу тасымалдағыш болғанда «ыстық су» тік және кері судың температурасын көрсетеді.</value>
+    <comment>* При теплоносителе «горячая вода» указывают температуру прямой и обратной воды.</comment>
+  </data>
+  <data name="IndustryForm12Subtitle1" xml:space="preserve">
+    <value>Гкал (8, 10-бағаналары - пайызбен берілген)</value>
+    <comment>Гкал (графы 8, 10 — в процентах)</comment>
+  </data>
+  <data name="IndustryForm13Column2" xml:space="preserve">
+    <value>Пайдаланудың тағайындалуы, бағыты</value>
+    <comment>Назначение, направление использования</comment>
+  </data>
+  <data name="IndustryForm13Column3" xml:space="preserve">
+    <value>Агрегаттың атауы, типі, маркасы, тән өлшемі, пайдалануға берілген жылы</value>
+    <comment>Наименование агрегата, тип, марка, характерный размер, год ввода в эксплуатацию</comment>
+  </data>
+  <data name="IndustryForm13Column4" xml:space="preserve">
+    <value>Саны</value>
+    <comment>Количество</comment>
+  </data>
+  <data name="IndustryForm13Column5" xml:space="preserve">
+    <value>Өнім бойынша агрегаттың өнімділігі (паспорттық).../сағ</value>
+    <comment>Производительность агрегата (паспортная) по продукту…/ч</comment>
+  </data>
+  <data name="IndustryForm13Column6" xml:space="preserve">
+    <value>{0} ж. ішінде нақты</value>
+    <comment>фактически за {0} г.</comment>
+  </data>
+  <data name="IndustryForm13Column67" xml:space="preserve">
+    <value>Өнімнің бірлігіне есептегендегі отынның меншікті шығыны кг ш.т./…</value>
+    <comment>Удельный расход топлива на единицу продукции кг. у.т./…</comment>
+  </data>
+  <data name="IndustryForm13Column7" xml:space="preserve">
+    <value>Шығын нормативі</value>
+    <comment>Норматив расхода</comment>
+  </data>
+  <data name="IndustryForm13Column8" xml:space="preserve">
+    <value>Жылуоқшаулағыш жабдыктың атауы және қысқаша сипаттамасы, кететін газдардың температурасы 0С</value>
+    <comment>Наименование и краткая характеристика теплоутилизационного оборудования, температура отходящих газов оС</comment>
+  </data>
+  <data name="IndustryForm13Name" xml:space="preserve">
+    <value>Отын пайдаланатын агрегаттардың сипаттамасы (бар болған кезде толтырылады)</value>
+    <comment>Характеристика топливоиспользующих агрегатов (заполняется при наличии)</comment>
+  </data>
+  <data name="IndustryForm14Column2" xml:space="preserve">
+    <value>Кіріс/шығыс баптары</value>
+    <comment>Статьи прихода/расхода</comment>
+  </data>
+  <data name="IndustryForm14Column3" xml:space="preserve">
+    <value>Энергияны жиынтық пайдалану</value>
+    <comment>Суммарное потребление энергии</comment>
+  </data>
+  <data name="IndustryForm14Column4" xml:space="preserve">
+    <value>Нормативтік шығындар ескерілетін, есептік-нормативтік тұтыну</value>
+    <comment>расчетно-нормативное потребление с учетом нормативных потерь</comment>
+  </data>
+  <data name="IndustryForm14Column45" xml:space="preserve">
+    <value>Оның ішінде</value>
+    <comment>В том числе</comment>
+  </data>
+  <data name="IndustryForm14Column5" xml:space="preserve">
+    <value>Энергия шығындары: пайдалануда шарасыз/нақты</value>
+    <comment>потери энергии: эксплуатационно-неизбежные/факт.</comment>
+  </data>
+  <data name="IndustryForm14Column6" xml:space="preserve">
+    <value>Пайдалы қолдану коэффициенті</value>
+    <comment>Коэффициент полезного использования</comment>
+  </data>
+  <data name="IndustryForm14Name" xml:space="preserve">
+    <value> {0} жылы қазандық пеш отынын тұтыну теңгерімі (бар болған кезде толтырылады)</value>
+    <comment>Баланс потребления котельно-печного топлива в {0} г. (заполняется при наличии)</comment>
+  </data>
+  <data name="IndustryForm14SubTitile1" xml:space="preserve">
+    <value>(мың ш.т.-пен тұтыну)</value>
+    <comment>(Потребление в т.у.т.)</comment>
+  </data>
+  <data name="IndustryForm15Column10" xml:space="preserve">
+    <value>Отынның шығынын өлшеу тәсілі</value>
+    <comment>Способ измерения расхода топлива</comment>
+  </data>
+  <data name="IndustryForm15Column11" xml:space="preserve">
+    <value>Отынның меншікті шығыны л/(т км)</value>
+    <comment>Удельный расход топлива л/(т·км)</comment>
+  </data>
+  <data name="IndustryForm15Column2" xml:space="preserve">
+    <value>Көлік құралының атауы, (маркасы), типі, шығарылған жылы</value>
+    <comment>Наименование, (марка), тип транспортного средства, год выпуска</comment>
+  </data>
+  <data name="IndustryForm15Column3" xml:space="preserve">
+    <value>Көлік құралдарының саны</value>
+    <comment>Количество транспортных средств</comment>
+  </data>
+  <data name="IndustryForm15Column4" xml:space="preserve">
+    <value>Жүк көтергіштігі, т, жолаушылар сыйымдылығы, адам</value>
+    <comment>Грузоподъемность, т, пассажировместимость чел.</comment>
+  </data>
+  <data name="IndustryForm15Column5" xml:space="preserve">
+    <value>Пайдаланылған отынның түрі</value>
+    <comment>Вид использованного топлива</comment>
+  </data>
+  <data name="IndustryForm15Column6" xml:space="preserve">
+    <value>Паспорттағы деректер бойынша отынның меншікті шығыны л/км; л/(т км)</value>
+    <comment>Удельный расход топлива по паспортным данным л/км; л/(т·км)</comment>
+  </data>
+  <data name="IndustryForm15Column7" xml:space="preserve">
+    <value>Өту жолы, км</value>
+    <comment>Пробег км</comment>
+  </data>
+  <data name="IndustryForm15Column78" xml:space="preserve">
+    <value>Ағымдағы жылдың жылдық көрсеткіштері</value>
+    <comment>Годовые показатели текущего года</comment>
+  </data>
+  <data name="IndustryForm15Column8" xml:space="preserve">
+    <value>Жүк тасымалдау көлемі т км</value>
+    <comment>Объем грузоперевозок т. км</comment>
+  </data>
+  <data name="IndustryForm15Column9" xml:space="preserve">
+    <value>Жұмсалған отынның мөлшері,л</value>
+    <comment>Количество из расходованного топлива л.</comment>
+  </data>
+  <data name="IndustryForm15Name" xml:space="preserve">
+    <value>Көлік құралдарының мотор отындарын пайдалану сипаттамасы (бар болған кезде толтырылады)</value>
+    <comment>Характеристика использования моторных топлив транспортными средствами (заполняется при наличии)</comment>
+  </data>
+  <data name="IndustryForm4Column2" xml:space="preserve">
+    <value>Электр энергиясын пайдалану бағыты</value>
+    <comment>Направление использования электроэнергии</comment>
+  </data>
+  <data name="IndustryForm4Column3" xml:space="preserve">
+    <value>Саны</value>
+    <comment>Количество</comment>
+  </data>
+  <data name="IndustryForm4Column34" xml:space="preserve">
+    <value>Электр қозғалтқыштардың саны мен жиынтық қуаты, кВт (цехтарда, учаскелерде, өндірістерде және т.б.)</value>
+    <comment>Количество и суммарная мощность, кВт, электродвигателей (в цехах, участках, производствах и т. п.)</comment>
+  </data>
+  <data name="IndustryForm4Column4" xml:space="preserve">
+    <value>Қуаты</value>
+    <comment>Мощность</comment>
+  </data>
+  <data name="IndustryForm4Name" xml:space="preserve">
+    <value>Пайдалану бағыттары бойынша электр энергиясын тұтынушылардың
+белгіленген қуаты</value>
+    <comment>Установленная мощность потребителей электроэнергии по направлениям использования</comment>
+  </data>
+  <data name="IndustryForm5Column10" xml:space="preserve">
+    <value>Электр энергиясының үлесті шығыны нақты/норм.* кВт сағ/1000 м3</value>
+    <comment>Удельный расход электроэнергии факт/ норм.* кВт·ч/ 1000 м3</comment>
+  </data>
+  <data name="IndustryForm5Column11" xml:space="preserve">
+    <value>Салқындату жүйесі (айна лымды, су құбыры және т.б.)</value>
+    <comment>Система охлаждения (оборотное, водопроводное и т.п)</comment>
+  </data>
+  <data name="IndustryForm5Column2" xml:space="preserve">
+    <value>Цех, учаске, өндіріс, сығымдағыш типі</value>
+    <comment>Цех, участок, производство, тип компрессора</comment>
+  </data>
+  <data name="IndustryForm5Column3" xml:space="preserve">
+    <value>Пайдала нуға енгі зілген жыл</value>
+    <comment>Год ввода в эксплуатацию</comment>
+  </data>
+  <data name="IndustryForm5Column4" xml:space="preserve">
+    <value>Саны</value>
+    <comment>Количество</comment>
+  </data>
+  <data name="IndustryForm5Column5" xml:space="preserve">
+    <value>Өнімділі м3/мин</value>
+    <comment>Производительность м3/мин</comment>
+  </data>
+  <data name="IndustryForm5Column6" xml:space="preserve">
+    <value>Қысымы Мпа</value>
+    <comment>Давление Мпа</comment>
+  </data>
+  <data name="IndustryForm5Column7" xml:space="preserve">
+    <value>Электр жетектің қуаты кВт</value>
+    <comment>Мощность электропривода кВт</comment>
+  </data>
+  <data name="IndustryForm5Column8" xml:space="preserve">
+    <value>Журнал бойынша бір жыл ішіндегі сығымдағыш жұмысының уақыты сағ, жыл</value>
+    <comment>Время работы компрессора за год по журналу ч, год</comment>
+  </data>
+  <data name="IndustryForm5Column9" xml:space="preserve">
+    <value>Электр энергиясының есептік орташа жылдық шығыны МВт сағ.</value>
+    <comment>Расчетный среднегодовой расход электроэнергии МВт·ч</comment>
+  </data>
+  <data name="IndustryForm5Name" xml:space="preserve">
+    <value>Сығымдағыш жабдық туралы мәліметтер (бар болған кезде толтырылады)</value>
+    <comment>Сведения о компрессорном оборудовании заполняется при наличии)</comment>
+  </data>
+  <data name="IndustryForm5SubText1" xml:space="preserve">
+    <value>* Нормативтік (паспорттық) деректер болмаған жағдайда мынадай формуламен есептеледі:</value>
+    <comment> * В случае отсутствия нормативных (паспортных) данных рассчитывают по формуле:</comment>
+  </data>
+  <data name="IndustryForm5SubText2" xml:space="preserve">
+    <value>7*1000-бағананың мәні      (Е.1) &lt;br/&gt;
+5х60-бағананың мәні</value>
+    <comment>Значение графы 7х1000     (Е.1) &lt;br/&gt;
+Значение графы        5х60</comment>
+  </data>
+  <data name="IndustryForm6Column1" xml:space="preserve">
+    <value>Агрегат көзінің типі</value>
+    <comment>Тип агрегата источника</comment>
+  </data>
+  <data name="IndustryForm6Column2" xml:space="preserve">
+    <value>Пайдалануға енгізілген жыл</value>
+    <comment>Год ввода в эксплуатацию</comment>
+  </data>
+  <data name="IndustryForm6Column3" xml:space="preserve">
+    <value>Суық бойынша қуаты Гкал/сағ</value>
+    <comment>Мощность по холоду Гкал/ч</comment>
+  </data>
+  <data name="IndustryForm6Column4" xml:space="preserve">
+    <value>Тоңазытқыш камерадағы температура 0С</value>
+    <comment>Температура в холодильной камере оС</comment>
+  </data>
+  <data name="IndustryForm6Column5" xml:space="preserve">
+    <value>Белгіленген қуат кВт</value>
+    <comment>Установленная мощность кВт</comment>
+  </data>
+  <data name="IndustryForm6Column6" xml:space="preserve">
+    <value>Электр энергиясының меншікті шығыны, нақты/норм. кВт сағ/Гкал</value>
+    <comment>Удельный расход электроэнергии, факт./норм. кВт·ч/Гкал</comment>
+  </data>
+  <data name="IndustryForm6Column7" xml:space="preserve">
+    <value>Жұмыс режимі, жазда/қыста сағ/тәул.</value>
+    <comment>Режим работы, летом/ зимой ч/сут</comment>
+  </data>
+  <data name="IndustryForm6Column8" xml:space="preserve">
+    <value>Жылу тасымалдағыштың шығыны жазда/қыста т/сағ</value>
+    <comment>Расход теплоносителя летом/ зимой т/ч</comment>
+  </data>
+  <data name="IndustryForm6Column89" xml:space="preserve">
+    <value>Конденсатордан жылу беру жүйесі</value>
+    <comment>Система отвода тепла от конденсатора</comment>
+  </data>
+  <data name="IndustryForm6Column9" xml:space="preserve">
+    <value>Салқындату жазда/ қыста... бастап... дейін 0С</value>
+    <comment>Охлаждение летом/зимой от до … оС</comment>
+  </data>
+  <data name="IndustryForm6Name" xml:space="preserve">
+    <value>Тоңазытқыш жабдықтың сипаттамасы (бар болған кезде толтырылады)</value>
+    <comment>Характеристика холодильного оборудования (заполняется при наличии)</comment>
+  </data>
+  <data name="IndustryForm7Column10" xml:space="preserve">
+    <value>Электр энергиясын өндіруге жұмсалатын отынның үлестік шығыны г ш.т./(кВт сағ)</value>
+    <comment>Удельный расход топлива на производство электро энергии г. у.т./(кВт·ч)</comment>
+  </data>
+  <data name="IndustryForm7Column2" xml:space="preserve">
+    <value>ЖЭС пайдалануға берілген жылы</value>
+    <comment>Год ввода ТЭС в эксплуатацию</comment>
+  </data>
+  <data name="IndustryForm7Column3" xml:space="preserve">
+    <value>ЖЭС электр қуаты, жобалық/нақты кВт</value>
+    <comment>Электрическая мощность ТЭС, проектн./факт. кВт</comment>
+  </data>
+  <data name="IndustryForm7Column4" xml:space="preserve">
+    <value>ЖЭС жылу қуаты, жобалық/нақты Гкал</value>
+    <comment>Тепловая мощность ТЭС, проектн./факт. Гкал</comment>
+  </data>
+  <data name="IndustryForm7Column5" xml:space="preserve">
+    <value>Турбоагрегаттың типі</value>
+    <comment>Тип турбоагрегата</comment>
+  </data>
+  <data name="IndustryForm7Column6" xml:space="preserve">
+    <value>Турбоагрегаттардың саны</value>
+    <comment>Количество турбоагрегатов</comment>
+  </data>
+  <data name="IndustryForm7Column7" xml:space="preserve">
+    <value>Турбоагрегаттың ПӘК %</value>
+    <comment>Коэффициент полезного действия (КПД) турбоагрегата %</comment>
+  </data>
+  <data name="IndustryForm7Column8" xml:space="preserve">
+    <value>Турбоагрегатты жылдық пайдалану, жобалық/нақты сағ</value>
+    <comment>Годовое использование турбоагрегата, проектн./факт. ч.</comment>
+  </data>
+  <data name="IndustryForm7Column9" xml:space="preserve">
+    <value>Белгіленген қуатты пайдаланудың тиімділік коэффициенті, Р нақты Р белг.</value>
+    <comment>Коэффициент эффектив ности использования установленной мощности, Р факт Р уст</comment>
+  </data>
+  <data name="IndustryForm7Name" xml:space="preserve">
+    <value>Жылу электр стансасының (ЖЭС) негізгі жабдығының құрамы мен жұмысы туралы мәліметтер (бар болған кезде толтырылады)</value>
+    <comment>Сведения о составе и работе основного оборудования теплоэлектростанции (ТЭС) (заполняется при наличии)</comment>
+  </data>
+  <data name="IndustryForm8Column2" xml:space="preserve">
+    <value>Кіріс/шығыс баптары</value>
+    <comment>Статьи прихода/расхода</comment>
+  </data>
+  <data name="IndustryForm8Column4" xml:space="preserve">
+    <value>Оның ішінде нормативтік шығыстарды есепке алып есептік-нормативтік тұтыну</value>
+    <comment>В том числе расчетно-нормативное потребление с учетом нормативных потерь</comment>
+  </data>
+  <data name="IndustryForm8Name" xml:space="preserve">
+    <value>{0} жылы электр энергиясын тұтыну теңгерімі/ Базалық жылы электр энергиясын тұтыну теңгерімі</value>
+    <comment>Баланс потребления электроэнергии в {0} г./ Баланс электрической энергии в базовом году</comment>
+  </data>
+  <data name="IndustryForm8SubText1" xml:space="preserve">
+    <value>* Электр энергиясын зауыт ішінде есепке алу болған кезде «Шығын» бабында 2-бағанада толтырылады.</value>
+    <comment>* При наличии внутризаводского учета электроэнергии в статье «Расход» заполняется и графа 2</comment>
+  </data>
+  <data name="IndustryForm8Subtitle2" xml:space="preserve">
+    <value>МВт сағ (5-бағана - пайыздармен).</value>
+    <comment>МВтхч (графа 5 — в процентах).</comment>
+  </data>
+  <data name="IndustryForm8Column3" xml:space="preserve">
+    <value>Жиынтық тұтыну</value>
+    <comment>Суммарное потребление</comment>
+  </data>
+  <data name="IndustryForm9Column10" xml:space="preserve">
+    <value>Коммерциялық есепке алу бойынша отынның жылдық шығыны мың т. ш.т.</value>
+    <comment>Годовой расход топлива по коммерческому учету тыс. т.у.т.</comment>
+  </data>
+  <data name="IndustryForm9Column11" xml:space="preserve">
+    <value>Құралмен есепке алу бойынша жылудың жылдық өндірілуі Гкал</value>
+    <comment>Годовая выработка тепла по приборному учету Гкал</comment>
+  </data>
+  <data name="IndustryForm9Column2" xml:space="preserve">
+    <value>Қазандық агрегатының типі</value>
+    <comment>Тип котло агрегата</comment>
+  </data>
+  <data name="IndustryForm9Column3" xml:space="preserve">
+    <value>Пайдалануға берілген жылы</value>
+    <comment>Год ввода в эксплуатацию</comment>
+  </data>
+  <data name="IndustryForm9Column4" xml:space="preserve">
+    <value>Саны</value>
+    <comment>Количество</comment>
+  </data>
+  <data name="IndustryForm9Column5" xml:space="preserve">
+    <value>Өнімділік, жобалық/нақты т/сағ, Гкал/сағ</value>
+    <comment>Производительность, проектн./факт. т/ч, Гкал/ч</comment>
+  </data>
+  <data name="IndustryForm9Column6" xml:space="preserve">
+    <value>Қысым, жұм./нақты МПа</value>
+    <comment>Давление, раб./факт. Мпа</comment>
+  </data>
+  <data name="IndustryForm9Column7" xml:space="preserve">
+    <value>Соңғы сынақтардың деректері бойынша «таза салмағының» ПӘК %</value>
+    <comment>КПД «брутто» по данным последних испытаний %</comment>
+  </data>
+  <data name="IndustryForm9Column8" xml:space="preserve">
+    <value>Паспорт бойынша ПӘК %</value>
+    <comment>КПД по паспорту %</comment>
+  </data>
+  <data name="IndustryForm9Column9" xml:space="preserve">
+    <value>Жылу өндіруге отынның үлес шығысы нақты/қалыпты кг ш.т./Гкал</value>
+    <comment>Удельный расход топлива на выработку тепла факт./ норм. кг у.т./ Гкал</comment>
+  </data>
+  <data name="IndustryForm9Name" xml:space="preserve">
+    <value>Қазандықтың құрамы мен жұмысы туралы мәліметтер (бар болған кезде толтырылады)</value>
+    <comment>Сведения о составе и работе котельной (заполняется при наличии)</comment>
+  </data>
+  <data name="IndustryForm9Subtitle1" xml:space="preserve">
+    <value>Отын: негізгі - табиғи газ</value>
+    <comment>Топливо: основное — природный газ</comment>
+  </data>
+  <data name="IndustryForm9Subtitle2" xml:space="preserve">
+    <value>резервтік</value>
+    <comment>резервное </comment>
+  </data>
+  <data name="IndustryForm15Column12" xml:space="preserve">
+    <value>Алынған отынның мөлшері, л</value>
+    <comment>Количество полученного топлива</comment>
+  </data>
+  <data name="IndustryForm15Column13" xml:space="preserve">
+    <value>Отынның кемулері</value>
+    <comment>Потери топлива</comment>
+  </data>
+  <data name="IndustryForm16Column2" xml:space="preserve">
+    <value>Кіріс/шығыс баптары</value>
+    <comment>Статьи прихода/расхода</comment>
+  </data>
+  <data name="IndustryForm16Column3" xml:space="preserve">
+    <value>Жиынтық тұтыну л</value>
+    <comment>Суммарное потребление л.</comment>
+  </data>
+  <data name="IndustryForm16Column4" xml:space="preserve">
+    <value>Есептік нормативтік тұтыну л</value>
+    <comment>Расчетно-нормативное потребление л</comment>
+  </data>
+  <data name="IndustryForm16Column5" xml:space="preserve">
+    <value>шарасыз</value>
+    <comment>Неизбежные</comment>
+  </data>
+  <data name="IndustryForm16Column56" xml:space="preserve">
+    <value>Кемулер, л</value>
+    <comment>Потери, л.</comment>
+  </data>
+  <data name="IndustryForm16Column6" xml:space="preserve">
+    <value>нақты</value>
+    <comment>Фактические</comment>
+  </data>
+  <data name="IndustryForm16Column7" xml:space="preserve">
+    <value>Нақты меншікті шығын л/(т км)</value>
+    <comment>Фактический удельный расход л/(т·км)</comment>
+  </data>
+  <data name="IndustryForm16Name" xml:space="preserve">
+    <value>Мотор отындарын тұтыну теңгерімі (бар болған кезде толтырылады)</value>
+    <comment>Баланс потребления моторных топлив (заполняется при наличии)</comment>
+  </data>
+  <data name="IndustryForm17Column2" xml:space="preserve">
+    <value>Сипаттама атауы</value>
+    <comment>Наименование характеристики</comment>
+  </data>
+  <data name="IndustryForm17Column4" xml:space="preserve">
+    <value>Сипаттаманың мәні</value>
+    <comment>Значение характеристики</comment>
+  </data>
+  <data name="IndustryForm17Name" xml:space="preserve">
+    <value>Қайталама энергия ресурстарын, балама (жергілікті) отындарды және жаңартылатын энергия көздерін пайдалану туралы мәліметтер (бар болған кезде толтырылады)</value>
+    <comment>Сведения об использовании вторичных энергоресурсов (ВЭР), альтернативных (местных)топлив и возобновляемых источников энергии (заполняется при наличии)</comment>
+  </data>
+  <data name="IndustryForm18Column2" xml:space="preserve">
+    <value>Энергия тасымалдаушылардың түрлері және өнімнің (жұмыстың) атауы</value>
+    <comment>Виды энергоносителей и наименование продукции (работ)</comment>
+  </data>
+  <data name="IndustryForm18Column4" xml:space="preserve">
+    <value>Базалық жыл: жалпы зауыттағы/цехтағы нақты үлестік шығысы</value>
+    <comment>Базовый год: фактический удельный расход общезаводской/ цеховой</comment>
+  </data>
+  <data name="IndustryForm18Column5" xml:space="preserve">
+    <value>Ағымдағы жыл</value>
+    <comment>текущий год</comment>
+  </data>
+  <data name="IndustryForm18Column56789" xml:space="preserve">
+    <value>Зерттеу {0} жылы өндіру көлемі кезінде энергияны үнемдеу бағдарламасын есепке ала отырып, өнімнің түрлері бойынша энергия тасымалдаушылардың есептік үлестік шығындары (нормативтері)</value>
+    <comment>Расчетные удельные расходы энергоносителей (нормативы) по видам продукции с учетом реализации программы энергосбережения при объеме производства в {0} г. Обследования</comment>
+  </data>
+  <data name="IndustryForm18Name" xml:space="preserve">
+    <value>Шығарылатын өнімге ОЭР үлестік шығыны</value>
+    <comment>Удельный расход ТЭР на выпускаемую продукцию</comment>
+  </data>
+  <data name="IndustryForm19Column2" xml:space="preserve">
+    <value>Іс-шаралар атауы, энергия ресурсының түрі</value>
+    <comment>Наименование мероприятий, вид энергоресурса</comment>
+  </data>
+  <data name="IndustryForm19Column3" xml:space="preserve">
+    <value>Шығыстар мың тг</value>
+    <comment>Затраты тыс. тг.</comment>
+  </data>
+  <data name="IndustryForm19Column4" xml:space="preserve">
+    <value>заттай түрінде</value>
+    <comment>в натуральном выражении</comment>
+  </data>
+  <data name="IndustryForm19Column45" xml:space="preserve">
+    <value>Отын-энергетикалық ресурстардың жылдық үнемдеу</value>
+    <comment>Годовая экономия топливно-энергетических ресурсов</comment>
+  </data>
+  <data name="IndustryForm19Column5" xml:space="preserve">
+    <value>Ақшалай түрінде, мың тг (тариф бойынша)</value>
+    <comment>в стоимостном выражении тыс. тг. (по тарифу)</comment>
+  </data>
+  <data name="IndustryForm19Column6" xml:space="preserve">
+    <value>Енгізудің келісілген мерзімі тоқсан, жыл</value>
+    <comment>Согласованный срок внедрения квартал, год</comment>
+  </data>
+  <data name="IndustryForm19Column7" xml:space="preserve">
+    <value>Өтелу мерзімі</value>
+    <comment>Срок окупаемости</comment>
+  </data>
+  <data name="IndustryForm19Name" xml:space="preserve">
+    <value>Энергия үнемдеу іс-шараларының тізбесі</value>
+    <comment>Перечень энергосберегающих мероприятий</comment>
+  </data>
+  <data name="l" xml:space="preserve">
+    <value>Нақты мәні</value>
+    <comment>Фактическое значение</comment>
+  </data>
+  <data name="BuildingForm1Column2" xml:space="preserve">
+    <value>Есептiк параметрлердiң атауы</value>
+    <comment>Наименование расчетных параметров</comment>
+  </data>
+  <data name="BuildingForm1Column3" xml:space="preserve">
+    <value>Параметрдің белгіленуі</value>
+    <comment>Обозначение параметра</comment>
+  </data>
+  <data name="BuildingForm1Column5" xml:space="preserve">
+    <value>Есептік мәні</value>
+    <comment>Расчетное значение</comment>
+  </data>
+  <data name="BuildingForm1Name" xml:space="preserve">
+    <value>Есептік шарттар</value>
+    <comment>Расчетные условия</comment>
+  </data>
+  <data name="BuildingForm2Name" xml:space="preserve">
+    <value>Геометриялық көрсеткіштер</value>
+    <comment>Показатели геометрические</comment>
+  </data>
+  <data name="BuildingForm3Name" xml:space="preserve">
+    <value>Жылу техникалық көрсеткіштер</value>
+    <comment>Показатели теплотехнические</comment>
+  </data>
+  <data name="BuildingForm4Name" xml:space="preserve">
+    <value>Қосалқы көрсеткіштер</value>
+    <comment>Показатели вспомогательные</comment>
+  </data>
+  <data name="BuildingForm5Name" xml:space="preserve">
+    <value>Үлестік сипаттамалары</value>
+    <comment>Удельные характеристики</comment>
+  </data>
+  <data name="BuildingForm6Name" xml:space="preserve">
+    <value>Коэффициенттері</value>
+    <comment>Коэффициенты</comment>
+  </data>
+  <data name="BuildingForm7Name" xml:space="preserve">
+    <value>Энергия тиiмдiлiгінiң кешендi көрсеткiштерi</value>
+    <comment>Комплексные показатели энергоэффективности</comment>
+  </data>
+  <data name="BuildingForm8Column1" xml:space="preserve">
+    <value>ОБЪЕКТ</value>
+    <comment>ОБЪЕКТІ</comment>
+  </data>
+  <data name="BuildingForm8Column10" xml:space="preserve">
+    <value>Объектінің нақты жылу тұтынуы</value>
+    <comment>Фактическое теплопотребление объекта</comment>
+  </data>
+  <data name="BuildingForm8Column2" xml:space="preserve">
+    <value>ТАПСЫРЫС БЕРУШІ</value>
+    <comment>ЗАКАЗЧИК</comment>
+  </data>
+  <data name="BuildingForm8Column3" xml:space="preserve">
+    <value>ОБЪЕКТІНІҢ МЕКЕНЖАЙЫ</value>
+    <comment>АДРЕС ОБЪЕКТА</comment>
+  </data>
+  <data name="BuildingForm8Column4" xml:space="preserve">
+    <value>САЛЫНҒАН ЖЫЛЫ</value>
+    <comment>ГОД ПОСТРОЙКИ</comment>
+  </data>
+  <data name="BuildingForm8Column5" xml:space="preserve">
+    <value>ТИПІ</value>
+    <comment>ТИП</comment>
+  </data>
+  <data name="BuildingForm8Column6" xml:space="preserve">
+    <value>ЖАЛПЫ АУДАНЫ, м2</value>
+    <comment>ОБЩАЯ ПЛОЩАДЬ, м2</comment>
+  </data>
+  <data name="BuildingForm8Column7" xml:space="preserve">
+    <value>ЖЫЛЫТЫЛАТЫН АУДАНЫ, м2</value>
+    <comment>ОТАПЛИВАЕМАЯ ПЛОЩАДЬ, м2</comment>
+  </data>
+  <data name="BuildingForm8Column8" xml:space="preserve">
+    <value>БЕРІЛГЕН ЭНЕРГИЯ ТИІМДІЛІГІ СЫНЫБЫ</value>
+    <comment>ПРИСВОЕННЫЙ КЛАСС ЭНЕРГОЭФФЕКТИВНОСТИ</comment>
+  </data>
+  <data name="BuildingForm8Column9" xml:space="preserve">
+    <value>Объектінің нормативтік жылу тұтынуы*</value>
+    <comment>Нормативное теплопотребление объекта *</comment>
+  </data>
+  <data name="BuildingForm8Name" xml:space="preserve">
+    <value>Ғимараттың энергия тиімділігі сыныбының көрсеткіші</value>
+    <comment>Показатель класса энергоэффективности здания.</comment>
+  </data>
+  <data name="BuildingForm8SubText" xml:space="preserve">
+    <value>* ҚР СН 2.04-04-2011 сәйкес, ғимараттың аталған типі үшін белгіленген жылуды тұтыну жөніндегі нормативтік талаптар</value>
+    <comment>*Нормативные требования по теплопотреблению установлены для данного типа здания, согласно СН РК 2.04-04-2011 Тепловая защита зданий</comment>
+  </data>
+  <data name="BuildingForm9Column3" xml:space="preserve">
+    <value>Белгі</value>
+    <comment>Обозначения</comment>
+  </data>
+  <data name="BuildingForm9Column5" xml:space="preserve">
+    <value>Мөлшері</value>
+    <comment>Величина</comment>
+  </data>
+  <data name="BuildingForm9Name" xml:space="preserve">
+    <value>Ғимараттың энергетикалық жүктемелерi</value>
+    <comment>Энергетические нагрузки здания</comment>
+  </data>
+  <data name="DesignationAndUnit" xml:space="preserve">
+    <value>Белгі және өлшем бірлігі</value>
+    <comment>Обозначение и единица измерения</comment>
+  </data>
+  <data name="EstimatedProjectValue" xml:space="preserve">
+    <value>Жобалық есептік мәні</value>
+    <comment>Расчетное проектное значение</comment>
+  </data>
+  <data name="IBuildingForm1Column10" xml:space="preserve">
+    <value>Жабын</value>
+    <comment>Покрытие</comment>
+  </data>
+  <data name="IBuildingForm1Column11" xml:space="preserve">
+    <value>Терезелер</value>
+    <comment>Окна</comment>
+  </data>
+  <data name="IBuildingForm1Column12" xml:space="preserve">
+    <value>Нақты (Есепті) 2</value>
+    <comment>Фактическая (Расчетная)2</comment>
+  </data>
+  <data name="IBuildingForm1Column1213" xml:space="preserve">
+    <value>Үлестік жылыту сипаттамасы, Вт/м3 0С</value>
+    <comment>Удельная отопительная характеристика, Вт/м3оС</comment>
+  </data>
+  <data name="IBuildingForm1Column13" xml:space="preserve">
+    <value>Нормативті 3</value>
+    <comment>Нормативная3</comment>
+  </data>
+  <data name="IBuildingForm1Column14" xml:space="preserve">
+    <value>Жылытуға және желдетуге</value>
+    <comment>На отопление и вентиляцию</comment>
+  </data>
+  <data name="IBuildingForm1Column1415" xml:space="preserve">
+    <value>Жылу энергиясын тұтыну есебі жүйесінің деректеріне сәйкес жылу энергиясының жылдық жиынтық шығыны, Гкал/жыл</value>
+    <comment>Суммарный годовой расход тепловой энергии, согласно данных систем учета потребления тепловой энергии, Гкал/год</comment>
+  </data>
+  <data name="IBuildingForm1Column15" xml:space="preserve">
+    <value>Ыстық сумен қамтамасыз ету жүйесіне</value>
+    <comment>На систему горячего водоснабжения</comment>
+  </data>
+  <data name="IBuildingForm1Column16" xml:space="preserve">
+    <value>Үлестік жылыту сипаттамасының нормативті сипаттамадан нақты (есепті) мәнінің ауытқушылығы, % 4</value>
+    <comment>Отклонение фактического  (расчетного) значения удельной отопительной характеристики от нормативной, %4</comment>
+  </data>
+  <data name="IBuildingForm1Column2" xml:space="preserve">
+    <value>Ғимараттың атауы / міндеті</value>
+    <comment>Наименование / назначение здания</comment>
+  </data>
+  <data name="IBuildingForm1Column3" xml:space="preserve">
+    <value>Пайдалануға енгізілген жыл</value>
+    <comment>Год ввода в эксплуатацию</comment>
+  </data>
+  <data name="IBuildingForm1Column4" xml:space="preserve">
+    <value>Жылытыла-тын алаң, м2</value>
+    <comment>Отапливаемая площадь, м2</comment>
+  </data>
+  <data name="IBuildingForm1Column4567891011" xml:space="preserve">
+    <value>Жалпы сипаттамасы</value>
+    <comment>Общие характеристики</comment>
+  </data>
+  <data name="IBuildingForm1Column5" xml:space="preserve">
+    <value>Периметрі, м</value>
+    <comment>Периметр, м</comment>
+  </data>
+  <data name="IBuildingForm1Column6" xml:space="preserve">
+    <value>Биіктігі, м</value>
+    <comment>Высота, м</comment>
+  </data>
+  <data name="IBuildingForm1Column7" xml:space="preserve">
+    <value>Ішкі температура, 0С</value>
+    <comment>Внутренняя температура, оС</comment>
+  </data>
+  <data name="IBuildingForm1Column8" xml:space="preserve">
+    <value>Қабырғалар</value>
+    <comment>Стены</comment>
+  </data>
+  <data name="IBuildingForm1Column891011" xml:space="preserve">
+    <value>Жылу беріліміне келтірілген кедергілер, м2 0С/Вт 1</value>
+    <comment>Приведенное сопротивление теплопередаче, м2оС/Вт 1</comment>
+  </data>
+  <data name="IBuildingForm1Column9" xml:space="preserve">
+    <value>Еден</value>
+    <comment>Пол</comment>
+  </data>
+  <data name="IBuildingForm1Name" xml:space="preserve">
+    <value>Үйлер, құрылыстар, ғимараттары бар өнеркәсіптік кәсіпорындар үшін есептік ақпарат</value>
+    <comment>Отчетная информация для промышленных предприятий, имеющих здания, строения, сооружения</comment>
+  </data>
+  <data name="IBuildingForm1SubText1" xml:space="preserve">
+    <value>1 – Қоршаған конструкциялар материаларындың қалыңдығынан және оның жылу өткізгіштігінен айқындалады.</value>
+    <comment>1 Определяется из толщины материалов ограждающих конструкций и их теплопроводности.</comment>
+  </data>
+  <data name="IBuildingForm1SubTitle1" xml:space="preserve">
+    <value>Жылыту маусымының ұзақтығы, z__________тәулік;</value>
+    <comment>Продолжительность отопительного периода, z__________суток;</comment>
+  </data>
+  <data name="IBuildingForm1SubTitle11" xml:space="preserve">
+    <value>Базалық жылдың жылыту кезеңіндегі сыртқы ауаның орташа температурасы, tн.ср. _______0С</value>
+    <comment>Средняя температура наружного воздуха за отопительный период базового года, tн.ср. _______оС</comment>
+  </data>
+  <data name="Index" xml:space="preserve">
+    <value>Көрсеткіш</value>
+    <comment>Показатель</comment>
+  </data>
+  <data name="NormativeValue" xml:space="preserve">
+    <value>Нормативтік мәні</value>
+    <comment>Нормативное значение</comment>
+  </data>
+  <data name="RatedValue" xml:space="preserve">
+    <value>Көрсеткіштің нормаланатын мәні</value>
+    <comment>Нормируемое значение</comment>
+  </data>
+  <data name="Buildings" xml:space="preserve">
+    <value>Үйлер, құрылыстар, ғимараттар</value>
+    <comment>Здания, строения, сооружения</comment>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Атауы</value>
+    <comment>Название</comment>
+  </data>
+  <data name="BuildingForm8Column51" xml:space="preserve">
+    <value>ҚАБАТТЫЛЫҒЫ</value>
+    <comment>ЭТАЖНОСТЬ</comment>
+  </data>
+  <data name="IBuildingForm1Column31" xml:space="preserve">
+    <value>Тозу %</value>
+    <comment>Износ %</comment>
+  </data>
+  <data name="FSCode" xml:space="preserve">
+    <value>Меншік түрі</value>
+  </data>
+</root>

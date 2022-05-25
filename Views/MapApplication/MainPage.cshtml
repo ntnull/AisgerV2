@@ -1,0 +1,87 @@
+﻿@model Aisger.Models.MAP_Application
+<style type="text/css">.main-input { width: 400px}
+       .from-float {
+        text-align: right
+    }</style>
+<div class="clearfixmandatory">
+    @Html.LabelFor(model => model.ProjectName)
+    <div class="input">
+        @Html.TextBoxFor(model => model.ProjectName, new { @class = "form-control main-input  form-edit" })
+        @Html.ValidationMessageFor(model => model.ProjectName)
+    </div>
+</div>
+<div class="clearfixmandatory">
+    @Html.LabelFor(model => model.ProjectObjective)
+    <div class="input">
+        @Html.TextAreaFor(model => model.ProjectObjective, new { @class = "form-control main-input  form-edit" })
+        @Html.ValidationMessageFor(model => model.ProjectObjective)
+    </div>
+</div>
+<div class="clearfixmandatory">
+    @Html.LabelFor(model => model.ProjectLocation)
+    <div class="input">
+        @Html.TextAreaFor(model => model.ProjectLocation, new { @class = "form-control main-input  form-edit" })
+        @Html.ValidationMessageFor(model => model.ProjectLocation)
+    </div>
+</div>
+<div class="clearfixmandatory" style="margin-bottom: 15px">
+    @Html.LabelFor(model => model.EstimatedPeriod)
+    <div class="input">
+        @Html.TextBoxFor(model => model.EstimatedPeriod, new { @class = "form-control main-input form-edit" })
+        @Html.ValidationMessageFor(model => model.EstimatedPeriod)
+    </div>
+</div>
+<div class="clearfixmandatory">
+    @Html.LabelFor(model => model.ExpectedResult)
+    <div class="input">
+        @Html.TextAreaFor(model => model.ExpectedResult, new { @class = "form-control main-input form-edit" })
+        @Html.ValidationMessageFor(model => model.ExpectedResult)
+    </div>
+</div>
+<div class="clearfixmandatory">
+    @Html.LabelFor(model => model.CurrentState)
+    <div class="input">
+        @Html.TextAreaFor(model => model.CurrentState, new { @class = "form-control main-input form-edit" })
+        @Html.ValidationMessageFor(model => model.CurrentState)
+    </div>
+</div>
+<div class="clearfixmandatory">
+    @Html.LabelFor(model => model.TotalCost)
+    <div class="input">
+        @Html.TextBoxFor(model => model.TotalCost, new { @class = "form-control main-input form-edit from-float" })
+        @Html.ValidationMessageFor(model => model.TotalCost)
+    </div>
+</div>
+
+<script type="text/javascript">
+    function formatNumber(num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ");
+    }
+    function replaceAll1(find, replace, str) {
+        while (str.indexOf(find) > -1) {
+            str = str.replace(find, replace);
+        }
+        return str;
+    }
+    function floatChange(idcontrol) {
+        $(idcontrol).change(function () {
+            var valueField = $(this).val();
+            /*if (valueField.indexOf(',') > 0) {
+                valueField = valueField.replace(',', '.');
+            }*/
+            if (valueField.length > 0) {
+                $(this).val(formatNumber(valueField));
+            }
+            if ($(this).hasClass('plan-expend-cell')) {
+                calcSumEvent();
+            }
+        });
+    }
+    $(document).ready(function () {
+        $('.from-float').each(function () {
+            $(this).val(formatNumber($(this).val()));
+        });
+        floatChange(".from-float");
+     
+    });
+</script>

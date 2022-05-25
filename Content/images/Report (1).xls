@@ -1,0 +1,39 @@
+
+                <table style="width : 100%" class="reportCss table">
+                    <thead style="text-align: center">
+                        <tr>
+                            <td style="border:1px solid black;" rowspan="2">№</td>
+                            <td style="border:1px solid black;" rowspan="2">Исполнитель</td>
+                            <td style="border:1px solid black;" colspan="3">Кол-во обращении</td>
+                            <td style="border:1px solid black;" colspan="3">Кол-во дней исполнения</td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid black;">всего</td>
+                            <td style="border:1px solid black;">из них просроченные</td>
+                            <td style="border:1px solid black;">из них отказанные</td>
+                            
+                            <td style="border:1px solid black;">Максимальное</td>
+                            <td style="border:1px solid black;">Минимальное</td>
+                            <td style="border:1px solid black;">Среднее </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    
+                    <tr>
+                        <td style="border:1px solid black;">1</td>
+                        <td style="border:1px solid black;">Константинов Константин Константинович</td>
+                        <td style="border:1px solid black;">2</td>
+                        <td style="border:1px solid black;">
+                            0
+                        </td>
+                        <td style="border:1px solid black;">0</td>
+
+                        <td style="border:1px solid black;">0</td>
+                        <td style="border:1px solid black;">-26</td>
+                        <td style="border:1px solid black;">-13</td>
+                       
+                    </tr>
+
+                    </tbody>
+                </table>
+            

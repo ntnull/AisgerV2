@@ -1,0 +1,160 @@
+﻿@using System.Globalization
+@using Aisger
+@using Aisger.Models
+@model Aisger.Models.MAP_Application
+@{
+    ViewBag.Title = ResourceSetting.MAP_Application;
+}
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+<style type="text/css">
+    .clearfixmandatory {
+        margin-bottom: 10px;
+    }
+
+  
+</style>
+
+
+<div id="B">
+    @Html.Partial("~/Views/Home/TitleItem.cshtml", ResourceSetting.MapEnergy + "," + ResourceSetting.MapInpbox)
+
+    <div id="wrapper_grid" style="margin-left: 50px;box-sizing:border-box">
+        @Html.Partial("~/Views/RegisterForm/ApplicantInfo.cshtml", @Model.SEC_User1)
+@using (Html.BeginForm("Design", "MapInpbox", FormMethod.Post, new { id = "demoForm", name = "demoForm", enctype = "multipart/form-data" }))
+        {
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.CreateDate)
+    @Html.HiddenFor(model => model.AppNumber)
+    @Html.HiddenFor(model => model.UserId)
+    <div class="row">
+
+
+        <div class="col-sm-4">
+            @Html.LabelFor(model => model.SendDateStr)
+            @Html.TextBoxFor(model => model.SendDateStr, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+        <div class="col-sm-4">
+            @Html.LabelFor(model => model.DeadlineStr)
+            @Html.TextBoxFor(model => model.DeadlineStr, new { @class = "form-control", id = "datepicker1" })
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-sm-4">
+            @Html.Label(ResourceSetting.RstDicStatus)
+            @Html.DropDownList("StatusId", (IEnumerable<SelectListItem>)(ViewData["statusList"]), String.Empty, new { @style = "width: 300px" })
+            @Html.ValidationMessageFor(model => model.StatusId)
+        </div>
+        <div class="col-sm-4">
+            @Html.Label(ResourceSetting.Executer)
+            @Html.DropDownList("Editor", (IEnumerable<SelectListItem>)(ViewData["UserList"]), String.Empty, new { @style = "width: 300px" })
+            @Html.ValidationMessageFor(model => model.Editor)
+        </div>
+
+        <div class="col-sm-4">
+            @Html.Label("Дата")
+            @Html.TextBoxFor(model => model.DesignDateStr, new { @class = "form-control", id = "datepicker" })
+        </div>
+    </div>
+
+
+            <div>
+
+                <div class="input" style="margin-left: 0;">
+                    <textarea cols="20" id="DesignNote" name="DesignNote" rows="2" placeholder="@ResourceSetting.Description" style="width: 100%; height: 100px;">@Model.DesignNote</textarea>
+                </div>
+            </div>
+  
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active"><a data-target="#mainTab" data-toggle="tab">@ResourceSetting.Main</a></li>
+            <li><a data-target="#productTab" data-toggle="tab">@ResourceSetting.PruductService</a></li>
+            <li><a data-target="#eventTab" data-toggle="tab">@ResourceSetting.EventPage</a></li>
+            @if (Model.MAP_ApplicationHistory != null && Model.MAP_ApplicationHistory.Count > 0)
+            {
+                <li><a data-target="#historyTab" data-toggle="tab">@ResourceSetting.History</a></li>
+            }
+        </ul>
+        <div class="tab-content">
+
+            <div class="tab-pane active" id="mainTab">
+                @Html.Partial("~/Views/MapApplication/MainPage.cshtml", @Model)
+                <table id="fileTable" class="file_list" style="margin-top: 20px">
+
+                    <tbody>
+                        @if (Model.AttachFiles != null)
+                        {
+                            for (int i = 0; i < Model.AttachFiles.Count; i++)
+                            {
+                                <tr>
+
+                                    <td>
+                                        <input type="hidden" name="AttachFiles" value="@Model.AttachFiles[i]" />
+                                        <a href="@Url.Action("ShowFile", "MapApplication", new { id = @Model.Id })">
+                                            @Model.AttachFiles[i]
+                                        </a>
+
+                                    </td>
+
+
+                                </tr>
+                            }
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="tab-pane" id="productTab">
+                @Html.Partial("~/Views/MapApplication/ProductsPage.cshtml", @Model)
+            </div>
+            <div class="tab-pane" id="eventTab">
+                @Html.Partial("~/Views/MapApplication/EventsPage.cshtml", @Model)
+            </div>
+            @if (Model.MAP_ApplicationHistory != null && Model.MAP_ApplicationHistory.Count > 0)
+            {
+                <div class="tab-pane" id="historyTab">
+                    @Html.Partial("~/Views/MapApplication/HistoryPage.cshtml", @Model)
+                </div>
+            }
+        </div>
+    <button id="saveUpdate" type="submit" name="SaveUpdate" value="SaveUpdate" style="visibility: hidden;"></button>
+
+        }
+<div>
+    <button type="button" class="btn btn-success btn-lg" onclick="history.go(-1);return false;">
+        <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Back
+    </button>
+    <button id="saveBtn" type="button" class="btn btn-success btn-lg" onclick=" SaveChange() " style="float: right; margin-right: 30px">
+        <span class="glyphicon glyphicon-save" aria-hidden="true"></span> @ResourceSetting.Save
+    </button>
+</div>
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        $(".form-edit").prop("readonly", true);
+        $(".deleteRow").remove();
+        $("#addCoordrrow").remove();
+        $("#addevent").remove();
+
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#datepicker").datepicker({
+            format: 'dd/mm/yyyy',
+            language: 'ru',
+            autoclose: true
+        });
+        $("#datepicker1").datepicker({
+            format: 'dd/mm/yyyy',
+            language: 'ru',
+            autoclose: true
+        });
+    });
+</script>

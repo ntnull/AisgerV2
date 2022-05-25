@@ -1,0 +1,28 @@
+﻿@using System.Text
+@using Aisger
+@model IEnumerable<Aisger.Models.MAP_Application>
+@foreach (var entity in Model)
+{
+   
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            @ResourceSetting.AppNumber : @entity.AppNumber
+            <a style="color: white; float: right" href="@Url.Action("ShowDetails", "MapApplication", new { id = @entity.Id })" target="_blank"><span class="glyphicon glyphicon-search"></span> Подробнее...</a>
+        </div>
+        <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item"><span class="title-label">@ResourceSetting.ProjectName: </span>@entity.ProjectName</li>
+                        <li class="list-group-item"><span class="title-label">@ResourceSetting.ProjectObjective: </span>@entity.ProjectObjective</li>
+                        <li class="list-group-item"><span class="title-label">@ResourceSetting.ProjectLocation: </span>@entity.ProjectLocation</li>
+                        <li class="list-group-item"><span class="title-label">@ResourceSetting.EstimatedPeriod: </span>@entity.EstimatedPeriod</li>
+                        <li class="list-group-item"><span class="title-label">@ResourceSetting.ExpectedResult: </span>@entity.ExpectedResult</li>
+                        <li class="list-group-item"><span class="title-label">@ResourceSetting.CurrentState: </span>@entity.CurrentState</li>
+                        <li class="list-group-item"><span class="title-label">@ResourceSetting.TotalCost: </span>@entity.TotalCost</li>
+                        <li class="list-group-item"><span class="title-label">@ResourceSetting.RstDicStatus: </span>@entity.MAP_DIC_Status.NameRu</li>
+                        <li class="list-group-item"><span class="title-label">@ResourceSetting.SendDate: </span>@entity.SendDateStr</li>
+                    </ul>
+         
+            </div>
+        
+    </div>
+}

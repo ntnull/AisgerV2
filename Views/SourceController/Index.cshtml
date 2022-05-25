@@ -1,0 +1,269 @@
+﻿@using Aisger
+@using Aisger.Utils
+@using GridMvc.Html
+@using GridMvc.Sorting
+
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+
+@Styles.Render("~/Content/reportCss")
+@Scripts.Render("~/bundles/kendoui")
+<script src="~/Scripts/rhelper.js"></script>
+<link rel="stylesheet" href="~/Content/source-controll.css" />
+
+<link href="~/Scripts/multi/bootstrap-multiselect.css" rel="stylesheet" />
+<script  charset="utf-8" type="text/javascript" src="~/Scripts/multi/bootstrap-multiselect.js"></script>
+<style>
+    body {
+        font-family: Arial,sans-serif !important;
+    }
+    .selectLabel {
+        font-family: Arial,sans-serif !important;
+    }
+</style>
+
+<div id="B">
+	<ul class="titlegroup" style="margin-top: 8px;">
+		<li style="font-size: 18px; color: #2679b5;" id="parentLabel">@ResourceSetting.AnalisePage<span></span></li>
+		<li id="selectLabel"><span class="glyphicon glyphicon-arrow-right"></span>@ResourceSetting.SourceController (@ResourceSetting.countRecord: <span class="countGridRecord"></span>)</li>
+	</ul>  
+	<div class="panel-heading">
+		<div>
+			<table style="width: 100%;">
+				<tr>
+					<td>
+						<a class="lotLihk" style="font-weight: bold; cursor: pointer;"><span class="glyphicon glyphicon-forward"></span>@ResourceSetting.advansedFilter </a>
+						<span>@ResourceSetting.Year</span>
+						<select class="select-year" style="width: 70px;"></select>
+						<input type="text" class="k-textbox search-name-idk-oked" placeholder="@ResourceSetting.sFind"/>
+						<button type="button" class="k-button btn-refresh">
+							<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>@ResourceSetting.refresh
+						</button>
+						<button type="button" class="k-button btn-reset" title="@ResourceSetting.sResetAllFilters">
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+						</button>
+						@*<span>@ResourceSetting.Oblast</span>*@
+						<input placeholder="@ResourceSetting.Oblast" class="k-textbox input-oblast"  readonly /><button class="k-button btn-oblast">...</button>
+						
+					</td>
+					<td>
+						<button class="k-button btn-columns-editor">@ResourceSetting.sColumns</button>
+						<ul id="columns-editor-menu" class="columns-editor-menu hide" isopen="false">
+							<li title="Контрольные параметры" input-class="column-editor-1" class="editor-li">
+								<input type="checkbox" checked="checked" class="column-editor-1" style="vertical-align: middle;" /><label class="editor-li"> Контрольные параметры</label></li>
+							<li title="Потребление энергоресурсов (Ф2)" input-class="column-editor-2" class="editor-li">
+								<input type="checkbox" checked="checked" class="column-editor-2" style="vertical-align: middle;" /><label class="editor-li"> Потребление энергоресурсов (Ф2)</label></li>
+						</ul>
+						<button type="button" class="k-button btn-export-excell" style="float: right;" title="@ResourceSetting.exportExcel">
+							<i class="export-excell-i"></i>
+						</button>
+
+                        <button type="button" class="k-button btn-sum" style="float: right;margin-right:5px;" title="Итого">
+                            Итого
+                        </button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>  
+	<div class="panel-body divpanel">
+		<div class="container c-container">
+			<div class="row">
+				@*	<div class="col-md-12">*@
+				<table class="advansedFilter-table">
+					<tr>
+						<td><span>@ResourceSetting.sExclusion</span></td>
+						<td>
+							<select class="select-excluded c-select"></select></td>
+						<td>
+							<label title="@ResourceSetting.ExpectantName" class="lbl-expectant">@ResourceSetting.ExpectantName</label></td>
+						<td>
+							<select class="multiple-expectant-selected"   multiple="multiple" title="@ResourceSetting.ExpectantName"></select>
+						</td>
+						<td><span>@ResourceSetting.sNotes</span></td>
+						<td>
+							<select class="multiple-reason-selected"   multiple="multiple" ></select>
+						</td>
+						<td>
+							<label title="@ResourceSetting.sOkedTooltip">@ResourceSetting.DicOked</label></td>
+						<td>
+							<input  class="k-textbox input-oked" placeholder="-" readonly /><button class="k-button btn-oked">...</button>
+						</td>
+						<td>
+							<label>@ResourceSetting.TypeApplication</label></td>
+						<td>
+							<select id="multiple-fscode-selected" class="multiple-fscode-selected"   multiple="multiple" ></select>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<select class="select-columns-value" style="width: 230px;"></select></td>
+						<td><span>@ResourceSetting.sColumn</span></td>
+						<td>
+							<select class="select-typeres c-select"></select></td>
+						<td style="width: 200px;">
+							<input placeholder="min" class="k-textbox restype-min" style="width: 90px;" />
+							<input placeholder="max" class="k-textbox restype-max" style="width: 90px;" />
+						</td>
+						<td>
+							<select class="select-orderby c-select">
+								<option value="-1">@ResourceSetting.sSortOff</option>
+								<option value="1">@ResourceSetting.sAscending </option>
+								<option value="0">@ResourceSetting.sDescending</option>
+							</select>
+						</td>
+						<td><span>@ResourceSetting.showTut</span></td>
+						<td>
+							<div style="display: inline-block; width: 10px; margin-left: 20px; margin-top: 5px;">
+								<input type="checkbox" class="btn-showtut" value="test" />
+							</div>
+						</td>
+					</tr>
+                    <tr>
+                        <td><span>Энергоаудит проводился</span></td>
+                        <td><select class="select-isplan c-select"></select></td>
+                        <td>Система энергоменеджмента внедрена</td>
+                        <td><select class="select-isem-system c-select"></select> </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="object-source-controller-grid">
+	</div>
+</div>
+
+<ul class="context-menu-list" id="context-menu-list">
+	<li><a href="#" class="link-subject-info">@ResourceSetting.AccountSetting</a></li>
+	<li><a href="#" class="link-edit-details">@ResourceSetting.sEditDetails</a></li>
+	<li><a href="#" class="link-app-form-showdetails">@ResourceSetting.sReportByGER</a></li>
+	<li><a href="#" class="link-rst-report-subjectcard">@ResourceSetting.sSubjectCard</a></li>
+	<li><a href="#" class="edit-controll-parameters">Редактировать контрольные параметры</a></li>
+</ul>
+
+<div class="hide">
+	<div class="edit-controlls-params-window">
+		<table class="table">
+			<tr>				
+				<td colspan="2"><label class="lbl-juridical-name"></label></td>
+			</tr>
+			<tr>
+				<td><label> @ResourceSetting.sExclusion</label></td>
+				<td>
+					<div class="exclusion-window-div"></div>
+				</td>
+			</tr>
+			<tr>
+				<td><label title="@ResourceSetting.ExpectantName" class="lbl-expectant">@ResourceSetting.ExpectantName</label></td>
+				<td><select class="select-expectant-window"></select></td>
+			</tr>
+			<tr>
+				<td><label>@ResourceSetting.TypeApplication</label></td>
+				<td>
+					<div class="typeapplication-window-div"></div>
+				
+				</td>
+			</tr>
+		</table>
+		<div style="float: right;">
+			<button class="btn-ecpw-save k-button">@ResourceSetting.Save</button>
+			<button class="btn-ecpw-close k-button">@ResourceSetting.close</button>
+		</div>
+	</div>
+
+	<div class="oblast-window">
+		<ul class="oblast-ul"></ul>
+		<div style="padding:5px;float:left;">
+			<label class="label-oblast-error label-error"></label>
+		</div>
+		<div class="" style="padding:5px;float:right;">
+			<button class="k-button btn-oblast-ok">Ок</button>
+			<button class="k-button btn-oblast-close">Закрыть</button>
+		</div>
+	</div>
+	
+    <div class="oked-window">
+		<input type="text" class="input-oked-search k-textbox" style="width:100%;" />
+		<span class="k-icon k-i-close span-oked-clear" title="очистить"></span>
+		<ul class="oked-ul">
+			<li><input type="checkbox" class="oked-checkbox oked-checkbox-all"> ВСЕ</li>
+		</ul>
+		<div style="padding:5px;float:left;">
+			<label class="label-oked-error label-error"></label>
+		</div>
+		<div class="" style="padding:5px;float:right;">
+			<button class="k-button btn-oked-ok">Ок</button>
+			<button class="k-button btn-oked-close">Закрыть</button>
+		</div>
+	</div>
+
+    <div class="sum-window">
+        <div class="sum-grid"></div>
+        <div style="padding:5px;float:left;">
+            <label class="label-sum-error label-error"></label>
+        </div>
+        <div class="" style="padding:5px;float:right;">
+            <button type="button" class="k-button btn-sum-excell" style="float: right;margin-left:5px;" title="@ResourceSetting.exportExcel">
+                <i class="export-excell-i"></i>
+            </button>
+            <button class="k-button btn-sum-close">Закрыть</button>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/controllers/source-controller.js"></script>
+<style>
+
+    .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
+        margin-top: 4px;
+    }
+
+    .multiselect-container .dropdown-menu > input[type="checkbox"] {
+        margin-top: 4px;
+    }
+
+    .btn-default {
+        border-color: #94c0d2;
+    }
+
+        .btn-default:hover {
+            border-color: #94c0d2;
+            background-color: #daecf4;
+        }
+
+        .btn-default:active {
+            border-color: #94c0d2;
+            background-color: #daecf4;
+        }
+
+        .btn-default:visited {
+            border-color: #94c0d2;
+            background-color: #daecf4;
+        }
+
+        .btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
+            border-color: #94c0d2;
+            background-color: #daecf4;
+        }
+
+    .span-oked-clear {
+        position: absolute;
+        margin-top: -23px;
+        margin-left: 94%;
+        cursor: pointer;
+    }
+
+        .span-oked-clear:hover {
+            box-shadow: 0 0 1px rgba(0,0,0,0.5);
+            font-weight: bolder;
+            text-decoration: underline;
+        }
+
+        .selectLabel{
+            font-family:Arial,sans-serif;
+        }
+</style>

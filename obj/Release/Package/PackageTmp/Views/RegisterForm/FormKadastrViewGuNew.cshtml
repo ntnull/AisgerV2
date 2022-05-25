@@ -1,0 +1,148 @@
+﻿@using System.Globalization
+@using Aisger
+@using Aisger.Models
+@model Aisger.Models.Entity.Subject.SUB_FormGuNew
+<style type="text/css">
+    .tabKadastrField {
+        width: 100%;
+    }
+
+    .wast-list tr > td {
+        border: 1px solid #dddddd;
+    }
+</style>
+<h5 style="font-weight: bold; text-align: center">
+    @ResourceSetting.objectInfo
+</h5>
+
+<div id="CSSTableGenerator">
+    <table id="table_kadastr" class="wast-list" style="width: 100%; text-align: center;border:1px solid #dddddd;">
+        <thead>
+            <tr style="font-weight: bold">
+                <td>№</td>
+                <td style="width: 200px">@ResourceSetting.KadastrNumber</td>
+                <td>@ResourceSetting.OBJ_NAME</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody id="tabKadastr">
+            @{
+                SUB_FormKadastr signedObj = null;
+            }
+            @for (var i = 0; i < Model.SubFormKadastrs.Count; i++)
+            {
+                var entity = Model.SubFormKadastrs[i];
+                var index = i + 1;
+
+                if (Model.SignedSubForm != null && Model.SignedSubForm.SUB_FormKadastr != null)
+                {
+                    signedObj = Model.SUB_FormKadastr.FirstOrDefault(fk => fk.Id == entity.Id);
+                }
+
+                <tr rowid="@entity.Id">
+                    <td class="disabletd">@index</td>
+                    <td>
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.SubFormKadastrs[i].KadastrNumber, new { @class = "tabKadastrField  form-edit" })<span class="input-group-addon">
+                                <a class="commentDialog" href="#">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </a>
+                            </span>
+                        </div>
+                        @if (signedObj != null)
+                        {
+                            <div class="signed signed-color">
+                                @signedObj.KadastrNumber
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.SubFormKadastrs[i].ObjectName, new { @class = "tabKadastrField  form-edit" })<span class="input-group-addon">
+                                <a class="commentDialog" href="#">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </a>
+                            </span>
+                        </div>
+                        @if (signedObj != null)
+                        {
+                            <div class="signed signed-color">
+                                @signedObj.ObjectName
+                            </div>
+                        }
+                    </td>
+                    @if (i == 0)
+                    {
+                        <td><a class="deleteRow"></a></td>
+                    }
+                    else
+                    {
+                        <td>
+                            <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+                        </td>
+                    }
+                </tr>
+            }
+        <tfoot>
+            <tr>
+                <td colspan="9" style="text-align: left;">
+                    <button type="button" class="btn btn-success btn-sm" id="addtabKadastr">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.addNew
+                    </button>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<script type="text/javascript">
+
+    function SetEventFormKadastr(idcontrol) {
+        $(idcontrol).change(function () {
+            var idAttr = $(this).attr('name');
+            var fieldName = idAttr.split('.')[1];
+            var type = "string";
+            var row = $(this).closest('tr');
+            var entityId = row.attr('rowid');
+            UpdateModel("tabKadastr", entityId, $(this).attr('id'), fieldName, $(this).val(), type, 0);
+        });
+    }
+    //bird
+    $(document).ready(function () {
+        SetEventFormKadastr(".tabKadastrField");
+        $("#addtabKadastr").on("click", function () {
+            var nextIndex = $('#table_kadastr tbody tr').length;
+            var row = $('#table_kadastr tbody');
+            var cols = '<tr rowid="0">';
+
+
+            var poss = nextIndex + 1;
+            var idIndicatorName = "KadastrNumber_" + nextIndex;
+            var idRegularStandart = "ObjectName_" + nextIndex;
+            cols += '<td class="disabletd">' + poss + '</td>';
+            cols += '<td><div class="input-group"><input type="text" name="SubFormKadastrs[' + nextIndex + '].KadastrNumber" id="' + idIndicatorName + '" class="tabPlan3Field  form-edit"/><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            cols += '<td><div class="input-group"><input type="text" name="SubFormKadastrs[' + nextIndex + '].ObjectName" id="' + idRegularStandart + '" class="tabPlan3Field  form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            cols += '<td><i class="glyphicon glyphicon-remove deleteRow"  title="@ResourceSetting.Delete"></td>';
+            cols += '</tr>';
+            row.append(cols);
+
+            SetEventFormKadastr("#" + idIndicatorName);
+            SetEventFormKadastr("#" + idRegularStandart);
+        });
+
+        $("#table_kadastr").on("click", ".deleteRow", function () {
+
+            var row = $(this).closest('tr');
+            var success = function () {
+
+                var entityId = row.attr('rowid');
+                DeleteRecord("tabKadastr", entityId);
+                row.remove();
+                //                counterTable5 -= 1;
+            }
+            var cancel = function () {
+            };
+            showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+        });
+    });
+</script>

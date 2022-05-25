@@ -1,0 +1,62 @@
+﻿
+<style type="text/css">
+    .title-label {
+        font-weight: bold;
+        color: gray;
+    }
+</style>
+@using Aisger
+@model Aisger.Models.Entity.Esco.EscoEntityDocument
+
+@foreach (var proudct in Model.EscoDicProducts)
+{
+    var classImage = "group" + proudct.Id;
+    <div class="well well-sm">
+        <div class="media">
+            <div class="media-left">
+                <a class="@classImage" href="@proudct.CurrentUrlImage">
+                    <img id="imgPreview" style="height:200px; width:200px" src="@proudct.CurrentUrlImage" />
+                </a>
+                @if (proudct.AttachFiles.Count > 1)
+                {
+                    for (int j = 0; j < proudct.AttachFiles.Count - 1; j++)
+                    {
+                        <a style="display: none" class="@classImage" href="@proudct.AttachFiles[j]"></a>
+                    }
+                }
+            </div>
+            <div class="media-body">
+                <ul class="list-group">
+                    <li class="list-group-item "><span class="title-label">@ResourceSetting.NameProduct: </span>@proudct.NameProduct</li>
+                    <li class="list-group-item "><span class="title-label">@ResourceSetting.Description: </span>@proudct.ShortNote</li>
+                  
+                        <li class="list-group-item"><span class="title-label">@ResourceSetting.EscoName: </span>@proudct.JuridicalName</li>
+                        <li class="list-group-item"><span class="title-label">@ResourceSetting.Address </span>@proudct.Oblast/ @proudct.Address</li>
+                        <li class="list-group-item"><span class="title-label">@ResourceSetting.Contacts: </span>@proudct.ContactInfo</li>
+                        <li class="list-group-item"><a href="@Url.Action("ShowDetails", "EscoSearch", new { id = @proudct.Id })" target="_blank"><span class="glyphicon glyphicon-search"></span> @ResourceSetting.details...</a></li>
+                    @if (!string.IsNullOrEmpty(proudct.urlSite))
+                    {
+                        <li class="list-group-item"><a href="@proudct.urlSite" target="_blank"><span class="glyphicon glyphicon-search"></span> @ResourceSetting.urlProduct</a></li>
+                    }  
+                        </ul>
+
+             
+
+            </div>
+        </div>
+        </div>
+
+        }
+<script>
+    $(document).ready(function () {
+        //Examples of how to assign the Colorbox event to elements
+        var products = '@ViewBag.FilesId';
+        var sp = products.split('#');
+
+        for (var i = 0; i < sp.length; i++) {
+            var cl = 'group' + sp[i];
+            $("." + cl).colorbox({ rel: cl });
+        }
+
+    });
+</script>

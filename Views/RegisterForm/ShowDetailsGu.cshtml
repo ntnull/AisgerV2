@@ -1,0 +1,676 @@
+﻿@using System.Globalization
+@using System.Text
+@using Aisger
+@using Aisger.Helpers
+@model Aisger.Models.Entity.Subject.Sub_FormGu
+@{
+    ViewBag.Title = ResourceSetting.SubForm;
+}
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+
+<style type="text/css">
+    .form1-label {
+        width: 100%;
+        padding: 10px;
+        height: 100px;
+        float: left;
+        line-height: normal;
+    }
+
+    .commentDialog-form1-span {
+        font-weight: bolder;
+        float: right;
+        cursor: pointer;
+        margin: 5px;
+        width: 10px;
+    }
+
+    .input-group {
+        width: 100%;
+    }
+
+    .signed {
+    }
+
+    .signed-color {
+        color: #ffd700;
+    }
+
+    .btn-signed {
+        color: #000;
+        background-color: #ffd700;
+        border-color: #eed700;
+    }
+
+    .btn {
+        border-radius: 6px;
+    }
+
+    .btn-lg {
+        padding: 10px 16px;
+        font-size: 18px;
+        line-height: 1.3333333;
+        border-radius: 6px;
+    }
+
+    .btn-sm {
+        font-size: 12px;
+        padding: 4px 10px;
+    }
+
+    .btn-success {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+    }
+
+    .lotLihk {
+        cursor: pointer;
+    }
+
+    .is-rent {
+        width: 13px;
+        vertical-align: middle;
+        display: inline;
+    }
+</style>
+
+<link rel="stylesheet" href="@Url.Content("~/Content/custom/subform-comment-style.css")" />
+<link rel="stylesheet" href="@Url.Content("~/Content/custom/form1-style.css")" />
+@{
+    var titleGroup = "";
+    var controllerName = @ViewContext.RouteData.GetRequiredString("controller");
+}
+@if (@ViewContext.RouteData.GetRequiredString("controller") == "RegisterForm")
+{
+    titleGroup = ResourceSetting.privatePage;
+}
+else
+{
+    titleGroup = ResourceSetting.SubjectPage;
+}
+<div id="B">
+    @Html.Partial("~/Views/Home/TitleItem.cshtml", @titleGroup + "," + ResourceSetting.RegisterForm)
+    <div id="wrapper_grid" style="margin-left: 10px; margin-bottom: 100px">
+
+        @Html.Partial("~/Views/RegisterForm/ApplicantInfo.cshtml", @Model.SEC_User1)
+        @if (Model.DesignNote != null && Model.DesignNote != "" && Request.Url.ToString().IndexOf("AppForm") == -1)
+        {
+            <div class="row" style="margin-bottom:10px;">
+                <div class="col-sm-10" style="min-width:300px;">
+                    <label style="width: 100%; font-weight: bold; font-style:italic;">Замечанием от Менеджера:<span style="color:red;"> @Model.DesignNote  </span></label>
+                </div>
+            </div>}
+        <div style="display: none" id="showTut">
+            @foreach (var kind in Model.SubDicTypeResources)
+            {
+                var idkind = "tut_" + kind.Id;
+                <input id="@idkind" value="@kind.Keof" />
+            }
+        </div>
+        <input type="hidden" id="currentDataViewId" value="@Model.Id">
+        <input type="hidden" id="saveTitleRes" value="@ResourceSetting.Save">
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.CreateDate)
+        @Html.HiddenFor(model => model.UserId)
+        @Html.HiddenFor(model => model.ReportYear)
+
+        <div class="row" style="margin-bottom: 10px">
+            <div class="col-sm-4" style="min-width:200px;">
+                <table>
+                    <tr>
+                        <td style="border-left:0px solid #dddddd;">
+                            <b>@ResourceSetting.ReportYear : </b><span>@Model.ReportYear </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border-left:0px solid #dddddd;">
+                            <b>Регион : </b><span>@ViewData["Oblast"]</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-8">
+                <div style="float:right;">
+                    <button type="button" class="btn btn-success btn-sm" id="ShowValueId">
+                        @ResourceSetting.showValue
+                    </button>
+                    <button type="button" class="btn btn-default btn-sm" id="ShowTutId">
+                        @ResourceSetting.showTut
+                    </button>
+                    <button type="button" class="btn btn-info btn-sm" id="HideInform" value="hide">
+                        <span class="glyphicon glyphicon-check" aria-hidden="true" id="HideInformCheck"></span><span id="HideInformText">@ResourceSetting.HideNote</span>
+                    </button>
+                    <button type="button" class="btn btn-info btn-sm" id="ShowCard">
+                        Карточка
+                    </button>
+                    <button type="button" class="btn btn-default btn-sm" id="ExportToExcelNPOI">
+                        <span class="glyphicon glyphicon-export"></span>
+                        @ResourceSetting.exportExcel
+                    </button>
+                    <button type="button" class="btn btn-default btn-sm" id="ExportToPdfGu">
+                        <span class="glyphicon glyphicon-export"></span>
+                        Выгрузка в PDF
+                    </button>
+                    @if (!Model.IsSigned)
+                    {
+                        <button type="button" class="btn btn-primary btn-sm" id="editBtnForm">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>@ResourceSetting.Edit
+                        </button>
+                    }
+                    @if (Model.StatusId != 1 && Model.IsSigned)
+                    {
+                        <a class="btn btn-signed btn-sm"
+                           href="@Url.Action("SignedObjectsList", "RstReport", new { Model.Id })">
+                            <span class="glyphicon glyphicon-list" aria-hidden="true"></span>@ResourceSetting.History
+                        </a>if (Model.SignedSubForm != null)
+                        {
+                            <a class="btn btn-signed btn-sm"
+                               href="@Url.Action("ShowSigned", "RegisterForm", new { Model.Id, isShowSigned = false })">
+                                <span class="glyphicon glyphicon-open-file" aria-hidden="true"></span>@ResourceSetting.HideSignedValue
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-signed btn-sm" href="@Url.Action("ShowSigned", "RegisterForm", new { Model.Id, isShowSigned = true })">
+                                <span class="glyphicon glyphicon-open-file" aria-hidden="true"></span>@ResourceSetting.ShowSignedValue
+                            </a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 20px">
+            <div class="col-sm-6">
+                <button type="button" class="btn btn-warning btn-sm" id="HideHistory" value="hide">
+                    <span class="glyphicon glyphicon-unchecked" aria-hidden="true" id="HideHistoryCheck"></span><span id="HideHistoryText">@ResourceSetting.showBeforeYears</span>
+                </button>
+                <div class="btn-group" role="group" id="yearListId" style="display: none">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span id="currentYear">@ResourceSetting.CompaerYear</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        @foreach (SelectListItem item in ViewData["Years"] as IEnumerable<SelectListItem>)
+                        {
+                            <li><a href="#" onclick="ChangeYear(@item.Text)">@item.Text</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active"><a data-target="#form1tab" data-toggle="tab">@ResourceSetting.form1</a></li>
+            <li><a data-target="#form2tab" data-toggle="tab">@ResourceSetting.form2</a></li>
+            <li><a data-target="#form3tab" data-toggle="tab">@ResourceSetting.form4</a></li>
+            <li><a data-target="#form4tab" data-toggle="tab">Форма 4</a></li>
+            <li><a data-target="#form5tab" data-toggle="tab">Форма 5</a></li>
+            <li><a data-target="#formHistorytab" data-toggle="tab">@ResourceSetting.History</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="form1tab">
+                <h5 style="font-weight: bold; text-align: center;margin-top:15px;width:70%;margin-left:15%;">
+                    Информация
+                    о наименовании, адресе, бизнес идентификационном номере и основных видах деятельности
+                    субъектов Государственного энергетического реестра, являющегося
+                    государственным учреждением
+                </h5>
+                <div id="CSSTableGenerator">
+                    <table class="wast-list" style="width: 100%; text-align: center">
+                        <thead>
+                            <tr style="font-weight: bold; font-size: 12px">
+                                <td style="width:20px;">№</td>
+                                <td>БИН</td>
+                                <td>@ResourceSetting.form12</td>
+                                <td>@ResourceSetting.form13</td>
+                                <td style="width:15%;">Фамилия, имя,отчество (при наличии) первого руководителя субъекта ГЭР</td>
+                                <td style="width:15%;">Должность первого руководителя субъекта Государственного энергетического реестра</td>
+                                <td style="width:15%;">@ResourceSetting.form17</td>
+                                <td style="width:15%;">@ResourceSetting.form18</td>
+                            </tr>
+                            <tr style="font-style: italic;font-weight: bold">
+                                @for (int i = 1; i < 9; i++)
+                                {
+                                    <td>@i</td>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody id="mainTable">
+                            <tr rowid="1">
+
+                                <td class="disabletd">
+                                    1
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input class="form1Field form-edit" value="@Model.SEC_User1.BINIIN" /><span class="input-group-addon">
+                                            <a class="commentDialog" href="#">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        @Html.TextAreaFor(model => model.SEC_User1.JuridicalName, new { @class = "form1Field form-edit", @id = "JuridicalName" })<span class="input-group-addon">
+                                            <a class="commentDialog" href="#">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        @Html.TextAreaFor(model => model.SEC_User1.Address, new { @class = "form1Field form-edit", @id = "Address" })<span class="input-group-addon">
+                                            <a class="commentDialog" href="#">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        @Html.TextAreaFor(model => model.SEC_User1.FullName, new { @class = "form1Field form-edit", @id = "FullName" })<span class="input-group-addon">
+                                            <a class="commentDialog" href="#">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        @Html.TextAreaFor(model => model.SEC_User1.Post, new { @class = "form1Field form-edit", @id = "Post" })<span class="input-group-addon">
+                                            <a class="commentDialog" href="#">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        @Html.DropDownListFor(e => e.SEC_User1.OkedId, (IEnumerable<SelectListItem>)(ViewData["OKEDList"]), String.Empty, new { @class = "form1Field form-edit", @id = "OkedId", @style = "word-wrap: break-word;white-space: normal;" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <div class="chzn-select" id="wastesDiv">
+                                            @Html.ListBoxFor(x => Model.Wastes, Model.WastList, new { @class = "chzn-select form1Field", data_placeholder = "Укажите вид деятельности", style = "width:100%;" })
+                                        </div>
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                @if (controllerName.Equals("RegisterForm"))
+                {
+                    <button style="float: right;margin:5px;" type="button" class="btn btn-primary btn-sm" onclick="location.href='@Url.Action("ApplicationEditForRstRR", "AppForm", new { id = @Model.SEC_User1.Id, ReportYear = @Model.ReportYear })'">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>@ResourceSetting.Edit
+                    </button>
+                }
+
+                <div class="row" style="margin:10px 10px 20px 10px;">
+                    <div class="col-sm-12">
+                        @{
+                            var isRentChecked = "";
+                            if (Model.IsRent != null && Model.IsRent == true)
+                            {
+                                isRentChecked = "checked";
+                            }
+                            <br />
+                            <input class="is-rent" type="checkbox" @isRentChecked disabled="disabled" /> <span>Аренда</span>
+                        }
+                        <ul class="form1-ul-file-list list-group" style="margin-top:5px; border-top:1px solid #808080;padding-top:5px;"></ul>
+                        <div class="upload-button" style="margin-top: 20px; border: 1px solid #b2aeae; padding: 5px;">
+                            <button class="btn btn-primary btn-form1-fileupload" type="button"><span class="glyphicon glyphicon-upload"></span>Загрузить файл</button>
+                            <input type="file" name="files" class="form1-fileUpload hide" multiple="multiple">
+                            <span class="span-form1-filename">Файл не выбран</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="form2tab">
+                @Html.Partial("~/Views/RegisterForm/Form2ViewGu.cshtml", @Model)
+            </div>
+
+            <div class="tab-pane" id="form3tab">
+                @Html.Partial("~/Views/RegisterForm/Form3ViewGu.cshtml", @Model)
+            </div>
+
+            <div class="tab-pane" id="form4tab">
+                @Html.Partial("~/Views/RegisterForm/Form4ViewGu.cshtml", @Model)
+            </div>
+
+            <div class="tab-pane" id="form5tab">
+                @Html.Partial("~/Views/RegisterForm/Form5ViewGu.cshtml", @Model)
+            </div>
+
+            <div class="tab-pane" id="formHistorytab">
+                @Html.Partial("~/Views/RegisterForm/FormHistoryViewGu.cshtml", @Model)
+            </div>
+
+        </div>
+
+        @Html.Partial("~/Views/RegisterForm/ContactInfoViewGu.cshtml", @Model)
+        @if (Model.AttachFiles != null)
+        {
+            for (int i = 0; i < Model.AttachFiles.Count; i++)
+            {
+                <p>
+                    <input type="hidden" name="AttachFiles" value="@Model.AttachFiles[i]" />
+                    <a href="@Url.Action("LoadFile", "AppForm", new { id = @Model.Id, filename = @Model.AttachFiles[i] })">
+                <p class="docFileClass">@Model.AttachFiles[i]</p>
+                </a>
+                </p>
+            }
+        }
+        <div style="margin-top: 20px">
+            <button type="button" class="btn btn-success btn-lg" id="backBtn">
+                <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>@ResourceSetting.Back
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<script src="@Url.Content("~/Scripts/custom/subform-comment.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        $("input").prop("readonly", true);
+        $("#IsPlan").attr('disabled', 'disabled');
+        $("#IsConfirmPlan").attr('disabled', 'disabled');
+        $(".date-picker").datepicker('disable');
+        $(".deleteRow").remove();
+        $("#addCoordrrow").remove();
+        $("#addCoordrrow1").remove();
+        $('#addLightingInfo').remove();
+        $("#addTable5").remove();
+        $("#addTable51").remove();
+        $(".add-plan-btn").remove();
+        $("#addTable6").remove();
+        $("#addtabplan3").remove();
+        $("#addtabKadastr").remove();
+        //$('select').select2("enable", false);
+        $('[id*=SubForm4Records]').attr('disabled', 'disabled');
+    });
+</script>
+
+<script type="text/javascript">
+
+	$.urlParam = function (name) {
+		var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+		if (results == null) {
+			return null;
+		}
+		return results[1] || 0;
+	}
+
+	$(document).ready(function () {
+
+		var qwe = {};
+
+		$("#backBtn").click(function () {
+			window.Showbusy(event);
+			var returnUrl = $.urlParam('returnUrl');
+			if (returnUrl != null && returnUrl.length > 0) {
+				window.location = returnUrl;
+			} else {
+				window.location = document.referrer;
+
+			}
+		});
+
+		if ('@ViewContext.RouteData.GetRequiredString("controller")' == 'RegisterForm') {
+			$("#editBtnForm").remove();
+
+		}
+
+
+		$("#editBtnForm").click(function () {
+			var activetab = $("ul#myTab li.active").attr('id');
+			window.location = "/AppForm/Edit?id=" + '@Model.Id' + '&returnUrl=' + '@Model.PreviousUrl' + '&activeTab=' + activetab;
+
+		});
+		$("#ShowValueId").click(function () {
+			if ($(this).hasClass('btn-success')) {
+				return;
+			}
+			$(this).removeClass('btn-default');
+			$(this).addClass('btn-success');
+
+			$("#ShowTutId").removeClass('btn-success');
+			$("#ShowTutId").addClass('btn-default');
+			showTutOrValue(false);
+		});
+		$("#ShowTutId").click(function () {
+			if ($(this).hasClass('btn-success')) {
+				return;
+			}
+			$(this).removeClass('btn-default');
+			$(this).addClass('btn-success');
+
+			$("#ShowValueId").removeClass('btn-success');
+			$("#ShowValueId").addClass('btn-default');
+
+			showTutOrValue(true);
+		});
+		$("#HideInform").click(function () {
+			if ($(this).val() == "hide") {
+				$("#HideInformText").text('@ResourceSetting.HideInformTextShow');
+				$(this).val("show");
+				$("#HideInformCheck").addClass("glyphicon-unchecked");
+				$("#HideInformCheck").removeClass("glyphicon-check");
+				showInformIcon(false);
+			} else {
+				$("#HideInformText").text('@ResourceSetting.HideInformTextHide');
+				$(this).val("hide");
+				$("#HideInformCheck").removeClass("glyphicon-unchecked");
+				$("#HideInformCheck").addClass("glyphicon-check");
+				showInformIcon(true);
+			}
+		});
+
+		$("#ExportToExcelNPOI").click(function () {
+			$.ajax({
+				url: '@Url.Action("ASubjectExportToExcelEx", "RstReport")?Id=' + $('#currentDataViewId').val(),
+				type: 'GET',
+				contentType: 'application/json; charset=utf-8',
+				datatype: 'json',
+				success: function (data) {
+					window.location = '@Url.Action("Download", "RstReport")?fileGuid='
+                        + data.FileGuid + '&filename=' + data.FileName;
+				}
+			});
+		});
+
+	    $("#ExportToPdfGu").click(function () {
+	        window.location = '@Url.Action("ASubjectExportToPdfGu", "RstReport")?Id=' + $('#currentDataViewId').val();
+	    });
+
+
+		//----Картчка
+		$('#ShowCard').click(function () {
+
+			var secId = $('#UserId').val();
+			var reportYear = $('#ReportYear').val();
+			window.location = "/RstReport/SubjectCard?secId=" + secId + "&reportYear=" + reportYear;
+
+		});
+
+		//----
+		function disabledAndHideSettingFunc() {
+
+			$("#IsPlan").attr('disabled', 'disabled');
+			$("#IsConfirmPlan").attr('disabled', 'disabled');
+			$(".date-picker").datepicker('disable');
+			$(".deleteRow").remove();
+			$("#addCoordrrow").remove();
+			$("#addCoordrrow1").remove();
+
+			$(".add-plan-btn").remove();
+
+			$("#addtabplan3").remove();
+			$("#addtabKadastr").remove();
+
+			$('[id*=SubForm4Records]').attr('disabled', 'disabled');
+		}
+
+		$("input").prop("readonly", true);
+		$("input").attr("disabled", true);
+		$('select').attr("disabled", true);
+		$("#hideControlPrice").show();
+
+	    //============================file upload
+		setForm1Access();
+		getForm1Files();
+		$('.btn-form1-fileupload').click(function () {
+		    $('.form1-fileUpload').trigger('click');
+		});
+
+		$('.form1-fileUpload').click(function () {
+		    $(".span-form1-filename").text("Файл не выбран");
+		});
+
+
+		$('.form1-fileUpload').change(function () {
+
+		    var files = $('.form1-fileUpload').get(0).files;
+
+		    if (files.length == 0) {
+		        $(".span-form1-filename").text("Файл не выбран");
+		    } else {
+
+		        $(".span-form1-filename").text("Число файлов:" + files.length);
+
+		        if (files && files.length > 0) {
+
+		            var fd = new FormData();
+		            var reportYear = $('#ReportYear').val();
+		            fd.append('ReportYear', reportYear);
+
+		            for (var j = 0; j < files.length; j++) {
+		                fd.append('files', files[j]);
+		            }
+
+		            $.ajax({
+		                url: '@Url.Action("Form1SaveFile", "RegisterForm")',
+		                type: "POST",
+		                data: fd,
+		                async: false,
+		                contentType: false,
+		                processData: false,
+		                success: function (data) {
+
+		                    if (data.ErrorMessage != "") {
+		                        showWarning(data.ErrorMessage);
+		                        return;
+		                    } else {
+		                        $('.form1-fileUpload').empty();
+		                        $(".span-form1-filename").text("Файл не выбран");
+		                        console.log(data);
+		                        getForm1Files();
+		                    }
+
+		                },
+		                error: function (request, status, error) {
+		                    showWarning("file upload error form4 " + error);
+		                }
+		            });
+		        }
+
+		    }
+
+		});
+
+	    //---- get files
+		function getForm1Files() {
+		    var userId = '@Model.UserId';
+		    $.post('@Url.Action("GetForm1Files", "RegisterForm")', { ReportYear: $('#ReportYear').val(), userId: userId }, function (data) {
+
+		        if (data.ErrorMessage != "") {
+		            showWarning(data.ErrorMessage);
+		            return;
+		        }
+
+		        var isEdit = true;
+		        if (location.href.indexOf('ShowDetails') != -1 || location.href.indexOf('Design') != -1) {
+		            isEdit = false;
+		        }
+
+		        //----clear
+		        $('.form1-ul-file-list').empty();
+
+		        var $ul = $('.form1-ul-file-list');
+
+		        $ul.append('<span>Файлы</span>');
+		        if (data.list) {
+
+		            $.map(data.list, function (item) {
+		                var $li = $('li');
+		                var url = '@Url.Action("Form1Upload", "RegisterForm")';
+		                var del = (isEdit == true) ? "<span class='glyphicon glyphicon-remove remove-file' filename='" + item.filename + "'></span>" : "";
+
+		                $ul.append("<li class='list-group-item'><a href='" + url + "?reportYear=" + $('#ReportYear').val() + "&userId=" + userId + "&fname=" + item.filename + "' >" + item.filename + "</a>" + del + "</li>");
+		            });
+		        }
+		    })
+		}
+
+	    //----remove file
+		$('.form1-ul-file-list').on('click', 'span.remove-file', function () {
+		    var userId = '@Model.UserId';
+		    var filename = $(this).attr('filename');
+
+		    var success = function () {
+		        $.post('@Url.Action("DeleteForm1File", "RegisterForm")', { reportYear: $('#ReportYear').val(), userId: userId, fname: filename }, function (data) {
+
+		            if (data.ErrorMessage != "") {
+		                showWarning(data.ErrorMessage);
+		                return;
+		            }
+		            getForm1Files();
+		        });
+		    }
+		    var cancel = function () {
+		    };
+
+		    showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+		});
+
+	    //----
+		function setForm1Access() {
+		    var url = location.href;
+		    if (url.indexOf('ShowDetailsGu') != -1 || location.href.indexOf('DesignGu') != -1) {
+		        $('.form1-ul-file-list').prop('disabled', true);
+		        $('.btn-form1-fileupload').prop('disabled', true);
+		    }
+		}
+	});
+</script>
+
+<script type="text/javascript">
+    var counterBuff = 0;
+    $(document).ready(function () {
+
+        $("#YearChoose").change(function () {
+            window.location = "/RegisterForm/ShowDetails/" + $(this).val();
+        });
+
+    });
+</script>

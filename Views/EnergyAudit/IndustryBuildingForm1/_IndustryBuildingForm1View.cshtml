@@ -1,0 +1,832 @@
+﻿@using Aisger
+@using Aisger.CustomResources
+@using Aisger.Models
+@using Aisger.Models.Constants
+
+@model Aisger.Models.EauditAttachment3
+
+@Html.HiddenFor(model => model.Preamble.Id, new { id = "refPreambleId" })
+
+<div id="raitingIBform1">
+    @foreach (EAUDIT_FieldComments comment in Model.FieldComments)
+    {
+        @Html.Hidden(comment.Id.ToString(), comment.Comment, new
+        {
+            rowId = comment.RowId
+            , fieldName = comment.FieldName
+            , isError=comment.IsError
+            , formCode=comment.FormCode
+            , @class = "raiting"
+        });
+    }
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="center-block">
+            <h4 class="text-center">
+                @EauditResource.IBuildingForm1Name
+            </h4>
+        </div>
+    </div>
+</div>
+
+<div id="CSSTableGenerator">
+    <table id="tbIndustryFormIBForm1" class="table-center">
+        <thead>
+            <tr>
+                <th rowspan="3">№</th>
+                <th rowspan="3">@EauditResource.IBuildingForm1Column2</th>
+                <th rowspan="3">@EauditResource.IBuildingForm1Column3</th>
+                <th rowspan="3">@EauditResource.IBuildingForm1Column31</th>
+                <th colspan="8">@EauditResource.IBuildingForm1Column4567891011</th>
+                <th colspan="2">@EauditResource.IBuildingForm1Column1213</th>
+                <th colspan="2">@EauditResource.IBuildingForm1Column1415</th>
+                <th rowspan="3">@EauditResource.IBuildingForm1Column16</th>
+                <th rowspan="3"></th>
+            </tr>
+            <tr>
+                <th rowspan="2">@EauditResource.IBuildingForm1Column4</th>
+                <th rowspan="2">@EauditResource.IBuildingForm1Column5</th>
+                <th rowspan="2">@EauditResource.IBuildingForm1Column6</th>
+                <th rowspan="2">@EauditResource.IBuildingForm1Column7</th>
+                <th colspan="4">@EauditResource.IBuildingForm1Column891011</th>
+                <th rowspan="2">@EauditResource.IBuildingForm1Column12</th>
+                <th rowspan="2">@EauditResource.IBuildingForm1Column13</th>
+                <th rowspan="2">@EauditResource.IBuildingForm1Column14</th>
+                <th rowspan="2">@EauditResource.IBuildingForm1Column15</th>
+            </tr>
+            <tr>
+                <th>@EauditResource.IBuildingForm1Column8</th>
+                <th>@EauditResource.IBuildingForm1Column9</th>
+                <th>@EauditResource.IBuildingForm1Column10</th>
+                <th>@EauditResource.IBuildingForm1Column11</th>
+            </tr>
+            <tr>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+                <th>8</th>
+                <th>9</th>
+                <th>10</th>
+                <th>11</th>
+                <th>12</th>
+                <th>13</th>
+                <th>14</th>
+                <th>15</th>
+                <th>16</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="@EnergyAuditFormConsts.IndustryBuildingForm1">
+            <tr class="@EnergyAuditFormConsts.IndustryBuildingForm1"></tr>
+            @{
+                int index = 0;
+                EAUDIT_IndustryBuildingForm1 signedIform = null;
+            }
+            @foreach (var formRow in Model.IndustryBuildingForm1Rows.OrderBy(f => f.Id))
+            {
+                if (Model.SignedEauditPreamble != null
+                    && Model.SignedEauditPreamble.EAUDIT_IndustryBuildingForm1 != null)
+                {
+                    signedIform = Model.SignedEauditPreamble.EAUDIT_IndustryBuildingForm1
+                        .FirstOrDefault(iform => iform.Id == formRow.Id);
+                }
+                index = index + 1;
+                <tr id="@formRow.Id" class="@EnergyAuditFormConsts.IndustryBuildingForm1">
+                    <td class="disabletd">@index</td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.Name)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.Name, new { @class = "form-edit formIB1Field" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.Name
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.YearExplonation)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.YearExplonation, new { @class = "form-edit formIB1Field integer" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.YearExplonation
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.Wear)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.Wear, new { @class = "form-edit formIB1Field numeric" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.Wear
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.GeneralParamheatingArea)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.GeneralParamheatingArea, new { @class = "form-edit formIB1Field numeric" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.GeneralParamheatingArea
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.GeneralParamPerimeter)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.GeneralParamPerimeter, new { @class = "form-edit formIB1Field numeric" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.GeneralParamPerimeter
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.GeneralParamHeight)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.GeneralParamHeight, new { @class = "form-edit formIB1Field numeric" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.GeneralParamHeight
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.GeneralParamInternalTemperature)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.GeneralParamInternalTemperature, new { @class = "form-edit formIB1Field numeric" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.GeneralParamInternalTemperature
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.GeneralParamHeatTransferResistanceWall)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.GeneralParamHeatTransferResistanceWall, new { @class = "form-edit formIB1Field numeric" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.GeneralParamHeatTransferResistanceWall
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.GeneralParamHeatTransferResistanceFloor)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.GeneralParamHeatTransferResistanceFloor, new { @class = "form-edit formIB1Field numeric" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.GeneralParamHeatTransferResistanceFloor
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.GeneralParamHeatTransferResistanceCoating)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.GeneralParamHeatTransferResistanceCoating, new { @class = "form-edit formIB1Field numeric" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.GeneralParamHeatTransferResistanceCoating
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.GeneralparamHeatTransferResistanceWindow)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.GeneralparamHeatTransferResistanceWindow, new { @class = "form-edit formIB1Field numeric" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.GeneralparamHeatTransferResistanceWindow
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.SpecificHeatingCurveFact)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.SpecificHeatingCurveFact, new { @class = "form-edit formIB1Field numeric" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.SpecificHeatingCurveFact
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.SpecificHeatingCurveStandart)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.SpecificHeatingCurveStandart, new { @class = "form-edit formIB1Field numeric" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.SpecificHeatingCurveStandart
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.TotalAnnualConsumtionHeatingAndVentilation)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.TotalAnnualConsumtionHeatingAndVentilation, new { @class = "form-edit formIB1Field numeric" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.TotalAnnualConsumtionHeatingAndVentilation
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.TotalAnnualConsumtionHotWaterSystem)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.TotalAnnualConsumtionHotWaterSystem, new { @class = "form-edit formIB1Field numeric" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.TotalAnnualConsumtionHotWaterSystem
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                <span class="text-display">
+                                    @Html.DisplayFor(model => formRow.Deviation)
+                                </span>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => formRow.Deviation, new { @class = "form-edit formIB1Field numeric" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#" tabindex="-1">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedIform != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedIform.Deviation
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td style="text-align: center">
+                        @if (!Model.IsReadOnly)
+                        {
+                            <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+                        }
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td colspan="3" style="text-align: left;">
+                    @if (!Model.IsReadOnly)
+                    {
+                        <button type="button" class="btn btn-info btn-sm" id="btnAddNewFormB">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </button>
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<table id="tbFormIB1RowTemplate" class="hidden">
+    <tr class="@EnergyAuditFormConsts.Buildings">
+        <td class="disabletd">
+            <span class="ordern"></span>
+        </td>
+        <td>
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryBuildingForm1Rows.FirstOrDefault().Name, new { @class = "form-edit formIB1Field", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryBuildingForm1Rows.FirstOrDefault().YearExplonation, new { @class = "form-edit formIB1Field integer", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryBuildingForm1Rows.FirstOrDefault().Wear, new { @class = "form-edit formIB1Field numeric", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryBuildingForm1Rows.FirstOrDefault().GeneralParamheatingArea, new { @class = "form-edit formIB1Field numeric", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryBuildingForm1Rows.FirstOrDefault().GeneralParamPerimeter, new { @class = "form-edit formIB1Field numeric", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryBuildingForm1Rows.FirstOrDefault().GeneralParamHeight, new { @class = "form-edit formIB1Field numeric", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryBuildingForm1Rows.FirstOrDefault().GeneralParamInternalTemperature, new { @class = "form-edit formIB1Field numeric", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryBuildingForm1Rows.FirstOrDefault().GeneralParamHeatTransferResistanceWall, new { @class = "form-edit formIB1Field numeric", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryBuildingForm1Rows.FirstOrDefault().GeneralParamHeatTransferResistanceFloor, new { @class = "form-edit formIB1Field numeric", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryBuildingForm1Rows.FirstOrDefault().GeneralParamHeatTransferResistanceCoating, new { @class = "form-edit formIB1Field numeric", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryBuildingForm1Rows.FirstOrDefault().GeneralparamHeatTransferResistanceWindow, new { @class = "form-edit formIB1Field numeric", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryBuildingForm1Rows.FirstOrDefault().SpecificHeatingCurveFact, new { @class = "form-edit formIB1Field numeric", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryBuildingForm1Rows.FirstOrDefault().SpecificHeatingCurveStandart, new { @class = "form-edit formIB1Field numeric", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryBuildingForm1Rows.FirstOrDefault().TotalAnnualConsumtionHeatingAndVentilation, new { @class = "form-edit formIB1Field numeric", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryBuildingForm1Rows.FirstOrDefault().TotalAnnualConsumtionHotWaterSystem, new { @class = "form-edit formIB1Field numeric", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryBuildingForm1Rows.FirstOrDefault().Deviation, new { @class = "form-edit formIB1Field numeric", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td style="text-align: center">
+            <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+        </td>
+    </tr>
+</table>
+
+<script>
+    var IndustryFormIBForm1 = {
+        SaveOrUpdateFormFn: function (form, row, urlParam) {
+            $.ajax({
+                type: "POST",
+                url: urlParam,
+                data: form,
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    if (data.IsSuccess) {
+                        $(row).attr("id", data.Id);
+                    }
+                },
+            });
+        },
+        DeleteFormFn: function (rowId, urlParam, formCode) {
+            $.ajax({
+                type: "POST",
+                url: urlParam,
+                data: { id: rowId, buildingFormCode: formCode },
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                },
+            });
+        },
+        init: function () {
+
+            if (window.EAuditGeneral) {
+                EAuditGeneral.msgFieldMustBeDigit = '@ResourceSetting.sInputNumberRequired';
+                EAuditGeneral.tTitle = '@ResourceSetting.sComment';
+                EAuditGeneral.sSave = '@ResourceSetting.Save';
+                window.EAuditGeneral.init("tbIndustryFormIBForm1");
+            }
+
+            $("table .formIB1Field").blur(function () {
+                IndustryFormIBForm1.onBlurFieldFn(this, '@Url.Action("UpdateIndustryBuilding", "IndustryBuildingAttachment3")', "formIB1Field");
+            });
+
+            $("#btnAddNewFormB").click(function () {
+                IndustryFormIBForm1.addNewRowFn("@EnergyAuditFormConsts.IndustryBuildingForm1"
+                    , "tbFormIB1RowTemplate", "tbIndustryFormIBForm1", "formIB1Field",
+                    '@Url.Action("UpdateIndustryBuilding", "IndustryBuildingAttachment3")');
+            });
+
+            $("#tbIndustryFormIBForm1").on("click", ".deleteRow", function () {
+                IndustryFormIBForm1.deleteRowFn($(this), '@Url.Action("Delete", "IndustryBuildingAttachment3")', '@EnergyAuditFormConsts.IndustryBuildingForm1');
+            });
+
+            $(".integer").autoNumeric('init', {
+                aSep: EAuditGeneral.NumberGroupSeparatorConst,
+                mDec: 0
+            }, EAuditGeneral._alerWrongInput);
+            $(".numeric").autoNumeric('init', {
+                aSep: EAuditGeneral.NumberGroupSeparatorConst,
+                aDec: EAuditGeneral.NumberDecimalSeparatorConst,
+                mDec: 10,
+                aPad: false
+            }, EAuditGeneral._alerWrongInput);
+        },
+        serializeFormFn: function (row, fieldClass) {
+            var form = {};
+            var refPreamble = $("#refPreambleId").val();
+            form.refPreamble = refPreamble;
+            var id = row.attr("id");
+            form.Id = id;
+            row.find("." + fieldClass).each(function () {
+                var name = $(this).attr("name");
+                if (name.indexOf('.') > -1) {
+                    var nameArr = name.split('.');
+                    name = nameArr[nameArr.length - 1];
+                }
+                var value = $(this).val();
+                if ($(this).hasClass('numeric') || $(this).hasClass('integer')) {
+                    value = $(this).autoNumeric('get');
+                    value = EAuditGeneral.fixDecimalSeparatorFn(value);
+                }
+                form[name] = value;
+
+            });
+
+            return form;
+        },
+        addNewRowFn: function (className, templateId, mainTableId, fieldClass, urlParam) {
+            var row = $("#" + templateId + " tbody").html();
+            //row = $(row).addClass(className);
+            var lastRow = $("#" + mainTableId + " tr." + className).last();
+            var rowCount = $("#" + mainTableId + " tr." + className).length + 1;
+            debugger;
+            var rowElement = $.parseHTML(row);
+            $(rowElement).find(".ordern").text(rowCount);
+            $("." + fieldClass, rowElement).blur(function () {
+                IndustryFormIBForm1.onBlurFieldFn(this, urlParam, fieldClass);
+            });
+
+            $(".integer", rowElement).autoNumeric('init', {
+                aSep: EAuditGeneral.NumberGroupSeparatorConst,
+                mDec: 0
+            }, EAuditGeneral._alerWrongInput);
+            $(".numeric", rowElement).autoNumeric('init', {
+                aSep: EAuditGeneral.NumberGroupSeparatorConst,
+                aDec: EAuditGeneral.NumberDecimalSeparatorConst,
+                mDec: 10,
+                aPad: false
+            }, EAuditGeneral._alerWrongInput);
+
+            lastRow.after(rowElement);
+        },
+        deleteRowFn: function (element, urlParam, className) {
+            var row = $(element).closest('tr');
+            var success = function () {
+                var entityId = row.attr('id');
+                if (entityId)
+                    IndustryFormIBForm1.DeleteFormFn(entityId
+                        , urlParam
+                        , className);
+                row.remove();
+            }
+            var cancel = function () {
+
+            };
+            showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+        },
+        changeRowSpanHelperFn: function (row, value) {
+
+        },
+        onBlurFieldFn: function (element, urlParam, fieldClass) {
+            debugger;
+            var row = $(element).closest("tr");
+            var form = IndustryFormIBForm1.serializeFormFn(row, fieldClass);
+            if (form.refPreamble) {
+                IndustryFormIBForm1.SaveOrUpdateFormFn(form, row, urlParam);
+            }
+        }
+    };
+</script>

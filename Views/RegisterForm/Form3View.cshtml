@@ -1,0 +1,242 @@
+﻿@using Aisger
+@using Aisger.Helpers
+@model Aisger.Models.SUB_Form
+<style type="text/css">
+    .form3Field {
+        width: 100%;
+        text-align: right;
+    }
+</style>
+@if (CultureHelper.GetCurrentCulture() == "kz")
+{
+    <div>
+        <h5 style="font-weight: bold; text-align: center"> Күнтізбелік @Model.ReportYear жыл ішінде заттай және ақшалай көріністегі</h5>
+        <h5 style="font-weight: bold;text-align: center"> суды тұтыну және кему көлемдері туралы ақпарат</h5>
+    </div>
+}
+else
+{
+<div>
+    <h5 style="font-weight: bold; text-align: center"> Информация о потреблении и потерях</h5>
+    <h5 style="font-weight: bold;text-align: center"> энергетических ресурсов в натуральном и денежном выражении за @Model.ReportYear календарный год</h5>
+</div>
+}  
+<div id="CSSTableGenerator">
+    <table class="wast-list" style="width: 100%; text-align: center">
+        <thead>
+            <tr style="font-weight: bold">
+                <td>№</td>
+                <td>@ResourceSetting.form3a</td>
+                <td>@ResourceSetting.form23</td>
+                <td>@ResourceSetting.form3b</td>
+                <td>@ResourceSetting.form3c</td>
+            </tr>
+            <tr style="font-style: italic;font-weight: bold">
+                @for (int i = 1; i < 6; i++)
+                {   
+                    <td>@i</td>
+                }
+            </tr> 
+        </thead>
+        <tbody id="form3">
+            @{
+                Aisger.Models.SUB_Form3Record signedObj = null;
+            }
+            @for (var i = 0; i < Model.SubForm3Records.Count; i++)
+            {
+                if (Model.SignedSubForm != null)
+                {
+                    var id = Model.SubForm3Records[i].Id;
+                    signedObj = Model.SignedSubForm.SUB_Form3Record.FirstOrDefault(f => f.Id == id);
+                }
+                var index = i + 1;
+                var kindId = @Model.SubForm3Records[i].KindResourceId;
+                var consumptionVolumeHistory = "ConsumptionVolume_History_" + kindId;
+                var losTransportVolumeHistory = "LosTransportVolume_History_" + kindId;
+                var consumptionPriceHistory = "ConsumptionPrice_History_" + kindId;
+                var losTransportPriceHistory = "LosTransportPrice_History_" + kindId;
+                
+                var styletd = "width:100%;";
+                var volumeId = "classForm3_" + i;
+
+                <tr rowid="@Model.SubForm3Records[i].Id" typeid="@Model.SubForm3Records[i].KindResourceId" class="@volumeId">
+                    <td rowspan="2" class="disabletd">@index</td>
+                    <td rowspan="2" class="disabletd">@Model.SubForm3Records[i].SUB_DIC_KindResource.Name</td>
+                    @if (@Model.SubForm3Records[i].SUB_DIC_KindResource.DIC_Unit != null)
+                    {
+                        <td class="disabletd">@Model.SubForm3Records[i].SUB_DIC_KindResource.DIC_Unit.Name</td>
+                    }
+                    else
+                    {
+                        <td class="disabletd"></td>
+                    }
+                    <td>
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.SubForm3Records[i].ConsumptionVolume, new { @class = "form3Field form-edit" })
+                            <span class="input-group-addon">
+                                <a class="commentDialog" href="#">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </a>
+                            </span>
+                        </div>
+                        <input value="" class="disable-field  from-history" id="@consumptionVolumeHistory" />
+                        @if (signedObj != null)
+                        {
+                            <div class="signed signed-color">
+                                @signedObj.ConsumptionVolume
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        <div class="input-group">
+
+                            @Html.TextBoxFor(model => model.SubForm3Records[i].LosTransportVolume, new { @class = "form3Field form-edit" })
+                            <span class="input-group-addon">
+                                <a class="commentDialog" href="#">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </a>
+                            </span>
+                        </div>
+                        <input value="" class="disable-field  from-history" id="@losTransportVolumeHistory" />
+                        @if (signedObj != null)
+                        {
+                            <div class="signed signed-color">
+                                @signedObj.LosTransportVolume
+                            </div>
+                        }
+                    </td>
+                </tr>
+                <tr rowid="@Model.SubForm3Records[i].Id" typeid="@Model.SubForm3Records[i].KindResourceId" class="@volumeId">
+                    <td class="disabletd">@ResourceSetting.nds</td>
+                    <td>
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.SubForm3Records[i].ConsumptionPrice, new { @class = "form3Field form-edit" }) 
+                            <span class="input-group-addon">
+                                <a class="commentDialog" href="#">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </a>
+                            </span>
+                        </div>
+                        <input value="" class="disable-field  from-history" id="@consumptionPriceHistory" />
+                        @if (signedObj != null)
+                        {
+                            <div class="signed signed-color">
+                                @signedObj.ConsumptionPrice
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.SubForm3Records[i].LosTransportPrice, new { @class = "form3Field form-edit" }) 
+                            <span class="input-group-addon">
+                                <a class="commentDialog" href="#">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </a>
+                            </span>
+                        </div>
+                        <input value="" class="disable-field  from-history" id="@losTransportPriceHistory" />
+                        @if (signedObj != null)
+                        {
+                            <div class="signed signed-color">
+                                @signedObj.LosTransportPrice
+                            </div>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div style="font-size: 11px; font-style: italic; margin-top: 20px; margin-bottom: 30px">
+    @if (CultureHelper.GetCurrentCulture() == "kz")
+    {
+        <div>
+            <p style="font-weight: bold">* Ескертпе: </p>
+            1) Судың есепке алу құралы болмаған жағдайда, тиісті бағанада «есепке алу жүргізілмейді» деп жазу керек;<br>
+            2) Тұтынатын су көлемінің табиғи және оның ақшалай эквиваленті «4»-бағанада көрсетіледі;<br>
+            3) Суды тасымалдауды жүзеге асыратын компаниялар ғана «5»-бағанада толықтырылады.
+        </div>
+    }
+    else
+    {
+        <div>
+            <p style="font-weight: bold">* Примечание: </p>
+            1) В случае отстутсвия приборов учета воды в соответствующей графе прописать "учет не ведется"<br>
+            2) В столбце «4» указывается потребленный объем воды в натуральном выражении и его эквивалент в денежном выражении<br>
+            3) Столбец «5» заполняется только компаниями, осуществляющими транспортировку воды
+       
+        </div>
+    }
+</div>
+@Html.Partial("~/Views/RegisterForm/FoodView.cshtml", @Model)
+@*<script src="@Url.Content("~/Scripts/custom/subform-comment.js")" type="text/javascript"> </script>*@
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $(".form3Field").each(function () {
+                var valueField = $(this).val();
+                if (valueField.indexOf(',') > 0) {
+                    valueField = valueField.replace(',', '.');
+                }
+                if (valueField.length > 0) {
+                    $(this).val(formatNumber(valueField));
+                }
+        });
+        $(".form3Field").change(function () {
+            var idAttr = $(this).attr('name');
+            var fieldName = idAttr.split('.')[1];
+            var type = "float";
+            var row = $(this).closest('tr');
+            var entityId = row.attr('rowid');
+            var typeId = row.attr('typeid');
+            
+            UpdateModel("form3", entityId, $(this).attr('id'), fieldName, $(this).val(), type, typeId);
+            var classRow = row.attr('class');
+            $("." + classRow).each(function() {
+                $(this).attr('rowid', row.attr('rowid'));
+            });
+        });
+
+        //----color
+        $('.rating').each(function () {
+
+            var tableName = $(this).attr('tablename');
+            if (tableName == 'form3') {
+
+                if (document.getElementById(tableName) == null) {
+                    return;
+                }
+                var columnindex = parseInt($(this).attr('columnindex'));
+                var rowindex = parseInt($(this).attr('rowindex'));
+                var iserror = $(this).attr('iserror');
+                //        console.log(tableName + '; col:' + columnindex + "; row:" + rowindex);
+                if (document.getElementById(tableName) == null || document.getElementById(tableName).rows == null || document.getElementById(tableName).rows.length < rowindex + 1) {
+                    return;
+                }
+                var cell = document.getElementById(tableName).rows[rowindex].cells[columnindex];
+
+                if (cell != null && cell.children[0] != null && cell.children[0].children[0] != null) {
+
+                    if (cell.children[0].children[1].name == "SEC_User1.IsCvazy") {
+
+                        if (iserror) {
+                            cell.children[0].className += " control-error";
+                        } else {
+                            cell.children[0].className += " control-good";
+                        }
+                    } else {
+
+
+                        cell.children[0].children[1].children[0].children[0].className = "glyphicon glyphicon-info-sign mark-icon";
+                        if (iserror) {
+                            cell.children[0].children[0].className += " control-error";
+                        } else {
+                            cell.children[0].children[0].className += " control-good";
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+

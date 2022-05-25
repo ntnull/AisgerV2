@@ -1,0 +1,125 @@
+﻿@using System.Threading
+@using Aisger
+@using GridMvc.Html
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+
+@Styles.Render("~/Content/reportCss")
+@Scripts.Render("~/bundles/kendoui")
+@Scripts.Render("~/bundles/reportJs")
+
+<style type="text/css">
+	.input-group {
+		width: 100%;
+	}
+
+	.signed {
+	}
+
+	.signed-color {
+		color: #ffd700;
+	}
+
+	.btn-signed {
+		color: #000;
+		background-color: #ffd700;
+		border-color: #eed700;
+	}
+
+	.btn {
+		border-radius: 6px;
+	}
+
+	.btn-lg {
+		padding: 10px 16px;
+		font-size: 18px;
+		line-height: 1.3333333;
+		border-radius: 6px;
+	}
+
+	.btn-sm {
+		font-size: 12px;
+		padding: 4px 10px;
+	}
+
+	.btn-success {
+		color: #fff;
+		background-color: #5cb85c;
+		border-color: #4cae4c;
+	}
+
+	.col-centered {
+		float: none;
+		margin: 0 auto;
+	}
+</style>
+
+<div id="B">
+	<ul class="titlegroup" style="margin-top: 8px;">
+		<li style="font-size: 18px; color: #2679b5;" id="parentLabel">@ResourceSetting.Reestr  <span></span></li>
+		<li id="selectLabel"><span class="glyphicon glyphicon-arrow-right"></span>Карточка</li>
+	</ul>
+	<div class="row">
+		<div class="col-md-3 col-md-offset-2">
+			<div class="bi-report-container"></div>
+			<div style="margin-top: 20px;">
+				<button type="button" class="btn btn-success btn-lg" id="backBtn" onclick="history.go(-1);return false;">
+					<span class="glyphicon glyphicon-backward" aria-hidden="true"></span>@ResourceSetting.Back
+				</button>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+<script src="~/Scripts/reports/biFormaReport1.js"></script>
+<script>
+	$(document).ready(function () {
+		//----
+		var qwe = {};
+		var url = window.location;
+		loadHtmlTemplates();
+
+		//----
+		function loadHtmlTemplates() {
+
+			//----bi report 
+			templ_universal('FormaReport1', function () {
+
+				qwe.FormaReport1 = bi.FormaReport1({
+					content: templs.FormaReport1,
+					wrapper: $('.bi-report-container')
+				});
+
+				var currentURL = window.location.href;
+				console.log("curr url:", currentURL);
+				var arr = currentURL.split('/');
+				if (arr.length > 1) {
+
+					//var secId = arr[arr.length - 2].replace('#', '');
+					//var reportYear = arr[arr.length - 1].replace('#', '');
+					var secId = getSearchParams("secId");
+					var reportYear = getSearchParams("reportYear");
+					console.log("secId:", secId);
+					console.log("report:", reportYear);
+					var p = { year: reportYear, secUserId: parseFloat(secId), rObject: [] };
+					qwe.FormaReport1.openWindow(p);
+				}
+
+
+			});
+		}
+
+		function getSearchParams(k) {
+			var p = {};
+			location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (s, k, v) { p[k] = v })
+			return k ? p[k] : p;
+		}
+
+
+		//$("#backBtn").click(function () {
+		//	window.Showbusy(event);
+		//	window.location = "/RegisterForm/ShowDetails/" + $(this).val();
+		//});
+	});
+</script>

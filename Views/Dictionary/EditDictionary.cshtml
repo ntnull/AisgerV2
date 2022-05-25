@@ -1,0 +1,56 @@
+﻿@using Aisger
+@model Aisger.Models.IBaseDictionary
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+<script type="text/javascript">
+    function SaveChange() {
+        $('#saveUpdate').click();
+    }
+</script>
+@{ var controllerName = @ViewContext.RouteData.GetRequiredString("controller");}
+
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.Dictionary  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span> @ViewBag.Title  </li>
+    </ul>
+
+    <div id="wrapper_grid">
+        @using (Html.BeginForm("Edit", controllerName, FormMethod.Post, new { id = "demoForm", name = "demoForm" }))
+        {
+            @Html.ValidationSummary(true)
+             @Html.Hidden("Model.Id", @Model.Id)
+             @Html.Hidden("Model.EditDate", @Model.EditDate)
+             @Html.Hidden("Model.CreateDate", @Model.CreateDate)
+
+
+    <div class="clearfixmandatory form-group">
+
+        @Html.LabelFor(model => model.NameRu)
+        <div class="input">
+            @Html.TextBox("Model.NameRu", @Model.NameRu)  @Html.ValidationMessage("Model.NameRu")
+        </div>
+    </div>
+    <div class="clearfixmandatory form-group">
+
+        @Html.LabelFor(model => model.NameKz)
+        <div class="input">
+            @Html.TextBox("Model.NameKz", @Model.NameKz)  @Html.ValidationMessage("Model.NameKz")
+        </div>
+    </div>
+
+
+    <button id="saveUpdate" type="submit" name="SaveUpdate" value="SaveUpdate" style="visibility: hidden;"></button>
+
+        }
+        <div>
+            <button type="button" class="btn btn-success btn-lg" onclick="location.href='@Url.Action("Index", controllerName)'">
+                <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Return
+            </button>
+            <button type="button" class="btn btn-success btn-lg" onclick=" SaveChange() " style="float: right; margin-right: 30px">
+                <span class="glyphicon glyphicon-save" aria-hidden="true"></span> @ResourceSetting.Save
+            </button>
+        </div>
+
+    </div>
+</div>

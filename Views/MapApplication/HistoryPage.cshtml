@@ -1,0 +1,28 @@
+﻿@using System.Globalization
+@using Aisger
+@model Aisger.Models.MAP_Application
+<ul class="list-group">
+    @for (int i = 0; i < @Model.MAP_ApplicationHistory.Count; i++)
+    {
+        var entity = @Model.MAP_ApplicationHistory.ToList()[i];
+
+        <li class="list-group-item">
+
+            <p><b>@ResourceSetting.RegDate:</b> @entity.CreateDate.ToString(CultureInfo.InvariantCulture) </p>
+            @if (entity.MAP_DIC_Status != null)
+            {
+                <p><b>Статус:</b> @entity.MAP_DIC_Status.NameRu </p>
+            }
+            @if (entity.SEC_User != null)
+            {
+                <p><b>@ResourceSetting.Executer:</b> @entity.SEC_User.FullName </p>
+            }
+
+            <p style="font-weight: bold">@ResourceSetting.DESCR :</p>
+            <p>
+                @entity.Note
+            </p>
+        </li>
+
+    }
+</ul>

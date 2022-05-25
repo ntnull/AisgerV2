@@ -1,0 +1,506 @@
+﻿@using System.Collections
+@using System.Threading
+@using Aisger
+@using Aisger.Models
+@using Aisger.Utils
+@using FlowDoc.Models
+@using GridMvc.Html
+@model IEnumerable<RST_ReportReestrFilter>
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+<script src="@Url.Content("~/Scripts/custom/gridmvc.reestr.status.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/custom/gridmvc.reestr.reason.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/custom/gridmvc.oblast.js")" type="text/javascript"></script>
+@helper Excluded(bool isExcluded)
+{
+    var customer = "";
+    if (isExcluded)
+    {
+        customer = "Исключен";
+    }
+    @customer
+
+}
+@helper GridManageItemColumn(RST_ReportReestrFilter form)
+{
+    var btnsend = "btnsend_" + form.FormId;
+    var btndel = "btndel_" + form.FormId;
+    if (form.FormId == null || form.FormId == 0)
+    {
+        if (ViewBag.IsAcceptReport)
+        {
+            <div class="btn-group">
+                <button type="button" class="btn btn-success dropdown-toggle" accesscode="RstReport-operation" disabled data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="@ResourceSetting.opeartion">
+                    <span class=" caret"></span>
+                </button>
+                <ul class="dropdown-menu btnmenu">
+                    <li id="@btndel" class="btn-danger" title="@ResourceSetting.Delete"><a href="#" onclick="deleteApp(@form.Id)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>
+                </ul>
+
+            </div>
+        }
+        return;
+    }
+
+    var iconsend = "iconsend_" + form.FormId;
+    <div class="btn-group">
+        <button type="button" class="btn btn-success dropdown-toggle" accesscode="RstReport-operation" disabled data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="@ResourceSetting.opeartion">
+            <span class=" caret"></span>
+        </button>
+        <ul class="dropdown-menu btnmenu">
+            @if ((form.FormStatusCode != "REJECT" && form.FormStatusCode != "FINISHED") || ViewBag.IsAcceptReport)
+            {
+                <li class="btn-warning" title="@ResourceSetting.Check"><a href="@Url.Action("Design", "AppForm", new { id = form.FormId })" class="link-object"><span class="glyphicon glyphicon-certificate" aria-hidden="true"></span></a></li>
+
+            }
+            <li class="btn-primary" title="@ResourceSetting.ShowDetails"><a href="@Url.Action("ShowDetails", "AppForm", new { id = form.FormId })" class="link-object"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></li>
+            @if (ViewBag.IsAcceptReport)
+            {
+                <li id="@btnsend" class="btn-success" title="@ResourceSetting.Acceped"><a href="#" onclick="backApp(@form.FormId)"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span></a></li>
+                <li id="@btndel" class="btn-danger" title="@ResourceSetting.Delete"><a href="#" onclick="deleteApp(@form.Id)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>
+            }
+            <li class="btn-success" title="@ResourceSetting.changeStatus" accesscode="RstReport-changeStatus"><a href="#" class="change-status" u-id="@form.UserId" status-id="@form.FormStatus" form-id="@form.FormId"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></li>
+        </ul>
+    </div>
+    @* if (form.IsBack)
+        {
+            <span class="glyphicon glyphicon-ok fa-2x text-success" title="@ResourceSetting.sended"></span>
+        }
+        else
+        {
+            <span id="@iconsend" class="fa-2x text-success" title="@ResourceSetting.sended"></span>
+        }*@
+}
+@helper SubjectView(RST_ReportReestrFilter o)
+{
+    var customer = o.OwnerName + '/' + o.Address;
+    if (MyExtensions.GetRolesId() != 19)
+    {
+        var reportYear = (int)ViewData["ReportYear"];
+        <a href="@Url.Action("Index", "SubjectInfo", new { id = o.UserId, year = reportYear })" class="link-object">
+            @customer
+        </a>
+    }
+    else
+    { <span> @customer </span>}
+}
+
+@helper FromView(RST_ReportReestrFilter o)
+{    
+    var customer = o.FormStatus;
+    var statusForm = "statusForm_" + o.FormId;
+    if (o.FormId != null && o.FormId > 0)
+    {
+        if (MyExtensions.GetRolesId() != 19)
+        {
+            <a href="@Url.Action("ShowDetails", "AppForm", new { id = o.FormId })" class="link-object">
+                <span id="@statusForm">@customer</span>
+            </a>
+        }
+        else
+        {
+            <span id="@statusForm">@customer</span>
+        }
+
+        <p>@o.AuthorName</p>
+    }
+    else
+    {
+        if (MyExtensions.GetRolesId() != 19)
+        {
+            <a onclick="CreateReport(@o.UserId)" class="link-object" title="@ResourceSetting.createReport">
+                @customer
+            </a>
+        }
+        else
+        { <span>@customer</span>
+    }
+}
+}
+
+@helper HistoryView(RST_ReportReestrFilter o)
+{
+    <a class="openDialog" data-dialog-id="emailDialog" data-dialog-title="@ResourceSetting.History" href="@Url.Action("ShowHistory", "RstReport", new { userId = @o.UserId })" tit title="@ResourceSetting.History">
+        @o.StatusName
+    </a>
+
+}
+
+
+
+@helper CondidatView(RST_ReportReestrFilter o)
+{
+    <select class="expactCombox" style="width: 100%" recordid="@o.Id" title="@o.ExpectantName">
+        <option></option>
+        @{
+            var listStatus = ViewData["ExpactList"];
+
+
+            foreach (RST_DIC_Reason source in (IEnumerable)listStatus)
+            {
+                if (o.Expectant == source.Id)
+                {
+                    <option selected value="@source.Id">@source.Name </option>
+                }
+                else
+                {
+                    <option value="@source.Id">@source.Name </option>
+                }
+            }
+        }
+
+    </select>
+}
+
+@helper ChangeIDK(RST_ReportReestrFilter o)
+{
+    <a href="#" class="change_idk" reestrId="@o.Id" userId="@o.UserId" idk="@o.IDK">
+        @o.IDK
+    </a>
+}
+
+@helper ReasonsView(RST_ReportReestrFilter o)
+{
+    <select class="reasonCombox" style="width: 100%" recordid="@o.Id" title="@o.ReasonName" accesscode="RstReport-changeReason">
+        <option></option>
+        @{
+            var reasonList = (MultiSelectList)ViewData["ReasonList"];
+            foreach (var item in reasonList)
+            {
+                if (o.ReasonId != null && o.ReasonId.Value == Convert.ToInt64(item.Value))
+                {
+                    <option selected value="@item.Value">@item.Text </option>
+                }
+                else
+                {
+                    <option value="@item.Value">@item.Text </option>
+                }
+            }
+        }
+
+    </select>
+}
+
+@helper ChangeSendDate(RST_ReportReestrFilter o)
+{
+    var sendDate = (o.SendDate != null) ? o.SendDate.Value.ToString("dd/MM/yyyy") : "";
+    <span> @sendDate </span><span class="change-sendDate" sendDate="@sendDate" reestrId="@o.Id" accesscode="RstReport-changeSendDate"></span>
+}
+
+@helper FsCodeView(RST_ReportReestrFilter o)
+{
+    <select class="fsCodeCombox" style="width: 100%" recordid="@o.Id" title="ФС" accesscode="RstReport-changeFsCode">
+        <option></option>
+        @{
+            var fsCodeList = (MultiSelectList)ViewData["FsCodeList2"];
+            foreach (var item in fsCodeList)
+            {
+                if (o.usrfscode != null && o.usrfscode.Value == Convert.ToInt64(item.Value))
+                {
+                    <option selected value="@item.Value">@item.Text </option>
+                }
+                else
+                {
+                    <option value="@item.Value">@item.Text </option>
+                }
+            }
+        }
+
+    </select>
+}
+
+<style type="text/css">
+    td {
+        border-left: 1px solid #dddddd;
+    }
+</style>
+<div id="main_confirmation1" class="modal fade" style="padding-top: 100px">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"><span class="glyphicon glyphicon-exclamation-sign"></span>@ResourceSetting.Warning</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="confirmCancel1">@ResourceSetting.Cancel</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="CSSTableGenerator">
+    @Html.Grid(Model).Named("ordersGrid").SetLanguage(Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName).Columns(columns =>
+{
+    columns.Add(o => o.Id, true)
+        .Titled("Id").SetWidth(0);
+    columns.Add(o => o.BINIIN).Titled(ResourceSetting.biniinSubject)
+       .SetWidth(40);
+    columns.Add().Encoded(false).Sanitized(false).Titled(ResourceSetting.IDK)
+           .SetWidth(40).RenderValueAs(o => ChangeIDK(o).ToHtmlString());
+    columns.Add(o => o.IDK, true).Titled(ResourceSetting.IDK)
+ .SetWidth(40);
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false).Titled(ResourceSetting.SubPerson)
+        .SetWidth(80)
+        .RenderValueAs(o => SubjectView(o).ToHtmlString());
+    columns.Add(o => o.OwnerName, true).Titled(ResourceSetting.SubPerson)
+     .SetWidth(40);
+    columns.Add(o => o.Address, true).Titled(ResourceSetting.Address)
+    .SetWidth(40);
+
+    //----sendDate
+    columns.Add().Titled(ResourceSetting.SendDate)
+    .Encoded(false)
+    .Sanitized(false)
+    .Format("{0:dd.MM.yyyy}")
+    .SetWidth(110)
+    .RenderValueAs(o => ChangeSendDate(o).ToHtmlString());
+    // columns.Add(o => o.SendDate).Titled(ResourceSetting.SendDate)
+    //.Format("{0:dd.MM.yyyy}")
+    //.SetWidth(40);
+
+    columns.Add()
+       .Encoded(false)
+       .Sanitized(false).Titled(ResourceSetting.RegisterForm)
+       .SetWidth(80)
+       .RenderValueAs(o => FromView(o).ToHtmlString());
+    columns.Add(o => o.FormStatus, true).Titled(ResourceSetting.RegisterForm)
+  .SetWidth(40);
+
+    columns.Add()
+     .Encoded(false)
+     .Sanitized(false).Titled(ResourceSetting.ExpectantName)
+     .SetWidth(80)
+     .RenderValueAs(o => CondidatView(o).ToHtmlString());
+    columns.Add(o => o.ExpectantName, true).Titled(ResourceSetting.ExpectantName)
+.SetWidth(40);
+
+    /*   columns.Add(o => o.OwnerName).Titled(ResourceSetting.SubPerson)
+         .SetWidth(40);
+       columns.Add(o => o.Address).Titled(ResourceSetting.Address)
+   .SetWidth(40);*/
+    columns.Add(o => o.OblastName).Titled(ResourceSetting.Oblast)
+    .SetWidth(40).SetFilterWidgetType("OblastNameFilterWidget");
+
+    columns.Add().Encoded(false).Sanitized(false).Titled(ResourceSetting.RstDicStatus)
+    .SetWidth(40).RenderValueAs(o => HistoryView(o).ToHtmlString());
+
+    columns.Add(o => o.StatusName, true).Titled(ResourceSetting.RstDicStatus)
+   .SetWidth(40);
+
+    columns.Add(o => o.ExcludedName, true).Titled(ResourceSetting.Excluded)
+  .SetWidth(40);
+
+   columns.Add()
+  .Encoded(false)
+  .Sanitized(false).Titled("ФС")
+  .SetWidth(80)
+  .RenderValueAs(o => FsCodeView(o).ToHtmlString());
+
+    columns.Add()
+ .Encoded(false)
+ .Sanitized(false).Titled(ResourceSetting.ReportReason)
+ .SetWidth(80)
+ .RenderValueAs(o => ReasonsView(o).ToHtmlString());
+
+    columns.Add()
+    .Encoded(false)
+    .Sanitized(false).SetWidth(20)
+    .RenderValueAs(o => GridManageItemColumn(o).ToHtmlString());
+    /*    columns.Add()
+               .Encoded(false)
+               .Sanitized(false).SetWidth(20)
+               .RenderValueAs(o => GridManageItemColumn(o.Id).ToHtmlString());*/
+
+}).SetRowCssClasses(item => item.IsExcluded ? "danger" : item.FormStatusCode == "REJECT" ? "warning" : item.FormStatusCode == "FINISHED" ? "success" : string.Empty).WithPaging(50).Sortable().Filterable().WithMultipleFilters()
+
+
+
+
+
+
+
+</div>
+
+<script>
+    showConfirmation1 = function (title, message, success1, cancel1) {
+        title = title ? title : 'Вы уверены?';
+        var modal = $("#main_confirmation1");
+        modal.find(".modal-title").html(title).end()
+            .find(".modal-body").html(message).end()
+            .modal({ backdrop: 'static', keyboard: false })
+            .on('hidden.bs.modal', function () {
+                modal.unbind();
+            });
+        $("#confirmCancel1").one('click', cancel1);
+        if (success1) {
+            modal.one('click', '.modal-footer .btn-primary', success1);
+            return true;
+        }
+        if (cancel1) {
+            modal.one('click', '.modal-header .close, .modal-footer .btn-primary', cancel1);
+            return false;
+        }
+        return true;
+    };
+    $(function () {
+        pageGrids.ordersGrid.addFilterWidget(new StatusReestrFilterWidget());
+        //        pageGrids.ordersGrid.addFilterWidget(new ReasonReestrFilterWidget());
+        pageGrids.ordersGrid.addFilterWidget(new OblastFilterWidget());
+
+        //----expact
+        $(".expactCombox").change(function () {
+
+            var fieldValue = $(this).val();
+            var recordId = $(this).attr('recordId');
+
+            var params = JSON.stringify({ 'recordId': recordId, 'fieldValue': fieldValue });
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateExpact")',
+                data: params,
+                dataType: 'json',
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                },
+                error: function () {
+                    alert("Connection Failed. Please Try Again");
+                }
+            });
+        });
+
+        //----reason
+        $(".reasonCombox").change(function () {
+
+            var fieldValue = $(this).val();
+            var recordId = $(this).attr('recordId');
+
+            var params = JSON.stringify({ 'recordId': recordId, 'fieldValue': fieldValue });
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateReason")',
+                data: params,
+                dataType: 'json',
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                },
+                error: function () {
+                    alert("Connection Failed. Please Try Again");
+                }
+            });
+        });
+
+        //----fscode
+        $(".fsCodeCombox").change(function () {
+
+            var fieldValue = $(this).val();
+            var recordId = $(this).attr('recordId');
+
+            var params = JSON.stringify({ 'recordId': recordId, 'fieldValue': fieldValue });
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateFsCode")',
+                data: params,
+                dataType: 'json',
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                },
+                error: function () {
+                    alert("Connection Failed. Please Try Again");
+                }
+            });
+        });
+
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.openDialog').live("click", function (e) {
+            e.preventDefault();
+            $("<div style=" + '"' + "text-align: center;" + '"' + "><img src=" + '"' + "../content/images/spinner.gif" + '"' + " style=" + '"' + "display: block; margin: 0 auto;" + '"' + " /></br>" + "....</div>")
+                .addClass("dialog")
+                .attr("id", $(this)
+                    .attr("data-dialog-id"))
+                .appendTo("body")
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove(); },
+                    width: 800,
+                    modal: true
+                })
+                .load(this.href);
+        });
+        $(".close").live("click", function (e) {
+            e.preventDefault();
+            $(this).closest(".dialog").dialog("close");
+        });
+        $('#accordion').on('hidden.bs.collapse', function () {
+            //do something...
+        });
+
+        $('#accordion .accordion-toggle').click(function (e) {
+            var chevState = $(e.target).siblings("i.indicator").toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+            $("i.indicator").not(chevState).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+        });
+
+    });
+</script>
+
+<script>
+
+    function CreateReport(userId) {
+        window.Showbusy(event);
+        window.location = "/AppForm/Create?year=" + $("#ReportYear").val() + '&userId=' + userId;
+    }
+
+    function deleteApp(id) {
+        var success = function () {
+            var success1 = function () {
+                window.Showbusy(event);
+                window.location = "/RstReport/Delete?Id=" + id;
+            }
+            var cancel1 = function () {
+            };
+            showConfirmation1('@ResourceSetting.Delete', "@ResourceSetting.confirmDel", success1, cancel1);
+        }
+        var cancel = function () {
+        };
+        showConfirmation('@ResourceSetting.Delete', "@ResourceSetting.deleteconfirm", success, cancel);
+    }
+
+    function backApp(id) {
+        var success = function () {
+            var params = JSON.stringify({ 'id': id });
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SendApplication", "AppForm")',
+                data: params,
+                dataType: 'json',
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.Success) {
+                        $('#statusForm_' + id).text("Принят");
+                        var rowId = $('#statusForm_' + id).closest('tr').addClass('success');
+                        //                        $('#btnsend_' + id).remove();
+                        //                        $('#iconsend_' + id).addClass("glyphicon glyphicon-ok");
+                    }
+                },
+                error: function () {
+                    alert("Connection Failed. Please Try Again");
+                }
+            });
+
+        }
+        var cancel = function () {
+        };
+        showConfirmation('@ResourceSetting.Send', "@ResourceSetting.confirmSend", success, cancel);
+    }
+</script>

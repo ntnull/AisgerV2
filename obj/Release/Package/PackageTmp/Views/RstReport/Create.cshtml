@@ -1,0 +1,49 @@
+﻿@using Aisger
+@using GridMvc.Html
+@model Aisger.Models.RST_Report
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.Reestr  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  @ResourceSetting.RST_Report </li>
+    </ul>
+    <div id="wrapper_grid" style="margin-left: 50px;margin-bottom: 100px">
+        @using (Html.BeginForm("Create", "RstReport", FormMethod.Post, new { id = "demoForm", name = "demoForm" }))
+        {
+            @Html.ValidationSummary(true)
+
+            <div class="clearfixmandatory">
+                @Html.Label("Год")
+                <div class="input">
+                    @Html.DropDownList("ReportYear", (IEnumerable<SelectListItem>)(ViewData["Years"]), String.Empty, new { style = "width:500px;", data_placeholder = "Укажите год" })
+                    @Html.ValidationMessageFor(model => model.ReportYear)
+                </div>
+            </div>
+    <button id="saveUpdate" type="submit" name="SaveUpdate" value="SaveUpdate" style="visibility: hidden;"></button>
+
+        }
+        <div>
+            <button type="button" class="btn btn-success btn-sm" onclick="location.href='@Url.Action("Index", "RstReport")'">
+                <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Back
+            </button>
+            <button id="saveBtn" type="button" class="btn btn-success btn-sm" onclick=" SaveChange() " style=" margin-right: 30px">
+                <span class="glyphicon glyphicon-save" aria-hidden="true"></span> @ResourceSetting.Save
+            </button>
+        </div>
+
+        @Html.Partial("~/Views/RstReport/GridView.cshtml", @Model.RstReportReestrs)
+    </div>
+   
+</div>
+<script type="text/javascript">
+    var counterBuff = 0;
+    $(document).ready(function () {
+
+        $("#ReportYear").change(function () {
+            window.location = "/RstReport/Create/" + $(this).val();
+        });
+
+    });
+</script>
+

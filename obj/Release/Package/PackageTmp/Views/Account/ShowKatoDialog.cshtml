@@ -1,0 +1,158 @@
+﻿@using Aisger
+
+<style>
+    .clearfixmandatory label {
+        zoom: 1;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .clearfixmandatory:before,
+    .clearfixmandatory:after {
+        display: table;
+        content: "";
+        zoom: 1;
+        *display: inline;
+    }
+
+    .clearfixmandatory label:after {
+        clear: both;
+        content: "*";
+    }
+</style>
+
+<div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 40px; margin-left: 15px">
+    @Html.Label(ResourceSetting.OblastOrCity)
+    <div class="col-sm-6">
+
+        @Html.DropDownList("Oblast", (IEnumerable<SelectListItem>)(ViewData["OblastList"]),
+                            String.Empty,
+                            new
+                            {
+                                id = "OblastDropDownList",
+                                name = "OblastDropDownList",
+                                @class = "form-control"
+
+                            })
+    </div>
+</div>
+<div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 40px; margin-left: 15px">
+    @Html.Label(ResourceSetting.CityOrDistrict)
+    <div class="col-sm-6">
+        @Html.DropDownList("Region", (IEnumerable<SelectListItem>)(ViewData["RegionList"]),
+                            String.Empty,
+                            new
+                            {
+                                id = "RegionDropDownList",
+                                name = "RegionDropDownList",
+                                @class = "form-control"
+                            })
+    </div>
+</div>
+<div class="form-group" style="min-height: 1px; margin-bottom: 40px; margin-left: 15px">
+
+    @Html.Label(ResourceSetting.SubRegion)
+    <div class="col-sm-6">
+        @Html.DropDownList("SubRegion", (IEnumerable<SelectListItem>)(ViewData["SubRegionList"]),
+                            String.Empty,
+                            new
+                            {
+                                id = "SubRegionDropDownList",
+                                name = "SubRegionDropDownList",
+                                @class = "form-control"
+
+                            })
+    </div>
+</div>
+
+<div class="form-group" style="min-height: 1px; margin-bottom: 40px; margin-left: 15px">
+    @Html.Label(ResourceSetting.Village)
+    <div class="col-sm-6">
+        @Html.DropDownList("Village", (IEnumerable<SelectListItem>)(ViewData["VillageList"]),
+            String.Empty,
+            new
+            {
+                id = "VillageDropDownList",
+                name = "VillageDropDownList",
+                @class = "form-control"
+
+            })
+    </div>
+</div>
+<script type="text/javascript">
+    function getPoints(abbr, urlPoints, ddltarget, param) {
+
+        if (!param.parentId) {
+            console.log("param=", param);
+
+            $(ddltarget).empty();
+            $(ddltarget).append(
+                     $('<option/>')
+                     .attr('value', "")
+                     .text("Нет населенных пунктов")
+                 );
+            $(ddltarget).trigger('liszt:updated');
+            return;
+        }
+
+        $.ajax({
+            url: urlPoints,
+            type: 'GET',
+            data: param,
+            cache: 'false',
+            success: function (data) {
+                $(ddltarget).empty();
+
+                if (data.length > 0) {
+                    $.each(data, function (index, optiondata) {
+                        $(ddltarget).append(
+                            $('<option/>')
+                            .attr('value', optiondata.Id)
+                            .text(optiondata.NameRu)
+                        );
+                    });
+                } else {
+                    $(ddltarget).append(
+                        $('<option/>')
+                        .attr('value', "")
+                        .text("Нет населенных пунктов")
+                    );
+                }
+                $(ddltarget).trigger('liszt:updated');
+            },
+            error: function (data) {
+                alert("Error:" + data);
+            }
+        });
+    }
+</script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#OblastDropDownList").change(function () {
+
+            var abbr = $(this).val();
+            var urlPoints = '@Url.Action("GetKatos", "Account")';
+            var ddltarget = "#RegionDropDownList";
+            var param = { parentId: abbr, mandatory: false };
+            getPoints(abbr, urlPoints, ddltarget, param);
+        });
+        $("#RegionDropDownList").change(function () {
+
+            var abbr = $(this).val();
+            var urlPoints = '@Url.Action("GetKatos", "Account")';
+            var ddltarget = "#SubRegionDropDownList";
+            var param = { parentId: abbr, mandatory: false };
+            getPoints(abbr, urlPoints, ddltarget, param);
+        });
+        $("#SubRegionDropDownList").change(function () {
+            var abbr = $(this).val();
+            var urlPoints = '@Url.Action("GetKatos", "Account")';
+            var ddltarget = "#VillageDropDownList";
+            var param = { parentId: abbr, mandatory: false };
+            getPoints(abbr, urlPoints, ddltarget, param);
+        });
+
+
+    });
+</script>

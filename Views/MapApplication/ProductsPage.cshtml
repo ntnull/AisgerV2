@@ -1,0 +1,272 @@
+﻿@using System.Globalization
+@using Aisger
+@model Aisger.Models.MAP_Application
+<style type="text/css">
+    .form4Field {
+        width: 100%;
+    }
+
+ 
+</style>
+<div id="CSSTableGenerator">
+    <table id="table-product"  style="width: 100%; text-align: center">
+           
+        <tbody>
+            <tr style="height: 40px">
+                <td style="width:50%;" class="disabletd">@ResourceSetting.OkedString</td>
+                <td style="width:25%;" class="disabletd">-</td>
+                <td style="width:25%;" class="disabletd">@Model.OkedString</td>
+                <td></td>
+            </tr>
+            <tr style="font-weight: bold">
+                <td style="width:50%; font-weight: bold" class="disabletd">@ResourceSetting.ProductKind</td>
+                <td style="width:25%; font-weight: bold" class="disabletd">@ResourceSetting.DicUnit</td>
+                <td style="width:25%; font-weight: bold" class="disabletd">@ResourceSetting.Value</td>
+                <td></td>
+            </tr>
+            @for (int i = 0; i < Model.MapApplicationProducts.Count; i++)
+            {
+                <tr rowindex="@i">
+                    @Html.HiddenFor(model => model.MapApplicationProducts[i].Id)
+                    <td>
+                        @Html.TextBoxFor(model => model.MapApplicationProducts[i].ProductName, new { style = "width:100%", @class = "form-control form-edit" })
+                    </td>
+                    <td>@Html.TextBoxFor(model => model.MapApplicationProducts[i].ProductUnit, new { style = "width:100%", @class = "form-control form-edit" })</td>
+                    <td>@Html.TextBoxFor(model => model.MapApplicationProducts[i].ProductVolume, new { style = "width:100%", @class = "form-control form-edit" })</td>
+               
+                    @if (i == 0)
+                    {
+                        <td class="disabletd"><a class="deleteRow"></a></td>
+                    }
+                    else
+                    {
+                        <td class="disabletd">
+                            <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete" />
+                        </td>
+                    }
+
+                </tr>
+            }
+            <tr >
+                <td colspan="5" style="text-align: left;">
+                    <button type="button" class="btn btn-success btn-sm add-btn-from4" id="addCoordrrow" style="margin-bottom: 20px">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.addNew
+                    </button>
+                </td>
+            </tr>
+            <tr style="font-weight: bold">
+                <td style="width:50%; font-weight: bold" class="disabletd">@ResourceSetting.PowerInYear</td>
+                <td style="width:25%; font-weight: bold" class="disabletd">@ResourceSetting.DicUnit</td>
+                <td style="width:25%; font-weight: bold" class="disabletd">@ResourceSetting.Value</td>
+                <td></td>
+            </tr>
+            @for (int i = 0; i < Model.ProjectPowers.Count; i++)
+            {
+                <tr rowindex="@i">
+                    @Html.HiddenFor(model => model.ProjectPowers[i].Id)
+                    <td>
+                        @Html.TextBoxFor(model => model.ProjectPowers[i].ProductName, new { style = "width:100%", @class = "form-control form-edit" })
+                    </td>
+                    <td>@Html.TextBoxFor(model => model.ProjectPowers[i].ProductUnit, new { style = "width:100%", @class = "form-control form-edit" })</td>
+                    <td>@Html.TextBoxFor(model => model.ProjectPowers[i].ProductVolume, new { style = "width:100%", @class = "form-control form-edit" })</td>
+
+                    @if (i == 0)
+                    {
+                        <td class="disabletd"><a class="deleteRow"></a></td>
+                    }
+                    else
+                    {
+                        <td class="disabletd">
+                            <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete" />
+                        </td>
+                    }
+
+                </tr>
+            }
+            <tr>
+                <td colspan="5" style="text-align: left;">
+                    <button type="button" class="btn btn-success btn-sm add-btn-from4" id="addPower" style="margin-bottom: 20px">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.addNew
+                    </button>
+                </td>
+            </tr>
+            <tr style="font-weight: bold">
+                <td style="width:50%; font-weight: bold" class="disabletd">@ResourceSetting.RealTerm</td>
+                <td style="width:25%; font-weight: bold" class="disabletd">@ResourceSetting.DicUnit</td>
+                <td style="width:25%; font-weight: bold" class="disabletd">@ResourceSetting.Value</td>
+                <td></td>
+            </tr>
+            @for (int i = 0; i < Model.InKinds.Count; i++)
+            {
+                <tr rowindex="@i">
+                    @Html.HiddenFor(model => model.InKinds[i].Id)
+                    <td>
+                        @Html.TextBoxFor(model => model.InKinds[i].ProductName, new { style = "width:100%", @class = "form-control form-edit" })
+                    </td>
+                    <td>@Html.TextBoxFor(model => model.InKinds[i].ProductUnit, new { style = "width:100%", @class = "form-control form-edit" })</td>
+                    <td>@Html.TextBoxFor(model => model.InKinds[i].ProductVolume, new { style = "width:100%", @class = "form-control form-edit" })</td>
+
+                    @if (i == 0)
+                    {
+                        <td class="disabletd"><a class="deleteRow"></a></td>
+                    }
+                    else
+                    {
+                        <td class="disabletd">
+                            <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete" />
+                        </td>
+                    }
+
+                </tr>
+            }
+            <tr>
+                <td colspan="5" style="text-align: left;">
+                    <button type="button" class="btn btn-success btn-sm add-btn-from4" id="addInKind" style="margin-bottom: 20px">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.addNew
+                    </button>
+                </td>
+            </tr>
+            
+            <tr style="font-weight: bold">
+                <td style="width:50%; font-weight: bold" class="disabletd">@ResourceSetting.TermCost</td>
+                <td style="width:25%; font-weight: bold" class="disabletd">@ResourceSetting.DicUnit</td>
+                <td style="width:25%; font-weight: bold" class="disabletd">@ResourceSetting.Value</td>
+                <td></td>
+            </tr>
+            @for (int i = 0; i < Model.InValueTerms.Count; i++)
+            {
+                <tr rowindex="@i">
+                    @Html.HiddenFor(model => model.InValueTerms[i].Id)
+                    <td>
+                        @Html.TextBoxFor(model => model.InValueTerms[i].ProductName, new { style = "width:100%", @class = "form-control form-edit" })
+                    </td>
+                    <td class="disabletd">млн. тенге</td>
+                    <td>@Html.TextBoxFor(model => model.InValueTerms[i].ProductVolume, new { style = "width:100%", @class = "form-control form-edit" })</td>
+
+                    @if (i == 0)
+                    {
+                        <td class="disabletd"><a class="deleteRow"></a></td>
+                    }
+                    else
+                    {
+                        <td class="disabletd">
+                            <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete" />
+                        </td>
+                    }
+
+                </tr>
+            }
+            <tr>
+                <td colspan="5" style="text-align: left;">
+                    <button type="button" class="btn btn-success btn-sm add-btn-from4" id="addInValueTerm" style="margin-bottom: 20px">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.addNew
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+   
+
+  @*      <tfoot id="foodForm4">
+            <tr>
+                <td class="disabletd">@ResourceSetting.PowerInYear</td>
+                <td>@Html.TextBoxFor(model => model.ProjectPowerUnit, new { style = "width:100%", @class = "form-control form-edit" })</td>
+                <td>@Html.TextBoxFor(model => model.ProjectPowerVolume, new { style = "width:100%", @class = "form-control form-edit" })</td>
+                <td class="disabletd"></td>
+            </tr>
+            <tr>
+                <td class="disabletd">@ResourceSetting.RealTerm</td>
+                <td>@Html.TextBoxFor(model => model.RealtermUnit, new { style = "width:100%", @class = "form-control form-edit" })</td>
+                <td>@Html.TextBoxFor(model => model.RealtermVolume, new { style = "width:100%", @class = "form-control form-edit" })</td>
+                <td class="disabletd"></td>
+            </tr>
+            <tr>
+                <td class="disabletd">@ResourceSetting.TermCost</td>
+                <td class="disabletd">млн. тенге</td>
+                <td>@Html.TextBoxFor(model => model.TermCost, new { style = "width:100%", @class = "form-control form-edit" })</td>
+                <td class="disabletd"></td>
+            </tr>
+        </tfoot>*@
+    </table>
+</div>
+
+
+
+<script type="text/javascript">
+
+    $("#addInValueTerm").on("click", function () {
+
+        var row = $(this).closest("tr").prev();
+        var rowindex = parseInt(row.attr('rowindex'), 10) || 0;
+        var nextIndex = rowindex + 1;
+
+        var cols = '<tr rowindex="' + nextIndex + '">';
+        cols += '<td><input type="text" name="InValueTerms[' + nextIndex + '].ProductName"  style="width:100%" class="form-control form-edit" /></td>';
+        cols += '<td class="disabletd">млн. тенге</td>';
+        cols += '<td><input type="text" name="InValueTerms[' + nextIndex + '].ProductVolume"  style="width:100%" class="form-control form-edit" /></td>';
+
+        cols += '<td  class="disabletd"><i class="glyphicon glyphicon-remove deleteRow"  title="@ResourceSetting.Delete"></td>';
+        cols += '</tr>';
+        row.after(cols);
+    });
+    $(document).ready(function () {
+        $("#addInKind").on("click", function () {
+
+            var row = $(this).closest("tr").prev();
+            var rowindex = parseInt(row.attr('rowindex'), 10) || 0;
+            var nextIndex = rowindex + 1;
+
+            var cols = '<tr rowindex="' + nextIndex + '">';
+            cols += '<td><input type="text" name="InKinds[' + nextIndex + '].ProductName"  style="width:100%" class="form-control form-edit" /></td>';
+            cols += '<td><input type="text" name="InKinds[' + nextIndex + '].ProductUnit"  style="width:100%" class="form-control form-edit" /></td>';
+            cols += '<td><input type="text" name="InKinds[' + nextIndex + '].ProductVolume"  style="width:100%" class="form-control form-edit" /></td>';
+
+            cols += '<td  class="disabletd"><i class="glyphicon glyphicon-remove deleteRow"  title="@ResourceSetting.Delete"></td>';
+            cols += '</tr>';
+            row.after(cols);
+        });
+        $("#addPower").on("click", function () {
+
+            var row = $(this).closest("tr").prev();
+            var rowindex = parseInt(row.attr('rowindex'), 10) || 0;
+            var nextIndex = rowindex + 1;
+
+            var cols = '<tr rowindex="' + nextIndex + '">';
+            cols += '<td><input type="text" name="ProjectPowers[' + nextIndex + '].ProductName"  style="width:100%" class="form-control form-edit" /></td>';
+            cols += '<td><input type="text" name="ProjectPowers[' + nextIndex + '].ProductUnit"  style="width:100%" class="form-control form-edit" /></td>';
+            cols += '<td><input type="text" name="ProjectPowers[' + nextIndex + '].ProductVolume"  style="width:100%" class="form-control form-edit" /></td>';
+
+            cols += '<td  class="disabletd"><i class="glyphicon glyphicon-remove deleteRow"  title="@ResourceSetting.Delete"></td>';
+            cols += '</tr>';
+            row.after(cols);
+        });
+        $("#addCoordrrow").on("click", function () {
+
+            var row = $(this).closest("tr").prev();
+            var rowindex = parseInt(row.attr('rowindex'), 10) || 0;
+            var nextIndex = rowindex + 1;
+
+            var cols = '<tr rowindex="' + nextIndex + '">';
+            cols += '<td><input type="text" name="MapApplicationProducts[' + nextIndex + '].ProductName"  style="width:100%" class="form-control form-edit" /></td>';
+            cols += '<td><input type="text" name="MapApplicationProducts[' + nextIndex + '].ProductUnit"  style="width:100%" class="form-control form-edit" /></td>';
+            cols += '<td><input type="text" name="MapApplicationProducts[' + nextIndex + '].ProductVolume"  style="width:100%" class="form-control form-edit" /></td>';
+
+            cols += '<td  class="disabletd"><i class="glyphicon glyphicon-remove deleteRow"  title="@ResourceSetting.Delete"></td>';
+            cols += '</tr>';
+            row.after(cols);
+        });
+
+        $("#table-product").on("click", ".deleteRow", function () {
+            var row = $(this).closest('tr');
+            var success = function () {
+
+                row.remove();
+                $('#addCoordrrow').attr('disabled', false).prop('value', "@ResourceSetting.addNew");
+            }
+            var cancel = function () {
+            };
+            showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+
+        });
+
+    });
+</script>

@@ -1,0 +1,123 @@
+﻿.table-center {
+	width: 100%;
+
+}
+
+    .table-center th {
+        text-align: center;
+    }
+
+.form2Field {
+    width: 100%;
+    font-size: 1em;
+}
+
+.deleteRow {
+    color: red;
+}
+table input {
+        width: 100%;
+       /* font-size: 1em;*/
+    }
+
+/* Link Selector Styles */
+
+.link-selector {
+    background: lightgoldenrodyellow;
+}
+    .link-selector label {
+        width: auto;
+    }
+    .link-selector .link-selector-item:hover {
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .link-selector .selected {
+        font-weight: normal;
+        background: orange;
+    }
+
+.link-selector-item {
+    margin: 0px 20px;
+    border-bottom: 1px dotted #337ab7;
+}
+
+
+#CSSTableGenerator {
+    font-size: 12px;
+}
+
+
+/* i style */
+
+#CSSTableGenerator .input-group-addon {
+    padding: 1px;
+    font-size: 11px;
+    background: transparent;
+    border-left: 0px;
+    
+}
+    #CSSTableGenerator .input-group-addon a {
+        color: #dddddd;
+    }
+
+
+
+#CSSTableGenerator input {
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    border-right: 0px;
+    padding: 1px 3px;
+    height: 24px;
+    min-width: 80px;
+}
+
+.has-error {
+   /* border-color: #ff5b57;*/
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(255, 91, 87, 0.6);
+    outline: 0 none;
+}
+
+.input-group {
+    width: 100%;
+    text-align: center;
+}
+
+.numeric {
+    text-align: right;
+}
+
+.integer {
+    text-align: right;
+}
+
+
+.text-display {
+    display: block;
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+.numeric-display {
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+
+table.grid-table tr.grid-row-selected a {
+    color: #333;
+}
+.signed {
+    
+}
+.signed-color {
+    color: #ffd700;
+}
+
+.btn-signed {
+  color: #000;
+  background-color: #ffd700;
+  border-color: #eed700;
+}

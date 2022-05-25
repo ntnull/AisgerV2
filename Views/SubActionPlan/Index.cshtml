@@ -1,0 +1,229 @@
+﻿@using System.Threading
+@using Aisger
+@using Aisger.Models
+@using Aisger.Utils
+@using GridMvc.Html
+@model IEnumerable<Aisger.Models.SUB_ActionPlan>
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+<script type="text/javascript" src="~/Scripts/plugins/jqBlockUI/jquery.blockUI.js" charset="utf-8"></script>
+<script type="text/javascript" src="~/Scripts/plugins/crypto/crypto_object.js" charset="utf-8"></script>
+<script type="text/javascript" src="~/Scripts/plugins/crypto/eds.js" charset="utf-8"></script>
+<style type="text/css">
+    .btnmenu > li > a:hover {
+        background-color: transparent;
+    }
+
+  
+</style>
+
+
+@helper GridManageItemColumn(SUB_ActionPlan form)
+{
+    /* if (MyExtensions.CheckRightEdit(CodeConstManager.ReestrDocument))
+    {*/
+    <div class="btn-group">
+        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @ResourceSetting.Operation <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu btnmenu">
+            @if (form.StatusId != CodeConstManager.STATUS_ACCEPT_ID && (form.StatusId == CodeConstManager.REG_STATUS_REESTR_ID || form.IsBack))
+            {
+                <li class="btn-primary"><a href="@Url.Action("Edit", "SubActionPlan", new { form.Id })"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> @ResourceSetting.Edit</a></li>
+            }
+            @if (form.StatusId == CodeConstManager.REG_STATUS_REESTR_ID)
+            {
+                <li class="btn-danger"><a href="#" onclick="DeleteRecord(@form.Id)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> @ResourceSetting.Delete</a></li>
+            }
+            @if (form.StatusId != CodeConstManager.STATUS_ACCEPT_ID && (form.StatusId == CodeConstManager.REG_STATUS_REESTR_ID || form.IsBack))
+            {
+                <li class="btn-warning"><a href="#" onclick="sendApp(@form.Id)"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> @ResourceSetting.Send</a></li>
+            }
+            <li class="btn-default"><a href="@Url.Action("ShowDetails", "SubActionPlan", new { form.Id })" style="color: gray"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> @ResourceSetting.ShowDetails</a></li>
+        </ul>
+    </div>
+}
+
+<div id="B">
+    <input id="paramcontroller" type="hidden" value="" />
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.Reestr  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  @ResourceSetting.SubActionPlan (<span id="countGridRecord"></span>)</li>
+        <li style="float: right">
+            <button type="button" class="btn btn-success btn-sm" accesscode="SubActionPlan-create" id="addRegister">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> @ResourceSetting.add
+            </button>
+
+        </li>
+    </ul>
+    <div id="CSSTableGenerator">
+        @Html.Grid(Model).SetLanguage(Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName).Columns(columns =>
+        {
+            columns.Add(o => o.Id, true)
+                .Titled("Id").SetWidth(0);
+            columns.Add(o => o.ReportYear).Titled(ResourceSetting.ReportPeriod)
+                .SetWidth(40);
+
+            columns.Add(o => o.SubjectName).Titled(ResourceSetting.SubjectPerson)
+                .SetWidth(80);
+            columns.Add(o => o.StatusName).Titled(ResourceSetting.RstDicStatus)
+                .SetWidth(80);
+            columns.Add(o => o.SendDate).Titled("Дата подачи")
+                .Format("{0:dd/MM/yyyy}")
+                .SetWidth(80);
+
+            columns.Add()
+                .Encoded(false)
+                .Sanitized(false).SetWidth(20)
+                .RenderValueAs(o => GridManageItemColumn(o).ToHtmlString());
+
+        }).WithPaging(50).Sortable().Filterable().WithMultipleFilters()
+    </div>
+</div>
+<div id="dlgPasswordModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">
+                    @ResourceSetting.sInputPassword
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div id="wrapper_logon" style="min-height: auto; margin-top: 0px;">
+                    <p>
+                        <label for="passwordCert" class="youpasswd" data-icon="p" style="width: 60px;">
+                            @ResourceSetting.sPassword
+                        </label>
+                        <input id="passwordCert" name="passwordCert" required="required" type="password" placeholder='Введите ваш пароль'>
+                    </p>
+                    @*                    <p class="login button">*@
+                    @*                        <input type="button" id="btnAccept" value="Подтвердить" />*@
+                    @*                        <input type="button" id="btnCancel" value="Отмена" />*@
+                    @*                    </p>*@
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnCancel" type="button" class="btn btn-default" data-dismiss="modal">@ResourceSetting.Cancel</button>
+                <button id="btnAccept" type="button" class="btn btn-primary">@ResourceSetting.sAccept</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    @Html.Hidden("hfStoragePath", "")
+    @Html.Hidden("hfKeyAlias", "")
+    @Html.Hidden("hfXmlToSign", "")
+    @Html.Hidden("Certificate", "")
+    @Html.Password("Password", "", new { hidden = "hidden" })
+</div>
+
+<script>
+    function doSign() {
+        $.blockUI({ message: '<h1><img src="../../Content/images/loading.gif"/> Идет подпись отчета...</h1>', css: { opacity: 1 } });
+        var isSuceess = signXmlCall(function () {
+            var model = { preambleId: $("#paramcontroller").val(), xmlAuditForm: $("#Certificate").val() };
+            $.ajax({
+                url: '@Url.Action("SignForm", "SubActionPlan")',
+                type: "POST",
+                dataType: 'json',
+                contentType: "application/json",
+                async: false,
+                data: JSON.stringify(model),
+                success: function (data) {
+                    if (data.success)
+                        window.location = data.url;
+                    else {
+                        $("#formCertValidation").show();
+                    }
+                    $.unblockUI();
+                    window.location.reload();
+                },
+                error: function (data) {
+                    $.unblockUI();
+                }
+            });
+        }, $("#hfXmlToSign").val());
+
+        if (!isSuceess)
+            $.unblockUI();
+    }
+    function sendApp(id) {
+        var success = function () {
+            $("#paramcontroller").val(id);
+            $.blockUI({ message: '<h1><img src="../../Content/images/ajax-loader.gif"/> Идет формирование отчета для подписи...</h1>', css: { opacity: 1 } });
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("DoOperation", "SubActionPlan")',
+                data: 'id=' + id,
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    $.unblockUI();
+                    if (data.IsSuccess) {
+                        $("#hfXmlToSign").val(data.preambleXml);
+
+                        if (!crypt_object_init("chooseStoragePath")) {
+                            chooseStoragePath();
+                        }
+                    }
+                },
+                error: function (data) {
+                    $.unblockUI();
+                }
+            });
+            return false;
+        }
+        var cancel = function () {
+        };
+        showConfirmation("Сохранить", "Вы уверены, что хотите отправить", success, cancel);
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#addRegister").click(function () {
+            window.location.href = '@Url.Action("Create", "SubActionPlan")';
+
+        });
+    });
+</script>
+<script type="text/javascript">
+    function DeleteRecord(id) {
+        var success = function () {
+            var url = '/MapApplication/Delete/' + id;
+            window.location.href = url;
+        }
+        var cancel = function () {
+        };
+        showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+
+    }
+    $(document).ready(function () {
+        $("#passwordCert").on('keyup', function (e) {
+            if (e.keyCode == 13) {
+                $("#formLogin").find("#Password").val($('#passwordCert').val());
+                fillKeys();
+                $("#dlgPasswordModal").modal('toggle');
+            }
+        });
+        $('.modal').on('shown.bs.modal', function () {
+            $(this).find('input:password:visible:first').focus();
+        });
+
+
+        $("#btnAccept").click(function () {
+            // $("#formLogin").find("#Password").val($('#passwordCert').val());
+            fillKeySign(doSign);
+            $("#dlgPasswordModal").modal('toggle');
+
+            //$("#formCertValidation").hide();
+
+
+        });
+        $("#btnCancel").click(function () {
+            $(this).closest('div.modal').modal('toggle');
+            //$("#dlgPasswordModal").mo
+    });
+    });
+</script>

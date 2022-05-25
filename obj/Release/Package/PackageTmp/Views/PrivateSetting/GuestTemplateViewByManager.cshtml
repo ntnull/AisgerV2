@@ -1,0 +1,378 @@
+﻿@using Aisger
+@model Aisger.Models.Entity.Security.SEC_Guest
+@Html.HiddenFor(model => model.Id)
+<div style="width: 100%; float: left">
+    <form id="guestTemplateForm" role="form" data-toggle="validator">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-warning" style="margin-top:20px;">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Особые отметки</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 55px;">
+                            <label>
+                                Разрешение на сдачу отчетов ГЭР без ЭЦП
+                            </label>
+                            <div class="col-sm-8">
+                                @Html.CheckBoxFor(m => m.ger_wo_ecp, new { @class = "form-control", style = "margin-top:18px;" })
+                                @*<input id="checkbox-send-wo-esp" type="checkbox" checked="checked" style="margin-top: 18px;">*@
+                            </div>
+                        </div>
+                        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 55px;">
+                            <div class="col-sm-6" style="float: right;">
+                                <input type="button" class="btn btn-sm btn-primary btn-save-bymanager" value="Сохранить">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-warning" style="margin-top:20px;">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Особые отметки</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 55px;">
+                            <label>
+                                Вид собственности
+                            </label>
+                            <div class="col-sm-8">
+                                @{
+                                    int? fscode = 0;
+                                    if (Model.FSCode != null)
+                                    {
+                                        fscode = Model.FSCode;
+                                    }
+
+                                    <select style="width:335px;" class="fsCode-select">
+                                        @if (fscode == null)
+                                        {
+                                            <option value="0" selected></option>
+                                        }
+                                        else
+                                        {
+                                            <option value="0"></option>
+                                        }
+
+                                        @if (fscode == 1)
+                                        {
+                                            <option value="1" selected>ЮР</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="1">ЮР</option>
+                                        }
+
+                                        @if (fscode == 2)
+                                        {
+                                            <option value="2" selected>КВ</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="2">КВ</option>
+                                        }
+
+                                        @if (fscode == 3)
+                                        {
+                                            <option value="3" selected>ГУ</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="3">ГУ</option>
+                                        }
+
+                                        @if (fscode == 4)
+                                        {
+                                            <option value="4" selected>ИП</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="4">ИП</option>
+                                        }
+                                    </select>
+                                }
+                            </div>
+                        </div>
+                        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 55px;">
+                            <div class="col-sm-6" style="float: right;">
+                                <input type="button" class="btn btn-sm btn-primary btn-save-fscode-bymanager" value="Сохранить">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-warning" style="margin-top:20px;">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Особые отметки</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 55px;">
+                            <label>
+                                @ResourceSetting.IDK
+                            </label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(m => m.IDK, new { @class = "form-control", @style="width:335px;"})                                
+                            </div>
+                        </div>
+                        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 55px;">
+                            <div class="col-sm-6" style="float: right;">
+                                <input type="button" class="btn btn-sm btn-primary btn-save-idk-bymanager" value="Сохранить">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-warning">
+                    <div class="panel-heading">Реквизиты субъекта</div>
+                    <div class="panel-body ">
+                        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 45px;">
+                            @Html.Label(ResourceSetting.TypeApplication)
+                            <div class="col-sm-6">
+                                @Html.DropDownList("TypeApplicationId", (IEnumerable<SelectListItem>)(ViewData["TypeApplicationList"]), String.Empty, new { @class = "form-control", @disabled = "disabled" })
+                            </div>
+                        </div>
+
+                        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 45px;">
+                            @Html.LabelFor(model => model.BINIIN, new { id = "biniinLabel" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(m => m.BINIIN, new { @class = "form-control", @readonly = "readonly", required = "required" })
+                                @Html.ValidationMessageFor(m => m.BINIIN)
+                            </div>
+                        </div>
+                        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 45px;">
+                            @Html.LabelFor(model => model.JuridicalName)
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(m => m.JuridicalName, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(m => m.JuridicalName)
+                            </div>
+                        </div>
+                        <div class="form-group clearfixmandatory kind5" style="min-height: 1px; margin-bottom: 50px;">
+                            @Html.Label(ResourceSetting.FsCode)
+                            <div class="col-sm-6">
+                                @Html.DropDownList("FSCode", (IEnumerable<SelectListItem>)(ViewData["FsCodeList"]), null, new { @class = "form-control" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.FSCode)
+                        </div>
+                        <div class="form-group kind5" style="min-height: 1px; margin-bottom: 40px;">
+                            @Html.LabelFor(model => model.IsHaveGES, new { style = "width: 350px;padding-top:0px;" })
+                            <div class="form-group">
+                                @Html.CheckBoxFor(m => m.IsHaveGES, new { @class = "form-control", @readonly = "readonly", @disabled = "disabled", style = "margin-top:18px;" })
+                            </div>
+                        </div>
+                        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 40px;">
+                            @Html.LabelFor(model => model.OkedId)
+                            <div class="col-sm-6">
+                                @Html.DropDownList("OkedId", (IEnumerable<SelectListItem>)(ViewData["OKEDList"]), String.Empty, new { @class = "form-control", @disabled = "disabled" })
+                                @Html.ValidationMessageFor(model => model.OkedId)
+                            </div>
+                        </div>
+                        <div class="form-group clearfixmandatory" style="min-height: 1px;margin-bottom:45px" id="WastesDiv">
+                            <div class="col-sm-6">
+                                <div class="chzn-select">
+                                    @Html.ListBoxFor(x => Model.Wastes, Model.WastList,
+                                new { @class = "chzn-select", data_placeholder = ResourceSetting.SubjectAddActivities + "...", style = "width:510px;", @disabled = "disabled" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix" style="min-height: 1px; margin-bottom: 10px;">
+                            <label></label>
+                            <div class="col-sm-6">
+                                <div class="chzn-select">
+                                    @Html.ListBoxFor(x => Model.Kinds, Model.KindList,
+                                    new { @class = "chzn-select", data_placeholder = ResourceSetting.KindUser + "...", style = "width:510px;", @disabled = "disabled" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 55px;">
+                            @Html.LabelFor(model => model.LastName, new { id = "lastNameLabel" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(model => model.LastName)
+                            </div>
+                        </div>
+                        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom:55px;">
+                            @Html.LabelFor(model => model.FirstName, new { id = "firstNameLabel" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(model => model.FirstName)
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="min-height: 1px; margin-bottom: 44px;">
+                            @Html.LabelFor(model => model.SecondName, new { id = "secondNameLabel" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.SecondName, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 44px; padding-top: 30px;">
+                            @Html.LabelFor(model => model.Post, new { style = "padding-top: 0px;" })
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(m => m.Post, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(m => m.Post)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-warning">
+                    <div class="panel-heading">@ResourceSetting.JuridicalAddress</div>
+                    <div class="panel-body" style="padding-top: 0px; padding-bottom: 0px;">
+                        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 55px;">
+                            @Html.LabelFor(model => model.JuridicalKato)
+                            <div class="col-sm-6">
+                                @Html.TextAreaFor(m => m.JuridicalKato, new { @class = "form-control", @readonly = "readonly" })
+
+                            </div>
+                        </div>
+                        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 5px;">
+                            @Html.LabelFor(model => model.Address)
+                            <div class="col-sm-6" style="margin-top: 10px;">
+                                @Html.TextAreaFor(m => m.Address, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(m => m.Address)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-warning hide">
+                    <div class="panel-heading">@ResourceSetting.FactAddress</div>
+                    <div class="panel-body" style="padding-top: 0px; padding-bottom: 0px;">
+                        <div class="form-group clearfix" style="min-height: 1px; margin-top: 10px; margin-bottom: 5px;">
+                            @Html.LabelFor(model => model.FactKato)
+                            <div class="col-sm-6">
+                                @Html.TextAreaFor(m => m.FactKato, new { @class = "form-control", @readonly = "readonly" })
+
+                            </div>
+                        </div>
+                        <div class="form-group clearfix" style="min-height: 1px; margin-bottom: 5px">
+                            @Html.LabelFor(model => model.FactAddress)
+                            <div class="col-sm-6" style="margin-top: 5px;">
+                                @Html.TextAreaFor(m => m.FactAddress, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(m => m.FactAddress)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-warning">
+                    <div class="panel-body">
+                        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 55px;">
+                            @Html.LabelFor(model => model.Email)
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(m => m.Email)
+                            </div>
+                        </div>
+                        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 55px;">
+                            @Html.LabelFor(model => model.Mobile)
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @mask = "(999) 999-9999", @readonly = "readonly", @placeholder = "+7" })
+                                @Html.ValidationMessageFor(m => m.Mobile)
+                            </div>
+                        </div>
+                        <div class="form-group " style="min-height: 1px; margin-bottom: 70px;">
+                            @Html.LabelFor(model => model.WorkPhone)
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(m => m.WorkPhone, new { @class = "form-control", @mask = "(999) 999-9999", @readonly = "readonly" })
+                                <label style="font-size: 12px; padding-top: 3px; padding-left: 5px; color: #999;">@ResourceSetting.CityCode</label>
+                            </div>
+                        </div>
+                        <div class="form-group " style="min-height: 1px; margin-bottom: 55px;">
+                            @Html.LabelFor(model => model.InternalPhone)
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(m => m.InternalPhone, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(m => m.InternalPhone)
+                            </div>
+                        </div>
+                        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 60px;">
+                            @Html.LabelFor(model => model.ResponceFIO)
+                            <div class="col-sm-6">
+                                @Html.TextAreaFor(m => m.ResponceFIO, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(m => m.ResponceFIO)
+                            </div>
+                        </div>
+                        <div class="form-group clearfixmandatory" style="min-height: 1px; margin-bottom: 55px;">
+                            @Html.LabelFor(model => model.ResponcePost)
+                            <div class="col-sm-6">
+                                @Html.TextAreaFor(m => m.ResponcePost, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(m => m.ResponcePost)
+                            </div>
+                        </div>
+                        <div class="form-group hide" style="min-height: 1px; margin-bottom: 40px; margin-top: 10px; padding-top: 16px;">
+                            @Html.LabelFor(model => model.Certificate, new { style = "padding-top:0px;" })
+                            <div class="col-sm-6" style="margin-top: 10px">
+                                @Html.TextAreaFor(m => m.Certificate, new { @class = "form-control", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(m => m.Certificate)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+	$(document).ready(function () {
+
+		//-----call func
+		bindEventHandler();
+
+		function bindEventHandler() {
+
+			//----
+			$('#ger_wo_ecp').click(function () {
+				var checked = $(this).is(':checked');
+				$(this).val(checked);
+			})
+
+			//----without ecp
+			$('.btn-save-bymanager').click(function () {
+
+				$.post('@Url.Action("SaveSubjectSettingsByManager", "SubjectInfo")', { userId: $('#Id').val(), ger_wo_ecp: $('#ger_wo_ecp').val() }, function (data) {
+					if (data.ErrorMessage == "") {
+						window.location.href = window.location.href;
+					}
+				});
+
+			});
+
+            //----change fscode
+            $('.btn-save-fscode-bymanager').click(function () {
+                var fscode = $('.fsCode-select').val();
+                var reportYear = getUrlParameter('year');
+                $.post('@Url.Action("ChangeSubjectFSCodeSettingsByManager", "SubjectInfo")', { userId: $('#Id').val(), fscode: fscode, reportYear: reportYear },
+                    function (data) {
+                        if (data.ErrorMessage == "") {
+                            window.location.href = window.location.href;
+                        }
+                    });
+            });
+
+            //----change idk
+            $('.btn-save-idk-bymanager').click(function () {
+                var idk = $('#IDK').val();
+                console.log('idk=', idk);
+                var reportYear = getUrlParameter('year');
+                console.log('year=' + reportYear);
+                $.post('@Url.Action("ChangeSubjectIDKSettingsByManager", "SubjectInfo")', { userId: $('#Id').val(), reportYear: reportYear, idk: idk },
+                    function (data) {
+                        if (data.ErrorMessage == "") {
+                            window.location.href = window.location.href;
+                        }
+                    });
+            });
+
+            function getUrlParameter(sParam) {
+                var sPageURL = window.location.search.substring(1),
+                    sURLVariables = sPageURL.split('&'),
+                    sParameterName,
+                    i;
+
+                for (i = 0; i < sURLVariables.length; i++) {
+                    sParameterName = sURLVariables[i].split('=');
+
+                    if (sParameterName[0] === sParam) {
+                        return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                    }
+                }
+            };
+		}
+	})
+</script>

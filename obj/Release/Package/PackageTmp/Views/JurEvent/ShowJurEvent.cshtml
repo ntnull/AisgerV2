@@ -1,0 +1,25 @@
+﻿@using Aisger
+@using GridMvc.Html
+@using GridMvc.Sorting
+@model FlowDoc.Models.JUR_EVENTS
+@using Helpers
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.admin  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>   @ResourceSetting.eventJur </li>
+
+    </ul>
+    <div id="wrapper_grid" style="margin-left: 50px">
+        <b>@ResourceSetting.descr</b>
+        <br>
+        @Model.descr
+    </div>
+    <div style="margin-bottom: 100px;">
+        <button type="button" class="btn btn-success btn-lg" onclick="history.go(-1);return false;">
+            <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Return
+        </button>
+
+    </div>
+    </div>
+

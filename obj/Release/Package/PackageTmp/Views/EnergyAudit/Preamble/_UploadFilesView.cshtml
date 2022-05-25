@@ -1,0 +1,144 @@
+﻿@using Aisger
+@model  Aisger.Models.EAUDIT_Preamble
+            
+@using (Ajax.BeginForm("FileUpload", "EnergyAudit", new AjaxOptions() { HttpMethod = "POST", OnSuccess = "onSuccessUpload", }, new { id = "fileUploadForm", name = "fileUploadForm", enctype = "multipart/form-data" }))
+{
+    <table id="fileListTable" class="table file_list">
+        <thead>
+            <tr>
+                <td>
+                    @ResourceSetting.UploadFile
+                </td>
+@*                <td></td>*@
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.HiddenFor(model => model.Id, new { @name = "refPreamble"})
+                </td>
+            </tr>
+            @if (Model != null && Model.EAUDIT_AttachedFiles != null)
+            {
+                for (int i = 0; i < Model.EAUDIT_AttachedFiles.Count; i++)
+                {
+                    var file = @Model.EAUDIT_AttachedFiles.ToArray()[i];
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("FileDownload", "EnergyAudit", new { id = file.Id, refPreamble = Model.Id})" > @file.FileName </a>  
+                            @if (Model == null || !Model.IsReadOnly)
+                            {
+                                <i class="glyphicon glyphicon-remove deleteFile" title="@ResourceSetting.Delete"  id="@file.Id"></i>
+                            }
+                        </td>
+@*                        <td>*@
+@*                            *@
+@*                        </td>*@
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td style="text-align: left;" class="form-horizontal">
+                    @if (Model == null || !Model.IsReadOnly)
+                    {
+                        <button type="button" class="btn btn-info btn-sm" id="btnAddfile">
+                            <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            @ResourceSetting.addfile
+                        </button>
+                        <button type="submit" class="btn btn-success btn-sm" id="btnUploadFiles">
+                            <span class="glyphicon glyphicon glyphicon-upload" aria-hidden="true"></span>
+                            @ResourceSetting.UploadFile
+                        </button>
+                        <h6>
+                            <small>@ResourceSetting.msgFileSizeMusBe</small>
+                        </h6>
+                    }
+                </td>
+@*                <td style="text-align: left;">*@
+@*                    *@
+@*                </td>*@
+            </tr>
+        </tfoot>
+    </table>
+}
+<script>
+    var FileUploadForm = {
+        counterBuff: 0,
+        wrapInputFile: function (fileInputId) {
+            $('#' + fileInputId).inputfile({
+                uploadText: '<span class="glyphicon glyphicon-upload"></span> @ResourceSetting.sChooseFile',
+                removeText: '<span class="glyphicon glyphicon-trash"></span>',
+                restoreText: '<span class="glyphicon glyphicon-remove"></span>',
+
+                uploadButtonClass: 'btn btn-primary',
+                removeButtonClass: 'btn btn-default',
+
+            });
+        },
+        init: function () {
+            $("#btnUploadFiles").prop('disabled', true);
+
+            $("#btnAddfile").on("click", function () {
+                var fileInputId = 'fileUpload_' + FileUploadForm.counterBuff;
+                $("#fileListTable tbody").append('<tr><td><input id="' + fileInputId + '" type="file" name="files" /></td></tr>');
+                FileUploadForm.counterBuff++;
+                FileUploadForm.wrapInputFile(fileInputId);
+                if (FileUploadForm.counterBuff > 0)
+                    $("#btnUploadFiles").prop('disabled', false);
+            });
+
+            $("table.file_list").on("click", ".deleteFile", function () {
+                var val = $(this).attr('id');
+                var tr = $(this).closest("tr");
+                // $(this).closest("tr").remove();
+                var success = function () {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("FileRemove", "EnergyAudit")',
+                        data: { 'id': val, 'refPreamble': $("#Id").val() },
+                        dataType: 'json',
+                        cache: false,
+                        success: function (data) {
+                            if (data.IsSuccess) {
+                                tr.remove();
+                                FileUploadForm.counterBuff -= 1;
+                                if (FileUploadForm.counterBuff < 0) FileUploadForm.counterBuff = 0;
+                                if (FileUploadForm.counterBuff == 0)
+                                    $("#btnUploadFiles").prop('disabled', true);
+                            }
+                        }
+                    });
+                }
+                var cancel = function () {
+
+                };
+                showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+            });
+
+//            $("#btnUploadFiles").click(function() {
+//
+//            });
+//            $('#fileUploadForm').submit(function () {
+//                if ($(this).valid()) {
+//                    $.ajax({
+//                        url: this.action,
+//                        type: this.method,
+//                        data: $(this).serialize(),
+//                        success: function (result) {
+//
+//                        }
+//                    });
+//                }
+//                return false;
+//            });
+        },
+        uploadFiles: function() {
+
+        },
+        onSuccessUpload: function(data) {
+
+        }
+    };
+</script>

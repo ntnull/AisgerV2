@@ -1,0 +1,22 @@
+﻿@using Aisger
+@using GridMvc.Html
+@using GridMvc.Sorting
+@model Aisger.Models.Entity.Security.SEC_Guest
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.AuditPage  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>   @ResourceSetting.AuditReestr </li>
+
+    </ul>
+    <div style=" position: relative;height: 100%;">
+        <div id="wrapper_grid" style="margin-left: 50px;  position: absolute;top: 0; bottom: 0;left: 0; right: 0;overflow: auto;">
+            @using (Html.BeginForm("Create", "AuditReestr", FormMethod.Post, new { id = "demoForm", name = "demoForm" }))
+            {
+                @Html.Partial("~/Views/Account/GuestTemplView.cshtml", @Model)
+            }
+        </div>
+    </div>
+</div>

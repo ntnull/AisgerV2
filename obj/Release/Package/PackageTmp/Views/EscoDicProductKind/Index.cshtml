@@ -1,0 +1,73 @@
+﻿@using System.Threading
+@using Aisger
+@using Aisger.Models
+@using Aisger.Utils
+@using GridMvc.Html
+@model IEnumerable<Aisger.Models.ESCO_DIC_ProductKind>
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+
+@helper GridManageItemColumn(long id)
+{
+    /* if (MyExtensions.CheckRightEdit(CodeConstManager.ReestrDocument))
+    {*/
+ 
+        <button type="button" class="btn btn-info btn-sm" onclick="location.href='@Url.Action("Edit", "EscoDicProductKind", new { id })'">
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> @ResourceSetting.Edit
+        </button>
+   
+        <button type="button" class="btn btn-danger btn-sm" onclick="DeleteRecord(@id)">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> @ResourceSetting.Delete
+        </button>
+  
+
+    @*    }*@
+}
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.EscoPage  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  @ResourceSetting.EscoDicProductKind (<span id="countGridRecord"></span>)</li>
+        <li style="float: right">
+            <button type="button" class="btn btn-success btn-sm" onclick="location.href='@Url.Action("Create", "EscoDicProductKind")'">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> @ResourceSetting.add
+            </button>
+        </li>
+    </ul>
+    <div id="CSSTableGenerator">
+        @Html.Grid(Model).SetLanguage(Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName).Columns(columns =>
+            {
+                columns.Add(o => o.Id, true)
+                    .Titled("Id").SetWidth(0);
+                columns.Add(o => o.NameGroup).Titled(ResourceSetting.NameGroup)
+                  .SetWidth(80);
+                columns.Add(o => o.CountProduct).Titled(ResourceSetting.CountProduct)
+                    .SetWidth(80);
+                columns.Add(o => o.Note).Titled(ResourceSetting.Description)
+                   .SetWidth(80);
+                columns.Add(o => o.EditDate).Titled(ResourceSetting.SendDate)
+    .Format("{0:dd/MM/yyyy}")
+    .SetWidth(80);
+
+                columns.Add()
+                       .Encoded(false)
+                       .Sanitized(false).SetWidth(20)
+                       .RenderValueAs(o => GridManageItemColumn(o.Id).ToHtmlString());
+
+            }).WithPaging(50).Sortable().Filterable().WithMultipleFilters()
+    </div>
+</div>
+
+<script type="text/javascript">
+    function DeleteRecord(id) {
+        var success = function () {
+            var url = '/EscoDicProductKind/Delete/' + id;
+            window.location.href = url;
+        }
+        var cancel = function () {
+        };
+        showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+
+    }
+
+</script>

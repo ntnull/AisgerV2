@@ -1,0 +1,9 @@
+﻿@using Aisger
+@using Aisger.Helpers
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+<div id="B">
+    @Html.Partial("~/Views/Home/TitleItem.cshtml", ResourceSetting.AnalisePage + "," + ResourceSetting.ReportShowCase)
+    @{ var url = "http://aisger.kz:8080/SpagoBISDK/open_rep2.jsp?server_url=http://aisger.kz:8080/SpagoBI/&user=biadmin&password=biadmin&rep_label=dashboard_2&lang=" + CultureHelper.GetCurrentCulture(); }
+    <iframe id="ifm" width="100%" height="1000px" src="@url"
+            frameborder="0" scrolling="no" allowfullscreen></iframe>
+</div>

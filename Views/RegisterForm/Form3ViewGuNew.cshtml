@@ -1,0 +1,290 @@
+﻿@using System.Globalization
+@using Aisger
+@using Aisger.Helpers
+@using System.Linq
+@using System.Web.UI.WebControls
+@using System.Web.Mvc
+@model Aisger.Models.Entity.Subject.SUB_FormGuNew
+<style type="text/css">
+
+    .form3guField {
+        width: 100%;
+    }
+</style>
+
+@if (CultureHelper.GetCurrentCulture() == "kz")
+{
+    <div>
+        <h5 style="font-weight: bold; text-align: center;margin-top:15px;width:70%;margin-left:15%;">
+            Раздел 1. Укажите общие сведения об административных зданиях
+        </h5>
+    </div>
+}
+else
+{
+    <div>
+        <h5 style="font-weight: bold; text-align: center;margin-top:15px;width:70%;margin-left:15%;">
+            Раздел 1. Укажите общие сведения об административных зданиях
+        </h5>
+    </div>
+}
+<div id="CSSTableGenerator">
+    <table id="table3gu" class="wast-list" style="width: 100%; text-align: center">
+        <thead>
+            <tr style="font-weight: bold">
+                <td rowspan="1">№</td>
+                <td rowspan="1" style="width: 400px">Количество зданий, строений и сооружений</td>
+                <td rowspan="1">Год постройки</td>
+                <td rowspan="1" style="width: 150px">Наличие автоматизированного теплового пункта(Да/Нет)</td>
+                <td colspan="1">Общая площадь зданий, строений и сооружений, м2</td>
+                <td rowspan="1">Отапливаемая площадь зданий, строений и сооружений, м2</td>
+                <td rowspan="1">Количество сотрудников, работников (по штату)</td>
+                <td rowspan="1">Количество учащихся, воспитанников</td>
+                <td rowspan="1">Количество посещений, койко-мест</td>
+                <td></td>
+            </tr>
+            <tr style="font-style: italic; font-weight: bold">
+                <td></td>
+                @for (int i = 1; i < 9; i++)
+                {
+                    <td>@i</td>
+                }
+                <td></td>
+            </tr>
+        </thead>
+        <tbody id="form3gu">
+            @{
+                Aisger.Models.SUB_Form3GuRecord signedObj = null;
+            }
+
+            @for (var i = 0; i < Model.SUB_Form3GuRecords.Count; i++)
+            {
+                if (Model.SignedSubForm != null)
+                {
+                    var id = Model.SUB_Form3GuRecords[i].Id;
+                    // signedObj = Model.SignedSubForm.SUB_Form3GuRecord.FirstOrDefault(x=>x.Id == id);
+                }
+
+                var index = i + 1;
+                var autoItem = Model.SUB_Form3GuRecords[i].AutomateItem;
+                if (autoItem == null)
+                {
+                    autoItem = 2;
+                }
+
+                <tr rowid="@Model.SUB_Form3GuRecords[i].Id" rowindex="@index">
+                    <td class="disabletd">@index</td>
+                    <td>
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.SUB_Form3GuRecords[i].CountOfBuildings, new { @class = "form3guField form-edit" })
+                            <span class="input-group-addon">
+                                <a class="commentDialog" href="#">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.SUB_Form3GuRecords[i].YearOfConstruction, new { @class = "form3guField form-edit" })
+                            <span class="input-group-addon">
+                                <a class="commentDialog" href="#">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">                           
+                            @Html.DropDownListFor(model => model.SUB_Form3GuRecords[i].AutomateItem, new SelectList((IEnumerable<ListItem>)(ViewData["AutomateItemList"]), "Value", "Text", autoItem), "-", new { @class = "form3guField form-edit" })
+                            <span class="input-group-addon">
+                                <a class="commentDialog" href="#">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.SUB_Form3GuRecords[i].TotalAreaOfBuilding, new { @class = "form3guField form-edit" })
+                            <span class="input-group-addon">
+                                <a class="commentDialog" href="#">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.SUB_Form3GuRecords[i].HeatedAreaOfBuilding, new { @class = "form3guField form-edit" })
+                            <span class="input-group-addon">
+                                <a class="commentDialog" href="#">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.SUB_Form3GuRecords[i].CountOfEmployees, new { @class = "form3guField form-edit" })
+                            <span class="input-group-addon">
+                                <a class="commentDialog" href="#">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.SUB_Form3GuRecords[i].CountOfStudents, new { @class = "form3guField  form-edit" })
+                            <span class="input-group-addon">
+                                <a class="commentDialog" href="#">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.SUB_Form3GuRecords[i].CountOfBeds, new { @class = "form3guField  form-edit" })
+                            <span class="input-group-addon">
+                                <a class="commentDialog" href="#">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </td>
+                    @if (i == 0)
+                    {
+                        <td><a class="deleteRow"></a></td>
+                    }
+                    else
+                    {
+                        <td>
+                            <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+                        </td>
+                    }
+                </tr>
+            }
+            <tr>
+                <td colspan="10" style="text-align: left;">
+
+                    <button type="button" class="btn btn-success btn-sm add-btn-from3gu" id="addTable3Gu">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.addNew
+                    </button>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@Html.Partial("~/Views/RegisterForm/Form4ViewGuNew.cshtml", @Model)
+
+<script type="text/javascript">
+
+    function SetEventForm3GuRecord(idcontrol) {
+    	$(idcontrol).change(function () {
+            
+    	    var fieldValue=$(this).val();
+            var idAttr = $(this).attr('name');
+            var fieldName = idAttr.split('.')[1];
+
+            var type = "float";
+            if (fieldName == "TotalAreaOfBuilding" || fieldName == "HeatedAreaOfBuilding") {
+                type = "float";
+            }
+            
+            if (type == "float") {
+                if (fieldValue != null && fieldValue.length > 0) {
+                    if (fieldValue.indexOf(',') > 0) {
+                        fieldValue = fieldValue.replace(',', '.');
+                    }
+                    if (fieldValue != '' && !$.isNumeric(fieldValue)) {
+                        showWarning('@ResourceSetting.enterNumber');
+                        $(this).val("");
+                        return false;
+                    }
+                    if (fieldValue.indexOf('-') > -1) {
+                        showWarning('@ResourceSetting.enterNumberNotMinus');
+                        $(this).val("");
+                        return false;
+                    }
+                }
+            }
+
+            var row = $(this).closest('tr');
+            var entityId = row.attr('rowid');
+            UpdateModel("form3GuRecord", entityId, $(this).attr('id'), idAttr.replace('.', '_'), fieldValue, type, 0);
+        });
+    }
+
+    $(document).ready(function () {
+
+        SetEventForm3GuRecord(".form3guField");
+
+        $('#addTable3Gu').click(function () {
+
+            var automateItemList = JSON.parse('@Html.Raw(Json.Encode(ViewData["AutomateItemList"]))');
+          
+            //var automateItemList = JSON.parse('@Html.Raw(Json.Encode(ViewData["AutomateItemList"]))');
+
+            var row = $(this).closest("tr").prev();
+            var rowindex = parseInt(row.attr('rowindex'), 10) || 0;
+            var nextIndex = rowindex + 1;
+            var cols = '<tr rowid="0" rowindex="' + nextIndex + '">';
+            cols += '<td class="disabletd">' + nextIndex + '</td>';
+
+            cols += '<td><div class="input-group"><input type="text" name="SUB_Form3GuRecords[' + nextIndex + '].CountOfBuildings" id="SUB_Form3GuRecords_' + nextIndex + '__CountOfBuildings" class="form3guField  form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            cols += '<td><div class="input-group"><input type="text" name="SUB_Form3GuRecords[' + nextIndex + '].YearOfConstruction" id="SUB_Form3GuRecords_' + nextIndex + '__YearOfConstruction" class="form3guField  form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+
+            var _option = '<option value="0">-</option>';
+            var selected = "";
+            $.map(automateItemList, function (item) {
+                selected = "";
+                if (item.Value == 2)
+                    selected = "selected";
+
+                _option += '<option value="' + item.Value + '" ' + selected + '>' + item.Text + '</option>';
+            });
+            cols += '<td><div class="input-group"><select name="SUB_Form3GuRecords[' + nextIndex + '].AutomateItem" id="SUB_Form3GuRecords_' + nextIndex + '__AutomateItem" class="form3guField  form-edit">' + _option + '</select><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+
+            cols += '<td><div class="input-group"><input type="text" name="SUB_Form3GuRecords[' + nextIndex + '].TotalAreaOfBuilding" id="SUB_Form3GuRecords_' + nextIndex + '__TotalAreaOfBuilding" class="form3guField  form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            cols += '<td><div class="input-group"><input type="text" name="SUB_Form3GuRecords[' + nextIndex + '].HeatedAreaOfBuilding" id="SUB_Form3GuRecords_' + nextIndex + '__HeatedAreaOfBuilding" class="form3guField  form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+
+            cols += '<td><div class="input-group"><input type="text" name="SUB_Form3GuRecords[' + nextIndex + '].CountOfEmployees" id="SUB_Form3GuRecords_' + nextIndex + '__CountOfEmployees" class="form3guField  form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            cols += '<td><div class="input-group"><input type="text" name="SUB_Form3GuRecords[' + nextIndex + '].CountOfStudents" id="SUB_Form3GuRecords_' + nextIndex + '__CountOfStudents" class="form3guField  form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            cols += '<td><div class="input-group"><input type="text" name="SUB_Form3GuRecords[' + nextIndex + '].CountOfBeds" id="SUB_Form3GuRecords_' + nextIndex + '__CountOfBeds" class="form3guField  form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+            cols += '<td><i class="glyphicon glyphicon-remove deleteRow"  title="@ResourceSetting.Delete"></td>';
+
+            cols += '</tr>';
+            row.after(cols);
+
+            SetEventForm3GuRecord('#SUB_Form3GuRecords_' + nextIndex + '__CountOfBuildings');
+		    SetEventForm3GuRecord('#SUB_Form3GuRecords_' + nextIndex + '__YearOfConstruction');
+            SetEventForm3GuRecord('#SUB_Form3GuRecords_' + nextIndex + '__AutomateItem');
+            SetEventForm3GuRecord('#SUB_Form3GuRecords_' + nextIndex + '__TotalAreaOfBuilding');
+            SetEventForm3GuRecord('#SUB_Form3GuRecords_' + nextIndex + '__HeatedAreaOfBuilding');
+		    SetEventForm3GuRecord('#SUB_Form3GuRecords_' + nextIndex + '__CountOfEmployees');
+            SetEventForm3GuRecord('#SUB_Form3GuRecords_' + nextIndex + '__CountOfStudents');
+            SetEventForm3GuRecord('#SUB_Form3GuRecords_' + nextIndex + '__CountOfBeds');
+
+        });
+
+        $("#table3gu").on("click", ".deleteRow", function () {
+
+            var row = $(this).closest('tr');
+            var success = function () {
+
+                var entityId = row.attr('rowid');
+                DeleteRecord("form3GuRecord", entityId);
+                row.remove();
+                counterTable5 -= 1;
+                $('#addTable3Gu').attr('disabled', false).prop('value', "Добавить");
+            }
+            var cancel = function () {
+            };
+            showConfirmation('@ResourceSetting.Delete', '@ResourceSetting.deleteconfirm', success, cancel);
+        });
+    });
+</script>

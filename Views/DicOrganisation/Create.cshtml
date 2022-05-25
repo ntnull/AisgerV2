@@ -1,0 +1,198 @@
+﻿@using Aisger
+@model Aisger.Models.DIC_Organization
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+
+<script type="text/javascript">
+
+    function getPoints(abbr, urlPoints, ddltarget, param) {
+        $.ajax({
+            url: urlPoints,
+            type: 'GET',
+            data: param,
+            cache: 'false',
+            success: function (data) {
+                $(ddltarget).empty();
+
+                if (data.length > 0) {
+                    $.each(data, function (index, optiondata) {
+                        $(ddltarget).append(
+                            $('<option/>')
+                                .attr('value', optiondata.Id)
+                                .text(optiondata.NameRu)
+                        );
+                    });
+                } else {
+                    $(ddltarget).append(
+                        $('<option/>')
+                            .attr('value', "")
+                            .text("Нет населенных пунктов")
+                    );
+                }
+                //$(ddltarget).trigger("chosen:updated");
+                $(ddltarget).trigger('liszt:updated');
+            },
+            error: function (data) {
+                alert("1Error" + data);
+            }
+        });
+    }
+
+   
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#OblastDropDownList").change(function () {
+
+            var abbr = $(this).val();
+            var urlPoints = '@Url.Action("GetKatos")';
+            var ddltarget = "#RegionDropDownList";
+            //            $(idList.replace("OblastDropDownList_", "SubRegionDropDownList_")).empty();
+            //            $(idList.replace("OblastDropDownList_", "VillageDropDownList_")).empty();
+            var param = { parentId: abbr, mandatory: false };
+
+            getPoints(abbr, urlPoints, ddltarget, param);
+        });
+        $("#RegionDropDownList").change(function () {
+
+            var abbr = $(this).val();
+            var urlPoints = '@Url.Action("GetKatos")';
+            var ddltarget = "#SubRegionDropDownList";
+            var param = { parentId: abbr, mandatory: false };
+            //              $(idList.replace("RegionDropDownList_", "VillageDropDownList_")).empty();
+            getPoints(abbr, urlPoints, ddltarget, param);
+        });
+        $("#SubRegionDropDownList").change(function () {
+
+            var abbr = $(this).val();
+            var urlPoints = '@Url.Action("GetKatos")';
+            var ddltarget = "#VillageDropDownList";
+            var param = { parentId: abbr, mandatory: false };
+            //            $("#VillageDropDownList").empty();
+            getPoints(abbr, urlPoints, ddltarget, param);
+        });
+
+     
+    });
+</script>
+
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.Dictionary <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  @ResourceSetting.Organisation </li>
+
+    </ul>
+
+    <div id="wrapper_grid" style="margin-left: 50px">
+        @using (Html.BeginForm("Create", "DicOrganisation", FormMethod.Post, new { id = "demoForm", name = "demoForm" }))
+        {
+            @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.CreateDate)
+        @Html.HiddenFor(model => model.EditDate)
+
+        <div class="clearfixmandatory">
+            @Html.LabelFor(model => model.NameRu)
+            <div class="input">
+                @Html.TextBoxFor(model => model.NameRu)
+                @Html.ValidationMessageFor(model => model.NameRu)
+            </div>
+        </div>
+        <div class="clearfixmandatory">
+            @Html.LabelFor(model => model.NameKz)
+            <div class="input">
+                @Html.TextBoxFor(model => model.NameKz)
+                @Html.ValidationMessageFor(model => model.NameKz)
+            </div>
+        </div>
+        <div class="clearfixmandatory">
+            @Html.LabelFor(model => model.ShortNameRu)
+            <div class="input">
+                @Html.TextBoxFor(model => model.ShortNameRu)
+                @Html.ValidationMessageFor(model => model.ShortNameRu)
+            </div>
+        </div>
+        <div class="clearfixmandatory">
+            @Html.LabelFor(model => model.ShortNameKz)
+            <div class="input">
+                @Html.TextBoxFor(model => model.ShortNameKz)
+                @Html.ValidationMessageFor(model => model.ShortNameKz)
+            </div>
+        </div>
+
+    <div class="clearfixmandatory">
+        @Html.Label(ResourceSetting.Oblast)
+        <div class="input chzn-select">
+
+            @Html.DropDownList("Oblast", (IEnumerable<SelectListItem>)(ViewData["OblastList"]),
+                        String.Empty,
+                        new
+                        {
+                            id = "OblastDropDownList",
+                            name = "OblastDropDownList"
+
+                        })
+        </div>
+    </div>
+    <div class="clearfix">
+        @Html.Label(ResourceSetting.RegionCity)
+        <div class="input chzn-select">
+            @Html.DropDownList("Region", (IEnumerable<SelectListItem>)(ViewData["RegionList"]),
+                        String.Empty,
+                        new
+                        {
+                            id = "RegionDropDownList",
+                            name = "RegionDropDownList"
+                        })
+        </div>
+    </div>
+    <div class="clearfix">
+        @Html.Label(ResourceSetting.SubRegion)
+        <div class="input chzn-select">
+            @Html.DropDownList("SubRegion", (IEnumerable<SelectListItem>)(ViewData["SubRegionList"]),
+                        String.Empty,
+                        new
+                        {
+                            id = "SubRegionDropDownList",
+                            name = "SubRegionDropDownList"
+
+                        })
+        </div>
+    </div>
+
+            <div class="clearfix">
+                @Html.Label(ResourceSetting.Village)
+                <div class="input chzn-select">
+                    @Html.DropDownList("Village", (IEnumerable<SelectListItem>)(ViewData["VillageList"]),
+                        String.Empty,
+                        new
+                        {
+                            id = "VillageDropDownList",
+                            name = "VillageDropDownList"
+
+                        })
+                </div>
+            </div>
+    <div class="clearfixmandatory">
+        @Html.LabelFor(model => model.Address)
+        <div class="input">
+            @Html.TextBoxFor(model => model.Address)
+            @Html.ValidationMessageFor(model => model.Address)
+        </div>
+    </div>
+    <button id="saveUpdate" type="submit" name="SaveUpdate" value="SaveUpdate" style="visibility: hidden;"></button>
+
+
+        }
+        <div>
+            <button type="button" class="btn btn-success btn-lg" onclick="location.href='@Url.Action("Index", "DicOrganisation")'">
+                <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Return
+            </button>
+            <button type="button" class="btn btn-success btn-lg" onclick=" SaveChange() " style="float: right; margin-right: 30px">
+                <span class="glyphicon glyphicon-save" aria-hidden="true"></span> @ResourceSetting.Save
+            </button>
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>

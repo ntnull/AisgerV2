@@ -1,0 +1,342 @@
+﻿body {
+}
+
+.subgroup-div {
+    margin-left: 3%;
+    margin-top: 3%;
+    margin-bottom: 10%;
+    width: 94%;
+    height: 92%;
+    background-color: #FFFFFF;
+    color: white;
+}
+
+.subtitle {
+    height: 20%;
+    width: 100%;
+    position: relative;
+	z-index:4;
+}
+
+.title {
+    display: block;
+    padding: 10px;
+    padding-top: 6px;
+    font-family: Arial,sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: bold;
+    font-size: 20px;
+    color: #0000EE;
+    text-indent: 0em;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    white-space: normal;
+    text-align: center;
+    text-decoration: underline;
+}
+
+    .title:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+
+.subdiv {
+	height: 80%;
+	width: 100%;
+	margin: 0px;
+	z-index:0;
+	/*position: relative;*/
+}
+
+.container-chart {
+    margin-left: 7%;
+    margin-right: 7%;
+    width: 86%;
+    height: 250px;
+}
+
+.grid7 {
+    margin-left: 7%;
+    margin-right: 7%;
+    width: 80%;
+    height: 250px;
+}
+
+    .grid7 .k-grid {
+        height: 200px;
+    }
+
+        .grid7 .k-grid .k-grid-content {
+            height: 200px;
+        }
+
+.s-header {
+    min-height: 30px;
+    line-height: 18px;
+    border-style: solid;
+    border-color: #94c0d2;
+    border-width: 1px 0 1px 1px;
+    /*background-color: #daecf4;*/
+    /*background-image: linear-gradient(to right, rgba(75, 119, 190, 0), rgba(75, 119, 190, 0.3), rgba(75, 119, 190, 0.55));
+    border-bottom: 1px solid #94c0d2;*/
+    background-image: url(textures/highlight.png);
+    background-image: none,-webkit-linear-gradient(top,rgba(255,255,255,.45) 0,rgba(255,255,255,.0) 100%);
+    background-image: none,-moz-linear-gradient(top,rgba(255,255,255,.45) 0,rgba(255,255,255,.0) 100%);
+    background-image: none,-o-linear-gradient(top,rgba(255,255,255,.45) 0,rgba(255,255,255,.0) 100%);
+    background-image: none,linear-gradient(to bottom,rgba(255,255,255,.45) 0,rgba(255,255,255,.0) 100%);
+    background-position: 50% 50%;
+    background-color: #daecf4;
+}
+
+.m-header-title {
+    padding-top: 5px;
+    text-align: center;
+    float: right;
+    width: 95%;
+    color: #337AB7;
+}
+
+
+.s-footer {
+    padding: 2px;
+    min-height: 2vh;
+    line-height: 18px;
+    border-style: solid;
+    border-color: #94c0d2;
+    border-width: 1px 0 1px 1px;
+    /*background-color: #daecf4;*/
+    /*background-image: linear-gradient(to right, rgba(75, 119, 190, 0), rgba(75, 119, 190, 0.3), rgba(75, 119, 190, 0.55));
+    border-bottom: 1px solid #94c0d2;*/
+    background-image: url(textures/highlight.png);
+    background-image: none,-webkit-linear-gradient(top,rgba(255,255,255,.45) 0,rgba(255,255,255,.0) 100%);
+    background-image: none,-moz-linear-gradient(top,rgba(255,255,255,.45) 0,rgba(255,255,255,.0) 100%);
+    background-image: none,-o-linear-gradient(top,rgba(255,255,255,.45) 0,rgba(255,255,255,.0) 100%);
+    background-image: none,linear-gradient(to bottom,rgba(255,255,255,.45) 0,rgba(255,255,255,.0) 100%);
+    background-position: 50% 50%;
+    background-color: #daecf4;
+}
+
+.year-grid {
+    position: relative;
+    height: 200px;
+    width: 95%;
+    margin-left: 1px;
+    margin-bottom: 2px;
+    cursor: pointer;
+}
+
+.region-grid {
+    position: relative;
+    height: calc(100%-230px)!important;
+    width: 95%;
+    margin-left: 1px;
+    cursor: pointer;
+}
+
+    .region-grid .k-grid {
+        height: calc(100%-300px)!important;
+    }
+
+/*.k-grid-content {
+    height: calc(100%-300px)!important;
+}*/
+
+.aisger-chart {
+    height: 340px;
+    cursor: pointer;
+}
+
+.report-chart {
+    height: 900px;
+}
+
+.go-back {
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+    .go-back:hover {
+        cursor: pointer;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+.k-tabstrip-wrapper {
+    height: 94.5vh;
+}
+
+.s-tabstrip {
+    height: 100%;
+}
+
+.k-tabstrip > .k-content {
+    height: calc(100%-30px);
+}
+
+.k-tabstrip > .k-content, .k-panelbar .k-tabstrip > .k-content {
+    position: static;
+    border-style: solid;
+    border-width: 1px;
+    margin: 0 .286em 1.3em;
+    padding: 0.7em .92em;
+    zoom: 1;
+}
+
+.k-tabstrip-wrapper > div {
+    height: 100%;
+}
+
+.k-tabstrip-items li .k-button {
+    line-height: 1;
+    padding: 0;
+    vertical-align: top;
+    margin-bottom: -2px;
+}
+
+.k-tabstrip-items li .k-icon {
+    margin: 0;
+}
+
+.row-s {
+    overflow-y: auto;
+    min-height: 88vh;
+    height: 88vh;
+    -webkit-transition-property: top,bottom;
+    transition-property: top,bottom;
+    -webkit-transition-duration: .2s,.2s;
+    transition-duration: .2s,.2s;
+    -webkit-transition-timing-function: linear,linear;
+    transition-timing-function: linear,linear;
+    -webkit-overflow-scrolling: touch;
+}
+
+.a-list {
+    color: #1735ed;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+    .a-list:hover {
+        color: #1735ed;
+        text-decoration: underline;
+    }
+
+.report-table {
+    border-collapse: collapse;
+    empty-cells: show;
+    width: 1100px;
+}
+
+    .report-table tr {
+        border-bottom: 1px solid #000;
+        padding-bottom: 10px;
+    }
+
+.in-table {
+    border-collapse: collapse;
+    empty-cells: show;
+    width: 1100px;
+}
+
+    .in-table tr {
+        border-bottom: 0px solid #000;
+        padding-bottom: 10px;
+    }
+
+
+.div-title30 {
+    height: 30px;
+    padding: 5px;
+    padding-top: 10px;
+}
+
+.div-title50 {
+    height: 50px;
+    padding: 5px;
+    padding-top: 10px;
+}
+
+hr {
+    height: 1px;
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    border-color: black;
+}
+
+.bi-forma-report1 {
+    height: 100%;
+    /*overflow-y: scroll;*/
+}
+
+    .bi-forma-report1 .object-grid1 {
+        margin-top: 5px;
+        width: 300px;
+        cursor: pointer;
+    }
+
+    .bi-forma-report1 .object-grid2 {
+        max-height: 350px;
+        margin-bottom: 15px;
+        cursor: pointer;
+    }
+
+    .bi-forma-report1 .object-grid3 {
+        max-height: 300px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        cursor: pointer;
+    }
+
+    .bi-forma-report1 .object-grid4 {
+        max-height: 300px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        cursor: pointer;
+    }
+
+    .bi-forma-report1 .object-grid5 {
+        max-height: 350px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        cursor: pointer;
+    }
+
+
+    .bi-forma-report1 .object-chart1 {
+        height: 250px;
+        width: 400px;
+    }
+
+    .bi-forma-report1 .object-chart3 {
+        width: 230px;
+        height: 300px;
+    }
+
+    .bi-forma-report1 .object-chart4 {
+        height: 300px;
+        width: 800px;
+    }
+
+    .bi-forma-report1 .span-title {
+        font-weight: bold;
+    }
+
+.number-right{
+	text-align:right;
+	float:right;
+}
+
+.btn-back {
+	z-index: 1000;
+	width: 100px;
+	margin-top: 5px;
+	margin-right: 10px;
+	float: right;
+}
+
+.chart-center {
+	margin-top: 10%;
+}

@@ -1,0 +1,1015 @@
+﻿@using System.Globalization
+@using Aisger
+@using Aisger.Helpers
+@model Aisger.Models.SUB_Form
+<style type="text/css">
+	.form4Field {
+		width: 100%;
+	}
+
+	.ui-datepicker-calendar {
+		display: none;
+	}
+
+	.remove-file {
+		margin-left: 10px;
+		margin-top: 0px;
+		vertical-align: middle;
+	}
+
+		.remove-file:hover {
+			cursor: pointer;
+			background-color: transparent;
+			box-shadow: 0 0 10px rgba(0,0,0,0.5);
+		}
+
+	.ul-file-list {
+		margin-top: 40px;
+	}
+
+     .is-plan {
+        width: 13px;
+        vertical-align: middle;
+        display: inline;
+    }
+
+    .is-not-plan {
+        width: 13px;
+        vertical-align: middle;
+        display: inline;
+    }
+
+    .is-not-events{
+        vertical-align:middle;
+        display:inline;
+    }
+
+   .is-energy-msystem {
+        width: 13px;
+        vertical-align: middle;
+        display: inline;
+    }
+
+    .is-not-energy-msystem {
+        width: 13px;
+        vertical-align: middle;
+        display: inline;
+    }
+</style>
+@if (CultureHelper.GetCurrentCulture() == "kz")
+{
+	<div>
+		<h5 style="font-weight: bold; text-align: center">Күнтізбелік @Model.ReportYear жыл ішінде энергия аудитінің қорытындысы бойынша Мемлекеттік энергетикалық тізілім субъектісі әзірлейтін </h5>
+		<h5 style="font-weight: bold; text-align: center">энергия үнемдеу және энергия тиімділігін арттыру жөніндегі іс-шаралар жоспарының орындалу нәтижелері туралы ақпарат</h5>
+	</div>
+}
+else
+{
+	<div>
+		<h5 style="font-weight: bold; text-align: center">Результаты исполнения плана мероприятий по энергосбережению </h5>
+		<h5 style="font-weight: bold; text-align: center">и повышению энергоэффективности за @Model.ReportYear календарный год</h5>
+		<button type="button" class="btn btn-success btn-sm hide"  style="float:right;"  onclick="location.href='@Url.Action("Index", "SubActionPlan")';return false;">
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.FillActionPlan
+		</button>
+	</div>
+}
+
+@*@Html.HiddenFor(model => model.IsPlan)*@
+
+<div class="row">	
+    <div class="col-sm-12">
+        <table>
+            <tr>
+                <td style="border:0px;">
+                    <div class="input-group" style="margin-right: 5px;">
+                        @{
+                            var _disabled = "";
+                            var _checked = "";
+                            if (Model.IsPlan == true)
+                            {
+                                _checked = "checked";
+                                _disabled = "disabled";
+                            }
+
+                            <input type="checkbox" id="IsPlan" name="IsPlan" class="is-plan" @_checked @_disabled />
+                        }
+                        Энергоаудит проводился
+                    </div>
+                </td>
+                <td style="border:0px;">
+                    <div class="input-group" style="margin-right:20px;">
+                        @{
+                            var _disabled1 = "";
+                            var _checked1 = "";
+                            if (Model.IsPlan == false)
+                            {
+                                _checked1 = "checked";
+                                _disabled1 = "disabled";
+                            }
+                            <input type="checkbox" class="is-not-plan" @_checked1 @_disabled1 value="@Model.IsPlan" />
+                        }
+                        Энергоаудит не проводился
+                    </div>
+
+                </td>
+                <td style="border:0px">
+                    <div class="input-group" style="margin-right:20px;">
+                        @{    var _checked2 = "";
+                            if (Model.IsNotEvents == true)
+                            {
+                                _checked2 = "checked";
+                            }
+
+                            <input type="checkbox" id="IsNotEvents" name="IsNotEvents" class="is-not-events" @_checked2 value="@Model.IsNotEvents" />
+                        }
+                        Не проводились планы мероприятий
+                    </div>
+
+                </td>
+                <td style="border:0px;">
+                    <div class="input-group" style="margin-right:20px;">
+                        @{
+                            var isEnergyMSChacked = "";
+                            if (Model.IsEnergyManagementSystem == true)
+                            {
+                                isEnergyMSChacked = "checked";
+                            }
+
+                            <input type="checkbox" id="IsEnergyManagementSystem" name="IsEnergyManagementSystem" class="is-energy-msystem" @isEnergyMSChacked />
+                        }
+                        система энергоменеджмента внедрена
+                    </div>
+                </td>
+                <td style="border:0px;">
+                    <div class="input-group" style="margin-right:20px;">
+                        @{
+                            var isNotEnergyMSChacked = "";
+                            if (Model.IsEnergyManagementSystem == false)
+                            {
+                                isNotEnergyMSChacked = "checked";
+                            }
+
+                            <input type="checkbox" id="IsNotEnergyManagementSystem" name="IsNotEnergyManagementSystem" class="is-not-energy-msystem" @isNotEnergyMSChacked />
+                        }
+                        система энергоменеджмента не внедрена
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="CSSTableGenerator">
+	<div style="display: none;" id="eventDiv">
+		@Html.DropDownList("EventId", (IEnumerable<SelectListItem>)(ViewData["DicEvents"]), String.Empty, new { @class = "form-control  form-edit" })
+	</div>
+	@*<div style="display: none;" id="wastDiv">
+            @Html.DropDownList("TypeResourceId", (IEnumerable<SelectListItem>)(ViewData["Types"]), String.Empty, new { @onchange = "CallPointChanged(0)", @class = "form-control  form-edit" })
+        </div>*@
+	<input type="hidden" id="regexVal" value="">
+
+	<table id="table4" class="wast-list" style="width: 100%; text-align: center">
+		<thead>
+			<tr style="font-weight: bold">
+				<td rowspan="2">№</td>
+				<td rowspan="2" style="width: 400px">@ResourceSetting.form41</td>
+				<td rowspan="2">@ResourceSetting.form42</td>
+				<td rowspan="2">@ResourceSetting.form43</td>
+				<td rowspan="2" style="width: 150px">@ResourceSetting.form44</td>
+				<td colspan="3">@ResourceSetting.from45</td>
+				<td rowspan="2"></td>
+			</tr>
+			<tr>
+				<td>@ResourceSetting.form46</td>
+				<td>@ResourceSetting.form47</td>
+				<td>@ResourceSetting.form48</td>
+			</tr>
+			<tr style="font-style: italic; font-weight: bold">
+				@for (int i = 1; i < 8; i++)
+	{
+					<td>@i</td>
+	}
+			</tr>
+		</thead>
+		<tbody id="form4">
+			@{
+				Aisger.Models.SUB_Form4Record signedObj = null;
+			}
+			
+			
+			@for (var i = 0; i < Model.SubForm4RecordsOther.Count; i++)
+   {
+	   var index = i + 1;
+	   var styleCounter = "";
+	   var noteId = "SubForm4RecordsOther_" + i + "__NoteDiv";
+	   if (Model.SubForm4RecordsOther[i].TypeCounterId != 5)
+	   {
+		   styleCounter = "display: none";
+	   }
+	   if (Model.SignedSubForm != null)
+	   {
+		   var id = Model.SubForm4RecordsOther[i].Id;
+		   signedObj = Model.SignedSubForm.SUB_Form4Record.FirstOrDefault(f => f.Id == id);
+	   }
+				<tr rowid="@Model.SubForm4RecordsOther[i].Id" rowindex="@index" rowkind="2">
+					<td class="disabletd">@index</td>
+					<td>
+						<div class="input-group">
+							@Html.TextBoxFor(model => model.SubForm4RecordsOther[i].EventName, new { @class = "form4Field  form-edit", @disabled = "disabled" })
+							<span class="input-group-addon">
+								<a class="commentDialog" href="#">
+									<i class="glyphicon glyphicon-info-sign"></i>
+								</a>
+							</span>
+						</div>
+						@if (signedObj != null)
+	  {
+							<div class="signed signed-color">
+								@signedObj.EventName
+							</div>
+	  }
+					</td>
+					<td>
+						<div class="input-group">
+							@Html.TextBoxFor(model => model.SubForm4RecordsOther[i].EmplPeriodStr, new { @class = "form4Field  form-edit date-picker", @placeholder = "ММ/ГГГГ", @disabled = "disabled" })
+							<span class="input-group-addon">
+								<a class="commentDialog" href="#">
+									<i class="glyphicon glyphicon-info-sign"></i>
+								</a>
+							</span>
+						</div>
+						@if (signedObj != null)
+	  {
+							<div class="signed signed-color">
+								@signedObj.EmplPeriodStr
+							</div>
+	  }
+					</td>
+					<td>
+						<div class="input-group">
+							@Html.TextBoxFor(model => model.SubForm4RecordsOther[i].PlanExpend, new { @class = "form4Field  form-edit", @disabled = "disabled" })
+							<span class="input-group-addon">
+								<a class="commentDialog" href="#">
+									<i class="glyphicon glyphicon-info-sign"></i>
+								</a>
+							</span>
+						</div>
+						@if (signedObj != null)
+	  {
+							<div class="signed signed-color">
+								@signedObj.PlanExpend
+							</div>
+	  }
+					</td>
+					<td>
+						<div class="input-group">
+							@Html.TextBoxFor(model => model.SubForm4RecordsOther[i].ActualInvest, new { @class = "from4float form4Field  form-edit", @disabled = "disabled" })
+							<span class="input-group-addon">
+								<a class="commentDialog" href="#">
+									<i class="glyphicon glyphicon-info-sign"></i>
+								</a>
+							</span>
+						</div>
+						@if (signedObj != null)
+	  {
+							<div class="signed signed-color">
+								@signedObj.ActualInvest
+							</div>
+	  }
+					</td>
+					<td>
+						@if (ViewBag.SubReadonly == true)
+	  {
+							<div class="input-group">
+								@Html.TextBoxFor(model => model.SubForm4RecordsOther[i].SUB_DIC_TypeCounter.NameRu, new { @class = "form4Field  form-edit", @disabled = "disabled" })
+								<span class="input-group-addon">
+									<a class="commentDialog" href="#">
+										<i class="glyphicon glyphicon-info-sign"></i>
+									</a>
+								</span>
+							</div>
+	  }
+	  else
+	  {
+							<div class="input-group">
+								<div class="input chzn-select" style="margin-left: 0px;">
+									@Html.DropDownList("SubForm4RecordsOther[" + @i + "].TypeCounterId", (IEnumerable<SelectListItem>)(ViewData["TypeCountersOther" + i.ToString(CultureInfo.InvariantCulture)]), String.Empty, new { @class = "form-control  form-edit", @disabled = "disabled" })
+									<div style="@styleCounter" id="@noteId">
+										@Html.TextBoxFor(model => model.SubForm4RecordsOther[i].Note, new { @class = "form4Field  form-edit", @placeholder = ResourceSetting.Description })
+									</div>
+
+								</div>
+								<span class="input-group-addon">
+									<a class="commentDialog" href="#">
+										<i class="glyphicon glyphicon-info-sign"></i>
+									</a>
+								</span>
+							</div>
+	  }
+						@if (signedObj != null)
+	  {
+							<div class="signed signed-color">
+								@signedObj.Note
+							</div>
+	  }
+					</td>
+					<td>
+						<div class="input-group">
+							@Html.TextBoxFor(model => model.SubForm4RecordsOther[i].InKind, new { @class = "from4float form4Field  form-edit", @disabled = "disabled" })
+							<span class="input-group-addon">
+								<a class="commentDialog" href="#">
+									<i class="glyphicon glyphicon-info-sign"></i>
+								</a>
+							</span>
+						</div>
+						@if (signedObj != null)
+	  {
+							<div class="signed signed-color">
+								@signedObj.InKind
+							</div>
+	  }
+					</td>
+					<td>
+						<div class="input-group">
+							@Html.TextBoxFor(model => model.SubForm4RecordsOther[i].InMoney, new { @class = "from4float form4Field  form-edit", @disabled = "disabled" })
+							<span class="input-group-addon">
+								<a class="commentDialog" href="#">
+									<i class="glyphicon glyphicon-info-sign"></i>
+								</a>
+							</span>
+						</div>
+						@if (signedObj != null)
+	  {
+							<div class="signed signed-color">
+								@signedObj.InMoney
+							</div>
+	  }
+					</td>
+					@if (i == 0)
+	 {
+						<td><a class="deleteRow"></a></td>
+	 }
+	 else
+	 {
+						<td>
+							<i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+						</td>
+	 }
+				</tr>
+   }
+			<tr>
+				<td colspan="5" style="text-align: left;">
+					<button type="button" class="btn btn-success btn-sm add-btn-from4" id="addCoordrrow1" style="display: none">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.addNew
+					</button>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="9" style="text-align: left;" class="disabletd">
+					<h5 style="font-weight: bold; padding-left: 20px">@ResourceSetting.Other</h5>
+				</td>
+			</tr>
+			@for (var i = 0; i < Model.SubForm4Records.Count; i++)
+   {
+	   var selectChange = "CallPointChanged(" + i + ")";
+	   var index = i + 1;
+	   var styleCounter = "";
+	   var noteId = "SubForm4Records_" + i + "__NoteDiv";
+	   if (Model.SubForm4Records[i].TypeCounterId != 5)
+	   {
+		   styleCounter = "display: none";
+	   }
+	   if (Model.SignedSubForm != null)
+	   {
+		   var id = Model.SubForm4Records[i].Id;
+		   signedObj = Model.SignedSubForm.SUB_Form4Record.FirstOrDefault(f => f.Id == id);
+	   }
+				<tr rowid="@Model.SubForm4Records[i].Id" rowindex="@index" rowkind="1">
+					<td class="disabletd">@index</td>
+					<td>
+						<div class="input-group">
+							@*                                @Html.TextBoxFor(model => model.SubForm4Records[i].EventName, new { @class = "form4Field  form-edit", @disabled = "disabled" })*@
+							@Html.DropDownList("SubForm4Records[" + @i + "].EventId", (IEnumerable<SelectListItem>)(ViewData["DicEvents" + i.ToString(CultureInfo.InvariantCulture)]), String.Empty, new { @class = "form-control  form-edit", @disabled = "disabled" })
+							<span class="input-group-addon">
+								<a class="commentDialog" href="#">
+									<i class="glyphicon glyphicon-info-sign"></i>
+								</a>
+							</span>
+						</div>
+					</td>
+					<td>
+						<div class="input-group">
+							@*                            <input name="@Model.SubForm4Records[i].EmplPeriodStr" id="startDate" class="date-picker" />*@
+							@Html.TextBoxFor(model => model.SubForm4Records[i].EmplPeriodStr, new { @class = "form4Field  form-edit date-picker", @placeholder = "ММ/ГГГГ", @disabled = "disabled" })
+							<span class="input-group-addon">
+								<a class="commentDialog" href="#">
+									<i class="glyphicon glyphicon-info-sign"></i>
+								</a>
+							</span>
+						</div>
+						@if (signedObj != null)
+	  {
+							<div class="signed signed-color">
+								@signedObj.EmplPeriodStr
+							</div>
+	  }
+					</td>
+					<td>
+						<div class="input-group">
+							@Html.TextBoxFor(model => model.SubForm4Records[i].PlanExpend, new { @class = "form4Field  form-edit", @disabled = "disabled" })
+							<span class="input-group-addon">
+								<a class="commentDialog" href="#">
+									<i class="glyphicon glyphicon-info-sign"></i>
+								</a>
+							</span>
+						</div>
+						@if (signedObj != null)
+	  {
+							<div class="signed signed-color">
+								@signedObj.PlanExpend
+							</div>
+	  }
+					</td>
+					<td>
+						<div class="input-group">
+							@Html.TextBoxFor(model => model.SubForm4Records[i].ActualInvest, new { @class = "form4Field  form-edit from4float", @disabled = "disabled" })
+							<span class="input-group-addon">
+								<a class="commentDialog" href="#">
+									<i class="glyphicon glyphicon-info-sign"></i>
+								</a>
+							</span>
+						</div>
+						@if (signedObj != null)
+	  {
+							<div class="signed signed-color">
+								@signedObj.ActualInvest
+							</div>
+	  }
+					</td>
+					<td>
+						@if (ViewBag.SubReadonly == true)
+	  {
+							<div class="input-group">
+								@Html.TextBoxFor(model => model.SubForm4Records[i].SUB_DIC_TypeCounter.NameRu, new { @class = "form4Field  form-edit", @disabled = "disabled" })
+								<span class="input-group-addon">
+									<a class="commentDialog" href="#">
+										<i class="glyphicon glyphicon-info-sign"></i>
+									</a>
+								</span>
+							</div>
+	  }
+	  else
+	  {     
+							<div class="input-group">
+								<div class="input chzn-select" style="margin-left: 0px;">
+									@Html.DropDownList("SubForm4Records[" + @i + "].TypeCounterId", (IEnumerable<SelectListItem>)(ViewData["TypeCounters" + i.ToString(CultureInfo.InvariantCulture)]), String.Empty, new { @onchange = @selectChange, @class = "form-control  form-edit", @disabled = "disabled" })
+									<div style="@styleCounter" id="@noteId">
+										@Html.TextBoxFor(model => model.SubForm4Records[i].Note, new { @class = "form4Field  form-edit", @placeholder = ResourceSetting.Description })
+									</div>
+
+								</div>
+								<span class="input-group-addon">
+									<a class="commentDialog" href="#">
+										<i class="glyphicon glyphicon-info-sign"></i>
+									</a>
+								</span>
+							</div>
+	  }
+						@if (signedObj != null)
+	  {
+							<div class="signed signed-color">
+								@signedObj.Note
+							</div>
+	  }
+					</td>
+					<td>
+						<div class="input-group">
+							@Html.TextBoxFor(model => model.SubForm4Records[i].InKind, new { @class = "form4Field  form-edit from4float", @disabled = "disabled" })
+							<span class="input-group-addon">
+								<a class="commentDialog" href="#">
+									<i class="glyphicon glyphicon-info-sign"></i>
+								</a>
+							</span>
+						</div>
+						@if (signedObj != null)
+	  {
+							<div class="signed signed-color">
+								@signedObj.InKind
+							</div>
+	  }
+					</td>
+					<td>
+						<div class="input-group">
+							@Html.TextBoxFor(model => model.SubForm4Records[i].InMoney, new { @class = "form4Field  form-edit from4float", @disabled = "disabled" })
+							<span class="input-group-addon">
+								<a class="commentDialog" href="#">
+									<i class="glyphicon glyphicon-info-sign"></i>
+								</a>
+							</span>
+						</div>
+						@if (signedObj != null)
+	  {
+							<div class="signed signed-color">
+								@signedObj.InMoney
+							</div>
+	  }
+					</td>
+					@if (i == 0)
+	 {
+						<td><a class="deleteRow"></a></td>
+	 }
+	 else
+	 {
+						<td>
+							<i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+						</td>
+	 }
+				</tr>
+   }
+			<tr>
+				<td colspan="5" style="text-align: left;" class="">
+					<button type="button" class="btn btn-success btn-sm add-btn-from4" id="addCoordrrow" style="display: none">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.addNew
+					</button>
+				</td>
+			</tr>
+		</tbody>
+
+		<tfoot id="foodForm4">
+		</tfoot>
+	</table>
+	<ul class="ul-file-list list-group">
+	</ul>
+	<div class="upload-button" style="margin-top: 20px; border: 1px solid #b2aeae; padding: 5px;">
+		<button class="btn btn-primary btn-fileupload" type="button"><span class="glyphicon glyphicon-upload"></span>Загрузить файл</button>
+		<input type="file" name="files" class="fileUpload hide" multiple="multiple">
+		<span class="span-filename">Файл не выбран</span>
+	</div>
+</div>
+<div style="font-size: 11px; font-style: italic; margin-top: 20px; margin-bottom: 30px">
+	@if (CultureHelper.GetCurrentCulture() == "kz")
+ {
+		<div>
+			<p style="font-weight: bold">* Ескертпе: </p>
+			1) 2-нысандағы энергетикалық ресурстардың атауы және өлшем бірліктері қолданылады;<br>
+			2) Жүргізілген энергия аудитінің қорытындысы болмаған жағдайда, толтырылмайды;<br>
+			3) Нысанға энерия аудиті қорытындысының көшірмесі, энергия аудитің қорытындылары бойынша әзірленген іс-шаралар жоспары, сондай-ақ ISO 50001 халықаралық стандартына сәйкестік серитификаты қоса беріледі.<br>
+			Қажет болған жағдайда жолдарды қосыңыз.
+		</div>
+ }
+ else
+ {
+		<div>
+			<p style="font-weight: bold">* Примечание: </p>
+			1) Придерживаться названий и единиц измерения энергетических ресурсов из Формы 2<br>
+			2) Не заполняется в случае отсутствия заключения проведенного энергоаудита<br>
+			3) К форме прикладывается копии заключения энергоаудита и плана мероприятий разработанного по итогам энергоаудита<br>
+			При необходимости добавить строки
+		</div>
+ }
+</div>
+
+<script type="text/javascript">
+	function CheckValidation(val) {
+		var expr = new RegExp($("#regexVal").val());
+		return expr.test(val);
+	};
+
+	function createNewAnimalList(idAnimal) {
+
+		$('#' + idAnimal).chosen();
+		var wid = $('#SubForm4Records_0__TypeCounterId_chzn').width();
+		$('#' + idAnimal + '_chzn').width(wid);
+	}
+
+	function SetDateEvent(idcontrol) {
+
+	    var _currentYear = $('#ReportYear').val();
+
+		$(idcontrol).datepicker({
+			changeMonth: true,
+			changeYear: true,
+			showButtonPanel: true,
+			dateFormat: 'mm/yy',
+			maxDate: new Date(_currentYear + '-11-31'),
+			onClose: function (dateText, inst) {
+				if (inst.selectedYear != $("#ReportYear").val()) {
+					showWarning('Год должен равняться отчетному году');
+					$(this).val('');
+					return;
+				}
+				$(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+				var row = $(this).closest('tr');
+				var entityId = row.attr('rowid');
+				var type = "date";
+				var idAttr = $(this).attr('name');
+				UpdateModel("form4", entityId, $(this).attr('id'), idAttr.replace('.', '_'), $(this).val(), type, 0);
+			}
+		});
+	}
+
+	function setSeparet() {
+		$(".from4float").each(function () {
+			var valueField = $(this).val();
+			if (valueField.indexOf(',') > 0) {
+				valueField = valueField.replace(',', '.');
+			}
+			if (valueField.length > 0) {
+				$(this).val(formatNumber(valueField));
+			}
+		});
+	}
+
+	function SetEvent(idcontrol) {
+		$(idcontrol).change(function () {
+			var fieldValue = $(this).val();
+			var idAttr = $(this).attr('name');
+			var fieldName = idAttr.split('.')[1];
+			var type = "float";
+			if (fieldName == "EventName" || fieldName == "PlanExpend" || fieldName=="Note") {
+				type = "string";
+			}
+			if (fieldName == "EmplPeriodStr") {
+				type = "date";
+				if (fieldValue != null && fieldValue.length > 0) {
+					var error = CheckValidation($(this).val());
+					if (!error) {
+						showWarning('Не коректный формат: формат ввода мм/гггг (01/2016)');
+						$(this).val('');
+						return;
+					}
+					var year = $(this).val().split('/')[1];
+					if (year != $("#ReportYear").val()) {
+						showWarning('Год должен равняться отчетному году');
+						$(this).val('');
+						return;
+					}
+				}
+
+			}
+			var row = $(this).closest('tr');
+			var entityId = row.attr('rowid');
+			if ($("#IsExistForm").val() != "false") {
+				showWarning("По данному году уже отчет зарегистрирован");
+				$('#' + fieldId).val("");
+				return false;
+			}
+			if (type == "float") {
+				if (fieldValue != null && fieldValue.length > 0) {
+					if (fieldValue.indexOf(',') > 0) {
+						fieldValue = fieldValue.replace(',', '.');
+					}
+					if (fieldValue != '' && !$.isNumeric(fieldValue)) {
+						showWarning('@ResourceSetting.enterNumber');
+						$('#' + fieldId).val("");
+						return false;
+					}
+					if (fieldValue.indexOf('-') > -1) {
+						showWarning('@ResourceSetting.enterNumberNotMinus');
+						$('#' + fieldId).val("");
+						return false;
+					}
+				}
+			}
+			if (type == "long") {
+				if (fieldValue != null && fieldValue.length > 0) {
+					if (fieldValue.indexOf(',') > 0 || fieldValue.indexOf('.') > 0) {
+						showWarning("Введите целое число");
+						$('#' + fieldId).val("");
+						return false;
+					}
+					if (fieldValue != '' && !$.isNumeric(fieldValue)) {
+						showWarning('@ResourceSetting.enterNumber');
+						$('#' + fieldId).val("");
+						return false;
+					}
+					if (fieldValue.indexOf('-') > -1) {
+						showWarning('@ResourceSetting.enterNumberNotMinus');
+						$('#' + fieldId).val("");
+						return false;
+					}
+				}
+			}
+
+			var modelId = parseInt($("#currentDataViewId").val(), 10) || 0;
+			//            var year = $("#ReportYear").val();
+			var userId = $("#UserId").val();
+			var editorId = $("#Editor").val();
+			//        var unique = $('#' + fieldId).attr('unique');
+
+			UpdateModel("form4", entityId, $(this).attr('id'), idAttr.replace('.', '_'), $(this).val(), type, 0);
+		});
+	}
+
+</script>
+
+<script type="text/javascript">
+
+	$(document).ready(function () {
+		setSeparet();
+		setAccess();
+		getFiles();
+
+	    //-----система энергоменеджмента внедрена
+		$('.is-energy-msystem').click(function () {
+
+		    var fieldValue;
+		    var checked = $(this).is(":checked");
+		    if (checked) {
+
+		        fieldValue = "true";
+		        $('#IsEnergyManagementSystem').val(checked);
+		        $('#IsNotEnergyManagementSystem').prop("checked", false);
+		    } else {
+		        fieldValue = "false";
+		        $('#IsNotEnergyManagementSystem').prop("checked", true);
+		    }
+
+		    UpdateModel("form4", 0, $(this).attr('id'), "IsEnergyManagementSystem", fieldValue, "string", 0);
+		});
+
+		$('.is-not-energy-msystem').click(function () {
+
+		    var fieldValue;
+		    var checked = $(this).is(":checked");
+		    if (checked) {
+
+		        fieldValue = "false";
+		        $('#IsNotEnergyManagementSystem').val(checked);
+		        $('#IsEnergyManagementSystem').prop("checked", false);
+		    } else {
+		        fieldValue = "true";
+		        $('#IsEnergyManagementSystem').prop("checked", true);
+		    }
+
+		    UpdateModel("form4", 0, $(this).attr('id'), "IsEnergyManagementSystem", fieldValue, "string", 0);
+		});
+
+		//----
+		if ('@Model.IsPlan.ToString().ToLower()' == "true") {
+			$('.form4Field').removeAttr("disabled");
+			$('[id*=SubForm4Records]').attr('disabled', false).trigger("liszt:updated");
+			$('#addCoordrrow').show();
+			$('#addCoordrrow1').show();
+		}
+
+		if ('@Model.IsConfirmPlan.ToString().ToLower()' == "true") {
+		}
+
+
+		SetEvent(".form4Field");
+		SetDateEvent('.date-picker');
+		$("#regexVal").val("[0-1][0-9]\\/[1-2][0-9][0-9][0-9]");
+		var counterBuff = 0;
+
+		$(".add-btn-from4").on("click", function () {
+
+			var row = $(this).closest("tr").prev();
+			var rowindex = parseInt(row.attr('rowindex'), 10) || 0;
+			var nextIndex = rowindex + 1;
+			var kindObject = "";
+			if ($(this).attr('id') == "addCoordrrow") {
+				kindObject = "SubForm4Records";
+			} else {
+				kindObject = "SubForm4RecordsOther";
+			}
+
+
+			var cols = '<tr rowid="0" rowindex="' + nextIndex + '">';
+			var animalDiv = document.getElementById("counterDiv");
+			var eventDiv = document.getElementById("eventDiv");
+			var idAnimal = kindObject + '_' + nextIndex + '__TypeCounterId';
+			var nameAnimal = kindObject + '[' + nextIndex + '].TypeCounterId';
+
+			var idEvent = kindObject + '_' + nextIndex + '__EventId';
+			var nameEvent = kindObject + '[' + nextIndex + '].EventId';
+			var envetStr = replaceAll('id="EventId"', 'id="' + idEvent + '"', eventDiv.innerHTML);
+			envetStr = replaceAll('name="EventId"', 'name="' + nameEvent + '"', envetStr);
+
+
+			var animalStr = replaceAll('id="TypeCounterId"', 'id="' + idAnimal + '"', animalDiv.innerHTML);
+			animalStr = replaceAll('name="TypeCounterId"', 'name="' + nameAnimal + '"', animalStr);
+			animalStr = animalStr.replace('(0)', '(' + nextIndex + ')');
+
+
+			cols += '<td class="disabletd">' + nextIndex + '</td>';
+			var idEventName = "EventName_" + nextIndex;
+			var idEmplPeriod = "EmplPeriod_" + nextIndex;
+			var idActualInvest = "ActualInvest_" + nextIndex;
+			var idPlanExpend = "PlanExpend_" + nextIndex;
+			var idInKind = "InKind_" + nextIndex;
+			var idInMoney = "InMoney_" + nextIndex;
+			if ($(this).attr('id') == "addCoordrrow") {
+				cols += '<td><div class="input-group">' + envetStr + '<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+
+			} else {
+				cols += '<td><div class="input-group"><input type="text" name="SubForm4RecordsOther[' + nextIndex + '].EventName" id="' + idEventName + '" class="form4Field  form-edit" /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+
+			}
+			cols += '<td><div class="input-group"><input type="text" name="' + kindObject + '[' + nextIndex + '].EmplPeriodStr" id="' + idEmplPeriod + '" class="form4Field  form-edit  date-picker" placeholder="ММ/ГГГГ"  /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+			cols += '<td><div class="input-group"><input type="text" name="' + kindObject + '[' + nextIndex + '].PlanExpend" id="' + idPlanExpend + '" class="form4Field  form-edit"  /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+			cols += '<td><div class="input-group"><input type="text" name="' + kindObject + '[' + nextIndex + '].ActualInvest" id="' + idActualInvest + '" class="form4Field  form-edit"  /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+			cols += '<td><div class="input-group">' + animalStr + '<span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+			cols += '<td><div class="input-group"><input type="text" name="' + kindObject + '[' + nextIndex + '].InKind" id="' + idInKind + '" class="from4float form4Field  form-edit"  /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+			cols += '<td><div class="input-group"><input type="text" name="' + kindObject + '[' + nextIndex + '].InMoney" id="' + idInMoney + '"  class="from4float form4Field  form-edit"  /><span class="input-group-addon"><a class="commentDialog" href="#"><i class="glyphicon glyphicon-info-sign"></i></a></span></div></td>';
+
+			cols += '<td><i class="glyphicon glyphicon-remove deleteRow"  title="@ResourceSetting.Delete"></td>';
+			cols += '</tr>';
+			row.after(cols);
+			setSeparet();
+			SetEvent('#' + idEventName);
+			SetEvent('#' + idPlanExpend);
+			//            SetEvent('#' + idEmplPeriod);
+			SetDateEvent('#' + idEmplPeriod);
+			SetEvent('#' + idActualInvest);
+			SetEvent('#' + idInKind);
+			SetEvent('#' + idInMoney);
+			SetComboBoxEvent('#' + idAnimal);
+			SetComboBoxEvent('#' + idEvent);
+			counterBuff++;
+			createNewAnimalList(idAnimal);
+		});
+
+		$("#table4").on("click", ".deleteRow", function () {
+			var row = $(this).closest('tr');
+			var success = function () {
+
+				var entityId = row.attr('rowid');
+				DeleteRecord("form4", entityId);
+				row.remove();
+				counterBuff -= 1;
+				$('#addCoordrrow').attr('disabled', false).prop('value', "Добавить");
+			}
+			var cancel = function () {
+			};
+			showConfirmation('@ResourceSetting.Delete', '@ResourceSetting.deleteconfirm', success, cancel);
+
+		});
+
+		//============================file upload
+		//----
+		$('.btn-fileupload').click(function () {
+			$('.fileUpload').trigger('click');
+		});
+
+		$('.fileUpload').click(function () {
+			$(".span-filename").text("Файл не выбран");
+		});
+
+		$('.fileUpload').change(function () {
+
+			var files = $('.fileUpload').get(0).files;
+
+			if (files.length == 0) {
+				$(".span-filename").text("Файл не выбран");
+			} else {
+
+				$(".span-filename").text("Число файлов:" + files.length);
+
+				if (files && files.length > 0) {
+
+					var fd = new FormData();
+					var reportYear = $('#ReportYear').val();
+					fd.append('ReportYear', reportYear);
+
+					for (var j = 0; j < files.length; j++) {
+						fd.append('files', files[j]);
+					}
+
+					$.ajax({
+						url: '@Url.Action("SaveFile", "RegisterForm")',
+						type: "POST",
+						data: fd,
+						async: false,
+						contentType: false,
+						processData: false,
+						success: function (data) {
+
+							if (data.ErrorMessage != "") {
+								showWarning(data.ErrorMessage);
+								return;
+							} else {
+								$('.fileUpload').empty();
+								$(".span-filename").text("Файл не выбран");
+								console.log(data);
+								getFiles();
+							}
+
+						},
+						error: function (request, status, error) {
+							showWarning("file upload error form4 " + error);
+						}
+					});
+				}
+
+			}
+
+		});
+
+		//---- get files
+		function getFiles() {
+			var userId = '@Model.UserId';
+			$.post('@Url.Action("GetFiles", "RegisterForm")', { ReportYear: $('#ReportYear').val(), userId: userId }, function (data) {
+
+				if (data.ErrorMessage != "") {
+					showWarning(data.ErrorMessage);
+					return;
+				}
+
+				var isEdit = true;
+				if (location.href.indexOf('ShowDetails') != -1 || location.href.indexOf('Design')!=-1) {
+					isEdit = false;
+				}
+
+				//----clear
+				$('.ul-file-list').empty();
+
+				var $ul = $('.ul-file-list');
+
+				$ul.append('<h4>Файлы</h4>');
+				if (data.list) {
+
+					$.map(data.list, function (item) {
+						var $li = $('li');
+						var url = '@Url.Action("Upload", "RegisterForm")';
+						var del=(isEdit==true)?"<span class='glyphicon glyphicon-remove remove-file' filename='" + item.filename + "'></span>":"";
+
+						$ul.append("<li class='list-group-item'><a href='" + url + "?reportYear=" + $('#ReportYear').val() + "&userId=" + userId + "&fname=" + item.filename + "' >" + item.filename + "</a>" + del + "</li>");
+					});
+				}
+			})
+		}
+
+		//----remove file
+		$('.ul-file-list').on('click', 'span.remove-file', function () {
+			var userId = '@Model.UserId';
+			var filename = $(this).attr('filename');
+
+			var success = function () {
+				$.post('@Url.Action("DeleteFile", "RegisterForm")', { reportYear: $('#ReportYear').val(), userId: userId, fname: filename }, function (data) {
+
+					if (data.ErrorMessage != "") {
+						showWarning(data.ErrorMessage);
+						return;
+					}
+					getFiles();
+				});
+			}
+			var cancel = function () {
+			};
+
+			showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+		});
+
+		//----
+		function setAccess() {
+			var url = location.href;
+			if (url.indexOf('ShowDetails') != -1 || location.href.indexOf('Design') != -1) {
+				$('.ul-file-list').prop('disabled', true);
+				$('.btn-fileupload').prop('disabled', true);
+			}
+			
+		}
+        
+	    //----color
+		$('.rating').each(function () {
+		    var tableName = $(this).attr('tablename');
+
+		    if (tableName == 'form4') {
+		        debugger;
+		        if (document.getElementById(tableName) == null) {
+		            return;
+		        }
+		        var columnindex = parseInt($(this).attr('columnindex'));
+		        var rowindex = parseInt($(this).attr('rowindex'));
+		        var iserror = $(this).attr('iserror');
+		        //        console.log(tableName + '; col:' + columnindex + "; row:" + rowindex);
+		        if (document.getElementById(tableName) == null || document.getElementById(tableName).rows == null || document.getElementById(tableName).rows.length < rowindex + 1) {
+		            return;
+		        }
+		        var cell = document.getElementById(tableName).rows[rowindex].cells[columnindex];
+
+		        if (cell != null && cell.children[0] != null && cell.children[0].children[0] != null) {
+
+		            if (cell.children[0].children[1].name == "SEC_User1.IsCvazy") {
+
+		                if (iserror) {
+		                    cell.children[0].className += " control-error";
+		                } else {
+		                    cell.children[0].className += " control-good";
+		                }
+		            } else {
+
+
+		                cell.children[0].children[1].children[0].children[0].className = "glyphicon glyphicon-info-sign mark-icon";
+		                if (iserror) {
+		                    cell.children[0].children[0].className += " control-error";
+		                } else {
+		                    cell.children[0].children[0].className += " control-good";
+		                }
+		            }
+		        }
+		    }
+		});
+		
+	});
+</script>

@@ -1,0 +1,207 @@
+﻿@using Aisger
+@*@using bioinform*@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="@Url.Content("~/content/images/icon.png")" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title  АИС ГЭР  </title>
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/jquery-ui.min.css")">
+
+    <link href="@Url.Content("~/Content/custom/common.css")" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")" type="text/javascript"> </script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")" type="text/javascript"> </script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.8.24.min.js")" type="text/javascript"> </script>
+    @*        <script src="@Url.Content("~/Scripts/jquery-ui-1.12.0.min.js")" type="text/javascript"> </script>*@
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"> </script>
+    <script src="@Url.Content("~/Scripts/jquery-migrate-1.2.1.min.js")" type="text/javascript"> </script>
+    @*        <script src="@Url.Content("~/Scripts/custom/menu-control.js")" type="text/javascript"> </script>*@
+    <script src="@Url.Content("~/Scripts/custom/spin.js")" type="text/javascript"> </script>
+</head>
+
+<script>
+    //----for report analyses
+    var rootUrl = "@Url.Content("~")";
+    var bi = {};
+    var dic = {};
+    var templs = {};
+    var zxc = {};
+</script>
+<script src="~/Scripts/reports/dictionaries.js"></script>
+<script src="~/Scripts/interfaceLang.js"></script>
+
+<body>
+    @RenderSection("scripts", required: false)
+
+
+    <div id="loading" style="display: none;">
+        <div id="loadingcontent">
+            <p id="loadingspinner" style="font-size: 25px">
+                @ResourceSetting.loading
+            </p>
+        </div>
+    </div>
+    @*
+        <div class="header-top" style="float: left" id="loginDiv">  
+            @if (MyExtensions.GetCurrentUserId() != null)
+            {
+                <div style="float: left">
+                    <a class="menuitem_active" href="#" id="menuBtnId"></a>
+                </div>
+                
+                <div class="btn-group" style="float: left; margin-top: 8px; margin-left: 10px;">
+                    <button type="button" class="btn btn-success" title="@MyExtensions.GetCurrentUserApplicationName()"><i class="glyphicon glyphicon-user" style="margin-right: 5px"></i>@MyExtensions.GetShortCurrentUserApplicationName()</button>
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="@Url.Action("ChangePassword", "Account")"><i class="glyphicon glyphicon-cog" style="margin-right: 5px"></i>Сменить пароль</a></li>
+                        <li><a href="@Url.Action("LogOff", "Account")"><i class="glyphicon glyphicon-off" style="margin-right: 5px"></i>Выйти</a></li>
+
+                    </ul>
+                </div>
+    <div class="btn-group" style="float: left; margin-top: 8px; margin-left: 10px;">
+        <button type="button" class="btn btn-success"><i class="glyphicon glyphicon-flag glyphicon" style="margin-right: 5px"></i>РУС</button>
+        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="#"><i class="glyphicon glyphicon-flag glyphicon" style="margin-right: 5px"></i>Каз. язык</a></li>
+            <li><a href="#"><i class="glyphicon glyphicon-flag glyphicon" style="margin-right: 5px"></i>Рус. язык</a></li>
+
+        </ul>
+    </div>
+                <div style="float: left; margin-top: 8px; margin-left: 10px;">
+                    <h5 style="color: white">Версия:12 > дата обновления: 14.10.2016</h5>
+                </div>
+            }
+        </div>*@
+    @*    <div class="header-top" style="float: left; display: none" id="docsDiv">*@
+    @*
+
+    <div class="btn-group" style="float: left; margin-top: 8px; margin-left: 10px;">
+        <button type="button" class="btn btn-info"><i class="glyphicon glyphicon-info-sign" style="margin-right: 5px"></i>Инструкция</button>
+        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+        <li><a href="@Url.Action("DownloadFile", "Home", new {id="1"})">Для услугополучателя ГФЭИ</a></li>
+
+            </ul>
+        </div>*@
+
+    @RenderBody()
+
+    
+</body>
+</html>
+
+<script type="text/javascript">
+    $(".link-object").click(function (event) {
+        if (event.ctrlKey || event.shiftKey || event.metaKey || (event.button && event.button == 1)) {
+            return;
+        }
+        //        event.preventDefault();
+        ShowSpinner();
+    });
+
+
+    function Showbusy(event) {
+
+        if (event.ctrlKey || event.shiftKey || event.metaKey || (event.button && event.button == 1)) {
+            return;
+        }
+
+        //event.defaultPrevented;
+        event.preventDefault();
+        ShowSpinner();
+    }
+
+    function ShowSpinner() {
+        $("#loading").fadeIn();
+        var opts = {
+            lines: 15, // The number of lines to draw
+            length: 34, // The length of each line
+            width: 14, // The line thickness
+            radius: 41, // The radius of the inner circle
+            corners: 1, // Corner roundness (0..1)
+            rotate: 64, // The rotation offset
+            direction: 1, // 1: clockwise, -1: counterclockwise
+            color: '#000', // #rgb or #rrggbb
+            speed: 1, // Rounds per second
+            trail: 60, // Afterglow percentage
+            shadow: false, // Whether to render a shadow
+            hwaccel: false, // Whether to use hardware acceleration
+            className: 'spinner', // The CSS class to assign to the spinner
+            zIndex: 2e9, // The z-index (defaults to 2000000000)
+            top: 'auto', // Top position relative to parent in px
+            left: 'auto' // Left position relative to parent in px
+        };
+        var target = document.getElementById('loading');
+        var spinner = new Spinner(opts).spin(target);
+    }
+</script>
+
+
+
+
+<script type="text/javascript">
+    $(window).on('load', function () {
+        var rule = '@MyExtensions.GetCurrentUserId()';
+
+        if (rule == "" && window.location.pathname != "/" && window.location.pathname.indexOf("RegistrationGuest") < 0 && window.location.pathname.indexOf("Account") < 0 && window.location.pathname.indexOf("QuestionAnswers") < 0 && window.location.pathname.indexOf("VideoInstructions") < 0) {
+
+            window.location = '/';
+            $("#loginDiv").hide();
+            $("#docsDiv").show();
+            return;
+        }
+        if (window.location.pathname == '/' || window.location.pathname.indexOf("Logon") > 0) {
+            $("#loginDiv").hide();
+            $("#docsDiv").show();
+        } else {
+            $("#loginDiv").show();
+            $("#docsDiv").hide();
+        }
+        /*  $('.slider').toggle(
+            function () {
+                $('#B').animate({ left: 250 });
+
+            }, function () {
+                $('#B').animate({ left: 0 });
+            });*/
+    });
+</script>
+<script type="text/javascript">
+    function Showbusy() {
+        $("#loading").fadeIn();
+        var opts = {
+            lines: 15, // The number of lines to draw
+            length: 34, // The length of each line
+            width: 14, // The line thickness
+            radius: 41, // The radius of the inner circle
+            corners: 1, // Corner roundness (0..1)
+            rotate: 64, // The rotation offset
+            direction: 1, // 1: clockwise, -1: counterclockwise
+            color: '#000', // #rgb or #rrggbb
+            speed: 1, // Rounds per second
+            trail: 60, // Afterglow percentage
+            shadow: false, // Whether to render a shadow
+            hwaccel: false, // Whether to use hardware acceleration
+            className: 'spinner', // The CSS class to assign to the spinner
+            zIndex: 2e9, // The z-index (defaults to 2000000000)
+            top: 'auto', // Top position relative to parent in px
+            left: 'auto' // Left position relative to parent in px
+        };
+        var target = document.getElementById('loading');
+        var spinner = new Spinner(opts).spin(target);
+    }
+</script>
+
+

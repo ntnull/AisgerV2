@@ -1,0 +1,13 @@
+﻿@using Aisger
+@using Aisger.Helpers
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+<div id="B">
+    @Html.Partial("~/Views/Home/TitleItem.cshtml", ResourceSetting.AnalisePage + "," + ResourceSetting.ReportAnalyse)
+    @*@{ var url = "http://aisger.kz:8081/gerrep/client/main_sb_report.xhtml?rep_group_id=1&lang=" + CultureHelper.GetCurrentCulture(); }*@
+    @{ var url = "http://localhost:80/AisReport/Home/Index/" + CultureHelper.GetCurrentCulture(); }
+@*    <iframe id="ifm" width="100%" height="93%" src="@url" 
+      frameborder="0" scrolling="yes" allowfullscreen></iframe>*@
+
+    
+      <iframe src="@url" frameborder="0" style="overflow:hidden;height:auto;width:100%;min-height:100%;"  width="100%" ></iframe>
+</div>

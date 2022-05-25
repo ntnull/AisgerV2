@@ -1,0 +1,60 @@
+﻿@using System.Threading
+@using Aisger
+@using GridMvc.Html
+@model IEnumerable<Aisger.Models.RST_Report>
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+
+
+@helper GridManageItemColumn(long id)
+{
+    /* if (MyExtensions.CheckRightEdit(CodeConstManager.ReestrDocument))
+    {*/
+    
+    <button type="button" class="btn btn-info btn-sm" onclick="location.href='@Url.Action("Edit", "RstReport", new { id })'">
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> @ResourceSetting.Edit
+    </button>
+
+    <button type="button" class="btn btn-warning btn-sm" onclick="location.href='@Url.Action("Delete", "RstReport", new { id })'">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> @ResourceSetting.Delete
+    </button>
+    
+  
+    @*    }*@
+}
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.Reestr  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  @ResourceSetting.RST_Report (<span id="countGridRecord"></span>)</li>
+        <li style="float: right">
+            <button type="button" class="btn btn-success btn-sm" onclick="location.href='@Url.Action("Create", "RstReport")'">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> @ResourceSetting.add
+            </button>
+
+        </li>
+    </ul>
+
+
+    <div id="CSSTableGenerator">
+        @Html.Grid(Model).SetLanguage(Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName).Columns(columns =>
+            {
+                columns.Add(o => o.Id, true)
+                    .Titled("Id").SetWidth(0);
+               columns.Add(o => o.ReportYear).Titled(ResourceSetting.ReportYear)
+                  .SetWidth(40);
+               columns.Add(o => o.CountNewReestr).Titled(ResourceSetting.CountNewReestr)
+                .SetWidth(40);
+               columns.Add(o => o.CountOldReestr).Titled(ResourceSetting.CountOldReestr)
+             .SetWidth(40);
+               columns.Add(o => o.CountExclude).Titled(ResourceSetting.CountExclude)
+           .SetWidth(40);
+               columns.Add(o => o.OwnerName).Titled(ResourceSetting.Executer)
+                    .SetWidth(80);
+                columns.Add()
+                       .Encoded(false)
+                       .Sanitized(false).SetWidth(100)
+                       .RenderValueAs(o => GridManageItemColumn(o.Id).ToHtmlString());
+
+            }).WithPaging(50).Sortable().Filterable().WithMultipleFilters()
+    </div>
+</div>

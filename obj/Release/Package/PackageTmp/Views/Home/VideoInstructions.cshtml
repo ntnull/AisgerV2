@@ -1,0 +1,301 @@
+﻿
+@{
+    ViewBag.Title = "VideoInstructions";
+}
+
+@using System.Globalization
+@using System.Threading
+@using Aisger
+@using Aisger.Helpers
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>АИС ГЭР</title>
+    <meta name="description" content="АИС ГЭР">
+    <meta name="author" content="АИС ГЭР">
+
+    <!-- Mobile Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Put favicon.ico and apple-touch-icon(s).png in the images folder -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <!-- CSS StyleSheets -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/menu/font-awesome.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/menu/animate.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/menu/prettyPhoto.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/menu/slick.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/menu/style.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/menu/responsive.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/menu/skins/skin3.css")">
+
+    <!--[if lt IE 9]>
+            <link rel="stylesheet" href="~/css/ie.css">
+            <script type="text/javascript" src="js/html5.js"></script>
+        <![endif]-->
+    <!-- Skin style (** you can change the link below with the one you need from skins folder in the css folder **) -->
+    <script>
+        var rootUrl = '/';
+    </script>
+
+    <!-- Load JS siles -->
+    <style>
+        BODY {
+            overflow: auto;
+        }
+
+        .region_pointer {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- site preloader start -->
+    <div class="page-loader">
+        <div class="loader-in"></div>
+    </div>
+    <!-- site preloader end -->
+
+    <div class="pageWrapper">
+
+        <!-- login box start -->
+        <!-- login box End -->
+        <!-- Header Start -->
+        <div id="headWrapper" class="clearfix">
+
+            <!-- top bar start -->
+
+            <div class="top-bar">
+                <div class="container">
+                    <div class="row">
+                        <div class="cell-5">
+                            <ul>
+                                <li>
+                                    <span>
+                                        @if (Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == CultureHelper.Ru)
+                                        {
+                                            <a target="_blank" href="https://www.youtube.com/channel/UC5Ma2JVDkX-fPrnekZ9FJxA" style="color: red;">Видеоинструкции</a>
+                                        }
+                                        else
+                                        {
+                                            <a target="_blank" href="https://www.youtube.com/channel/UC5Ma2JVDkX-fPrnekZ9FJxA" style="color: red;">Бейненұсқаулар</a>
+                                        }
+
+                                        <!-- <i class="fa fa-phone"></i>Телефон: +7 (7172) 91-65-90 -->
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="cell-7 right-bar">
+                            <ul>
+                                <li><span style="color:red" class="test-span"></span></li>
+                            </ul>
+                            <ul class="left" style="float: right">
+                                @*                                <li><a href="#"><i class="fa fa-sitemap"></i>Карта сайта</a></li>*@
+                                <li class="hide"><a href="@Url.Action("RegistrationGuest", "Account")"><i class="fa fa-user"></i>@ResourceSetting.Registration</a></li>
+                                <li><a href="@Url.Action("Logon", "Account")"><i class="fa fa-unlock-alt"></i>@ResourceSetting.Enter</a></li>
+                            </ul>
+                            <ul class="left" style="float: right;">
+                                <li><a href="@Url.Action("ChangeCulture", "Account", new { lang = Aisger.Helpers.CultureHelper.Kk })">ҚАЗ</a></li>
+                                <li><a href="@Url.Action("ChangeCulture", "Account", new { lang = Aisger.Helpers.CultureHelper.Ru })">РУС</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- top bar end <!--
+
+                             <!-- Logo, global navigation menu and search start -->
+            <!-- Logo, Global navigation menu and search end -->
+
+        </div>
+        <!-- Header End -->
+        <!-- Content Start -->
+
+
+        <div id="contentWrapper">
+            <!-- Welcome Box start -->
+            <div class="apply-application hide">
+                <div class="container">
+                    <div class="center block-head">
+                        @ResourceSetting.DevelopmentOfGPP @*Развитие ГЧП в энергосбережении РК*@
+                        <br>
+                        <h4><a href="@Url.Action("RegistrationGuest", "Account", new { kindUserId = 5 })">@ResourceSetting.ApplyApplication</a></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="welcome" style="padding: 10px">
+                <div class="container">
+                </div>
+            </div>
+
+            <!-- Services boxes style 1 start -->
+            <!-- About us and Features container start -->
+            <div class="sectionWrapper" style="padding: 20px 0px 20px 0px">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-8">
+
+                            <p><strong>Видеоинструкции по сдаче отчетности АИС ГЭР </strong></p>
+                            <p>Все видеоинструкции размещены на youtube, ссылка на канал <a href="https://www.youtube.com/channel/UC5Ma2JVDkX-fPrnekZ9FJxA">видеоинструкций</a>.<br />
+                             В случае недоступности портала youtube, можно скачать их с нашего портала.</p>
+                            <p><strong>&nbsp;</strong></p>
+                            <ol>
+                                <li><strong>1. Субъект ГЭР - Получение ЭЦП сотрудника организации </strong></li>
+                            </ol>
+                            <p><strong><u><a href="/uploads/video/1_video_ecp.mp4" target="_blank" download="Субъект ГЭР - Получение ЭЦП сотрудника организации">скачать видеоинструкцию</a></u></strong><strong><u> (33,9 МБ)</u></strong><br />
+                            Видеоинструкция для Субъектов ГЭР.<br>
+                            Сотрудник Субъекта ГЭР должен иметь ЭЦП для входа в АИС ГЭР и сдачи отчетности ГЭР.<br>
+                            В видео приводится пример оформления запроса на получение ЭЦП для сотрудника Субъекта.</p>
+                            <p>Порядок оформления ЭЦП:
+                            <ol>
+                                <li>Он-лайн запрос на формирование ЭЦП сотрудника.</li>
+                                <li>Он-лайн одобрение запроса Руководителем Субъекта.</li>
+                                <li>Подготовка бумажных документов для передачи в ЦОН.</li>
+                                <li>Получение эл.письма с подтверждением регистрации ЭЦП.</li>
+                                <li>Вход в личный кабинет НУЦ (<strong><u>http://pki.gov.kz</u></strong>) с помощью ЭЦП сотрудника организации.</li>
+                            </ol></p><br />
+                            <ol start="2">
+                                <li><strong>2. Субъект ГЭР - Вход в систему </strong></li>
+                            </ol>
+                            <p><strong><u><a href="/uploads/video/2_video_vhod.mp4" target="_blank" download="Субъект ГЭР - Вход в систему">скачать видеоинструкцию</a></u></strong><strong><u> (3,95 МБ)</u></strong><br />
+                            Видеоинструкция для Субъектов ГЭР.<br>
+                            Вход в систему АИС ГЭР посредством ЭЦП.</p>
+                            <p>&nbsp;</p>
+                            <ol start="3">
+                                <li><strong>3. Субъект ГЭР - Заполнение и сдача отчетности ГЭР (кроме ГУ) </strong></li>
+                            </ol>
+                            <p><strong><u><a href="/uploads/video/3_video_ur.mp4" target="_blank" download="Субъект ГЭР - Заполнение и сдача отчетности ГЭР (кроме ГУ)">скачать видеоинструкцию</a></u></strong><strong><u> (6,47 МБ)</u></strong><br />
+                            Видеоинструкция для Субъектов ГЭР.<br>
+                            Заполнение и сдача отчетности с подписанием ЭЦП.<br>
+                            В примере используется тестовый сервер (aisger.kz:82).<br>
+                            Субъекты ГЭР тоже могут использовать данный тестовый сервер для тренировки заполнения и сдачи отчетности.<br>
+                            Тестовый сервер используется только для помощи менеджерам и субъектам ГЭР для наработки навыков эксплуатации АИС ГЭР.<br>
+                            Данные из тестового сервера никуда не передаются и в реальной работе не используются.</p>
+                            <p>&nbsp;</p>
+                            <ol start="4">
+                                <li><strong>4. Субъект ГЭР - Сдача отчета от Государственных учреждений </strong></li>
+                            </ol>
+                            <p><strong><u><a href="/uploads/video/4_video_gu_.mp4" target="_blank" download="Субъект ГЭР - Сдача отчета от Государственных учреждений">скачать видеоинструкцию</a></u></strong><strong><u> (15,6 МБ)</u></strong><br />
+                            Видеоинструкция для Государственных учреждений (ГУ, КГУ, РГУ, КГДУ, и т.п)<br />
+                            по заполнению и сдаче отчетности ГЭР в 2019 г (отчетный период - 2018 г.).</p>
+                        </div>
+                        <div class="col-lg-2"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- About us and Features container end -->
+        </div>
+
+        <footer id="footWrapper">
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="cell-3">
+                        </div>
+                        <div class="cell-3">
+                            <h3 class="block-head">@ResourceSetting.tCentralOffice</h3>
+                            <ul>
+                                <li class="footer-contact">
+                                    <i class="fa fa-globe"></i>
+                                    @if (System.Threading.Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName == CultureHelper.Ru)
+                                    {
+                                        <span>
+                                            г.Астана,ул.Шарля де Голля, 3а.
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span>
+                                            Астана қ, Шарль де Голль  көшесі,  3а.
+                                        </span>
+                                    }
+                                </li>
+                                <li class="footer-contact">
+                                    <i class="fa fa-home"></i>
+                                    @if (System.Threading.Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName == CultureHelper.Ru)
+                                    {
+                                        <span>
+                                            6 этаж.
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span>
+                                            6 қабат.
+                                        </span>
+                                    }
+                                </li>
+                                <li class="footer-contact"><i class="fa fa-phone"></i><span>+7 (7172) 91-65-90</span></li>
+                                <li class="footer-contact">
+                                    <i class="fa fa-map-marker"></i><span>
+                                        @*                                    <a target="_blank" href="https://www.google.kz/maps/place/7-%D0%B9+%D0%9A%D0%BE%D0%BD%D1%82%D0%B8%D0%BD%D0%B5%D0%BD%D1%82,+%D1%83%D0%BB.+%D0%9A%D0%B5%D0%BD%D0%B5%D1%81%D0%B0%D1%80%D1%8B,+%D0%90%D1%81%D1%82%D0%B0%D0%BD%D0%B0+010000/51.165203,71.43249,206m/data=!3m2!1e3!4b1!4m13!1m7!3m6!1s0x4245812f0310fd97:0xb1a094daf7ddb615!2z0YPQuy4g0JrQtdC90LXRgdCw0YDRiyA0MCwg0JDRgdGC0LDQvdCwIDAxMDAwMA!3b1!8m2!3d51.1671847!4d71.4413647!3m4!1s0x4245812d1d52561f:0x10f2a822d7cf6a32!8m2!3d51.165203!4d71.4331088?hl=ru&_blank">@ResourceSetting.tViewOnMap</a>*@
+                                        <a target="_blank" href="https://2gis.kz/astana/geo/9570784863333578%2C71.448973%2C51.142236?queryState=center%2F71.447842%2C51.142538%2Fzoom%2F17">@ResourceSetting.tViewOnMap</a>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- contact us footer cell end -->
+
+                        <div class="clearfix"></div>
+                        <hr class="hr-style5">
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- footer bottom bar start -->
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="row">
+                        <!-- footer copyrights left cell -->
+                        <div class="copyrights cell-5">&copy; @ResourceSetting.TNIREE </div>
+
+                        <!-- footer social links right cell start -->
+                        <div class="cell-7">
+                        </div>
+                        <!-- footer social links right cell end -->
+
+                    </div>
+                </div>
+            </div>
+            <!-- footer bottom bar end -->
+
+
+        </footer>
+
+
+
+        <script src="@Url.Content("~/Scripts/menu/waypoints.min.js")" type="text/javascript"> </script>
+        <script src="@Url.Content("~/Scripts/menu/jquery.animateNumber.min.js")" type="text/javascript"> </script>
+        <script src="@Url.Content("~/Scripts/menu/slick.min.js")" type="text/javascript"> </script>
+        <script src="@Url.Content("~/Scripts/menu/jquery.easypiechart.min.js")" type="text/javascript"> </script>
+        <script src="@Url.Content("~/Scripts/menu/jquery.prettyPhoto.js")" type="text/javascript"> </script>
+        <script src="@Url.Content("~/Scripts/menu/jquery.sharrre.min.js")" type="text/javascript"> </script>
+        <script src="@Url.Content("~/Scripts/menu/jquery.elevateZoom-3.0.8.min.js")" type="text/javascript"> </script>
+        <script src="@Url.Content("~/Scripts/menu/jquery.placeholder.js")" type="text/javascript"> </script>
+        <script src="@Url.Content("~/Scripts/menu/jflickrfeed.min.js")" type="text/javascript"> </script>
+        <script src="@Url.Content("~/Scripts/menu/jquery.nicescroll.min.js")" type="text/javascript"> </script>
+        <script src="@Url.Content("~/Scripts/menu/own.js")" type="text/javascript"> </script>
+        <script src="@Url.Content("~/Scripts/menu/script.js")" type="text/javascript"> </script>
+        <script>
+		$(function () {
+
+			if (location.port == 81)
+				$('.test-span').text('Тестовая версия');
+
+		});
+        </script>
+
+</body>
+</html>
+
+
+
+

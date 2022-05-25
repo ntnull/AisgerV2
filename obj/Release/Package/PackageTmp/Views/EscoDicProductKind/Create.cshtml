@@ -1,0 +1,292 @@
+﻿@using System.Globalization
+@using Aisger
+@using Aisger.Models
+@model Aisger.Models.ESCO_DIC_ProductKind
+@{
+    ViewBag.Title = ResourceSetting.EscoDicProductKind;
+}
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+<link rel="stylesheet" href="@Url.Content("~/Content/custom/colorbox.css")">
+<style type="text/css">.form-record { }</style>
+
+
+<div id="B">
+    @Html.Partial("~/Views/Home/TitleItem.cshtml", ResourceSetting.EscoPage + "," + ResourceSetting.EscoDicProductKind)
+    <input type="hidden" id="currentDataViewId" value="@Model.Id">
+
+  
+    <div id="wrapper_grid" style="margin-left: 50px;box-sizing:border-box">
+        @using (Html.BeginForm("Create", "EscoDicProductKind", FormMethod.Post, new { id = "demoForm", name = "demoForm", enctype = "multipart/form-data" }))
+        {
+            <div id="template" style="display: none">
+                <div class="col-sm-6 col-md-4" rowindex="0">
+                    <div class="thumbnail">
+                        <img src="..." alt="...">
+                        <div class="caption">
+                            @Html.TextBox("NameProduct", null, new { @nameHolder = "NameProduct", @class = "form-control form-record", @placeholder = "Наименование товара" })
+                            @Html.TextArea("Note", null, new { @nameHolder = "Note", @class = "form-control form-record", @placeholder = ResourceSetting.Description, @style = "height: 100px" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.CreateDate)
+            @Html.HiddenFor(model => model.UserId)
+            <div class="clearfixmandatory">
+                @Html.LabelFor(model => model.NameGroup)
+                <div class="input">
+                    @Html.TextBoxFor(model => model.NameGroup, new {@class = "form-control form-edit", @style="width: 300px"})
+                </div>
+            </div>
+            <div class="input" style="margin-left: 0;">
+                @Html.TextAreaFor(model => model.Note, new {@class = "form-control form-edit", @placeholder = ResourceSetting.Description, @style = "height: 100px"})
+            </div>
+            <div class="clearfixmandatory">
+                <div class="chzn-select">
+                    @Html.ListBoxFor(x => Model.Wastes, Model.WastList, new { @class = "chzn-select form-edit", data_placeholder = ResourceSetting.chooseoked, style = "width:100%;" })
+                </div>
+            </div>
+    <div class="panel">
+        <div style='display: none'>
+            <div id='inline_content' style='padding: 10px; background: #fff;'>
+                <p><strong>This content comes from a hidden element on this page.</strong></p>
+                <p>The inline option preserves bound JavaScript events and changes, and it puts the content back where it came from when it is closed.</p>
+                <p><a id="click" href="#" style='padding: 5px; background: #ccc;'>Click me, it will be preserved!</a></p>
+
+                <p><strong>If you try to open a new Colorbox while it is already open, it will update itself with the new content.</strong></p>
+                <p>
+
+                    Updating Content Example:<br />
+                    <a class="ajax" href="../../content/custom/ajax.html">Click here to load new content</a>
+                </p>
+            </div>
+        </div>
+        
+    </div>
+            <div class="row" id="rowProduct">
+                @for (var i = 0; i < Model.ESCO_DIC_Product.Count; i++)
+                {
+                    var proudct = Model.ESCO_DIC_Product.ToList()[i];
+                    var classImage = "group" + i;
+                    var wrapdiv = "wrapdiv" + proudct.Id;
+                   
+                    <div class="col-sm-6 col-md-4" id="@wrapdiv">
+                        <div class="thumbnail">
+                            <div style="float: right">
+                                <button type="button" class="btn btn-primary" aria-label=@ResourceSetting.Edit title=@ResourceSetting.Edit onclick="editRecord(@proudct.Id)">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" class="btn btn-warning" aria-label=@ResourceSetting.Delete title=@ResourceSetting.Delete onclick="deleteRecord(@proudct.Id)">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                                </div>
+                            <div class="panelcontent">
+                                <div style="height: 200px">
+                                    <a class="@classImage" href="@proudct.CurrentUrlImage">
+                                        <img id="imgPreview" style=" max-height: 100%; max-width: 100%;" src="@proudct.CurrentUrlImage" />
+                                    </a>
+                                    </div>
+                                @if (proudct.AttachFiles.Count > 1)
+                                {
+                                    for (int j = 0; j < proudct.AttachFiles.Count - 1; j++)
+                                    {
+                                        <a style="display: none" class="@classImage" href="@proudct.AttachFiles[j]"></a>
+                                    }
+                                }
+                            </div>
+
+
+                            <div class="caption" rowindex="@proudct.Id">
+                                @Html.TextBoxFor(model => model.ESCO_DIC_Product.ToList()[i].NameProduct, new { @nameHolder = "NameProduct", @class = "form-control form-record", @placeholder = "Наименование товара", @readonly="readonly" })
+                                @Html.TextAreaFor(model => model.ESCO_DIC_Product.ToList()[i].Note, new { @nameHolder = "Note", @class = "form-control form-record", @placeholder = ResourceSetting.Description, @style = "height: 100px", @readonly = "readonly" })
+                                @if (!string.IsNullOrEmpty(proudct.urlSite))
+                                {
+                                    <a href="@proudct.urlSite">@ResourceSetting.urlProduct</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+
+                }
+            </div>
+            <button type="button" class="btn btn-success btn-sm" id="addevent">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.addproduct
+            </button>
+  
+        }
+    </div>
+    <div style="margin-top: 30px">
+        <button type="button" class="btn btn-success btn-lg" onclick="location.href='@Url.Action("Index", "EscoDicProductKind")'">
+            <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Back
+        </button>
+        <button id="saveBtn" type="button" class="btn btn-success btn-lg" onclick="location.href='@Url.Action("Index", "EscoDicProductKind")'" style="float: right; margin-right: 30px">
+            <span class="glyphicon glyphicon-save" aria-hidden="true"></span> @ResourceSetting.Save
+        </button>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/custom/jquery.colorbox.js")" type="text/javascript"> </script>
+<script type="text/javascript">
+    function onSelect(e) {
+        if (e.files[0].size > 256000) {
+            alert('The file size is too large for upload');
+            e.preventDefault();
+            return false;
+        }
+        // Array with information about the uploaded files
+        var files = e.files;
+        var ext = $('#logo').val().split('.').pop().toLowerCase();
+        if ($.inArray(ext, ['gif', 'jpeg', 'jpg', 'png', 'tif', 'pdf']) == -1) {
+            alert('This type of file is restricted from being uploaded due to security reasons');
+            e.preventDefault();
+            return false;
+        }
+        return true;
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        //Examples of how to assign the Colorbox event to elements
+        var products = '@Model.ESCO_DIC_Product.Count';
+        var ctProd = parseInt(products, 10) || 0;
+        for(var i=0;i<ctProd;i++) {
+            var cl = 'group' + i;
+            $("." + cl).colorbox({ rel: cl    });
+        }
+//        $(".group0").colorbox({ rel: 'group0' });
+//        $(".group1").colorbox({ rel: 'group1' });
+        $(".ajax").colorbox();
+        $(".youtube").colorbox({ iframe: true, innerWidth: 640, innerHeight: 390 });
+        $(".vimeo").colorbox({ iframe: true, innerWidth: 500, innerHeight: 409 });
+        $(".iframe").colorbox({ iframe: true, width: "80%", height: "80%" });
+        $(".inline").colorbox({ inline: true, width: "50%" });
+        $(".callbacks").colorbox({
+            onOpen: function () { alert('onOpen: colorbox is about to open'); },
+            onLoad: function () { alert('onLoad: colorbox has started to load the targeted content'); },
+            onComplete: function () { alert('onComplete: colorbox has displayed the loaded content'); },
+            onCleanup: function () { alert('onCleanup: colorbox has begun the close process'); },
+            onClosed: function () { alert('onClosed: colorbox has completely closed'); }
+        });
+
+        $('.non-retina').colorbox({ rel: 'group5', transition: 'none' })
+        $('.retina').colorbox({ rel: 'group5', transition: 'none', retinaImage: true, retinaUrl: true });
+
+        //Example of preserving a JavaScript event for inline calls.
+        $("#click").click(function () {
+            $('#click').css({ "background-color": "#f00", "color": "#fff", "cursor": "inherit" }).text("Open this window again and this message will still be here.");
+            return false;
+        });
+    });
+</script>
+
+<script type="text/javascript">
+
+    function editRecord(idval) {
+        var modelId = parseInt($("#currentDataViewId").val(), 10) || 0;
+        if (modelId == 0 || $("#NameGroup").val() == null || $("#NameGroup").val().length == 0) {
+            showWarning('Укажите "Наименование группы товаров"');
+            return;
+        }
+        var url = '/EscoDicProductKind/EditProduct?modelid=' + idval + '&kindId=' + modelId;
+        window.location.href = url;
+        return;
+    }
+    function deleteRecord(id) {
+        var success = function () {
+            var div = '#wrapdiv' + id;
+
+            var params = JSON.stringify({ 'id': id });
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("DeleteProduct")',
+                data: params,
+                dataType: 'json',
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $(div).remove();
+                },
+                error: function () {
+                    alert("Connection Failed. Please Try Again");
+                }
+            });
+
+
+        }
+        var cancel = function () {
+        };
+        showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+    }
+
+    $(document).ready(function () {
+        $("#UploadImg").on('change', function () {
+
+            var data = new FormData();
+            var files = $("#UploadImg").get(0).files;
+            if (files.length > 0) {
+                data.append("MyImages", files[0]);
+            }
+            data.append("recordId", $(this).attr('rowindex'));
+            $.ajax({
+                url: '@Url.Action("UploadFile")',
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (response) {
+                    //code after success
+                    $("#txtImg").val(response);
+                    $("#imgPreview").attr('src', '/uploads/products/' + response);
+                },
+                error: function (er) {
+                    alert(er);
+                }
+
+            });
+        });
+        $("#addevent").on("click", function () {
+            var modelId = parseInt($("#currentDataViewId").val(), 10) || 0;
+            if (modelId == 0 || $("#NameGroup").val() == null || $("#NameGroup").val().length == 0) {
+                showWarning('Укажите "Наименование группы товаров"');
+                return;
+            }
+            var url = '/EscoDicProductKind/EditProduct?modelid=0&kindId=' + modelId;
+            window.location.href = url;
+            return;
+            /*
+                        var row = $("#rowProduct");
+                        var cols = $("#template").html();
+                        row.append(cols);*/
+        });
+        $(".form-edit").change(function () {
+            /* if ($(this).val() == null || $(this).val().length == 0) {
+                 return;
+             }*/
+            var modelId = parseInt($("#currentDataViewId").val(), 10) || 0;
+            var fieldValue = $(this).val();
+
+            if ($(this).attr('id') == "Wastes") {
+                fieldValue = fieldValue.toString();
+            }
+            var params = JSON.stringify({ 'modelId': modelId, 'userd': $("#UserId").val(), 'fieldName': $(this).attr('id'), 'fieldValue': fieldValue });
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateProductKind")',
+                data: params,
+                dataType: 'json',
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $("#currentDataViewId").val(data.formId);
+                },
+                error: function () {
+                    alert("Connection Failed. Please Try Again");
+                }
+            });
+        });
+    });
+</script>

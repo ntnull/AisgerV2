@@ -1,0 +1,620 @@
+﻿@using System.Threading
+@using Aisger
+@using Aisger.Models
+@using Aisger.Models.ControlModels
+@using Aisger.Models.Entity.Map;
+@using Aisger.Utils
+@using GridMvc.Html
+@model MAP_EE2Filters
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/custom/templatemo_style.css")" />
+
+<style>
+	label {
+		padding: 2px;
+	}
+
+	input, textarea {
+		width: 100%;
+	}
+
+	.right-number {
+		text-align: right;
+	}
+
+	.span-year {
+		padding-right: 5px;
+		margin-right: 5px;
+		display: block;
+		width: 50px;
+	}
+
+	.tableOwenerShip {
+		width: 100%;
+		max-width: 100%;
+		margin-bottom: 20px;
+		display: table;
+		border-collapse: separate;
+		border-spacing: 4px;
+		border-color: gray;
+	}
+
+		.tableOwenerShip > tr {
+			display: table-row;
+			vertical-align: inherit;
+			border-color: inherit;
+			margin-top: 10px;
+		}
+
+	.tableOwenerShip, th, td {
+		border: 0px solid black;
+		display: table-cell;
+		vertical-align: inherit;
+	}
+
+	.tableElecterUsed {
+		width: 90%;
+		max-width: 90%;
+		min-width: 200px;
+		margin-bottom: 5px;
+		border-collapse: collapse;
+	}
+
+	.tableElecterUsed, th, td {
+		padding: 0px;
+		border: 0px solid black;
+	}
+
+	.user-status {
+		float: right;
+	}
+
+		.user-status:hover {
+			cursor: pointer;
+		}
+</style>
+
+
+
+<div id="B">
+	<ul class="titlegroup" style="margin-top: 8px;">
+		<li style="font-size: 18px; color: #2679b5;" id="parentLabel">@ResourceSetting.MapEnergy<span></span></li>
+		<li id="selectLabel"><span class="glyphicon glyphicon-arrow-right"></span>@ResourceSetting.MapApplicationEE2</li>
+	</ul>
+	@if (Model != null && Model.IsError)
+ {
+		<div class="alert alert-danger" role="alert">
+			@Model.ErrorMessage
+		</div>
+ }
+
+	<div class="panel panel-success">
+		<div class=" panel-heading">
+			<div class="row" style="margin-bottom: 1px">
+				<div class="col-sm-3">
+					<table class="tableOwenerShip">
+						<tr>
+							<td colspan="2">
+								<div style="float: left; margin-left: 10px;">
+									@if ((ViewData["IsRole"]) != "0")
+		 {
+										<button type="button" class="btn btn-info btn-sm" id="editBtn" accesscode="MapApplicationEE2-edit" disabled>
+											<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>@ResourceSetting.Edit
+										</button>
+		 }
+									<button type="button" class="btn btn-info btn-sm" id="saveBtn" disabled="disabled" accesscode="MapApplicationEE2-save">
+										<span class="glyphicon glyphicon-save" aria-hidden="true"></span>@ResourceSetting.Save
+									</button>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>@Html.HiddenFor(model => model.Id)</td>
+							<td>@Html.HiddenFor(model => model.SecUserId)</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="" style="width: 160px;">@ResourceSetting.FormOfOwnership</label>
+							</td>
+							<td>
+								<div class="input" style="margin-left: 5px">
+									@Html.DropDownListFor(model => model.FSCode, (IEnumerable<SelectListItem>)(ViewData["DicTypeApplicationList"]), String.Empty, new { @style = "width: 90%;", @readonly = "readonly", @disabled = "disabled", data_placeholder = "Укажите" })
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="" style="width: 160px;">@ResourceSetting.TotalArea</label>
+							</td>
+							<td>
+								<div class="input" style="margin-left: 5px">
+									@Html.TextBoxFor(model => model.TotalArea, string.Empty, new { @style = "width: 90%;", @readonly = "readonly" })
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="" style="width: 160px;">@ResourceSetting.NumberOfStoreys</label>
+							</td>
+							<td>
+								<div class="input" style="margin-left: 5px">
+									@Html.TextBoxFor(model => model.NumberOfStoreys, string.Empty, new { @style = "width: 90%;", @readonly = "readonly" })
+								</div>
+							</td>
+						</tr>
+						<tr class="manager-status hide">
+							<td>
+								<label for="" style="width: 160px;">@ResourceSetting.RstDicStatus</label>
+							</td>
+							<td>
+								<div class="input" style="margin-left: 5px">
+									@Html.DropDownListFor(model => model.DicEEStatusId, (IEnumerable<SelectListItem>)(ViewData["DicEEStatusList"]), new { @style = "width: 90%;", @readonly = "readonly", @disabled = "disabled", data_placeholder = "Укажите" })
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="col-sm-3">
+					<table class="tableElecterUsed">
+						<thead>
+							<tr>
+								<td></td>
+								<td><span style="text-align: center; display: block;">кВт*ч</span> </td>
+								<td><span style="text-align: center; display: block;">тыс.тг.</span></td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><span class="span-year">2012 г.</span></td>
+								<td>
+									<input class="year-2012-eSource right-number" type="number" readonly="readonly" />
+								</td>
+								<td>
+									<input class="year-2012-eEnergy right-number" type="number" readonly="readonly" />
+								</td>
+							</tr>
+							<tr>
+								<td><span class="span-year">2013 г.</span></td>
+								<td>
+									<input class="year-2013-eSource right-number" type="number" readonly="readonly" />
+								</td>
+								<td>
+									<input class="year-2013-eEnergy right-number" type="number" readonly="readonly" />
+								</td>
+							</tr>
+							<tr>
+								<td><span class="span-year">2014 г.</span></td>
+								<td>
+									<input class="year-2014-eSource right-number" type="number" readonly="readonly" />
+								</td>
+								<td>
+									<input class="year-2014-eEnergy right-number" type="number" readonly="readonly" />
+								</td>
+							</tr>
+							<tr>
+								<td><span class="span-year">2015 г.</span></td>
+								<td>
+									<input class="year-2015-eSource right-number" type="number" readonly="readonly" />
+								</td>
+								<td>
+									<input class="year-2015-eEnergy right-number" type="number" readonly="readonly" />
+								</td>
+							</tr>
+							<tr>
+								<td><span class="span-year">2016 г.</span></td>
+								<td>
+									<input class="year-2016-eSource right-number" type="number" readonly="readonly" />
+								</td>
+								<td>
+									<input class="year-2016-eEnergy right-number" type="number" readonly="readonly" />
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+				<div class="col-sm-4">
+					<table style="margin-top: 20px;">
+						<tr>
+							<td>
+								<label for="" style="width: 100px;">@ResourceSetting.sComment</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div style="margin-left: 5px">
+									@Html.TextAreaFor(model => model.Comments, new { @style = "width: 250px;height:50px;", @readonly = "readonly" })
+								</div>
+							</td>
+						</tr>
+					</table>
+
+				</div>
+				<span class="user-status" style="float: right;">Черновик</span>
+			</div>
+		</div>
+	</div>
+	<div class="row" style="background-color: white; margin: 10px;">
+		<div style="float: left;">
+			@if ((ViewData["IsRole"]) != "0")
+   {
+				<button type="button" class="btn btn-success btn-sm" onclick="history.go(-1);return false;">
+					<span class="glyphicon glyphicon-backward" aria-hidden="true"></span>@ResourceSetting.Return
+				</button>
+   }
+			<button type="button" class="btn btn-info btn-sm" id="refreshBtn">
+				<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>@ResourceSetting.refresh
+			</button>
+			<button type="button" class="btn btn-success btn-sm btn-add-paramter" accesscode="MapApplicationEE2-add" disabled>
+				@*  onclick="location.href='@Url.Action("Create", "MapApplicationEE2", new { uId = Model.SecUserId })'"*@
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@ResourceSetting.addNew
+			</button>
+
+			@*	<button type="button" class="btn btn-success btn-sm btn-export" accesscode="MapRegisterEE2-edit">
+				<span class="glyphicon glyphicon-plus" aria-hidden="true">Экспортировать в Excel</span>
+			</button>*@
+		</div>
+		<div style="float: right; margin-right: 10px;">
+			<a href="@Url.Action("ExportExcel", "MapApplicationEE2", new { uId = Model.SecUserId })" target="_blank" class="btn btn-primary btn-sm">
+				<span class="glyphicon glyphicon-open" aria-hidden="true"></span>Экспортировать в Excel
+			</a>
+		</div>
+	</div>
+
+	@Html.Partial("~/Views/MapApplicationEE2/CommonGridView.cshtml", @Model.MapApplicationEE2List)
+
+	<p>
+		<div>
+			<button type="button" class="btn btn-success btn-send" accesscode="MapApplicationEE2-send" disabled>
+				<span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp @ResourceSetting.Send
+			</button>
+		</div>
+	</p>
+
+</div>
+
+<script>
+
+	$(function () {
+
+		var view = "@ViewBag.Message";
+		console.log("view", view);
+
+		var role = "@ViewBag.IsRole";
+		var statusId = $('#DicEEStatusId').val();
+
+		var rootUrl = "@Url.Content("~")";
+		var qwe = {};
+		window.qwe = qwe;
+		initVars();
+		bindEventHandlers();
+		GetFormEE2Records();
+		checkRole();
+
+		function initVars() {
+
+			qwe.paramQuery = {};
+			qwe.paramQuery.countYear = 5;
+			qwe.paramQuery.isSend = false;
+			qwe.paramQuery.editMode = "edit";
+			qwe.paramQuery.editModeRecord = "edit";
+			qwe.paramQuery.isAddBeforeSave = false;
+
+			if ($('#Id').val() == -1)
+				qwe.paramQuery.editMode = "add";
+
+		}
+
+		function bindEventHandlers() {
+
+			//----обновить
+			$('#refreshBtn').click(function () {
+				location.href = location.href;
+			})
+
+			//---- редактировать
+			$('#editBtn').click(function () {
+				setDisabled(false);
+			});
+
+			//---- сохранить
+			$('#saveBtn').click(function () {
+				SaveFormEE2();
+			});
+
+			//---- отправить
+			$('.btn-send').click(function () {
+				qwe.paramQuery.isSend = true;
+				SaveFormEE2();
+				console.log('send');
+
+			});
+
+			//---- добавить 
+			$('.btn-add-paramter').click(function () {
+				qwe.paramQuery.isAddBeforeSave = true;
+				SaveFormEE2();
+
+			});
+
+			//----
+			$('.btn-export').click(function () {
+				console.log("export");
+				var SecUserId = $('#SecUserId').val();
+				window.location = rootUrl + 'MapApplicationEE2/ExportExcel?uId=' + SecUserId;
+			})
+		}
+
+		//----
+		function setDisabled(flag) {
+
+			$('#FSCode').prop('disabled', flag);
+			$('#FSCode').prop('readonly', flag);
+			$("#DicTypeApplicationList").prop('readonly', flag);
+
+			$("#TotalArea").prop('readonly', flag);
+			$("#NumberOfStoreys").prop('readonly', flag);
+
+			$("#DicEEStatusId").prop('disabled', flag);
+			$('#Comments').prop('readonly', flag);
+
+			for (var i = 0; i < parseInt(qwe.paramQuery.countYear) ; i++) {
+				var year = 2012 + i;
+				var sourceClass = ".year-" + year + "-eSource";
+				var energyClass = ".year-" + year + "-eEnergy";
+				$(sourceClass).prop('readonly', flag);
+				$(energyClass).prop('readonly', flag);
+			}
+
+			$("#saveBtn").prop('disabled', flag);
+			$("#editBtn").prop('disabled', !flag);
+
+		}
+
+		//---- save
+		function SaveFormEE2() {
+
+			var flag = true;
+
+			var fsCode = $('#FSCode').val();
+			var totalArea = $('#TotalArea').val();
+			var numberOfStoreys = $('#NumberOfStoreys').val();
+			var comments = $('#Comments').val();
+
+			//----проверка валидности
+			if (fsCode == "")
+				showWarning(" \"Форма собственности\" не выбрано!");
+
+
+			//----
+			if (totalArea.indexOf(',') != -1) {
+				totalArea = totalArea.replace(',', '.');// showWarning('Error:The value ' + totalArea + ' is not valid for ');
+			}
+
+			if (numberOfStoreys.indexOf(',') != -1) {
+				numberOfStoreys = numberOfStoreys.replace(',', '.'); //showWarning('Error:The value ' + numberOfStoreys + ' is not valid for ');                
+			}
+
+			//-----
+			var SecUserId = $('#SecUserId').val();
+			if (qwe.paramQuery.editMode == "add") {
+
+				$.post(rootUrl + 'MapApplicationEE2/InsertFormEE2', {
+					secUserId: SecUserId,
+					FSCode: fsCode,
+					TotalArea: totalArea,
+					NumberOfStoreys: numberOfStoreys,
+					statusId: 1,
+					Comments: comments
+				}, function (data) {
+
+					console.log("ee2=", data);
+
+					if (data.ErrorMessage) {
+						showWarning(data.ErrorMessage);
+						flag = false;
+					} else {
+						console.log("id=", data.Item.Id);
+						SaveFormEE2Records(data.Item.Id);
+					}
+
+				});
+
+			} else {
+
+				var id = $('#Id').val();
+
+				if (qwe.paramQuery.isSend == true && id == -1) {
+					showWarning("записи еще не сохранены!!!");
+					return;
+				}
+
+				$.post(rootUrl + 'MapApplicationEE2/UpdateFormEE2', {
+					secUserId: SecUserId,
+					Id: id,
+					FSCode: fsCode,
+					TotalArea: totalArea,
+					NumberOfStoreys: numberOfStoreys,
+					statusId: (qwe.paramQuery.isSend) ? 2 : $('#DicEEStatusId').val(),
+					Comments: comments
+				}, function (data) {
+
+					if (data.ErrorMessage) {
+						showWarning(data.ErrorMessage);
+						flag = false;
+					} else {
+						SaveFormEE2Records();
+					}
+
+				});
+			}
+		}
+
+		//----Объем потребления электроэнергии get
+		function GetFormEE2Records() {
+
+			var SecUserId = $('#SecUserId').val();
+			$.post(rootUrl + 'MapApplicationEE2/GetFormEE2Records', { secUserId: SecUserId }, function (data) {
+
+				if (data.ErrorMessage) {
+					showWarning(data.ErrorMessage);
+					return;
+				}
+
+				console.log("reportData:", data);
+
+				if (data.ListItems.length > 0) {
+
+					qwe.paramQuery.editModeRecord = "edit";
+
+					for (var i = 0; i < parseInt(qwe.paramQuery.countYear) ; i++) {
+
+						var year = 2012 + i;
+						var sourceClass = ".year-" + year + "-eSource";
+						var energyClass = ".year-" + year + "-eEnergy";
+
+						var item = $.grep(data.ListItems, function (row) { return row.ReportYear == year; });
+						if (item.length > 0) {
+							$(sourceClass).val(item[0].EnergySource || null).attr("o-id", item[0].Id);
+							$(energyClass).val(item[0].ExpenceEnergy || null).attr("o-id", item[0].Id);
+						} else {
+							$(sourceClass).val(null).attr("o-id", 0);
+							$(energyClass).val(null).attr("o-id", 0);
+						}
+					};
+
+				} else qwe.paramQuery.editModeRecord = "add";
+
+
+			});
+
+		}
+
+		//----Объем потребления электроэнергии save
+		function SaveFormEE2Records(FormEE2Id) {
+
+			var isValid = true;
+			var isValidVal = "";
+			var flag = true;
+
+			var years = [];
+			var sources = [];
+			var expences = [];
+			var ids = [];
+			for (var i = 0; i < parseInt(qwe.paramQuery.countYear) ; i++) {
+				var year = 2012 + i;
+				var sourceClass = ".year-" + year + "-eSource";
+				var energyClass = ".year-" + year + "-eEnergy";
+
+				var s = ($(sourceClass).val() || 0);
+				var e = ($(energyClass).val() || 0);
+				years.push(year);
+
+				//----
+				sources.push(parseFloat(s.toString().replace(',', '.')));
+				expences.push(parseFloat(e.toString().replace(',', '.')));
+
+				if (qwe.paramQuery.editModeRecord == "edit") {
+					var id = $(sourceClass).attr('o-id');
+					ids.push(id);
+				}
+			}
+
+			if (!isValid) {
+				showWarning('Error:The value ' + isValidVal + ' is not valid for ');
+				return;
+			}
+
+			var yStr = years.join(',');
+			var sStr = sources.join(',');
+			var eStr = expences.join(',');
+			var SecUserId = $('#SecUserId').val();
+
+			if (qwe.paramQuery.editModeRecord == "add") {
+				$.post(rootUrl + 'MapApplicationEE2/InsertFormEE2Records', {
+					FormEE2Id:FormEE2Id,
+					yearStr: yStr,
+					sourcesStr: sStr,
+					expencesStr: eStr,
+					SecUserId: SecUserId
+				}, function (data) {
+
+					if (data.ErrorMessage) {
+						showWarning(data.ErrorMessage);
+						flag = false;
+					} else {
+
+						if (qwe.paramQuery.isAddBeforeSave)
+							window.location.href = "/MapApplicationEE2/Create?uId=" + SecUserId;
+						else
+							window.location.href = window.location.href;
+					}
+
+				});
+
+			} else {
+
+				var idStr = ids.join(',');
+
+				$.post(rootUrl + 'MapApplicationEE2/UpdateFormEE2Records', {
+					idStr: idStr,
+					yearStr: yStr,
+					sourcesStr: sStr,
+					expencesStr: eStr
+				}, function (data) {
+
+					if (data.ErrorMessage) {
+						showWarning(data.ErrorMessage);
+						flag = false;
+					} else {
+
+						if (qwe.paramQuery.isAddBeforeSave)
+							window.location.href = "/MapApplicationEE2/Create?uId=" + SecUserId;
+						else
+							window.location.href = window.location.href;
+
+					}
+
+				});
+			}
+		}
+
+		//---- check roles
+		function checkRole() {
+
+			$("#saveBtn").prop('disabled', true);
+
+			if (role == 0) {
+
+				if (statusId == 1) {
+					$("#saveBtn").prop('disabled', false);
+					setDisabled(false);
+					$("#DicEEStatusId").prop('disabled', true);
+					$(".user-status").text('Черновик');
+
+				} else {
+
+					//----
+					$(".user-status").text('Предоставил');
+					$(".btn-send").prop('disabled', true);
+					$("#saveBtn").prop('disabled', true);
+					$('.btn-add-paramter').prop("disabled", true);
+					$('.btn-operation').prop('disabled', true);
+					setDisabled(true);
+				}
+
+
+			} else {
+				$(".manager-status").removeClass('hide');
+				$(".user-status").hide();
+			}
+		}
+
+	});
+
+</script>
+

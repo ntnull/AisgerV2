@@ -1,0 +1,6 @@
+﻿@using Aisger
+@using GridMvc.Pagination
+@{
+    var gridPage = new GridPager();
+}
+<a href="@gridPage.GetLinkForExporter("Excel")" target="_blank" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-open" aria-hidden="true"></span> @ResourceSetting.exportExcel</a>

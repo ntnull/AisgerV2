@@ -1,0 +1,231 @@
+﻿@using System.Globalization
+@using System.Text
+@using Aisger
+@using Aisger.Utils
+@model Aisger.Models.SUB_ActionPlan
+@{
+    ViewBag.Title = ResourceSetting.SubActionPlan;
+}
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+
+<style type="text/css">
+    .form1Field {
+        width: 100%;
+        height: 120px;
+        font-size: 12px;
+
+    }
+      .input-group {
+        width: 100%;
+    }
+</style>
+
+<div id="B">
+    @Html.Partial("~/Views/Home/TitleItem.cshtml", ResourceSetting.privatePage + "," + ResourceSetting.SubActionPlan)
+    <div id="wrapper_grid" style="margin-left: 10px; margin-bottom: 100px">
+        <input type="hidden" id="currentDataViewId" value="@Model.Id">
+        <input type="hidden" id="IsExistForm" value="false">
+
+        <div class="clearfixmandatory form-group">
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.CreateDate)
+            @Html.HiddenFor(model => model.UserId)
+            @Html.HiddenFor(model => model.Editor)
+
+            <div class="row" style="margin-bottom: 10px ">
+                <div class="col-sm-4">
+                    @Html.LabelFor(model => model.ReportYear)
+                    <div class="input">
+                        @Html.TextBoxFor(model => model.ReportYear, new { @class = "form-control", style = "width:500px;" })
+                        @Html.ValidationMessageFor(model => model.ReportYear)
+                    </div>
+                </div>
+                <div style="float: right">
+                    <button type="button" class="btn btn-info btn-sm" id="HideInform" value="hide">
+                        <span class="glyphicon glyphicon-check" aria-hidden="true" id="HideInformCheck"></span> <span id="HideInformText">@ResourceSetting.HideInformTextHide</span>
+                    </button>
+                </div>
+                    </div>
+                    <div class="alert alert-warning" role="alert" id="tempInfoId" style="display: none">@ResourceSetting.yearsExists</div>
+                    <div class="input" style="margin-left: 0;">
+                        <textarea cols="20" id="Note" name="Note" rows="2" placeholder=@ResourceSetting.discribe style="width: 100%; height: 70px; margin-top: 10px">@Model.Note</textarea>
+                    </div>
+                </div>
+                @if (Model.StatusId == CodeConstManager.STATUS_REJECT_ID)
+                {
+                    <div class="alert alert-warning" role="alert">
+                        <h4>@ResourceSetting.designReason:</h4>
+                        @Model.DesignNote
+                    </div>
+                }
+
+                @Html.Partial("~/Views/SubActionPlan/ActionPlanView.cshtml", @Model)
+
+            </div>
+            <div style="margin-bottom: 40px">
+                <button type="button" class="btn btn-success btn-lg" onclick="location.href='@Url.Action("Index", "SubActionPlan")'">
+                    <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Back
+                </button>
+                <button id="saveBtn" type="button" class="btn btn-success btn-lg" onclick="location.href='@Url.Action("Index", "SubActionPlan")'" style="float: right; margin-right: 30px">
+                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span> @ResourceSetting.Save
+                </button>
+            </div>
+        </div>
+
+
+<script type="text/javascript">
+    function replaceAll(find, replace, str) {
+        while (str.indexOf(find) > -1) {
+            str = str.replace(find, replace);
+        }
+        return str;
+    }
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#HideInform").click(function () {
+            if ($(this).val() == "hide") {
+                $("#HideInformText").text('@ResourceSetting.HideInformTextShow');
+                $(this).val("show");
+                $("#HideInformCheck").addClass("glyphicon-unchecked");
+                $("#HideInformCheck").removeClass("glyphicon-check");
+                showInformIcon(false);
+            } else {
+                $("#HideInformText").text('@ResourceSetting.HideInformTextHide');
+                $(this).val("hide");
+                $("#HideInformCheck").removeClass("glyphicon-unchecked");
+                $("#HideInformCheck").addClass("glyphicon-check");
+                showInformIcon(true);
+            }
+        });
+        $("#ReportYear").change(function () {
+            var params = JSON.stringify({ 'id': $("#UserId").val(), 'year': $("#ReportYear").val(),'modelId':'@Model.Id' });
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetInfoReportYear")',
+                data:params,
+                dataType: 'json',
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.Success) {
+                        $("#IsExistForm").val("true");
+                        $("#tempInfoId").show();
+
+                    } else {
+                        $("#IsExistForm").val("false");
+                        $("#tempInfoId").hide();
+                    }
+                },
+                error: function () {
+                    alert("Connection Failed. Please Try Again");
+                }
+            });
+        });
+     
+    });
+</script>
+
+<script type="text/javascript">
+    function floatCheck(val) {
+        if (val == 0) {
+            return 0;
+        }
+        val = val.replace(',', '.');
+        return parseFloat(val);
+    }
+
+    function floatChange(val) {
+        if (val == null) {
+            return null;
+        }
+        return val.toString().replace('.', ',');
+    }
+   
+
+
+    function DeleteRecord(code, recordId) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("DeleteRecord")',
+            data: { 'code': code, 'recordId': recordId },
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+            },
+            error: function (data) {
+                alert("1Error" + data);
+            }
+        });
+    }
+
+    function UpdateModel(code, recordId, fieldId, fieldName, fieldValue, type, typeId) {
+        if ($("#IsExistForm").val() != "false") {
+            showWarning("По данному году уже отчет зарегистрирован");
+            $('#' + fieldId).val("");
+            return false;
+        }
+        if (type == "float") {
+            if (fieldValue != null && fieldValue.length > 0) {
+                if (fieldValue.indexOf(',') > 0) {
+                    fieldValue = fieldValue.replace(',', '.');
+                }
+                if (fieldValue != '' && !$.isNumeric(fieldValue)) {
+                    showWarning('@ResourceSetting.enterNumber');
+                    $('#' + fieldId).val("");
+                    return false;
+                }
+                if (fieldValue.indexOf('-') > -1) {
+                    showWarning('@ResourceSetting.enterNumberNotMinus');
+                    $('#' + fieldId).val("");
+                    return false;
+                }
+            }
+        }
+        if (type == "long") {
+            if (fieldValue != null && fieldValue.length > 0) {
+                if (fieldValue.indexOf(',') > 0 || fieldValue.indexOf('.') > 0) {
+                    showWarning('@ResourceSetting.enterNumber');
+                    $('#' + fieldId).val("");
+                    return false;
+                }
+                if (fieldValue != '' && !$.isNumeric(fieldValue)) {
+                    showWarning('@ResourceSetting.enterNumber');
+                    $('#' + fieldId).val("");
+                    return false;
+                }
+                if (fieldValue.indexOf('-') > -1) {
+                    showWarning('@ResourceSetting.enterNumberNotMinus');
+                    $('#' + fieldId).val("");
+                    return false;
+                }
+            }
+        }
+
+        var modelId = parseInt($("#currentDataViewId").val(), 10) || 0;
+        var year = $("#ReportYear").val();
+        var userId = $("#UserId").val();
+        var editorId = $("#Editor").val();
+//        var unique = $('#' + fieldId).attr('unique');
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("UpdateModel")',
+            data: { 'code': code, 'modelId': modelId, 'userId': userId, 'editorId': editorId, 'recordId': recordId, 'year': year, 'fieldName': fieldName, 'fieldValue': fieldValue,'typeId':typeId },
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                $("#currentDataViewId").val(data.formId);
+                if (data.fromRecordId > 0) {
+                    var row = $('#' + fieldId).parent().closest('tr');
+                    row.attr("rowid", data.fromRecordId);
+                }
+            },
+            error: function (data) {
+                alert("1Error" + data);
+            }
+        });
+    }
+</script>

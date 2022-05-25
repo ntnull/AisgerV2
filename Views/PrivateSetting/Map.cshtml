@@ -1,0 +1,148 @@
+﻿@using Aisger
+@using GridMvc.Html
+@using GridMvc.Sorting
+@model Aisger.Models.SEC_User
+@{
+    ViewBag.Title = ResourceSetting.AccountSetting;
+}
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAN12KP6o3aNk49AH9_T3yVZ03OmzuzVqk"></script>
+<style type="text/css">
+  
+    #mymap {
+        width: 100%;
+        height: 500px;
+    }
+</style>
+
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.privatePage  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  @ResourceSetting.AccountSetting </li>
+        <li style="float: right">
+            <span style="font-weight: bold; color: gray">Координаты: <span id="coordValue">@Model.Lat, @Model.Lng </span> </span>
+        </li>
+    </ul>
+    <input type="hidden" id="latTag" value="@Model.Lat">
+    <input type="hidden" id="lngTag" value="@Model.Lng">
+    <div id="mymap">
+
+    </div>
+    <div style="margin-bottom: 60px">
+        <button type="button" class="btn btn-success btn-lg" onclick="history.go(-1);return false;">
+            <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Back
+        </button>
+        <button id="saveBtnCoord" type="button" class="btn btn-success btn-lg"  style="float: right; margin-right: 30px">
+            <span class="glyphicon glyphicon-save" aria-hidden="true"></span> @ResourceSetting.Save
+        </button>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#saveBtnCoord").click(function () {
+            var userId = @Model.Id;
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateMark")',
+                data: { 'userId': userId, 'lat': $("#latTag").val(), 'lng':  $("#lngTag").val() },
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+
+                },
+                error: function (data) {
+//                    alert("1Error" + data);
+                }
+            });
+            parent.history.back();
+        });
+    });
+    var defaultLat='@Model.Lat';
+    var defaultLng = '@Model.Lng';
+   /* if (defaultLat == null || defaultLat.length == 0) {
+        defaultLat = '51.20474435313894';
+    }
+    if (defaultLng == null || defaultLng.length == 0) {
+        defaultLng = '71.38778686523438';
+    }*/
+    var markers = [];
+    var initialLocation;
+    var browserSupportFlag = new Boolean();
+    function initMap() {
+        var mapDiv = document.getElementById("mymap");
+        var mapOptions = {
+            center: new google.maps.LatLng(defaultLat, defaultLng ),
+            zoom: 12,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(mapDiv, mapOptions);
+        if (defaultLat.length > 0 && defaultLng.length > 0) {
+            var latLng =  new google.maps.LatLng(defaultLat,defaultLng);
+            placeMarkerAndPanTo(latLng,map);
+
+        } else {
+            if (navigator.geolocation) {
+                browserSupportFlag = true;
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    map.setCenter(initialLocation);
+                }, function () {
+                    handleNoGeolocation(browserSupportFlag);
+                });
+            }
+                // Browser doesn't support Geolocation
+            else {
+                browserSupportFlag = false;
+                handleNoGeolocation(browserSupportFlag);
+            }
+        }
+       
+        map.addListener('click', function (e) {
+            placeMarkerAndPanTo(e.latLng, map);
+        });
+
+     
+
+        function handleNoGeolocation(errorFlag) {
+            if (errorFlag == true) {
+                initialLocation = newyork;
+            } else {
+                initialLocation = newyork;
+            }
+            map.setCenter(initialLocation);
+        }
+
+    }
+    function setMapOnAll(map) {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(map);
+        }
+    }
+    function placeMarkerAndPanTo(location, map) {
+        setMapOnAll(null);
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map
+        });
+        markers.push(marker);
+        setMark(location.lat(), location.lng());
+        /*    var marker = new google.maps.Marker({
+            position: latLng,
+            map: map
+        });
+        map.panTo(latLng);*/
+    }
+
+    function setMark(lat, lng) {
+        $("#coordValue").text(lat + ', ' + lng);
+        $("#latTag").val(lat);
+        $("#lngTag").val(lng);
+
+
+    }
+    window.onload = initMap();
+</script>

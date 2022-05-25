@@ -1,0 +1,582 @@
+﻿@using Aisger
+@using Aisger.CustomResources
+@model Aisger.Models.EAUDIT_Preamble
+
+@*<div class="row">*@
+@*    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">*@
+@*        <div class="panel panel-default">*@
+@*            <div class="panel-body">*@
+                <div id="divIndustryWizard" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bwizard">
+                    <ul style="overflow-x: auto;">
+                        <li>
+                            <a href="#ownedftab" data-toggle="tab">
+                                <span class="label badge-inverse"></span>
+                                @ResourceSetting.tOwnedFacilities
+                                <small>
+                                    @ResourceSetting.sRegisterOwnedFacilities
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#form1tab" data-toggle="tab">
+                                <span class="label badge-inverse">1</span>
+                                @ResourceSetting.tTable 1
+                                <small>
+                                    1. @EauditResource.IndustryForm1Name
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#form2tab" data-toggle="tab">
+                                <span class="label badge-inverse">2</span>
+                                @ResourceSetting.tTable 2
+                                <small>
+                                    2. @EauditResource.IndustryForm2Name...
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#form3tab" data-toggle="tab">
+                                <span class="label badge-inverse">3</span>
+                                @ResourceSetting.tTable 3
+                                <small>
+                                    3. @EauditResource.IndustryForm3Name.Substring(0, 35)...
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#formShoptab" data-toggle="tab">
+                                <span class="label badge-inverse">4</span>
+                                @ResourceSetting.sShops
+                                <small>
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#form4tab" data-toggle="tab">
+                                <span class="label badge-inverse">4</span>
+                                @ResourceSetting.tTable 4
+                                <small>
+                                    4. @EauditResource.IndustryForm4Name.Substring(0, 35)...
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#form5tab" data-toggle="tab">
+                                <span class="label badge-inverse">5</span>
+                                @ResourceSetting.tTable 5
+                                <small>
+                                    5. @EauditResource.IndustryForm5Name.Substring(0, 35)...
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#form6tab" data-toggle="tab">
+                                <span class="label badge-inverse">6</span>
+                                @ResourceSetting.tTable 6
+                                <small>
+                                    6. @EauditResource.IndustryForm6Name.Substring(0, 35)...
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#form7tab" data-toggle="tab">
+                                <span class="label badge-inverse">7</span>
+                                @ResourceSetting.tTable 7
+                                <small>
+                                    7. @EauditResource.IndustryForm7Name.Substring(0, 35)...
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#form8tab" data-toggle="tab">
+                                <span class="label badge-inverse">8</span>
+                                @ResourceSetting.tTable 8
+                                <small>
+                                    8. @EauditResource.IndustryForm8Name.Substring(0, 35)...
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#form9tab" data-toggle="tab">
+                                <span class="label badge-inverse">9</span>
+                                @ResourceSetting.tTable 9
+                                <small>
+                                    9. @EauditResource.IndustryForm9Name.Substring(0, 35)...
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#form10tab" data-toggle="tab">
+                                <span class="label badge-inverse">10</span>
+                                @ResourceSetting.tTable 10
+                                <small>
+                                    10. @EauditResource.IndustryForm10Name.Substring(0, 35)...
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#form11tab" data-toggle="tab">
+                                <span class="label badge-inverse">11</span>
+                                @ResourceSetting.tTable 11
+                                <small>
+                                    11. @string.Format(EauditResource.IndustryForm11Name.Substring(0, 35) + "...", Model.ReportYear)
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#form12tab" data-toggle="tab">
+                                <span class="label badge-inverse">12</span>
+                                @ResourceSetting.tTable 12
+                                <small>
+                                    12. @string.Format(EauditResource.IndustryForm12Name.Substring(0, 35) + "...", Model.ReportYear)
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#form13tab" data-toggle="tab">
+                                <span class="label badge-inverse">13</span>
+                                @ResourceSetting.tTable 13
+                                <small>
+                                    13. @EauditResource.IndustryForm13Name.Substring(0, 35)...
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#form14tab" data-toggle="tab">
+                                <span class="label badge-inverse">14</span>
+                                @ResourceSetting.tTable 14
+                                <small>
+                                    14. @string.Format(EauditResource.IndustryForm14Name.Substring(0, 35) + "...", Model.ReportYear)
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#form15tab" data-toggle="tab">
+                                <span class="label badge-inverse">15</span>
+                                @ResourceSetting.tTable 15
+                                <small>
+                                    15. @EauditResource.IndustryForm15Name.Substring(0, 35)...
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#form16tab" data-toggle="tab">
+                                <span class="label badge-inverse">16</span>
+                                @ResourceSetting.tTable 16
+                                <small>
+                                    16. @EauditResource.IndustryForm16Name.Substring(0, 35)...
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#form17tab" data-toggle="tab">
+                                <span class="label badge-inverse">17</span>
+                                @ResourceSetting.tTable 17
+                                <small>
+                                    17. @EauditResource.IndustryForm17Name.Substring(0, 35)...
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#form18tab" data-toggle="tab">
+                                <span class="label badge-inverse">18</span>
+                                @ResourceSetting.tTable 18
+                                <small>
+                                    18. @EauditResource.IndustryForm18Name.Substring(0, 35)...
+                                </small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#form19tab" data-toggle="tab">
+                                <span class="label badge-inverse">19</span>
+                                @ResourceSetting.tTable 19
+                                <small>
+                                    19. @EauditResource.IndustryForm19Name.Substring(0, 35)...
+                                </small>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="ownedftab">
+                            @{
+                                Html.RenderAction("GetOwnedFacilityView", "IndustryAttachment1", new { preambleId = Model.Id, isReadOnly = Model.IsReadOnly.ToString().ToLower() });
+                            }
+                        </div>
+                        <div class="tab-pane" id="form1tab">
+                            <div id="form1tabContent">
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="form2tab">
+                            <div id="form2tabContent">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="form3tab">
+                            <div id="form3tabContent">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="formShoptab">
+                            <div id="formShoptabContent">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="form4tab">
+                            <div id="form4tabContent">
+                                
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="form5tab">
+                            <div id="form5tabContent">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="form6tab">
+                            <div id="form6tabContent">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="form7tab">
+                            <div id="form7tabContent">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="form8tab">
+                            <div id="form8tabContent">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="form9tab">
+                            <div id="form9tabContent">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="form10tab">
+                            <div id="form10tabContent">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="form11tab">
+                            <div id="form11tabContent">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="form12tab">
+                            <div id="form12tabContent">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="form13tab">
+                            <div id="form13tabContent">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="form14tab">
+                            <div id="form14tabContent">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="form15tab">
+                            <div id="form15tabContent">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="form16tab">
+                            <div id="form16tabContent">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="form17tab">
+                            <div id="form17tabContent">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="form18tab">
+                            <div id="form18tabContent">
+
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="form19tab">
+                            <div id="form19tabContent">
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <ul class="pager wizard bwizard-buttons">
+                        <li class="exit" role="button" aria-disabled="False">
+                            <a href="@Url.Action("Index","EnergyAudit")">
+                                &#10005; @ResourceSetting.Return
+                            </a>
+                        </li>
+                        <li class="previous" role="button" aria-disabled="False">
+                            <a href="#">
+                                &larr; @ResourceSetting.Back1
+                            </a>
+                        </li>
+                        <li class="next" role="button" aria-disabled="False">
+                            <a>
+                                @ResourceSetting.Forward &rarr;
+                            </a>
+                        </li>
+                        <li class="finish">
+                            <a href="@Url.Action("Edit", "EnergyAudit", new { id = Model.Id })">
+                                @ResourceSetting.Finish &#10003;
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+@*            </div>*@
+@*        </div>*@
+@*    </div>*@
+@*</div>*@
+
+<script>
+    var EnergyAuditParentForm = {
+        init: function () {
+            if (window.IndustryFormOf)
+                window.IndustryFormOf.init();
+        },
+        reloadForm1: function (pId, ofacility) {
+            $("#form1tabContent").load('@Url.Action("GetIndustryForm1View", "IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility, "isReadOnly": @Model.IsReadOnly.ToString().ToLower() }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm1)
+                        window.IndustryForm1.init();
+                });
+        },
+        reloadForm2: function (pId, ofacility) {
+            $("#form2tabContent").load('@Url.Action("GetIndustryForm2View", "IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility, "isReadOnly": @Model.IsReadOnly.ToString().ToLower()  }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm2)
+                        window.IndustryForm2.init();
+                });
+        },
+        reloadForm3: function (pId, ofacility) {
+            $("#form3tabContent").load('@Url.Action("GetIndustryForm3View","IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility, "isReadOnly": @Model.IsReadOnly.ToString().ToLower()  }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm3)
+                        window.IndustryForm3.init();
+                });
+        },
+        reloadFormShop: function (pId, ofacility) {
+            $("#formShoptabContent").load('@Url.Action("GetIndustryShopView", "IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility, "isReadOnly": @Model.IsReadOnly.ToString().ToLower()  }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryFormShop)
+                        window.IndustryFormShop.init();
+                });
+        },
+        reloadForm4: function (pId, /*ofacility,*/ shop) {
+            $("#form4tabContent").load('@Url.Action("GetIndustryForm4View", "IndustryAttachment1")'
+                , { "preambleId": pId, /*"ofacility": ofacility,*/ "shopId": shop, "isReadOnly": @Model.IsReadOnly.ToString().ToLower()  }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm4)
+                        window.IndustryForm4.init();
+                });
+        },
+        reloadForm5: function (pId, ofacility) {
+            $("#form5tabContent").load('@Url.Action("GetIndustryForm5View","IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility, "isReadOnly": @Model.IsReadOnly.ToString().ToLower()  }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm5)
+                        window.IndustryForm5.init();
+                });
+        },
+        reloadForm6: function (pId, ofacility) {
+            $("#form6tabContent").load('@Url.Action("GetIndustryForm6View","IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility, "isReadOnly": @Model.IsReadOnly.ToString().ToLower()  }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm6)
+                        window.IndustryForm6.init();
+                });
+        },
+        reloadForm7: function (pId, ofacility) {
+            $("#form7tabContent").load('@Url.Action("GetIndustryForm7View","IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility, "isReadOnly": @Model.IsReadOnly.ToString().ToLower()  }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm7)
+                        window.IndustryForm7.init();
+                });
+        },
+        reloadForm8: function (pId, ofacility) {
+            $("#form8tabContent").load('@Url.Action("GetIndustryForm8View", "IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility, "isReadOnly": @Model.IsReadOnly.ToString().ToLower()  }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm8)
+                        window.IndustryForm8.init();
+                });
+        },
+        reloadForm9: function (pId, ofacility) {
+            $("#form9tabContent").load('@Url.Action("GetIndustryForm9View","IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility, "isReadOnly": @Model.IsReadOnly.ToString().ToLower()  }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm9)
+                        window.IndustryForm9.init();
+                });
+        },
+        reloadForm10: function (pId, ofacility) {
+            $("#form10tabContent").load('@Url.Action("GetIndustryForm10View","IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility, "isReadOnly": @Model.IsReadOnly.ToString().ToLower()  }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm10)
+                        window.IndustryForm10.init();
+                });
+        },
+        reloadForm11: function (pId, ofacility) {
+            $("#form11tabContent").load('@Url.Action("GetIndustryForm11View","IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility, "isReadOnly": @Model.IsReadOnly.ToString().ToLower()}
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm11)
+                        window.IndustryForm11.init();
+                });
+        },
+        reloadForm12: function (pId, ofacility) {
+            $("#form12tabContent").load('@Url.Action("GetIndustryForm12View","IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility, "isReadOnly": @Model.IsReadOnly.ToString().ToLower()  }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm12)
+                        window.IndustryForm12.init();
+                });
+        },
+        reloadForm13: function (pId, ofacility) {
+            $("#form13tabContent").load('@Url.Action("GetIndustryForm13View","IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility, "isReadOnly": @Model.IsReadOnly.ToString().ToLower()  }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm13)
+                        window.IndustryForm13.init();
+                });
+        },
+        reloadForm14: function (pId, ofacility) {
+            $("#form14tabContent").load('@Url.Action("GetIndustryForm14View","IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility, "isReadOnly": @Model.IsReadOnly.ToString().ToLower()  }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm14)
+                        window.IndustryForm14.init();
+                });
+        },
+        reloadForm15: function (pId, ofacility) {
+            $("#form15tabContent").load('@Url.Action("GetIndustryForm15View","IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility, "isReadOnly": @Model.IsReadOnly.ToString().ToLower()  }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm15)
+                        window.IndustryForm15.init();
+                });
+        },
+        reloadForm16: function (pId, ofacility) {
+            $("#form16tabContent").load('@Url.Action("GetIndustryForm16View","IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility, "isReadOnly": @Model.IsReadOnly.ToString().ToLower() }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm16)
+                        window.IndustryForm16.init();
+                });
+        },
+        reloadForm17: function (pId, ofacility) {
+            $("#form17tabContent").load('@Url.Action("GetIndustryForm17View","IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility, "isReadOnly": @Model.IsReadOnly.ToString().ToLower()  }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm17)
+                        window.IndustryForm17.init();
+                });
+        },
+        reloadForm18: function (pId, ofacility) {
+            $("#form18tabContent").load('@Url.Action("GetIndustryForm18View","IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility, "isReadOnly": @Model.IsReadOnly.ToString().ToLower() }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm18)
+                        window.IndustryForm18.init();
+                });
+        },
+        reloadForm19: function (pId, ofacility) {
+            $("#form19tabContent").load('@Url.Action("GetIndustryForm19View","IndustryAttachment1")'
+                , { "preambleId": pId, "ofacility": ofacility, "isReadOnly": @Model.IsReadOnly.ToString().ToLower()  }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm19)
+                        window.IndustryForm19.init();
+                });
+        }
+    };
+
+    var bwizardIndustryInitFn = function () {
+        $('#divIndustryWizard').bootstrapWizard({
+            tabClass: 'bwizard-steps',
+            onNext: function (tab, navigation, index) {
+                if (index == 1) {
+
+                } else if (index == 2) {
+
+                } else if (index == 3) {
+
+                } else if (index == 4) {
+
+                } else if (index == 5) {
+
+                }
+                return true;
+            },
+            onTabShow: function (tab, navigation, index) {
+                $('.previous').show();
+                $('.exit').hide();
+                if (index == 0) {
+                    $('.previous').hide();
+                    $('.exit').show();
+                }
+
+                var pId = $("#hfPreamleId").val();
+                if (!pId || pId == "0") return false;
+
+
+                if (index == 1) {
+                    EnergyAuditParentForm.reloadForm1(pId);
+                } else if (index == 2) {
+                    EnergyAuditParentForm.reloadForm2(pId);
+                } else if (index == 3) {
+                    EnergyAuditParentForm.reloadForm3(pId);
+                } else if (index == 4) {
+                    EnergyAuditParentForm.reloadFormShop(pId);
+                } else if (index == 5) {
+                    EnergyAuditParentForm.reloadForm4(pId);
+                } else if (index == 6) {
+                    EnergyAuditParentForm.reloadForm5(pId);
+                } else if (index == 7) {
+                    EnergyAuditParentForm.reloadForm6(pId);
+                } else if (index == 8) {
+                    EnergyAuditParentForm.reloadForm7(pId);
+                } else if (index == 9) {
+                    EnergyAuditParentForm.reloadForm8(pId);
+                } else if (index == 10) {
+                    EnergyAuditParentForm.reloadForm9(pId);
+                } else if (index == 11) {
+                    EnergyAuditParentForm.reloadForm10(pId);
+                } else if (index == 12) {
+                    EnergyAuditParentForm.reloadForm11(pId);
+                } else if (index == 13) {
+                    EnergyAuditParentForm.reloadForm12(pId);
+                } else if (index == 14) {
+                    EnergyAuditParentForm.reloadForm13(pId);
+                } else if (index == 15) {
+                    EnergyAuditParentForm.reloadForm14(pId);
+                } else if (index == 16) {
+                    EnergyAuditParentForm.reloadForm15(pId);
+                } else if (index == 17) {
+                    EnergyAuditParentForm.reloadForm16(pId);
+                } else if (index == 18) {
+                    EnergyAuditParentForm.reloadForm17(pId);
+                } else if (index == 19) {
+                    EnergyAuditParentForm.reloadForm18(pId);
+                } else if (index == 20) {
+                    EnergyAuditParentForm.reloadForm19(pId);
+                }
+            }
+        });
+    };
+
+    $(document).ready(function () {
+        //        EnergyAuditParentForm.init();
+        bwizardIndustryInitFn();
+    });
+
+</script>

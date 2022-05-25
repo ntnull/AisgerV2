@@ -1,0 +1,66 @@
+﻿@using Aisger
+@using Aisger.Utils
+@model Aisger.Models.SEC_User
+@{
+    ViewBag.Title = ResourceSetting.AccountSetting;
+}
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+<script src="@Url.Content("~/Scripts/jquery.inputfile.js")" type="text/javascript"> </script>
+<link href="@Url.Content("~/Content/custom/jquery.inputfile.css")" rel="stylesheet" type="text/css" />
+
+<div id="B">
+    @Html.Partial("~/Views/Home/TitleItem.cshtml", ResourceSetting.privatePage + "," + ResourceSetting.AccountSetting)
+
+    <div id="wrapper_grid" style="margin-left: 50px">
+        <table class="table">
+            <tr>
+                <td>
+                    @ResourceSetting.ApplicationName :
+            </td>
+            <td>
+                @Model.ApplicationName
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @ResourceSetting.BININ :
+            </td>
+            <td>
+                @Model.BINIIN
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @ResourceSetting.Address :
+            </td>
+            <td>
+                @Model.Address
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @ResourceSetting.WorkPhone :
+            </td>
+            <td>
+                @Model.Phone; @Model.Phone1
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @ResourceSetting.Email :
+            </td>
+            <td>
+                @Model.Email
+            </td>
+        </tr>
+    </table>
+    @if (MyExtensions.CheckRightEdit(CodeConstManager.AccountSetting))
+    {
+
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href='@Url.Action("AccountSettingEdit", "Account")'">
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> @ResourceSetting.EditAccount
+        </button>
+    }
+</div>
+</div>

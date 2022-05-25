@@ -1,0 +1,410 @@
+﻿@model IEnumerable<Aisger.Models.Repository.Security.UA>
+@using Aisger
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel">@ResourceSetting.admin<span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>@ResourceSetting.AuditEventUser</li>
+    </ul>
+    <input id="uril" class="form-control form-inline" style="display:none" />
+    <div class="row">
+        <div class="col-sm-2" style="padding:1px">
+            <form method="get">
+                <div class="form form-group-sm" style="margin-left:30px">
+                    <label>@ResourceSetting.Operation</label>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <select id="selectEventType" class="form-control" onchange="NewEventType(this.value)">
+                                @foreach (var item in ViewBag.EventTypeList)
+                                {
+                                    <option value="@item.Value" @((@item.Selected) ? "selected" : "")>@item.Text</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-sm-2 float-sm-right">
+                            <a id="filterButton" title="Фильтр" href="/JurEvent/UserAuditIndex">
+                                <span class="glyphicon glyphicon-filter" style="font-size:2rem"></span>
+                            </a>
+                        </div>
+                        <div class="col-sm-2 float-sm-right">
+                            <a id="noFilterButton" title="@ResourceSetting.clearFilter" href="/JurEvent/UserAuditIndex">
+                                <span class="glyphicon glyphicon-refresh" style="font-size:2rem"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <label id="selectControllerLabel" style="display:@((ViewBag.EventType == "10") ? "block" : "none")">@ResourceSetting.siteSection</label>
+                    <select id="selectController" class="form-control" onchange="NewController()" style="display:@((ViewBag.EventType == "10") ? "block" : "none")">
+                        @foreach (var item in ViewBag.ControllerList)
+                        {
+                            <option value="@item.Value" @((@item.Selected) ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                    <label id="selectActionLabel" style="display:@((ViewBag.EventType == "10") ? "block" : "none")">Страницы раздела</label>
+                    <select id="selectAction" class="form-control" onchange="SetFilter()" style="display:@((ViewBag.EventType == "10") ? "block" : "none")">
+                        @foreach (var item in ViewBag.ActionList)
+                        {
+                            <option value="@item.Value" @((@item.Selected) ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                    <label id="selectTableLabel" style="display:@((ViewBag.EventType == "0" || ViewBag.EventType == "10") ? "none" : "block")">Таблицы</label>
+                    <select id="selectTable" class="form-control form-group-sm" onchange="SetFilter()" style="display:@((ViewBag.EventType == "0" || ViewBag.EventType == "10")? "none" : "block")">
+                        <option value="all">Все таблицы</option>
+                        @foreach (var gr in ViewBag.TableGroupList)
+                        {
+                            <optgroup label="@gr.Name">
+                                @foreach (var item in ViewBag.TableList)
+                                {
+                                    if (item.Value.Split('_')[0] == gr.Name)
+                                    {
+                                        <option value="@item.Value" @((@item.Selected) ? "selected" : "")>@item.Text</option>
+                                    }
+                                }
+                            </optgroup>
+                        }
+                    </select>
+                    <hr />
+                    @*<label>@ResourceSetting.User</label>*@
+                    <input id="userName" class="form-control form-group-sm" placeholder="@ResourceSetting.User" onchange="SetFilter()" value="@ViewBag.User"/>
+                    @*<select id="selectUser" class="form-control form-group-sm" onchange="SetFilter()">
+                        @foreach (var item in ViewBag.UserList)
+                        {
+                            <option value="@item.Value" @((@item.Selected) ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>*@
+                    <label>@ResourceSetting.period</label>
+                    <select id="selectPeriod" class="form-control form-group-sm" onchange="NewPeriod(this.value)">
+                        @foreach (var item in ViewBag.PeriodList)
+                        {
+                            <option value="@item.Value" @((@item.Selected) ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                    <div id="IntervalFilter" style="display:@((ViewBag.Period=="10")? "block":"none")">
+                        <hr />
+                        <label>@ResourceSetting.ArbitraryInterval</label>
+                        <div class="form-inline form-group-sm">
+                            с
+                            <input id="IntervalFromDate" type="date" class="form-control" value="@ViewBag.FromDate" onchange="SetFilter()" />
+                            <input id="IntervalFromTime" type="time" class="form-control" value="@ViewBag.FromTime" onchange="SetFilter()" />
+                        </div>
+                        <div class="form-inline form-group-sm">
+                            по
+                            <input id="IntervalToDate" type="date" class="form-control" value="@ViewBag.ToDate" onchange="SetFilter()" />
+                            <input id="IntervalToTime" type="time" class="form-control" value="@ViewBag.ToTime" onchange="SetFilter()" />
+                        </div>
+                    </div>
+                    <label>@ResourceSetting.Sort</label>
+                    <select class="form-control form-group-sm" id="selectSort" onchange="SetFilter()">
+                        @foreach (var item in ViewBag.SortList)
+                        {
+                            <option value="@item.Value" @((@item.Selected) ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-10">
+            <table class="table table-striped table-bordered table-sm" style="font-size:1.2rem">
+                <thead>
+                    <tr>
+                        <th style="text-align:center; width:150px">@ResourceSetting.DateTime</th>
+                        <th style="text-align:center; width:200px">@ResourceSetting.auditUsers</th>
+                        <th style="text-align:center">@ResourceSetting.Operation</th>
+                        <th style="text-align:center">@ResourceSetting.obj</th>
+                        <th style="text-align:center">@ResourceSetting.descriptionObj</th>
+                        <th style="text-align:center">@ResourceSetting.explain</th>
+                        <th style="text-align:center; width:10px">@ResourceSetting.details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.RealDateHtml
+                            </td>
+                            <td>
+                                @item.User
+                            </td>
+                            <td>
+                                @item.EventTypeName
+                            </td>
+                            @if (item.IsForCRUD)
+                            {
+                                <td>
+                                    @item.TableName
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @item.Controller
+                                </td>
+                            }
+                            @if (item.IsForCRUD)
+                            {
+                                <td>
+                                    Id = @item.OriginalIdHtml
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @item.Action
+                                </td>
+                            }
+                            <td>
+                                @if (item.IsForCRUD)
+                                {
+                                    @item.ExtData
+                                }
+                            </td>
+                            <td style="text-align:center">
+                                @if (item.IsForCRUD)
+                                {
+                                    <a href="#" onclick="ShowCRUDetails(@item.Id, '@item.RealTableName')">
+                                        <span class="glyphicon glyphicon-list" title="@ResourceSetting.auditRun"></span>
+                                    </a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            |
+            @ResourceSetting.ShowOnPage
+            <select id="selectPageSize" onchange="NewPageSize(this.value)">
+                <option value="10" @(ViewBag.limit == 10 ? "selected" : "")>10</option>
+                <option value="20" @(ViewBag.limit == 20 ? "selected" : "")>20</option>
+                <option value="50" @(ViewBag.limit == 50 ? "selected" : "")>50</option>
+                <option value="100" @(ViewBag.limit == 100 ? "selected" : "")>100</option>
+            </select>
+            |
+            @ViewBag.CurrentLog
+            |
+            <a id="prevPage" title="@ResourceSetting.Back1"
+               href="@ViewBag.UrlPrev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            |
+            <a id="nextPage" title="@ResourceSetting.Forward2"
+               href="@ViewBag.UrlNext">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+            |
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="CRUDetail" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Подробная информация о выполненной команде</h4>
+            </div>
+            <div class="modal-body">
+                <table id="CRUDetailTable" class="table table-hover table-striped table-bordered table-sm" style="width:100%">
+                    <thead>
+                        <tr style="background-color:wheat">
+                            <th style="width:34%">Поле</th>
+                            <th style="width:33%">Было</th>
+                            <th style="width:33%">Стало</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <input type="reset" value="Закрыть" class="btn btn-primary" data-dismiss="modal" />
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        //SetFilter();
+    })
+
+    function sendAjaxRequest(data, url, type, callback, errback) {
+        console.log(url);
+        console.log(data);
+        var ajax_params = {};
+        ajax_params.data = data;
+        ajax_params.url = url;
+        ajax_params.type = type;
+
+        ajax_params.success = function (result) {
+            callback(result);
+        };
+
+        ajax_params.error = function (XMLHttpRequest, textStatus, errorThrown) {
+            if (errback)
+                errback(XMLHttpRequest, textStatus, errorThrown);
+        }
+
+        $.ajax(ajax_params);
+    }
+
+    function ShowCRUDetails(id, table) {
+        sendAjaxRequest({ id: id, tableName: table }, "/JurEvent/GetData", "POST", function (result) {
+            $('#CRUDetailTable').find("tr:gt(0)").remove();
+            $('#CRUDetailTable').append(result);
+            $("#CRUDetail").modal("show");
+        }, function (XMLHttpRequest, textStatus, errorThrown) { console.log('error', XMLHttpRequest); });
+    }
+
+    function NewPageSize(limit) {
+        SetFilter();
+        window.location.href = $("#filterButton").attr("href");
+    }
+
+    function NewPeriod(period) {
+        switch (period) {
+            default:
+                document.getElementById("IntervalFilter").style.display = "none";
+                SetFilter();
+                break;
+            case "10":
+                document.getElementById("IntervalFromDate").value = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-01";
+                document.getElementById("IntervalFromTime").value = "00:00";
+                document.getElementById("IntervalToDate").valueAsDate = new Date();
+                document.getElementById("IntervalToTime").value = "23:59";
+
+                document.getElementById("IntervalFilter").style.display = "block";
+
+                SetFilter();
+                break;
+        }
+
+    }
+
+    function NewController() {
+        var e = document.getElementById("selectController");
+        var obj = e.options[e.selectedIndex].value;
+
+        if (obj == "all") {
+            document.getElementById("selectAction").style.display = "none";
+            document.getElementById("selectActionLabel").style.display = "none";
+        }
+        else {
+            document.getElementById("selectAction").style.display = "block";
+            document.getElementById("selectActionLabel").style.display = "block";
+            sendAjaxRequest({ controller: obj }, "/JurEvent/GetActionList", "POST", function (result) {
+                var ops = "";
+                for (var i = 0; i < result.length; i++) {
+                    var item = result[i];
+                    ops += '<option value="' + item.Value + '" >' + item.Text + '</option>';
+                }
+
+                $('#selectAction').empty();
+                $('#selectAction').html(ops);
+            }, function (XMLHttpRequest, textStatus, errorThrown) { console.log('error', XMLHttpRequest); });
+        }
+
+        SetFilter();
+    }
+
+    function NewEventType(et) {
+        switch (et) {
+            default:
+                $('#selectAction').empty();
+                document.getElementById("selectController").style.display = "none";
+                document.getElementById("selectAction").style.display = "none";
+                document.getElementById("selectTable").style.display = "block";
+
+                document.getElementById("selectControllerLabel").style.display = "none";
+                document.getElementById("selectActionLabel").style.display = "none";
+                document.getElementById("selectTableLabel").style.display = "block";
+                break;
+            case "0":
+                $('#selectAction').empty();
+                document.getElementById("selectController").style.display = "none";
+                document.getElementById("selectAction").style.display = "none";
+                document.getElementById("selectTable").style.display = "none";
+
+                document.getElementById("selectControllerLabel").style.display = "none";
+                document.getElementById("selectActionLabel").style.display = "none";
+                document.getElementById("selectTableLabel").style.display = "none";
+                break;
+            case "10":
+                document.getElementById("selectController").value = "all";
+                document.getElementById("selectController").style.display = "block";
+                document.getElementById("selectAction").style.display = "none";
+                document.getElementById("selectTable").style.display = "none";
+
+                document.getElementById("selectControllerLabel").value = "all";
+                document.getElementById("selectControllerLabel").style.display = "block";
+                document.getElementById("selectActionLabel").style.display = "none";
+                document.getElementById("selectTableLabel").style.display = "none";
+                break;
+        }
+
+        SetFilter();
+    }
+
+    function SetFilter() {
+        var url = "/JurEvent/UserAuditIndex/?offset=0";
+
+        var list = document.getElementById("selectPageSize");
+        var param = list.options[list.selectedIndex].value;
+        if (param != "10") {
+            url += "&limit=" + param;
+        }
+
+        if (document.getElementById("userName").value != "") {
+            url += "&user=" + document.getElementById("userName").value;
+        }
+
+        //list = document.getElementById("selectUser");
+        //param = list.options[list.selectedIndex].value;
+        //if (param != "all") {
+        //    url += "&user=" + param;
+        //}
+
+        list = document.getElementById("selectPeriod");
+        param = list.options[list.selectedIndex].value;
+        if (param != "0") {
+            url += "&period=" + param;
+            if (param == "10") {
+                url += "&from=" + document.getElementById("IntervalFromDate").value + "_" + document.getElementById("IntervalFromTime").value;
+                url += "&to=" + document.getElementById("IntervalToDate").value + "_" + document.getElementById("IntervalToTime").value;
+            }
+        }
+
+        list = document.getElementById("selectEventType");
+        param = list.options[list.selectedIndex].value;
+        if (param != "0") {
+            url += "&eventType=" + param;
+            if (param == "10") {
+                list = document.getElementById("selectController");
+                param = list.options[list.selectedIndex].value;
+                if (param != "all") {
+                    url += "&control=" + param;
+                    list = document.getElementById("selectAction");
+                    param = list.options[list.selectedIndex].value;
+                    if (param != "all") {
+                        url += "&page=" + param;
+                    }
+                }
+            }
+            else {
+                list = document.getElementById("selectTable");
+                param = list.options[list.selectedIndex].value;
+                if (param != "all") {
+                    url += "&table=" + param;
+                }
+            }
+
+        }
+
+        list = document.getElementById("selectSort");
+        param = list.options[list.selectedIndex].value;
+        url += "&sort=" + param;
+
+        $("#filterButton").attr("href", url);
+        $("#nextPage").attr("href", url);
+        $("#prevPage").attr("href", url);
+
+        document.getElementById("uril").value = url;
+
+    }
+
+</script>

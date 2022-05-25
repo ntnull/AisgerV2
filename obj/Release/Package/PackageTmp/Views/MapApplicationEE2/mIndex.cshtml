@@ -1,0 +1,268 @@
+﻿@using System.Threading
+@using Aisger
+@using Aisger.Models
+@using Aisger.Helpers
+@using Aisger.Models.ControlModels
+@using Aisger.Models.Entity.Map;
+@using Aisger.Utils
+@using GridMvc.Html
+@model MAP_mEE2Filters
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+
+<style>
+	.btnmenu > li > a:hover {
+		background-color: transparent;
+	}
+
+	.lotLihk {
+	}
+
+	.just-read {
+		background-color: #eee;
+	}
+</style>
+
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/custom/templatemo_style.css")" />
+
+<div id="B">
+	<ul class="titlegroup" style="margin-top: 8px;">
+		<li style="font-size: 18px; color: #2679b5;" id="parentLabel">@ResourceSetting.MapEnergy<span></span></li>
+		<li id="selectLabel"><span class="glyphicon glyphicon-arrow-right"></span>@ResourceSetting.MapRegisterEE2 (@ResourceSetting.countRecord: <span id="countGridRecord"></span>)</li>
+
+	</ul>
+	<div class="panel panel-success">
+		<div class=" panel-heading">
+			@*<div style="float: left;">
+                <button type="button" class="btn btn-info btn-sm" id="refreshBtn">
+                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>@ResourceSetting.refresh
+                </button>
+            </div>*@
+			<h4 class="panel-title">
+				<a class="lotLihk" style="font-weight: bold"><span class="glyphicon glyphicon-forward"></span>@ResourceSetting.advansedFilter </a>
+				<button type="button" class="btn btn-info btn-sm" id="refreshBtn">
+					<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>@ResourceSetting.refresh
+				</button>
+				<button type="button" class="btn btn-info btn-sm btn-excell-export" style="float: right; color: white;">
+					<span class="glyphicon glyphicon-open" aria-hidden="true"></span>Экспортировать в Excel
+				</button>
+			</h4>
+		</div>
+		<div class="panel-body divpanel">
+			<div class="col-sm-6">
+				@Html.Label(ResourceSetting.sCompanyName)
+				<div class="input">
+					@Html.TextBoxFor(model => model.Name, new { @style = "width: 80%" })
+				</div>
+			</div>
+			<div class="col-sm-6">
+				@Html.Label(ResourceSetting.sBIN)
+				<div class="input">
+					@Html.TextBoxFor(model => model.BINIIN, new { @style = "width: 80%" })
+				</div>
+			</div>
+			<div class="col-sm-6">
+				@Html.Label(ResourceSetting.Oblast)
+				<div class="input">
+					<div class="chzn-select">
+						@Html.ListBoxFor(x => Model.Oblasts, Model.OblastList,
+									new { @class = "chzn-select", data_placeholder = ResourceSetting.chooseOblast, @style = "width: 80%" })
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				@Html.Label(ResourceSetting.Status)
+				<div class="input">
+					<div class="chzn-select">
+						@Html.ListBoxFor(x => Model.Statuses, Model.StatusList,
+									new { @class = "chzn-select", data_placeholder = ResourceSetting.Status, @style = "width: 80%" })
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				@Html.Label(ResourceSetting.DicOked)
+				<div class="input">
+					<div class="chzn-select">
+						@Html.ListBoxFor(x => Model.Okeds, Model.OkedList,
+									new { @class = "chzn-select", data_placeholder = ResourceSetting.DicOked, @style = "width: 80%" })
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	@Html.Partial("~/Views/MapApplicationEE2/mCommonGridView.cshtml", @Model.ListItems)
+
+
+</div>
+
+@if (CultureHelper.GetCurrentCulture() == CultureHelper.Ru)
+{
+	<script src="@Url.Content("~/Scripts/localization/select2_locale_ru.js")" type="text/javascript"></script>
+@*    <script src="@Url.Content("~/Scripts/locales/bootstrap-datepicker.ru.js")" type="text/javascript"> </script>*@
+
+}
+else
+{
+	<script src="@Url.Content("~/Scripts/localization/select2_locale_kk.js")" type="text/javascript"></script>
+}
+
+<script>
+	$(function () {
+
+		var rootUrl = "@Url.Content("~")";
+		var qwe = {};
+		window.qwe = qwe;
+		initVars();
+		bindEventHandlers();
+
+
+		function initVars() {
+
+			qwe.paramQuery = {};
+			qwe.paramQuery.sorted = null;
+			qwe.paramQuery.columnName = null;
+			qwe.paramQuery.fdata = [];
+		}
+
+		function bindEventHandlers() {
+
+			//----обновить
+			$('#refreshBtn').click(function () {
+				updatePage("mIndex");
+			})
+
+			//---- Наименование keyup
+			$("#Name").on('keyup', function (e) {
+				if (e.keyCode == 13) {
+					updatePage("mIndex");
+				}
+			});
+
+			//----БИН  keyup
+			$("#BINIIN").on('keyup', function (e) {
+				if (e.keyCode == 13) {
+					updatePage("mIndex");
+				}
+			});
+
+			//----toggle
+			$(".divpanel").toggle();
+			$("a.lotLihk").click(function () {
+				$(".divpanel").toggle();
+			});
+
+			//----
+			$('.btn-excell-export').click(function () {
+				//event = $(this);
+				//window.Showbusy(event);
+
+				var action = "ExportExcelByManager";
+				updatePage(action);
+			});
+			
+		}
+
+		function updatePage(action) {
+
+			var status = "";
+			var oblast = "";
+			var okeds = "";
+
+			if ($("#Statuses").val() != null) {
+				status = $("#Statuses").val().join(',');
+			}
+
+			if ($("#Oblasts").val() != null) {
+				oblast = $("#Oblasts").val().join(',');
+			}
+
+			if ($("#Okeds").val() != null) {
+				okeds = $("#Okeds").val().join(',');
+			}
+
+			var url = "/MapApplicationEE2/" + action + "?name=" + $('#Name').val() + "&biniin=" + $('#BINIIN').val() + "&oblast=" + oblast + "&status=" + status + "&okeds=" + okeds;
+			if (action == 'ExportExcelByManager') {
+
+				filtersData();
+				var fdata = qwe.paramQuery.fdata;
+				if (fdata.length > 0) {
+
+					$.map(fdata, function (item) {
+						if (item.ColumnName == 'BINIIN')
+							url = url + '&s' + item.ColumnName + "=" + item.FilterValue;
+						else
+							url = url + '&' + item.ColumnName + "=" + item.FilterValue;
+					});
+					
+				}
+
+				if (qwe.paramQuery.sorted != null) {
+					url = url + "&orderName=" + qwe.paramQuery.columnName + "&sorted=" + qwe.paramQuery.sorted;
+				}
+
+			}
+
+			window.location = url;
+		}
+
+		//---- фильтр дата
+		function filtersData() {
+
+			//----
+			var filters = $('#CSSTableGenerator th div[data-filterdata]');
+			console.log("chec=", filters);
+			var fdata = [];
+			$.map(filters, function (item) {
+
+				var val = $(item).attr('data-filterdata');
+				if (val.toString().indexOf('[]') == -1) {
+					var d = eval(val);
+					fdata.push(d[0]);
+				}
+			});
+
+			qwe.paramQuery.fdata = fdata;
+			console.log("fdata:", fdata);
+
+			//----sorted 
+			var sorted = $('#CSSTableGenerator th div.sorted');
+			console.log("sorted", sorted);
+			var href = "";
+			$.map(sorted, function (item) {
+				href = $(item).find('a').attr('href');
+				console.log("href=", href);
+			});
+
+			if (href != "") {
+				var arr = href.split('=');
+
+				if (arr.length > 0) {
+					var buf1 = arr[2];
+					var sortType = "desc";
+					if (parseInt(buf1) == 1)
+						sortType = "asc";
+
+					var buffArr = arr[1].split('&');
+					var columnName = buffArr[0];
+
+					//----
+					qwe.paramQuery.sorted = sortType;
+					qwe.paramQuery.columnName = columnName;
+
+					console.log("sortType=", sortType);
+					console.log("columnName=", columnName);
+				}
+			}else {
+				qwe.paramQuery.sorted=null;
+				qwe.paramQuery.columnName=null;
+			}
+
+			return fdata;
+		}
+
+	});
+
+
+</script>

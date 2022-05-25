@@ -1,0 +1,707 @@
+﻿@using Aisger
+@using Aisger.Helpers
+@using Aisger.Models.ControlModels
+@using GridMvc.Html
+@model Aisger.Models.RST_ReportFilter
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+<style type="text/css">
+    .lotLihk {
+		cursor:pointer;
+    }
+</style>
+<style type="text/css">
+    .just-read {
+        background-color: #eee;
+    }
+
+    .change-sendDate:after {
+        content: '\2807';
+        font-size: 20px;
+        cursor: pointer;
+        padding-left: 5px;
+    }
+</style>
+
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 12px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.SubjectPage  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  @ResourceSetting.RST_Report (@ResourceSetting.countRecord: <span id="countGridRecord"></span><span class="all-count"></span>) </li>
+        <li style="float: right">
+            <button type="button" class="btn btn-default btn-sm" accesscode="RstReport-loadReestr" disabled onclick="goToList()" title="@ResourceSetting.AddSubjectTooltip">
+                <span class="glyphicon glyphicon-save"></span> @ResourceSetting.AddSubject
+            </button>
+
+            @if (Model.RstReportReestrs != null && Model.RstReportReestrs.Any())
+            {
+                <button type="button" class="btn btn-warning btn-sm" accesscode="RstReport-edit" disabled id="HideInform" value="show">
+                    <span class="glyphicon glyphicon-unchecked" aria-hidden="true" id="HideInformCheck"></span> <span id="HideInformText">@ResourceSetting.Edit</span>
+                </button>
+                <button type="button" class="btn btn-danger btn-sm"  accesscode="RstReport-sendExpand" disabled id="executedBtn" title="Все не сдавшие будут переведены в уклонисты">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> @ResourceSetting.sendExpand
+                </button>
+            }
+            <button type="button" id="createReportBtn" class="btn btn-success btn-sm" accesscode="RstReport-createReport" disabled>
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> @ResourceSetting.createReport
+            </button>
+            <button id="btnImport" type="button" class="btn btn-default btn-sm"  accesscode="RstReport-import" disabled data-toggle="modal" data-target="#dlgImportExcelModal" title="@ResourceSetting.AcceptReportTooltip">
+                <span class="glyphicon glyphicon-import" aria-hidden="true"></span> @ResourceSetting.AcceptReport
+            </button>
+
+            @Html.Partial("~/Views/Shared/ExportExcelBtn.cshtml")
+            @*
+                <button type="button" class="btn btn-danger btn-sm" onclick="createReportYear()">
+                    <span class="glyphicon glyphicon-save"></span> Создать новый отчетный год
+                </button>*@
+        </li>
+    </ul>
+    <div id="wrapper_grid" style="margin-left: 50px;margin-bottom: 100px">
+        @using (Html.BeginForm("Edit", "RstReport", FormMethod.Post, new { id = "demoForm", name = "demoForm" }))
+        {
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.ReportId)
+
+
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <div class="row" style="margin-bottom: 10px">
+                        <div class="col-sm-3">
+                            <label for="" style="width:40px;">@ResourceSetting.Year</label>
+                            <div class="input" style="margin-left: 20px">
+                                @Html.DropDownListFor(model => model.ReportYear, (IEnumerable<SelectListItem>)(ViewData["Years"]), String.Empty, new { @style = "width: 150px", data_placeholder = "Укажите год" })
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-4">
+                            <label for="" style="width:60px;">@ResourceSetting.SubPerson</label>
+                            <div class="input" style="margin-left:70px">
+                                @Html.TextBoxFor(model => model.SubjectName, new { @style = "width: 100%" })
+                            </div>
+
+                        </div>
+                        <div class="col-sm-4" style="float:right;">
+                            <label for="" style="width: 80px;">@ResourceSetting.Sort</label>
+                            <div class="input">
+                                @Html.DropDownListFor(model => model.SortId, (IEnumerable<SelectListItem>)(ViewData["SortList"]), String.Empty, new { @style = "width: 200px", @class = "form-control" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div style="float:right">
+                        <button type="button" class="btn btn-info btn-sm" id="addBtn">
+                            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> @ResourceSetting.refresh
+                        </button>
+                    </div>
+                    <h4 class="panel-title">
+                        <a class="lotLihk" style="font-weight: bold"><span class="glyphicon glyphicon-forward"></span>@ResourceSetting.advansedFilter </a>
+                    </h4>
+                </div>
+                <div class="panel-body divpanel">
+                    <div class="col-sm-6">
+                        @Html.Label(ResourceSetting.IDK)
+                        <div class="input">
+                            @Html.TextBoxFor(model => model.IDK, new { @style = "width: 80%" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.Label(ResourceSetting.biniinOwner)
+                        <div class="input">
+                            @Html.TextBoxFor(model => model.BINIIN, new { @style = "width: 80%" })
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        @Html.Label(ResourceSetting.Address)
+                        <div class="input">
+                            @Html.TextBoxFor(model => model.Adress, new { @style = "width: 80%" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.Label(ResourceSetting.ExpectantName)
+                        <div class="input">
+                            <div class="chzn-select">
+                                @Html.ListBoxFor(x => Model.Expacts, Model.ExpactList,
+             new { @class = "chzn-select", data_placeholder = "...", @style = "width: 80%" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.Label(ResourceSetting.RstDicStatus)
+                        <div class="input">
+                            <div class="chzn-select">
+                                @Html.ListBoxFor(x => Model.Statuses, Model.StatusList,
+             new { @class = "chzn-select", data_placeholder = ResourceSetting.Statuses, @style = "width: 80%" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.Label(ResourceSetting.ReportReason)
+                        <div class="input">
+                            <div class="chzn-select">
+                                @Html.ListBoxFor(x => Model.Reasons, Model.ReasonList,
+             new { @class = "chzn-select", data_placeholder = ResourceSetting.Marks, @style = "width: 80%" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.Label(ResourceSetting.RegisterForm)
+                        <div class="input">
+                            <div class="chzn-select">
+                                @Html.ListBoxFor(x => Model.SubDicStatuses, Model.SubDicStatusList,
+             new { @class = "chzn-select", data_placeholder = ResourceSetting.RegisterForm, @style = "width: 80%" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.Label(ResourceSetting.SendForm) 
+                        <div class="input">
+                            @Html.DropDownListFor(model => model.SendId, (IEnumerable<SelectListItem>)(ViewData["Reasons"]), String.Empty, new { @style = "width: 80%" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.Label(ResourceSetting.Excluded)
+                        <div class="input">
+                            @Html.DropDownListFor(model => model.ExcludedId, (IEnumerable<SelectListItem>)(ViewData["Exluldes"]), String.Empty, new { @style = "width: 80%" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.Label(ResourceSetting.FsCode)                        
+                        <div class="input">
+                            <div class="chzn-select">
+                                @Html.ListBoxFor(x => Model.FsCodes, Model.FsCodeList,
+                                        new { @class = "chzn-select", data_placeholder = ResourceSetting.FsCode+" ...", @style = "width: 80%" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        @Html.Label(ResourceSetting.Oblast)
+                        <div class="input">
+                            <div class="chzn-select">
+                                @Html.ListBoxFor(x => Model.Oblasts, Model.OblastList,
+             new { @class = "chzn-select", data_placeholder = ResourceSetting.chooseOblast, @style = "width: 90%" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*
+                <div style="float: left">
+
+                    <div class="input-group" style="width: 200px">
+                        <span class="input-group-addon" id="basic-addon1">Кол-во записей:</span>
+                        <input type="text" readonly="readonly" class="form-control" id="objectCount" aria-describedby="basic-addon1" value="@Model.RstReportReestrs.Count()">
+                    </div>
+                </div>*@
+            @*  <button type="button" class="btn btn-primary btn-sm" id="exportBtn">
+                    <span class="glyphicon glyphicon-open" aria-hidden="true"></span> Экспорт Excel
+                </button>
+                <button type="button" class="btn btn-info btn-sm" id="addBtn">
+                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Обновить
+                </button>*@
+
+
+        }
+
+        @Html.Partial("~/Views/RstReport/CommonGridView.cshtml", @Model.RstReportReestrs)
+        @*@Html.HiddenFor(model => model.PageNum)
+        @Html.HiddenFor(model => model.PageCount)
+   
+        <button type="button" class="btn btn-default btnBack"> << </button>
+        @{
+            var startIndex = 1;
+            var endIndex = 50;
+            var _pageNum = Model.PageNum;
+            if (_pageNum > 1)
+            {
+                endIndex = _pageNum * 50;
+                startIndex = endIndex - 49;
+            }
+
+           <span> @startIndex - @endIndex , страница @_pageNum из @Model.PageCount </span>
+         }
+        <button type="button" class="btn btn-default btnNext"> >> </button>*@ 
+
+    </div>
+
+</div>
+
+
+<div id="dlgImportExcelModal" class="modal fade" style="z-index: 5556;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">
+                    @ResourceSetting.ImportDataSubject
+                </h4>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("_ImportExcelControl", new ImportExcelModel()
+           {
+               Controller = "RstReport",
+               Action = "ImportFromExcel",
+               Year = DateTime.Now.Year
+           })
+            </div>
+            <div class="modal-footer">
+                <div class="content">
+                    <a href="">@ResourceSetting.DownloadTemplate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="change-status-window modal fade" style="padding-top: 100px; ">
+		<div class="modal-dialog" style="width:450px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title"><span class="glyphicon glyphicon-info-sign"></span>@ResourceSetting.changeStatus</h4>
+				</div>
+				<div class="modal-body" style="padding:10px;">
+					<div class="input">
+							<select class="select-status">
+								@{
+								
+									foreach (var item in Model.SubDicStatusList){
+										if(item.Value!="0"){ 											
+											<option value="@item.Value" >@item.Text</option>											
+										}	
+									}
+								}
+							</select>
+                    </div>
+				</div>
+				<div class="modal-footer" style="padding:5px;">
+					<button type="button" class="btn btn-default change-status-ok" id="change-status-ok" data-dismiss="modal">Ок</button>
+					<button type="button" class="btn btn-default" id="change-status-close" data-dismiss="modal">@ResourceSetting.close</button>
+				</div>
+			</div>
+		</div>
+</div>
+
+<div class="change-idk-window modal fade" style="padding-top: 100px; ">
+    <div class="modal-dialog" style="width:450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"><span class="glyphicon glyphicon-info-sign"></span>ИДК</h4>
+            </div>
+            <div class="modal-body" style="padding:10px;">
+                <div class="input">
+                   <input type="text" class="change-idk-input"/>
+                </div>
+            </div>
+            <div class="modal-footer" style="padding:5px;">
+                <button type="button" class="btn btn-default change-idk-ok" data-dismiss="modal">Ок</button>
+                <button type="button" class="btn btn-default" id="change-idk-close" data-dismiss="modal">@ResourceSetting.close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="change-sendDate-window modal fade" style="padding-top: 100px; ">
+    <div class="modal-dialog" style="width:450px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"><span class="glyphicon glyphicon-info-sign"></span>@ResourceSetting.SendDate</h4>
+            </div>
+            <div class="modal-body" style="padding:10px;">
+                <div class="input">
+                    <input type="text" class="change-sendDate-input" value="" dateformat="dd.MM.yyyy"  />
+                </div>
+            </div>
+            <div class="modal-footer" style="padding:5px;">
+                <button type="button" class="btn btn-default change-sendDate-ok" data-dismiss="modal">Ок</button>
+                <button type="button" class="btn btn-default" id="change-sendDate-close" data-dismiss="modal">@ResourceSetting.close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@if (CultureHelper.GetCurrentCulture() == CultureHelper.Ru)
+{
+    <script src="@Url.Content("~/Scripts/localization/select2_locale_ru.js")" type="text/javascript"></script>
+    @*    <script src="@Url.Content("~/Scripts/locales/bootstrap-datepicker.ru.js")" type="text/javascript"> </script>*@
+
+}
+else
+{
+    <script src="@Url.Content("~/Scripts/localization/select2_locale_kk.js")" type="text/javascript"></script>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    	//----page count
+    	pageCount();
+
+    	function pageCount() {
+    		var count = $('#countGridRecord').text();
+    		var reportyear = $('#ReportYear').val();
+
+    		$.post(rootUrl + 'RstReport/GetPageCountByYear', { ReportYear: reportyear }, function (data) {
+    			console.log("all count=", data);
+    			var allCount = data.AllCount;
+
+    			if (allCount != parseInt(count)) {
+    				$('.all-count').text(' из ' + allCount);
+    			} else $('.all-count').text('');
+    		});
+
+    	}
+
+        $("#dlgImportExcelModal").on('shown.bs.modal', function () {
+            if (window.ImportExcelControl)
+                window.ImportExcelControl.init();
+        });
+
+        $("#SubjectName").on('keyup', function (e) {
+            if (e.keyCode == 13) {
+                updatePage("CommonView");
+            }
+        });
+
+        $(".expactCombox").attr('disabled', 'disabled');
+        $(".expactCombox").addClass('just-read');
+
+        $(".reasonCombox").attr('disabled', 'disabled');
+        $(".reasonCombox").addClass('just-read');
+
+        $(".fsCodeCombox").attr('disabled', 'disabled');
+        $(".fsCodeCombox").addClass('just-read');
+
+
+
+
+        $("#HideInform").click(function () {
+            if ($(this).val() == "hide") {
+
+                $(this).val("show");
+                $(".expactCombox").attr('disabled', 'disabled');
+                $(".expactCombox").addClass('just-read');
+                $("#HideInformCheck").addClass("glyphicon-unchecked");
+                $("#HideInformCheck").removeClass("glyphicon-check");
+
+                $(".reasonCombox").attr('disabled', 'disabled');
+                $(".reasonCombox").addClass('just-read');
+
+                $(".fsCodeCombox").attr('disabled', 'disabled');
+                $(".fsCodeCombox").addClass('just-read');
+
+                //                showInformIcon(false);
+            } else {
+                $(this).val("hide");
+                $("#HideInformCheck").removeClass("glyphicon-unchecked");
+                $("#HideInformCheck").addClass("glyphicon-check");
+
+                console.log('expactCombo=', '@MyExtensions.CheckRight("RstReport-changeExpact")');
+                if ('@MyExtensions.CheckRight("RstReport-changeExpact")' == 'True') {
+                    $(".expactCombox").removeAttr('disabled');
+                    $(".expactCombox").removeClass('just-read');
+                }
+
+                if ('@MyExtensions.CheckRight("RstReport-changeReason")' == 'True') {
+                    $(".reasonCombox").removeAttr('disabled');
+                    $(".reasonCombox").removeClass('just-read');
+                }
+
+                if ('@MyExtensions.CheckRight("RstReport-changeFsCode")' == 'True') {
+                    $(".fsCodeCombox").removeAttr('disabled');
+                    $(".fsCodeCombox").removeClass('just-read');
+                }
+            }
+        });
+
+       //----
+        $("#createReportBtn").click(function () {
+            window.location = "/AppForm/Create?year=" + $("#ReportYear").val();
+
+        });
+
+        $("#addBtn").click(function (event) {
+
+            //if ($("#Oblasts").val() == null) {
+            //    showWarning('Обязательно выберите Область');
+            //    return;
+            //}
+            window.Showbusy(event);
+
+            updatePage("CommonView");
+        });
+
+        $("#executedBtn").click(function () {
+            var success = function () {
+                var url = "/RstReport/EvadersCommand?year=" + $("#ReportYear").val();
+                window.location = url;
+            }
+            var cancel = function () {
+            };
+            showConfirmation('@ResourceSetting.Excludeds', '@ResourceSetting.confirmExcluded', success, cancel);
+        });
+
+        var importErrorMsg = '@Model.ImportErrorMsg';
+        if (importErrorMsg) {
+            var success = function () {
+            }
+            var cancel = function () {
+            };
+            showConfirmation("@ResourceSetting.sImport", importErrorMsg, success, cancel);
+        }
+
+    	//----change status
+    	$('.change-status').click(function () {
+
+    		var statusId = $(this).attr('status-id');
+    		var userId = $(this).attr('u-id');
+    		var formId = $(this).attr('form-id');
+
+    		var statuses= $('.select-status').find('option');
+    		$.map(statuses, function (row) {
+    			var id = $(row).val();
+    			if ($(row).text() == statusId) {
+    				$(row).prop("selected", true);
+    			}
+    		});
+
+    		var modal = $(".change-status-window").attr('userId', userId).attr('formId', formId);
+    		modal.modal({ backdrop: 'static', keyboard: false }).on('hidden.bs.modal', function () {
+    			modal.unbind();
+    		});
+    	});
+
+
+		//----
+    	$('.select-status').change(function () {
+    		var id = $(this).val();
+
+    	});
+
+    	//----
+    	$('.change-status-ok').click(function () {
+
+    		var reportYear = $('#ReportYear').val();
+    		var statusId= $('.select-status').val();
+    		var userId = $(".change-status-window").attr('userId');
+    		var formId = $(".change-status-window").attr('formId');
+    		Showbusy(this);
+
+    		$.post('@Url.Action("ChangeStatus", "RstReport")', { userId: userId, reportYear: reportYear, statusId: statusId, formId:formId }, function (data) {
+    			if (data.ErrorMessage == "") {
+    				location.reload();
+    			} else {
+    				console.log(data.ErrorMessage);
+    			}
+    		});
+
+    	})
+
+        //----change idk
+        $('#wrapper_grid').on("click", 'a.change_idk', function () {
+            var reestrId = $(this).attr('reestrId');
+            var userId = $(this).attr('userId');
+            var idk = $(this).attr('idk');
+
+            var success = function () {
+                var modal = $(".change-idk-window").attr({'userId': userId,'reestrId':reestrId});
+                $('.change-idk-input').val(idk);
+
+                modal.modal({ backdrop: 'static', keyboard: false }).on('hidden.bs.modal', function () {
+                    modal.unbind();
+                });
+            }
+            var cancel = function () {
+            };
+            showConfirmation('ИДК', '@ResourceSetting.confirmIDK', success, cancel);
+        });
+
+
+        $('.change-idk-ok').click(function () {
+
+            var userId = $(".change-idk-window").attr('userId');
+            var reestrId = $(".change-idk-window").attr('reestrId');
+            var idk = $('.change-idk-input').val();
+
+            Showbusy(this);
+            //$('.link-object').trigger("click");
+
+            $.post('@Url.Action("ChangeIDK", "RstReport")', { userId: userId, reestrId: reestrId, idk: idk }, function (data) {
+
+                if (data.ErrorMessage == "") {
+                    location.reload();
+                } else {
+                    console.log(data.ErrorMessage);
+                }
+            });
+
+        });
+
+        //----sendDate
+        $('#wrapper_grid').on("click", 'span.change-sendDate', function () {
+            var sd = '@MyExtensions.CheckRight("RstReport-changeSendDate")';
+            console.log("bool sd=" + sd);
+            console.log("bool sd=" + typeof (sd));
+          
+            if ($("#HideInform").val() == "hide") {
+
+
+                if ('@MyExtensions.CheckRight("RstReport-changeSendDate")' == 'True') {
+                    var reestrId = $(this).attr('reestrId');
+                    var sendDate = $(this).attr('sendDate');
+                    var sendDateArr = sendDate.split('.');
+                    console.log("recordId=", reestrId);
+                    console.log("sendDate=", sendDate);
+                    var newDate = sendDateArr[2] + "-" + sendDateArr[1] + "-" + sendDateArr[0];
+                    console.log("newDate=", newDate);
+                    var modal = $(".change-sendDate-window").attr({ 'reestrId': reestrId });
+                    $('.change-sendDate-input').val(newDate);
+
+                    modal.modal({ backdrop: 'static', keyboard: false }).on('hidden.bs.modal', function () {
+                        modal.unbind();
+                    });
+                }
+
+            }
+        });
+
+
+        $('.change-sendDate-input').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            dateFormat: 'yyyy-MM-dd',
+            defaultDate: null,
+            // maxDate: new Date(_currentYear + '-11-31'),
+            onClose: function (dateText, inst) {
+
+                console.log("dtext=", dateText);
+                console.log("dtext inst=", inst);
+                $(this).datepicker('setDate',dateText); //new Date(inst.selectedYear, inst.selectedMonth, 1)
+
+            }
+        });
+
+        $('.change-sendDate-ok').click(function () {
+            var reestrId = $(".change-sendDate-window").attr('reestrId');
+            var sendDate = $('.change-sendDate-input').val();
+
+            Showbusy(this);
+
+            $.post('@Url.Action("UpdateSendDate", "RstReport")', { reestrId: reestrId, sendDate: sendDate }, function (data) {
+                if (data.ErrorMessage == "") {
+                    location.reload();
+                } else {
+                    console.log(data.ErrorMessage);
+                }
+            });
+        });  
+
+    });
+</script>
+<script>
+    function goToList() {
+        var reportYear = $("#ReportYear").val();
+        if (reportYear == null || reportYear.length == 0) {
+            showWarning('@ResourceSetting.chooseYear');
+            return;
+        }
+        var url = "/RstApplication/Create?year=" + $("#ReportYear").val();
+        window.location = url;
+    }
+
+    /*    function createReportYear() {
+           /* var reportYear = $("#ReportYear").val();
+            if (reportYear == null || reportYear.length == 0) {
+                showWarning("Укажите отчетный год");
+                return;
+            }#1#
+            var url = "/RstReport/RegistredYear";
+            window.location = url;
+        }*/
+
+    function updatePage(action) {
+        var status = "";
+        var reason = "";
+        var oblast = "";
+        var expact = "";
+        var sortId = "";
+        var subDicStatus = "";
+        var fsCodes = "";
+        if ($("#Statuses").val() != null) {
+            status = $("#Statuses").val().join(',');
+        }
+        if ($("#Expacts").val() != null) {
+            expact = $("#Expacts").val().join(',');
+        }
+        if ($("#Reasons").val() != null) {
+            reason = $("#Reasons").val().join(',');
+        }
+        if ($("#Oblasts").val() != null) {
+            oblast = $("#Oblasts").val().join(',');
+        }
+        if ($("#SubDicStatuses").val() != null) {
+            subDicStatus = $("#SubDicStatuses").val().join(',');
+        }
+        if ($("#FsCodes").val() != null) {
+            fsCodes = $("#FsCodes").val().join(',');
+        }
+        if ($("#SortId").val() != null) {
+            sortId = $("#SortId").val();
+        }
+        if ($("#SortId").val() != null) {
+            sortId = $("#SortId").val();
+        }
+
+        var url = "/RstReport/" + action + "?year=" + $("#ReportYear").val() + '&idk=' + $("#IDK").val() + '&biniin=' + $("#BINIIN").val() + '&adress=' + $("#Adress").val() + '&owner=' + $("#SubjectName").val() + '&sortId=' + sortId + '&sendId=' + $("#SendId").val() + '&excludedId=' + $("#ExcludedId").val();
+        if (status.length > 0) {
+            url += '&status=' + status;
+        }
+        if (reason.length > 0) {
+            url += '&reason=' + reason;
+        }
+        if (oblast.length > 0) {
+            url += '&oblast=' + oblast;
+        }
+        if (expact.length > 0) {
+            url += '&expact=' + expact;
+        }
+        if (subDicStatus.length > 0) {
+            url += '&subDicStatus=' + subDicStatus;
+        }
+
+        if (fsCodes.length > 0) {
+            url += '&fsCode=' + fsCodes;
+        }
+       // url += "&pageNum=" + $('#PageNum').val() + "&pageCount=" + $('#PageCount').val();
+        window.location = url;
+    }
+
+    $(function () {
+        $(".divpanel").toggle();
+        $("a.lotLihk").click(function () {
+            $(".divpanel").toggle();
+        });
+
+        $('.btnBack').click(function () {
+            var pageNum = parseInt($('#PageNum').val());
+            if (pageNum > 1) {
+                pageNum = pageNum - 1;
+                $('#PageNum').val(pageNum);
+                updatePage("CommonView");
+            }
+        })
+
+        $('.btnNext').click(function () {
+            var pageNum = parseInt($('#PageNum').val());
+            var pageCount = parseInt($('#PageCount').val());
+            if (pageNum < pageCount) {
+                pageNum = pageNum + 1;
+                $('#PageNum').val(pageNum);
+                updatePage("CommonView");
+            }
+        });
+    });
+</script>

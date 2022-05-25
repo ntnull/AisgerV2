@@ -1,0 +1,14 @@
+﻿@model Aisger.Models.BaseDictionary
+<link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/jquery-ui.min.css")">
+<link href="@Url.Content("~/Content/custom/common.css")" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="@Url.Content("~/Content/custom/templatemo_style.css")" />
+
+    @Html.Label("Зарегистрированное наименование")
+    <div class="input">
+        @Html.TextBoxFor(model => model.NameRu, new { @readonly = "readonly", @style = "width: 80%", @disabled = "disabled" })
+    </div>
+    @Html.Label("Наименование с файла")
+    <div class="input">
+        @Html.TextBoxFor(model => model.NameKz, new { @readonly = "readonly", @style = "width: 80%", @disabled = "disabled" })
+    </div>

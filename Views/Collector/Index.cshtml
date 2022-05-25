@@ -1,0 +1,63 @@
+﻿@using System.Threading
+@using Aisger
+@using Aisger.Models
+@using Aisger.Models.ControlModels
+@using Aisger.Utils
+@using GridMvc.Html
+@model IEnumerable<COLLECTOR_Cmdevice>
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/custom/templatemo_style.css")" />
+
+@helper GridManageItemColumn(COLLECTOR_Cmdevice form)
+{
+    <button type="button" class="btn btn-default btn-sm btn-block CollectorReestr-edit" disabled onclick="location.href='@Url.Action("ShowIndicatorValues", "Collector", new { form.Code })'">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span> @ResourceSetting.ViewReadings
+    </button>
+    <button type="button" class="btn btn-warning btn-sm btn-block" disabled  accesscode="CollectorReestr-edit"  onclick="location.href='@Url.Action("Edit", "Collector", new { form.Id })'">
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> @ResourceSetting.Edit
+    </button>
+    <a href="#" onclick="DeleteRecord('@form.Id')" class="btn btn-danger btn-sm btn-block" accesscode="CollectorReestr-delete"  disabled>
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> @ResourceSetting.Delete
+    </a>
+}
+
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.Collerctor  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  @ResourceSetting.Cmdevices </li>
+        <li style="float: right">
+            <button type="button" class="btn btn-success btn-sm"  accesscode="CollectorReestr-create" disabled onclick="location.href='@Url.Action("Create", "Collector")'">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> @ResourceSetting.add
+            </button>
+        </li>
+    </ul>
+    <div id="CSSTableGenerator">
+        @Html.Grid(Model).SetLanguage(Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName).Columns(columns =>
+        {
+            columns.Add(o => o.Id, true).Titled("Id").SetWidth(0);
+            columns.Add(o => o.NameRu).Titled(ResourceSetting.NameRu).SetWidth(40);
+            columns.Add(o => o.NameKz).Titled(ResourceSetting.NameKz).SetWidth(40);
+            columns.Add(o => o.Address).Titled(ResourceSetting.Address).SetWidth(40);
+            columns.Add(o => o.IndicatorType).Titled(ResourceSetting.IndicatorType).SetWidth(40);
+            columns.Add(o => o.Description).Titled(ResourceSetting.Description).SetWidth(40);
+            columns.Add()
+                .Encoded(false).Sanitized(false).SetWidth(20)
+                .RenderValueAs(o => GridManageItemColumn(o).ToHtmlString());
+        }).WithPaging(50).Sortable().Filterable().WithMultipleFilters()
+    </div>
+</div>
+
+<script>
+    function DeleteRecord(id) {
+        var success = function () {
+            var url = '@Url.Action("Delete", "Collector")?id=' + id;
+            window.location.href = url;
+        }
+        var cancel = function () {
+        };
+        showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+    }
+</script>

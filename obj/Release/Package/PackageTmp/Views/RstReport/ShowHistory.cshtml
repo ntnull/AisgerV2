@@ -1,0 +1,59 @@
+﻿@using Aisger
+@model IEnumerable<Aisger.Models.RST_ReestrReportHistory>
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+<style type="text/css">
+    .title-label {
+        font-weight: bold;
+        color: gray;
+    }
+</style>
+<link rel="stylesheet" href="@Url.Content("~/Content/jquery-ui.css")" />
+<link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.css")">
+<div class="alert alert-success" role="alert">
+    @if (Model != null && Model.Any() && Model.First().SEC_User != null)
+    {
+        <li class="list-group-item">@Model.First().SEC_User.ApplicationName</li>
+    }
+</div>
+
+<div id="content" style="height: 200px">
+    @foreach (var entity in Model)
+    {
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <!-- List group -->
+            <ul class="list-group" style="text-align: left">
+                <li class="list-group-item">
+                    <span class="title-label">@ResourceSetting.RegDate: </span>@entity.RegDate.ToString()
+
+                    @if (entity.RST_DIC_Status != null)
+                    {
+                        <span > / <span class="title-label">@ResourceSetting.RstDicStatus: </span>@entity.RST_DIC_Status.NameRu</span>
+                    }
+                </li>
+                <li class="list-group-item">
+                    @if (entity.RST_DIC_Reason != null)
+                    {
+                    <span class="title-label">Отметка: </span>@entity.RST_DIC_Reason.NameRu
+                    }
+
+                    @if (entity.RST_DIC_Reason1 != null)
+                    {
+                        <span> / <span class="title-label">@ResourceSetting.ExpectantName: </span>@entity.RST_DIC_Reason1.NameRu</span>
+                    }
+                </li>
+
+                @if (entity.DIC_Kato != null)
+                {
+                    <li class="list-group-item"><span class="title-label">@ResourceSetting.Oblast: </span>@entity.DIC_Kato.NameRu</li>
+                }
+             
+              
+                @if (entity.SEC_User1 != null)
+                {
+                    <li class="list-group-item"><span class="title-label">@ResourceSetting.Autor: </span>@entity.SEC_User1.ApplicationName</li>
+                }
+            </ul>
+        </div>
+    }
+</div>

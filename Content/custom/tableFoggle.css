@@ -1,0 +1,11 @@
+﻿  .headerRow {
+        font-weight: bold;
+        background-color: #f2f2f2;
+    }
+
+    .reportCss thead tr td {
+        border: 1px solid #f2f2f2;
+        font-size: 10px;
+        vertical-align: top;
+    }
+    .reportCss  tr:hover {background-color: #f5f5f5}

@@ -1,0 +1,226 @@
+﻿@using Aisger
+@using Aisger.Models
+@using Aisger.Models.Constants
+
+@model Aisger.Models.EauditAttachment1
+
+
+@Html.HiddenFor(model => model.Preamble.Id, new { id = "refPreambleId" })
+
+<div id="raitingFormOwned">
+    @if (Model.FieldComments != null)
+    {
+        foreach (EAUDIT_FieldComments comment in Model.FieldComments)
+        {
+            @Html.Hidden(comment.Id.ToString(), comment.Comment, new
+            {
+                rowId = comment.RowId
+                , fieldName = comment.FieldName
+                , isError = comment.IsError
+                , formCode = comment.FormCode
+                , @class = "raiting"
+            });
+        }    
+    }
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="center-block">
+            <h4 class="text-center">
+                @ResourceSetting.tOwnedFacilities
+            </h4>
+        </div>
+    </div>
+</div>
+
+<div id="CSSTableGenerator">
+    <table id="tbIndustryFormOf" class="table-center">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>@ResourceSetting.Name</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>1</th>
+                <th>2</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="@EnergyAuditFormConsts.OwnedFacility">
+            <tr class="@EnergyAuditFormConsts.OwnedFacility"></tr>
+            @{ int index = 0;
+                EAUDIT_OwnedFacility signedOf = null; }
+            @foreach (var of in Model.OwnedFacilities.OrderBy(ownedf => ownedf.Id))
+            {
+                index = index + 1;
+                if (Model.SignedEauditPreamble != null && Model.SignedEauditPreamble.EAUDIT_OwnedFacility != null)
+                {
+                    signedOf = Model.SignedEauditPreamble.EAUDIT_OwnedFacility.FirstOrDefault(sof => sof.Id == of.Id);    
+                }
+                <tr id="@of.Id" class="@EnergyAuditFormConsts.OwnedFacility">
+                    <td class="disabletd">@index</td>
+                    <td>
+                        <div class="input-group">
+                            @if (Model.IsReadOnly)
+                            {
+                                @Html.DisplayFor(model => of.Name)
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(model => of.Name, new { @class = "form-edit formOfField" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            }
+                            @if (signedOf != null)
+                            {
+                                <div class="signed signed-color">
+                                    @signedOf.Name
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td style="text-align: center">
+                        @if (!Model.IsReadOnly)
+                        {
+                            <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+                        }
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td colspan="3" style="text-align: left;">
+                    @if (!Model.IsReadOnly)
+                    {
+                        <button type="button" class="btn btn-info btn-sm" id="btnAddNewFormOf">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </button>
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<table id="tbFormOfRowTemplate" class="hidden">
+    <tr class="@EnergyAuditFormConsts.OwnedFacility">
+        <td class="disabletd">
+            <span class="ordern"></span>
+        </td>
+        <td>
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.OwnedFacilities.FirstOrDefault().Name, new { @class = "form-edit formOfField", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td style="text-align: center">
+            <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+        </td>
+    </tr>
+</table>
+
+<script>
+    var IndustryFormOf = {
+        SaveOrUpdateFormFn: function(formOf, row) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateOwnedFacility","IndustryAttachment1")',
+                data: formOf,
+                dataType: 'json',
+                cache: false,
+                success: function(data) {
+                    if (data.IsSuccess) {
+                        $(row).attr("id", data.Id);
+                    }
+                },
+            });
+        },
+        DeleteFormFn: function(rowId) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Delete","IndustryAttachment1")',
+                data: { id: rowId, industryFormCode: '@EnergyAuditFormConsts.OwnedFacility' },
+                dataType: 'json',
+                cache: false,
+                success: function(data) {
+                },
+            });
+        },
+        init: function() {
+            $("table .formOfField").blur(function() {
+                IndustryFormOf.onBlurFieldFn(this);
+            });
+            $("#btnAddNewFormOf").click(function () {
+                
+                IndustryFormOf.addNewRowFn("@EnergyAuditFormConsts.OwnedFacility");
+            });
+
+            $("#tbIndustryFormOf").on("click", ".deleteRow", function() {
+                IndustryFormOf.deleteRowFn($(this), "@EnergyAuditFormConsts.OwnedFacility");
+            });
+        },
+        serializeFormFn: function(row) {
+            var formOf = {};
+            var refPreamble = $("#refPreambleId").val();
+            formOf.refPreamble = refPreamble;
+            var id = row.attr("id");
+            formOf.Id = id;
+            row.find(".formOfField").each(function() {
+                var name = $(this).attr("name");
+                if (name.indexOf('.') > -1) {
+                    var nameArr = name.split('.');
+                    name = nameArr[nameArr.length - 1];
+                }
+                formOf[name] = $(this).val().replace('.',',');
+            });
+
+            return formOf;
+        },
+        addNewRowFn: function (className) {
+            var row = $("#tbFormOfRowTemplate tbody").html();
+            //row = $(row).addClass(className);
+            var lastRow = $("#tbIndustryFormOf tr." + className).last();
+            var rowCount = $("#tbIndustryFormOf tr." + className).length;
+            var rowElement = $.parseHTML(row);
+            $(rowElement).find(".ordern").text(rowCount);
+            $(".formOfField", rowElement).blur(function () {
+                IndustryFormOf.onBlurFieldFn(this);
+            });
+
+            // row = $(rowElement).wrap('<p/>').parent().html();
+            lastRow.after(rowElement);
+        },
+        deleteRowFn: function(element, className) {
+            var row = $(element).closest('tr');
+            var success = function() {
+                var entityId = row.attr('id');
+                if (entityId)
+                    IndustryFormOf.DeleteFormFn(entityId);
+                row.remove();
+            }
+            var cancel = function() {
+
+            };
+            showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+        },
+        changeRowSpanHelperFn: function (row, value) {
+
+        },
+        onBlurFieldFn: function (element) {
+            var row = $(element).closest("tr");
+            var formOf = IndustryFormOf.serializeFormFn(row);
+            if (formOf.refPreamble) {
+                IndustryFormOf.SaveOrUpdateFormFn(formOf, row);
+            }
+        }
+    };
+</script>

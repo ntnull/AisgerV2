@@ -1,0 +1,15 @@
+﻿@model Aisger.Models.SUB_DIC_NormEnergy
+<optgroup label="@Model.NameRu">
+    @foreach (var item in Model.SUB_DIC_NormEnergy1)
+    {
+        if (item.SUB_DIC_NormEnergy1.Count > 0)
+        {
+            @Html.Partial("~/Views/RegisterForm/Childrens.cshtml", item)
+        }
+        else
+        {
+            <option value="@item.Id" unit="@item.UnitName" rate="@item.Rate">@item.NameRu</option>
+        }
+
+    }
+</optgroup>

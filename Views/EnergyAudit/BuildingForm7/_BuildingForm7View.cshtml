@@ -1,0 +1,466 @@
+﻿@using Aisger
+@using Aisger.CustomResources
+@using Aisger.Models
+@using Aisger.Models.Constants
+@model EauditAttachment2         
+
+@Html.HiddenFor(model => model.Preamble.Id, new { id = "refPreambleId" })
+
+<div id="raitingBform7">
+    @foreach (EAUDIT_FieldComments comment in Model.FieldComments)
+    {
+        @Html.Hidden(comment.Id.ToString(), comment.Comment, new
+        {
+            rowId = comment.RowId
+            , fieldName = comment.FieldName
+            , isError=comment.IsError
+            , formCode=comment.FormCode
+            , @class = "raiting"
+        });
+    }
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="center-block">
+            <h4 class="text-center">
+                7. @EauditResource.BuildingForm7Name
+            </h4>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div id="sllForm7Building" class="form-inline link-selector">
+            <label>
+                @EauditResource.Buildings
+            </label>
+            @*            @Html.DropDownListFor(model => model.RefBuilding*@
+            @*            , Model.BuildingList*@
+            @*            , new { id = "ddlForm7Building" })*@
+            @Html.Partial("_SelectLinkList", new Aisger.Models.ControlModels.SelectLinkListModel()
+            {
+                CurrentLink = Model.RefBuilding.HasValue ? Model.RefBuilding.Value.ToString() : null,
+                SelectListItems = Model.BuildingList
+            })
+        </div>
+    </div>
+</div>
+
+<div id="CSSTableGenerator">
+    <table id="tbBuildingForm7" class="table-center">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>@EauditResource.Index</th>
+                <th>@EauditResource.DesignationAndUnit</th>
+                <th>@EauditResource.RatedValue</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="@EnergyAuditFormConsts.BuildingForm7">
+            @{
+                EAUDIT_BuildingForm7 signedIform = null;
+            }
+            @foreach (EAUDIT_BuildingForm7 formRow in Model.BuildingForm7Rows
+                .OrderBy(row => row.EAUDIT_DIC_TypeResource.PosIndex)
+                .ThenBy(row => row.EAUDIT_DIC_TypeResource.Code)
+                .ThenBy(row => row.InnerOrder))
+            {
+                if (Model.SignedEauditPreamble != null
+                    && Model.SignedEauditPreamble.EAUDIT_BuildingForm7 != null)
+                {
+                    signedIform = Model.SignedEauditPreamble.EAUDIT_BuildingForm7
+                        .FirstOrDefault(iform => iform.Id == formRow.Id);
+                }
+                var code = formRow.EAUDIT_DIC_TypeResource.Code;
+                {
+                    if (formRow.IsAdditionalRow != null
+                        && formRow.IsAdditionalRow.Value)
+                    {
+                        <tr id="@formRow.Id" data-typeid="@formRow.EAUDIT_DIC_TypeResource.Id" class="@code">
+                            <td>
+                                <!--1-->
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        <span class="text-display">
+                                            @Html.DisplayFor(model => formRow.Name)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => formRow.Name, new { @class = "form-edit formb7Field" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color">
+                                            @signedIform.Name
+                                        </div>
+                                    }
+                                </div>
+                                @Html.HiddenFor(model => formRow.IsAdditionalRow, new { @class = "formb7Field" })
+                            </td>
+                            <td>
+                                <!--2-->
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        <span class="text-display">
+                                            @Html.DisplayFor(model => formRow.DesignationAndUnit)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => formRow.DesignationAndUnit, new { @class = "form-edit formb7Field" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color">
+                                            @signedIform.DesignationAndUnit
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td>
+                                <!--3-->
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        <span class="text-display">
+                                            @Html.DisplayFor(model => formRow.Value)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => formRow.Value, new { @class = "form-edit formb7Field" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color">
+                                            @signedIform.Value
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td style="text-align: center">
+                                @if (!Model.IsReadOnly)
+                                {
+                                    <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+                                }
+                            </td>
+                        </tr>
+                    }
+                    else if (formRow.IsCommand)
+                    {
+                        <tr data-typeid="@formRow.EAUDIT_DIC_TypeResource.Id" data-code="@formRow.EAUDIT_DIC_TypeResource.Code">
+                            <td>
+                                <!-- 2 -->
+                                @if (!Model.IsReadOnly)
+                                {
+                                    <button type="button" class="btn btn-info btn-xs btn-add" data-code="@formRow.EAUDIT_DIC_TypeResource.Code">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                        <!--Добавить-->
+                                    </button>
+                                }
+                            </td>
+                            <td>
+                                <!-- 2 -->
+                            </td>
+                            <td>
+                                <!-- 3 -->
+                            </td>
+                            <td>
+                                <!-- 4 -->
+                            </td>
+                            <td>
+                                <!-- 5 -->
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr id="@formRow.Id" data-typeid="@formRow.EAUDIT_DIC_TypeResource.Id" class="@code">
+                            
+                            @if (formRow.EAUDIT_DIC_TypeResource.Code.EndsWith("-0"))
+                            {
+                                <td class="disabletd" rowspan="@formRow.RowSpan">
+                                    @formRow.EAUDIT_DIC_TypeResource.Number
+                                </td>
+                            }
+                            
+                            <td class="disabletd">
+                                @Html.Raw(formRow.EAUDIT_DIC_TypeResource.NameRu)
+                            </td>
+                            <td class="disabletd">
+                                @Html.Raw(formRow.DesignationAndUnit)
+                                @if (signedIform != null)
+                                {
+                                    <div class="signed signed-color">
+                                        @signedIform.DesignationAndUnit
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    @if (Model.IsReadOnly)
+                                    {
+                                        <span class="text-display">
+                                            @Html.DisplayFor(model => formRow.Value)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(model => formRow.Value, new { @class = "form-edit formb7Field" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#" tabindex="-1">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                    @if (signedIform != null)
+                                    {
+                                        <div class="signed signed-color">
+                                            @signedIform.Value
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<table id="tbFormB7RowTemplate" class="hidden">
+    <tr>
+        <td>
+            <!--1-->
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.BuildingForm7Rows.FirstOrDefault().Name
+                    , new { @class = "form-edit formb7Field", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+            @Html.HiddenFor(model => model.BuildingForm7Rows.FirstOrDefault().IsAdditionalRow, new { @class = "formb7Field", @Value = "true" })
+        </td>
+        <td>
+            <!--2-->
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.BuildingForm7Rows.FirstOrDefault().DesignationAndUnit
+                , new { @class = "form-edit formb7Field", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+
+        </td>
+        <td>
+            <!--3-->
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.BuildingForm7Rows.FirstOrDefault().ValueStandart
+                , new { @class = "form-edit formb7Field numeric", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#" tabindex="-1">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td style="text-align: center">
+            <i class="glyphicon glyphicon-remove deleteRow" title="@ResourceSetting.Delete"></i>
+        </td>
+    </tr>
+</table>
+
+<script>
+    var BuildingForm7 = {
+        SaveOrUpdateFormFn: function (form, row, urlParam) {
+            $.ajax({
+                type: "POST",
+                url: urlParam,
+                data: form,
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    if (data.IsSuccess) {
+                        $(row).attr("id", data.Id);
+                    }
+                },
+            });
+        },
+        DeleteFormFn: function (rowId, urlParam, formCode) {
+            $.ajax({
+                type: "POST",
+                url: urlParam,
+                data: { id: rowId, buildingFormCode: formCode },
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                },
+            });
+        },
+        init: function () {
+            var updateUrl = '@Url.Action("UpdateForm7", "BuildingAttachment2")';
+            var deleteUrl = '@Url.Action("Delete", "BuildingAttachment2")';
+            var buildingCode = "@EnergyAuditFormConsts.BuildingForm7";
+            var fieldClass = "formb7Field";
+
+            if (window.EAuditGeneral) {
+                EAuditGeneral.msgFieldMustBeDigit = '@ResourceSetting.sInputNumberRequired';
+                EAuditGeneral.tTitle = '@ResourceSetting.sComment';
+                EAuditGeneral.sSave = '@ResourceSetting.Save';
+                window.EAuditGeneral.init("tbBuildingForm7");
+            }
+
+            $("table ." + fieldClass).blur(function () {
+                BuildingForm7.onBlurFieldFn(this, updateUrl, fieldClass);
+            });
+
+            $("#btnAddNewForm7").click(function () {
+                BuildingForm7.addNewRowFn(buildingCode
+                    , "tbFormB7RowTemplate"
+                    , "tbBuildingForm7"
+                    , fieldClass
+                    , updateUrl);
+            });
+
+            $("#tbBuildingForm7").on("click", ".deleteRow", function () {
+                BuildingForm7.deleteRowFn($(this)
+                    , deleteUrl
+                    , buildingCode);
+            });
+
+            $('#ddlForm7Building').change(function () {
+                var refBuilding = $(this).val();
+                var refPreamble = $("#refPreambleId").val();
+                window.BuiildingParentForm.reloadForm7(refPreamble, refBuilding);
+            });
+
+            $('.link-selector-item').click(function () {
+                var refBuilding = $(this).attr('value');
+                var refPreamble = $("#refPreambleId").val();
+                window.BuiildingParentForm.reloadForm7(refPreamble, refBuilding);
+            });
+
+            $(".integer").autoNumeric('init', {
+                aSep: EAuditGeneral.NumberGroupSeparatorConst,
+                mDec: 0
+            }, EAuditGeneral._alerWrongInput);
+            $(".numeric").autoNumeric('init', {
+                aSep: EAuditGeneral.NumberGroupSeparatorConst,
+                aDec: EAuditGeneral.NumberDecimalSeparatorConst,
+                mDec: 10,
+                aPad: false
+            }, EAuditGeneral._alerWrongInput);
+        },
+        serializeFormFn: function (row, fieldClass) {
+            var form = {};
+            var refPreamble = $("#refPreambleId").val();
+            form.refPreamble = refPreamble;
+
+            var id = row.attr("id");
+            form.Id = id;
+
+            var refTypeResource = row.attr("data-typeid");
+            form.refTypeResource = refTypeResource;
+            // form.refBuilding = $("#ddlForm7Building").val();
+            form.refBuilding = $("#sllForm7Building").children(".link-selector-item.selected").attr('value');
+
+            row.find("." + fieldClass).each(function () {
+                var name = $(this).attr("name");
+                if (name.indexOf('.') > -1) {
+                    var nameArr = name.split('.');
+                    name = nameArr[nameArr.length - 1];
+                }
+                var value = $(this).val();
+                if ($(this).hasClass('numeric') || $(this).hasClass('integer')) {
+                    value = $(this).autoNumeric('get');
+                    value = EAuditGeneral.fixDecimalSeparatorFn(value);
+                }
+                form[name] = value;
+            });
+
+            return form;
+        },
+        addNewRowFn: function (className, templateId, mainTableId, fieldClass, urlParam) {
+            var row = $("#" + templateId + " tbody").html();
+            //row = $(row).addClass(className);
+            var lastRow = $("#" + mainTableId + " tr." + className).last();
+            var rowCount = $("#" + mainTableId + " tr." + className).length + 1;
+            debugger;
+            var rowElement = $.parseHTML(row);
+            $(rowElement).find(".ordern").text(rowCount);
+            $("." + fieldClass, rowElement).blur(function () {
+                BuildingForm7.onBlurFieldFn(this, urlParam, fieldClass);
+            });
+
+            $(".integer", rowElement).autoNumeric('init', {
+                aSep: EAuditGeneral.NumberGroupSeparatorConst,
+                mDec: 0
+            }, EAuditGeneral._alerWrongInput);
+            $(".numeric", rowElement).autoNumeric('init', {
+                aSep: EAuditGeneral.NumberGroupSeparatorConst,
+                aDec: EAuditGeneral.NumberDecimalSeparatorConst,
+                mDec: 10,
+                aPad: false
+            }, EAuditGeneral._alerWrongInput);
+
+            lastRow.after(rowElement);
+        },
+        deleteRowFn: function (element, urlParam, className) {
+            var row = $(element).closest('tr');
+            var success = function() {
+                var entityId = row.attr('id');
+                if (entityId)
+                    BuildingForm7.DeleteFormFn(entityId, urlParam, className);
+                row.remove();
+            };
+            var cancel = function () {
+
+            };
+            showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+        },
+        changeRowSpanHelperFn: function (row, value) {
+
+        },
+        onBlurFieldFn: function (element, urlParam, fieldClass) {
+            debugger;
+            var row = $(element).closest("tr");
+            var form = BuildingForm7.serializeFormFn(row, fieldClass);
+            if (form.refPreamble) {
+                BuildingForm7.SaveOrUpdateFormFn(form, row, urlParam);
+            }
+        }
+    };
+</script>

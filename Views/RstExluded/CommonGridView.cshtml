@@ -1,0 +1,199 @@
+﻿@using System.Collections
+@using System.Threading
+@using Aisger
+@using Aisger.Models
+@using FlowDoc.Models
+@using GridMvc.Html
+@model IEnumerable<RST_ReportReestrFilter>
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+<script src="@Url.Content("~/Scripts/custom/gridmvc.reestr.status.js")" type="text/javascript"> </script>
+<script src="@Url.Content("~/Scripts/custom/gridmvc.reestr.reason.js")" type="text/javascript"> </script>
+<script src="@Url.Content("~/Scripts/custom/gridmvc.oblast.js")" type="text/javascript"> </script>
+@helper GridManageItemColumn(long id)
+{
+    <a href="@Url.Action("EditRecord", "RstReport", new { id })">
+        <i class="glyphicon glyphicon-edit" title="@ResourceSetting.Edit"></i>
+    </a>
+    <a href="@Url.Action("Exluded", "RstReport", new { id })">
+        <i class="glyphicon glyphicon-share" title="@ResourceSetting.Excludeds"></i>
+    </a>
+}
+@helper SubjectView(RST_ReportReestrFilter o)
+{
+    var customer = o.OwnerName + '/' + o.Address;
+    <a href="@Url.Action("Index", "SubjectInfo", new { id = o.UserId })" class="link-object">
+        @customer
+
+    </a>
+
+}
+
+@helper FromView(RST_ReportReestrFilter o)
+{
+    var customer = o.FormStatus;
+    if (o.FormId != null && o.FormId > 0)
+    {
+        <a href="@Url.Action("ShowDetails", "AppForm", new {id = o.FormId})" class="link-object">
+            @customer
+        </a>
+    }
+    else
+    {
+        @customer
+    }
+   
+}
+@helper CondidatView(RST_ReportReestrFilter o)
+{
+    <select class="expactCombox" style="width: 100%" recordid="@o.Id" title="@o.ExpectantName">
+        <option></option>
+        @{
+            var listStatus = ViewData["ExpactList"];
+            foreach (RST_DIC_Reason source in (IEnumerable)listStatus)
+            {
+                if (o.Expectant == source.Id)
+                {
+                    <option selected value="@source.Id"> @source.Name </option>
+                }
+                <option value="@source.Id"> @source.Name </option>
+            }
+        }
+    </select>
+}
+@helper StateView(RST_ReportReestrFilter o)
+{
+    <select class="stateCombox" style="width: 100%" recordid="@o.Id" >
+        <option></option>
+        @{
+            var listStatus = ViewData["StateList"];
+            foreach (RST_DIC_Status source in (IEnumerable)listStatus)
+            {
+                if (o.StatusId == source.Id)
+                {
+                    <option selected value="@source.Id"> @source.Name </option>
+                }
+                <option value="@source.Id"> @source.Name </option>
+            }
+        }
+    </select>
+}
+
+
+
+
+<style type="text/css">
+    td {
+        border-left: 1px solid #dddddd;
+    }
+</style>
+<div id="CSSTableGenerator">
+    @Html.Grid(Model).Named("ordersGrid").SetLanguage(Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName).Columns(columns =>
+            {
+                columns.Add(o => o.Id, true)
+                    .Titled("Id").SetWidth(0);
+                columns.Add(o => o.BINIIN).Titled(ResourceSetting.biniinSubject)
+                   .SetWidth(40);
+            columns.Add(o => o.IDK).Titled(ResourceSetting.IDK)
+                   .SetWidth(40);
+                columns.Add()
+                    .Encoded(false)
+                    .Sanitized(false).Titled(ResourceSetting.SubPerson)
+                    .SetWidth(80)
+                    .RenderValueAs(o => SubjectView(o).ToHtmlString());
+                columns.Add(o => o.OwnerName, true).Titled(ResourceSetting.SubPerson)
+               .SetWidth(40);
+                columns.Add(o => o.Address, true).Titled(ResourceSetting.Address)
+                .SetWidth(40);
+                columns.Add(o => o.SendDate).Titled(ResourceSetting.SendDate)
+ .Format("{0:dd/MM/yyyy}")
+ .SetWidth(40);
+                columns.Add()
+                   .Encoded(false)
+                   .Sanitized(false).Titled(ResourceSetting.RegisterForm)
+                   .SetWidth(80)
+                   .RenderValueAs(o => FromView(o).ToHtmlString());
+                columns.Add(o => o.FormStatus, true).Titled(ResourceSetting.RegisterForm)
+             .SetWidth(40);
+                columns.Add()
+                 .Encoded(false)
+                 .Sanitized(false).Titled(ResourceSetting.ExpectantName)
+                 .SetWidth(80)
+                 .RenderValueAs(o => CondidatView(o).ToHtmlString());
+                columns.Add(o => o.ExpectantName, true).Titled(ResourceSetting.ExpectantName)
+        .SetWidth(40);
+             /*   columns.Add(o => o.OwnerName).Titled(ResourceSetting.SubPerson)
+                  .SetWidth(40);
+                columns.Add(o => o.Address).Titled(ResourceSetting.Address)
+            .SetWidth(40);*/
+                columns.Add(o => o.OblastName).Titled(ResourceSetting.Oblast)
+           .SetWidth(40).SetFilterWidgetType("OblastNameFilterWidget");
+                columns.Add()
+               .Encoded(false)
+               .Sanitized(false).Titled(ResourceSetting.RstDicStatus)
+               .SetWidth(120)
+               .RenderValueAs(o => StateView(o).ToHtmlString());
+                columns.Add(o => o.StatusName, true).Titled(ResourceSetting.RstDicStatus)
+     .SetWidth(40);
+              /*  columns.Add(o => o.StatusName).Titled(ResourceSetting.RstDicStatus)
+        .SetWidth(40).SetFilterWidgetType("StatusReestrNameFilterWidget");*/
+                columns.Add(o => o.ReasonName).Titled(ResourceSetting.ReportReason)
+                    .SetWidth(40);
+
+                /*    columns.Add()
+                       .Encoded(false)
+                       .Sanitized(false).SetWidth(20)
+                       .RenderValueAs(o => GridManageItemColumn(o.Id).ToHtmlString());*/
+
+            }).SetRowCssClasses(item => item.IsExcluded ? "danger" : string.Empty).WithPaging(50).Sortable().Filterable().WithMultipleFilters()
+</div>
+
+
+<script>
+    $(function () {
+        pageGrids.ordersGrid.addFilterWidget(new StatusReestrFilterWidget());
+//        pageGrids.ordersGrid.addFilterWidget(new ReasonReestrFilterWidget());
+        pageGrids.ordersGrid.addFilterWidget(new OblastFilterWidget());
+        $(".expactCombox").change(function() {
+
+            var fieldValue = $(this).val();
+            var recordId = $(this).attr('recordId');
+
+            var params = JSON.stringify({ 'recordId': recordId, 'fieldValue': fieldValue });
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateExpact")',
+                data: params,
+                dataType: 'json',
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                success: function(data) {
+                },
+                error: function() {
+                    alert("Connection Failed. Please Try Again");
+                }
+            });
+        });
+        $(".stateCombox").change(function () {
+
+            var fieldValue = $(this).val();
+            var recordId = $(this).attr('recordId');
+
+            var params = JSON.stringify({ 'recordId': recordId, 'fieldValue': fieldValue });
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateState")',
+                data: params,
+                dataType: 'json',
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                },
+                error: function () {
+                    alert("Connection Failed. Please Try Again");
+                }
+            });
+        });
+    });
+</script>
+
+

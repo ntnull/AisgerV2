@@ -1,0 +1,179 @@
+﻿@using Aisger
+@using Aisger.Helpers
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+
+@Styles.Render("~/Content/reportCss")
+@Scripts.Render("~/bundles/kendoui")
+@Scripts.Render("~/bundles/reportJs")
+
+<link href="~/Content/ol.css" rel="stylesheet" />
+<script src="~/Scripts/ol.js"></script>
+
+<script>
+	var rootUrl = "@Url.Content("~")";
+</script>
+
+<style>
+	.ol-overlaycontainer-stopevent {
+		display: none;
+	}
+
+
+</style>
+
+
+<div id="B">
+	<ul class="titlegroup" style="margin-top: 8px;">
+		<li style="font-size: 18px; color: #2679b5;" id="parentLabel">@ResourceSetting.AnalisePage<span></span></li>
+		<li id="selectLabel"><span class="glyphicon glyphicon-arrow-right"></span>@ResourceSetting.ReportAnalyse</li>
+	</ul>
+	<div id="main-container" class="wrapper">
+		<div class="container-fluid">
+
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-5">
+					<div class="subgroup-div">
+						<div class="subtitle">
+							<span class="title r1">@ResourceSetting.ReportAnalyse1</span>
+						</div>
+						<div class="subdiv report1">
+							<div id="container1" class="container-chart"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-5">
+					<div class="subgroup-div">
+						<div class="subtitle">
+							<span class="title r2">@ResourceSetting.ReportAnalyse2</span>
+						</div>
+						<div class="subdiv report2">
+								<div class="col-md-4">
+									<div class="container-chart chart21"></div>
+								</div>
+								<div class="col-md-8">
+									<div class="container-chart chart22"></div>
+								</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-5">
+					<div class="subgroup-div">
+						<div class="subtitle">
+							<span class="title r3">@ResourceSetting.ReportAnalyse3</span>
+						</div>
+						<div class="subdiv report3">
+							<div class="col-md-4">
+								<div class="container-chart chart31"></div>
+							</div>
+							<div class="col-md-8">
+								<div class="container-chart chart32"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-5">
+					<div class="subgroup-div">
+						<div class="subtitle">
+							<span class="title r4">@ResourceSetting.ReportAnalyse4</span>
+						</div>
+						<div class="subdiv report4">
+							<div class="container-chart chart4"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-5">
+					<div class="subgroup-div">
+						<div class="subtitle">
+							<span class="title r5">@ResourceSetting.ReportAnalyse5</span>
+						</div>
+						<div class="subdiv report5">
+							<div class="container-chart chart5"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-5">
+					<div class="subgroup-div">
+						<div class="subtitle">
+							<span class="title r6">@ResourceSetting.ReportAnalyse6</span>
+						</div>
+						<div class="subdiv report6">
+							<div class="container-chart chart6"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-5">
+					<div class="subgroup-div">
+						<div class="subtitle">
+							<span class="title r7">@ResourceSetting.ReportAnalyse7</span>
+						</div>
+						<div class="subdiv report7">
+							<div class="grid7"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-5">
+					<div class="subgroup-div">
+						<div class="subtitle">
+							<span class="title r8">@ResourceSetting.ReportAnalyse8</span>
+						</div>
+						<div class="subdiv report8">
+							<div id="container8" class="container-chart">
+								<div id="map8" class="map">
+									<div id="popup8"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-5">
+					<div class="subgroup-div">
+						<div class="subtitle">
+							<span class="title r9">@ResourceSetting.ReportAnalyse9</span>
+						</div>
+						<div class="subdiv report9">
+							<div id="container9" class="container-chart">
+								<div id="map9" class="map">
+									<div id="popup9"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-5">
+					<div class="subgroup-div">
+						<div class="subtitle">
+							<span class="title r10">Энергоэффективность 2.0</span>
+						</div>
+						<div class="subdiv report10">
+							<div class="container-chart chart10"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="~/Scripts/reportAnalyse.js"></script>
+<style>
+
+	/*div.k-loading-mask {
+		position:absolute;
+	
+		height: 80%;
+		width: 100%;
+	}*/
+
+</style>

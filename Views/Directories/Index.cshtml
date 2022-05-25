@@ -1,0 +1,275 @@
+﻿@using System.Threading
+@using Aisger
+@using Aisger.Models
+@using Aisger.Utils
+@using GridMvc.Html
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+<link href="~/Content/directories.css" rel="stylesheet" />
+<style>
+	.my-directory-menu li {
+		cursor: pointer;
+	}
+		.my-directory-menu li:hover {
+			/*box-shadow:inset 1px 1px 1px 1px rgba(0,0,0,0.5);*/
+			text-decoration: underline;
+			box-shadow: inset 0px 0px 8px -4px #ABABAB,0px 0px 5px 1px #DDDDDD;
+			-webkit-box-shadow: inset 0px 0px 8px -4px #ABABAB,0px 0px 5px 1px #DDDDDD;
+			-moz-box-shadow: inset 0px 0px 8px -4px #ABABAB,0px 0px 5px 1px #DDDDDD;
+			-o-box-shadow: inset 0px 0px 8px -4px #ABABAB,0px 0px 5px 1px #DDDDDD;
+		}
+
+	
+	
+
+
+</style>
+
+<div id="B">
+	<ul class="titlegroup" style="margin-top: 8px;">
+		<li style="font-size: 18px; color: #2679b5;" id="parentLabel">@ResourceSetting.Other  <span></span></li>
+		<li id="selectLabel"><span class="glyphicon glyphicon-arrow-right"></span>@ResourceSetting.Directories<span></span></li>
+	</ul>
+	<div class="row">
+		<div class="col-xs-2" style="padding: 0px; padding-left: 10px;">
+			<div class="well" style="height: 82vh; overflow: auto; padding: 0px;">
+                <ul class="list-group checked-list-box my-directory-menu">
+                    <li class="list-group-item list-group-item-action list-group-item-info" style="background-color:#4CAF50;color:white;box-shadow:0px 0px 0px 0px;text-decoration:none;">@ResourceSetting.Directories</li>
+                    <li class="list-group-item list-group-item-action list-group-item-info"><a href="#" tab="home-tab">@ResourceSetting.ActiveYearSettings</a></li>
+                    <li class="list-group-item list-group-item-action"><a href="#" tab="home1-tab" id='@CodeConstManager.SubDicKindResource'>@ResourceSetting.SubDicKindRes</a></li>
+                    <li class="list-group-item list-group-item-action list-group-item-info"><a href="#" tab="home2-tab" id='@CodeConstManager.SubDicTypeResource'>@ResourceSetting.SubDicTypeRes</a></li>
+                    <li class="list-group-item list-group-item-action "><a href="#" tab="home3-tab" id='@CodeConstManager.DicOrganisation'>@ResourceSetting.Organisation</a></li>
+                    <li class="list-group-item list-group-item-action list-group-item-info"><a tab="home4-tab" href="#" id='@CodeConstManager.DicDepartment'>@ResourceSetting.DIC_Department</a></li>
+                    <li class="list-group-item list-group-item-action "><a href="#" tab="home5-tab" id='@CodeConstManager.DicUnit'>@ResourceSetting.DicUnit</a></li>
+                    <li class="list-group-item list-group-item-action list-group-item-info"><a tab="home6-tab" href="#" id='@CodeConstManager.DicOked'>@ResourceSetting.DicOked</a></li>
+                    <li class="list-group-item list-group-item-action "><a tab="home7-tab" href="#" id='@CodeConstManager.DicHolidays'>@ResourceSetting.DicHolidays</a></li>
+                    <li class="list-group-item list-group-item-action "><a tab="home8-tab" href="#" id='@CodeConstManager.DicHolidays'>@ResourceSetting.EnergyEfficiencyIndicators</a></li>
+                    <li class="list-group-item list-group-item-action "><a tab="home9-tab" href="#" id='@CodeConstManager.DicHolidays'>Справочник ГУ</a></li>
+                </ul>
+			</div>
+		</div>
+		<div class="col-xs-10" style="padding: 0px;">
+			<div class="bd-example bd-example-tabs">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link hide" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-expanded="false">@ResourceSetting.ActiveYearSettings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hide" id="home1-tab" data-toggle="tab" href="#home1" role="tab" aria-controls="home1" aria-expanded="false">@ResourceSetting.SubDicKindRes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hide" id="home2-tab" data-toggle="tab" href="#home2" role="tab" aria-controls="home2" aria-expanded="false">@ResourceSetting.SubDicTypeRes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hide" id="home3-tab" data-toggle="tab" href="#home3" role="tab" aria-controls="home3" aria-expanded="false">@ResourceSetting.Organisation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hide" id="home4-tab" data-toggle="tab" href="#home4" role="tab" aria-controls="home4" aria-expanded="false">@ResourceSetting.DIC_Department</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hide" id="home5-tab" data-toggle="tab" href="#home5" role="tab" aria-controls="home5" aria-expanded="false">@ResourceSetting.DicUnit</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hide" id="home6-tab" data-toggle="tab" href="#home6" role="tab" aria-controls="home6" aria-expanded="false">@ResourceSetting.DicOked</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hide" id="home7-tab" data-toggle="tab" href="#home7" role="tab" aria-controls="home7" aria-expanded="false">@ResourceSetting.DicHolidays</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hide" id="home8-tab" data-toggle="tab" href="#home8" role="tab" aria-controls="home8" aria-expanded="false">@ResourceSetting.EnergyEfficiencyIndicators</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hide" id="home9-tab" data-toggle="tab" href="#home9" role="tab" aria-controls="home9" aria-expanded="false">Справочник ГУ</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent" style="height: 80vh;">
+                    <div class="tab-pane fade" id="home1" role="tabpanel" aria-labelledby="home1-tab" aria-expanded="false">
+                    </div>
+                    <div class="tab-pane fade" id="home2" role="tabpanel" aria-labelledby="home2-tab" aria-expanded="false">
+                    </div>
+                    <div class="tab-pane fade" id="home3" role="tabpanel" aria-labelledby="home3-tab" aria-expanded="false">
+                    </div>
+                    <div class="tab-pane fade" id="home4" role="tabpanel" aria-labelledby="home4-tab" aria-expanded="false">
+                    </div>
+                    <div class="tab-pane fade" id="home5" role="tabpanel" aria-labelledby="home5-tab" aria-expanded="false">
+                    </div>
+                    <div class="tab-pane fade" id="home6" role="tabpanel" aria-labelledby="home6-tab" aria-expanded="false">
+                    </div>
+                    <div class="tab-pane fade" id="home7" role="tabpanel" aria-labelledby="home7-tab" aria-expanded="false">
+                    </div>
+                    <div class="tab-pane fade" id="home8" role="tabpanel" aria-labelledby="home8-tab" aria-expanded="false">
+                    </div>
+                    <div class="tab-pane fade" id="home9" role="tabpanel" aria-labelledby="home9-tab" aria-expanded="false">
+                    </div>
+                    <div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab" aria-expanded="true">
+
+                    </div>
+                </div>
+			</div>
+			@*<div class="loader"></div>*@
+		</div>
+		
+	</div>
+</div>
+<script>
+	$(function () {
+		
+	    function showBusy1() {
+
+	        $("#refresh-loading").fadeIn();
+	        var opts = {
+	            lines: 15, // The number of lines to draw
+	            length: 34, // The length of each line
+	            width: 14, // The line thickness
+	            radius: 41, // The radius of the inner circle
+	            corners: 1, // Corner roundness (0..1)
+	            rotate: 64, // The rotation offset
+	            direction: 1, // 1: clockwise, -1: counterclockwise
+	            color: '#000', // #rgb or #rrggbb
+	            speed: 1, // Rounds per second
+	            trail: 60, // Afterglow percentage
+	            shadow: false, // Whether to render a shadow
+	            hwaccel: false, // Whether to use hardware acceleration
+	            className: 'spinner', // The CSS class to assign to the spinner
+	            zIndex: 2e9, // The z-index (defaults to 2000000000)
+	            top: 'auto', // Top position relative to parent in px
+	            left: 'auto' // Left position relative to parent in px
+	        };
+	        var target = document.getElementById('refresh-loading');
+	        var spinner = new Spinner(opts).spin(target);
+	    }
+
+		//----
+	    var appTabs = {
+	  
+
+			homeTab: function (id, formName) {
+			    location.href = "/DicYear/Index";
+			},
+		    home1Tab: function () {
+		        location.href = "/SubDicKindResource/Index/";			
+			},
+		    home2Tab: function () {
+		        location.href = "/SubDicTypeResource/Index/";				
+			},
+		    home3Tab: function () {
+		        location.href = "/DicOrganisation/Index";				
+			},
+		    home4Tab: function () {
+		        location.href = "/DicDepartment/Index";
+			},
+		    home5Tab: function () {
+		        location.href = "/DicUnit/Index";
+
+			},
+		    home6Tab: function () {
+		        location.href = "/DicOked/Index";
+			},
+		    home7Tab: function () {
+		        location.href = "/DicHolidays/Index";
+			},
+		    home8Tab: function () {
+		        location.href = "/DicEnergyindicator/Index";
+            },
+            home9Tab: function () {
+		        location.href = "/DicGu/Index";
+		    }
+		};
+
+	    
+
+		//----
+		$('.my-directory-menu a').click(function () {
+		 
+		    var tab_id = $(this).attr('tab');
+
+			//----
+			switch (tab_id) {
+				case 'home-tab':
+					appTabs.homeTab();
+					$('#myTab').find('#' + tab_id).trigger('click'); break;
+				case 'home1-tab':
+					appTabs.home1Tab();
+					$('#myTab').find('#' + tab_id).trigger('click'); break;
+				case 'home2-tab':
+					appTabs.home2Tab();
+					$('#myTab').find('#' + tab_id).trigger('click'); break;
+				case 'home3-tab':
+					appTabs.home3Tab();
+					$('#myTab').find('#' + tab_id).trigger('click'); break;
+				case 'home4-tab':
+					appTabs.home4Tab();
+					$('#myTab').find('#' + tab_id).trigger('click'); break;
+				case 'home5-tab':
+					appTabs.home5Tab();
+					$('#myTab').find('#' + tab_id).trigger('click'); break;
+				case 'home6-tab':
+					appTabs.home6Tab();
+					$('#myTab').find('#' + tab_id).trigger('click'); break;
+				case 'home7-tab':
+					appTabs.home7Tab();
+					$('#myTab').find('#' + tab_id).trigger('click'); break
+			    case 'home8-tab':
+			        appTabs.home8Tab();
+                    $('#myTab').find('#' + tab_id).trigger('click'); break
+                 case 'home9-tab':
+			        appTabs.home9Tab();
+			        $('#myTab').find('#' + tab_id).trigger('click'); break;
+			}
+
+		});
+
+		//----
+		$('#myTab a').click(function () {
+		 
+			var alist = $('#myTab a');
+			$.map(alist, function (item) {
+
+				if (!$(item).hasClass('hide'))
+					$(item).addClass('hide')
+			});
+
+			if ($(this).hasClass('hide'))
+				$(this).removeClass('hide');
+
+			var tab_id = $(this).attr('id');			
+			switch (tab_id) {
+				case 'home-tab': appTabs.homeTab(); break;
+				case 'home1-tab': appTabs.home1Tab(); break;
+				case 'home2-tab': appTabs.home2Tab(); break;
+				case 'home3-tab': appTabs.home3Tab(); break;
+				case 'home4-tab': appTabs.home4Tab(); break;
+				case 'home5-tab': appTabs.home5Tab(); break;
+				case 'home6-tab': appTabs.home6Tab(); break;
+			    case 'home7-tab': appTabs.home7Tab(); break;
+                case 'home8-tab': appTabs.home8Tab(); break;
+                case 'home9-tab': appTabs.home8Tab(); break;
+			}
+			
+		});
+
+		$('.my-directory-menu li').click(function () {			
+            		    
+
+			var lilist = $('.my-directory-menu li');
+			$.map(lilist, function (item) {
+
+				if ($(item).hasClass('active'))
+					$(item).removeClass('active');
+
+				$(item).find('a').css("color", '#0072bc');
+			});			
+
+			//----
+			if (!$(this).hasClass('active')) {
+				$(this).addClass('active');
+				$(this).find('a').css("color", 'white');
+			}
+
+			$(this).find('a').trigger('click');
+		});
+
+	});
+</script>
+		 

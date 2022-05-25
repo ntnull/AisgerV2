@@ -1,0 +1,121 @@
+﻿@using System.Threading
+@using Aisger
+@using Aisger.Helpers
+@using Aisger.Models
+@using Aisger.Utils
+@using GridMvc.Html
+@using GridMvc.Sorting
+@model IEnumerable<Aisger.Models.MAP_Application>
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+<script src="@Url.Content("~/Scripts/custom/gridmvc.form.status.js")" type="text/javascript"> </script>
+@helper GridManageItemColumn(MAP_Application form)
+{
+    /* if (MyExtensions.CheckRightEdit(CodeConstManager.ReestrDocument))
+    {*/
+    <div class="btn-group">
+        <button type="button" class="btn btn-success dropdown-toggle" accesscode="MapApp-edit" disabled data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @ResourceSetting.Operation <span class="caret"></span>
+        </button>
+    <ul class="dropdown-menu btnmenu">
+        @if (form.MAP_DIC_Status != null && (form.MAP_DIC_Status.Code != CodeConstManager.MAP_STATUS_PROJECT && form.MAP_DIC_Status.Code != CodeConstManager.MAP_STATUS_FINISHED && form.MAP_DIC_Status.Code != CodeConstManager.MAP_STATUS_REJECT))
+        {
+            <li class="btn-warning"><a href="@Url.Action("Design", "MapApp", new { form.Id })"><span class="glyphicon glyphicon-certificate" aria-hidden="true"></span> @ResourceSetting.Check</a></li>
+        }
+        <li class="btn-info"><a href="@Url.Action("ExportToExcel", "MapApplication", new { form.Id })"><span class="glyphicon glyphicon-export" aria-hidden="true"></span> @ResourceSetting.download</a></li>
+
+    </ul>
+        </div>
+
+        }
+@helper GridCvazy(bool isCvazy)
+{
+    if (isCvazy)
+    {
+        if (CultureHelper.GetCurrentCulture() == CultureHelper.FieldKz)
+        {
+            <text>Иә</text>
+        }
+        else
+        {
+            <text>Да</text>
+        }
+    }
+    else
+    {
+        if (CultureHelper.GetCurrentCulture() == CultureHelper.FieldKz)
+        {
+            <text>Жоқ</text>
+        }
+        else
+        {
+            <text>Нет</text>
+        }
+    }
+}
+        @helper ProjectName(MAP_Application o)
+{
+    var customer = o.AppNumber;
+    <a href="@Url.Action("ShowDetails", "MapApp", new { id = o.Id })">
+        @customer
+    </a>
+}
+        <div id="B">
+            <ul class="titlegroup" style="margin-top: 8px;">
+                <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.MapEnergy  <span></span></li>
+                <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  @ResourceSetting.MapApp (<span id="countGridRecord"></span>)</li>
+                <li style="float: right">
+                    @Html.Partial("~/Views/Shared/ExportExcelBtn.cshtml")
+                </li>
+            </ul>
+            <div id="CSSTableGenerator">
+
+                @Html.Grid(Model).Named("ordersGrid").SetLanguage(Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName).Columns(columns =>
+                {
+                    columns.Add(o => o.Id, true)
+                        .Titled("Id").SetWidth(0);
+                    columns.Add()
+                        .Encoded(false)
+                        .Sanitized(false).Titled(ResourceSetting.AppNumber)
+                        .SetWidth(80)
+                        .RenderValueAs(o => ProjectName(o).ToHtmlString());
+                    columns.Add(o => o.AppNumber, true).Titled(ResourceSetting.AppNumber)
+                        .SetWidth(40);
+                    columns.Add(o => o.SubjectName).Titled(ResourceSetting.Applicant)
+                        .SetWidth(80);
+                    columns.Add(o => o.StatusName).Titled(ResourceSetting.RstDicStatus).SetFilterWidgetType("StatusNameFilterWidget")
+                        .SetWidth(80);
+                    columns.Add(o => o.Executor).Titled(ResourceSetting.Executer)
+                        .SetWidth(80);
+
+                    columns.Add(o => o.SendDate).Titled(ResourceSetting.SendDate)
+                        .Format("{0:dd/MM/yyyy}")
+                        .SetWidth(80);
+
+                    columns.Add(o => o.Deadline).Titled(ResourceSetting.Deadline)
+                        .Format("{0:dd/MM/yyyy}")
+                        .SetWidth(90);
+                    columns.Add(o => o.FinishDate).Titled(ResourceSetting.FinishDate)
+                        .Format("{0:dd/MM/yyyy}")
+                        .SetWidth(80);
+                    columns.Add(o => o.Expied).Titled(ResourceSetting.Expied).Filterable(false)
+                        .SetWidth(40);
+                    columns.Add(o => o.IsBlocked)
+                        .Titled(ResourceSetting.IsDisabled)
+                        .SetWidth(40)
+                        .RenderValueAs(o => GridCvazy(o.IsBlocked));
+                    columns.Add()
+                        .Encoded(false)
+                        .Sanitized(false).SetWidth(20)
+                        .RenderValueAs(o => GridManageItemColumn(o).ToHtmlString());
+
+                }).SetRowCssClasses(c =>   c.IsBlocked ? "danger" : c.ExpiedSign == 1 ? "warning" : c.ExpiedSign==2 ? "danger" : string.Empty).WithPaging(50).Sortable().Filterable().WithMultipleFilters()
+@*                }).SetRowCssClasses(item => item.IsBlocked ? "danger" : string.Empty).WithPaging(50).Sortable().Filterable().WithMultipleFilters()*@
+            </div>
+        </div>
+        <script>
+            $(function () {
+                pageGrids.ordersGrid.addFilterWidget(new StatusFilterWidget("MapApp"));
+            });
+        </script>

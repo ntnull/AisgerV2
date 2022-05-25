@@ -1,0 +1,92 @@
+﻿@using System.Globalization
+@using Aisger
+@model Aisger.Models.Entity.Subject.SUB_FormGuNew
+<ul class="list-group">
+    @for (int i = 0; i < @Model.SUB_FormHistory.Count; i++)
+    {
+        var entity = @Model.SUB_FormHistory.ToList()[i];
+
+        <li class="list-group-item">
+
+            <p><b>@ResourceSetting.RegDate:</b> @entity.RegDate.ToString() </p>
+            @if (entity.SUB_DIC_Status != null)
+            {
+                <p><b>Статус:</b> @entity.SUB_DIC_Status.NameRu </p>
+            }
+            @if (entity.SEC_User != null)
+            {
+                <p><b>@ResourceSetting.Executer:</b> @entity.SEC_User.FullName </p>
+            }
+
+            <p style="font-weight: bold">@ResourceSetting.DESCR :</p>
+            <p>
+                @entity.Note<br />
+                @ResourceSetting.espSign: @entity.SignFio
+            </p>
+            <table>
+                @if (entity.AttachFiles != null)
+                {
+                    for (var j = 0; j < entity.AttachFiles.Count; j++)
+                    {
+                        <tr>
+
+                            <td>
+                                <input type="hidden" name="AttachFiles" value="@entity.AttachFiles[j]" />
+                                <a href="@Url.Action("ShowFile", "AppForm", new {id = @entity.Id + "#" + @entity.AttachFiles[j].Replace(".", ",")})">
+                                    @entity.AttachFiles[j]
+                                </a>
+
+                            </td>
+
+
+                        </tr>
+                    }
+                }
+            </table>
+        </li>
+
+    }
+</ul>
+<div class="all-comments"></div>
+
+<script>
+    $(function () {
+
+        getAllComments();
+
+        function getAllComments() {
+            var formId = $('#Id').val();
+            console.log("formId=", formId);
+            $.post('@Url.Action("GetAllCommentsByFormId", "RegisterForm")', { formId: formId }, function (data) {
+                console.log("data=", data);
+                var _li = "";
+                $.map(data, function (item) {
+
+                    var rowIndx = "";
+                    if (item.RowIndex == 0)
+                        rowIndx = "01";
+                    else if (item.RowIndex>0 && item.RowIndex < 10)
+                        rowIndx = "0" + item.RowIndex;
+                    else rowIndx = item.RowIndex;
+
+
+                    var colIndx = "";
+                    if (item.ColumnIndex == 0)
+                        colIndx = "01";
+                    else if (item.ColumnIndex > 0 && item.ColumnIndex < 10)
+                        colIndx = "0" + item.ColumnIndex;
+                    else colIndx = item.ColumnIndex;
+
+                    _li += '<li class="list-group-item"> <span> <b>' + item.TableName + ' </b><br><b>Дата:</b> ' + item.CreateDateStr + '</span>'
+                           + '<br><span><b>Исполнитель: </b>' + item.FIO + '</span>'
+                           + '<br><span><b>Выводить: </b>строка '+rowIndx+', колонка '+colIndx+' </span><br>'
+                           +'<p><b>Комментарий: </b>' + item.Note + '</p>'
+                           +'</li>';
+
+                });
+
+                $('.all-comments').append('<ul class="list-group">' + _li + '</ul>');
+            });
+        }
+    })
+</script>

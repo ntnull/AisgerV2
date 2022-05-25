@@ -1,0 +1,94 @@
+﻿@using Aisger
+@model Aisger.Models.COLLECTOR_Cmdevice
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.tCollector <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  @ResourceSetting.Cmdevices </li>
+    </ul>
+    
+    <div id="wrapper_grid" style="margin-left: 50px">
+        @using (Html.BeginForm("Save","Collector", FormMethod.Post, new {  }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <fieldset>
+                <legend>@ResourceSetting.Cmdevices</legend>
+
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.CreateDate)
+                @Html.HiddenFor(model => model.EditDate)
+                @Html.HiddenFor(model => model.IsDeleted)
+
+                <div class="clearfixmandatory">
+                    @Html.LabelFor(model => model.Code)
+                    <div class="input">
+                        @Html.EditorFor(model => model.Code)
+                        @Html.ValidationMessageFor(model => model.Code)
+                    </div>
+                </div>
+
+                <div class="clearfixmandatory">
+                    @Html.LabelFor(model => model.NameRu)
+                    <div class="input">
+                        @Html.EditorFor(model => model.NameRu)
+                        @Html.ValidationMessageFor(model => model.NameRu)
+                    </div>
+                </div>
+                
+                <div class="clearfixmandatory">
+                    @Html.LabelFor(model => model.NameKz)
+                    <div class="input">
+                        @Html.EditorFor(model => model.NameKz)
+                        @Html.ValidationMessageFor(model => model.NameKz)
+                    </div>
+                </div>
+
+                <div class="clearfixmandatory">
+                    @Html.LabelFor(model => model.refIndicatorType)
+                    <div class="input">
+                        @Html.DropDownListFor(model => model.refIndicatorType, Model.IndicatorTypeList)
+                        @Html.ValidationMessageFor(model => model.refIndicatorType)
+                    </div>
+                </div>
+                
+                <div class="clearfixmandatory">
+                    @Html.LabelFor(model => model.refUnit)
+                    <div class="input">
+                        @Html.DropDownListFor(model => model.refUnit, Model.DicUnitList)
+                        @Html.ValidationMessageFor(model => model.refUnit)
+                    </div>
+                </div>
+                <div class="clearfix">
+                    @Html.LabelFor(model => model.Address)
+                    <div class="input">
+                        @Html.EditorFor(model => model.Address)
+                        @Html.ValidationMessageFor(model => model.Address)
+                    </div>
+                </div>
+               
+                <div class="clearfix">
+                    @Html.LabelFor(model => model.Description)
+                    <div class="input">
+                        @Html.EditorFor(model => model.Description)
+                        @Html.ValidationMessageFor(model => model.Description)
+                    </div>
+                </div>
+
+                <p>
+                    <div>
+                        <button type="button" class="btn btn-success btn-lg" onclick="history.go(-1);return false;">
+                            <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Return
+                        </button>
+                        <button type="submit" class="btn btn-success btn-lg" style="float: right; margin-right: 30px">
+                            <span class="glyphicon glyphicon-save" aria-hidden="true"></span> @ResourceSetting.Save
+                        </button>
+                    </div>
+                </p>
+            </fieldset>
+        }
+    </div>
+</div>

@@ -1,0 +1,415 @@
+﻿@using Aisger
+@using GridMvc.Html
+@using GridMvc.Sorting
+@model Aisger.Models.SEC_User
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+@using System.Linq
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+
+<div id="B">
+	<ul class="titlegroup" style="margin-top: 8px;">
+		<li style="font-size: 18px; color: #2679b5;" id="parentLabel">@ResourceSetting.admin  <span></span></li>
+		<li id="selectLabel"><span class="glyphicon glyphicon-arrow-right"></span>@ResourceSetting.Users </li>
+
+	</ul>
+	<div class="row">
+		<div class="col-lg-6">
+			<div id="wrapper_grid" style="margin-left: 50px">
+				@using (Html.BeginForm("EditByAdmin", "Users", FormMethod.Post, new { id = "demoForm", name = "demoForm" }))
+	{
+					@Html.ValidationSummary(true)
+					@Html.HiddenFor(model => model.Id)
+					@Html.HiddenFor(model => model.CreateDate)
+					@Html.HiddenFor(model => model.IsConfirm)
+					@Html.HiddenFor(model => model.is_obl_control)
+					@Html.HiddenFor(model => model.ger_wo_ecp)
+					<input id="check_control_oblast" name="check_control_oblast" type="hidden" />
+		if (@Model != null && @Model.IsConfirm)
+		{
+					@Html.ValidationSummary(true, ResourceSetting.validconfirm)
+		}
+		if (@Model != null && @Model.IsError)
+		{
+					<div class="alert alert-danger" role="alert">
+						@Model.ErrorMessage
+					</div>
+		}
+					<div class="clearfixmandatory">
+						@Html.LabelFor(model => model.LastName)
+						<div class="input">
+							@Html.TextBoxFor(model => model.LastName)
+							@Html.ValidationMessageFor(model => model.LastName)
+						</div>
+					</div>
+					<div class="clearfixmandatory">
+						@Html.LabelFor(model => model.FirstName)
+						<div class="input">
+							@Html.TextBoxFor(model => model.FirstName)
+							@Html.ValidationMessageFor(model => model.FirstName)
+						</div>
+					</div>
+
+					<div class="form-group">
+						@Html.LabelFor(model => model.SecondName)
+						<div class="input">
+							@Html.EditorFor(model => model.SecondName)
+						</div>
+					</div>
+
+					<div class="clearfixmandatory">
+						@Html.LabelFor(model => model.Login)
+						<div class="input">
+							@Html.TextBoxFor(model => model.Login)
+							@Html.ValidationMessageFor(model => model.Login)
+						</div>
+					</div>
+		if (@Model.Id == 0)
+		{
+					<div class="clearfixmandatory">
+						@Html.LabelFor(model => model.Pwd)
+						<div class="input">
+							@Html.PasswordFor(model => model.Pwd) @Html.ValidationMessageFor(model => model.Pwd)
+						</div>
+					</div>
+					<div class="clearfixmandatory">
+						@Html.LabelFor(model => model.ConfirmPwd)
+						<div class="input">
+							@Html.PasswordFor(model => model.ConfirmPwd) @Html.ValidationMessageFor(model => model.ConfirmPwd)
+						</div>
+					</div>
+		}
+					<div class="form-group">
+						@Html.LabelFor(model => model.Email)
+						<div class="input">
+							@Html.TextBoxFor(model => model.Email)
+							@Html.ValidationMessageFor(model => model.Email)
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(model => model.Mobile)
+						<div class="input">
+							@Html.TextBoxFor(model => model.Mobile)
+							@Html.ValidationMessageFor(model => model.Mobile)
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(model => model.WorkPhone)
+						<div class="input">
+							@Html.TextBoxFor(model => model.WorkPhone)
+							@Html.ValidationMessageFor(model => model.WorkPhone)
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(model => model.InternalPhone)
+						<div class="input">
+							@Html.TextBoxFor(model => model.InternalPhone)
+							@Html.ValidationMessageFor(model => model.InternalPhone)
+						</div>
+					</div>
+					<div class="form-group">
+						@Html.LabelFor(model => model.Post)
+						<div class="input">
+							@Html.TextBoxFor(model => model.Post)
+							@Html.ValidationMessageFor(model => model.Post)
+						</div>
+					</div>
+					<div class="clearfixmandatory">
+						@Html.LabelFor(model => model.OrganizationId)
+						<div class="input">
+							@Html.DropDownList("OrganizationId", String.Empty) @Html.ValidationMessageFor(model => model.OrganizationId)
+						</div>
+					</div>
+					<div class="clearfixmandatory">
+						@Html.LabelFor(model => model.DeparmentId)
+						<div class="input">
+							@Html.DropDownList("DeparmentId", String.Empty) @Html.ValidationMessageFor(model => model.DeparmentId)
+						</div>
+					</div>
+					<div class="clearfixmandatory">
+						@Html.LabelFor(model => model.RolesId)
+						<div class="input ">
+							@Html.DropDownList("RolesId", String.Empty) @Html.ValidationMessageFor(model => model.RolesId)
+						</div>
+					</div>
+					<button id="saveUpdate" type="submit" name="SaveUpdate" value="SaveUpdate" style="visibility: hidden;"></button>
+
+	}
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div style="border: 1px solid #cccccc; padding: 15px; width: 50%;">
+				@{		
+					var str_checked = "";
+					var str_disabled = "disabled";
+
+					var is_control = Model.is_obl_control;
+					if (is_control == true)
+					{
+						str_checked = "checked";
+						str_disabled = "";
+					}
+
+					<div class="checkbox checkbox-success editbyadmin-iscontrol-checkbox">
+						<input id="checkbox-iscontrol" type="checkbox" @str_checked >
+						<label for="checkbox-iscontrol">
+							Контроль по областям
+						</label>
+					</div>
+					<br />
+					<hr style="width: 100%; color: red;" />
+					foreach (var item in ViewBag.OblastList)
+					{
+						str_checked = "";
+						if (item.IsChecked)
+						{
+							str_checked = "checked";
+						}
+					
+					<div class="checkbox checkbox-primary user-edit-oblast-checkbox">
+						<input id="checkbox-@item.Id" type="checkbox" obj-checked="@str_checked"  @str_checked  @str_disabled >
+						<label for="checkbox-@item.Id" obj-id="@item.Id"  obj-checked="@str_checked">
+							@item.Name
+						</label>
+					</div>
+					<br />
+					}
+				}
+			</div>
+			<br />
+			@{
+				var ecp_str_checked = "";
+				var is_wo_ecp = Model.ger_wo_ecp;
+				if (is_wo_ecp == true)
+				{
+					ecp_str_checked = "checked";
+				}
+				
+			<div class="checkbox checkbox-success editbyadmin-send-wo-esp-checkbox">
+				<input id="checkbox-send-wo-esp" type="checkbox" @ecp_str_checked>
+				<label for="checkbox-send-wo-esp">
+					Разрешение на сдачу отчетов ГЭР без ЭЦП
+				</label>
+			</div>
+			}
+		</div>
+	</div>
+	<div>
+		<button type="button" class="btn btn-success btn-lg" onclick="location.href='@Url.Action("Index", "Users")'">
+			<span class="glyphicon glyphicon-backward" aria-hidden="true"></span>@ResourceSetting.Return
+		</button>
+		<button type="button" class="btn btn-success btn-lg editbyadmin-btn-save" style="float: right; margin-right: 30px">
+			<span class="glyphicon glyphicon-save" aria-hidden="true"></span>@ResourceSetting.Save
+		</button>
+		@*<button type="button" class="btn btn-success btn-sm btn-test">Test</button>*@
+	</div>
+</div>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.maskedinput.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+
+
+		$("#Phone").mask("8-999-999-9999");
+		bindEventHandler();
+
+		function bindEventHandler() {
+
+			//---- is control
+			$('.editbyadmin-iscontrol-checkbox').click(function () {
+
+				var list = $('.user-edit-oblast-checkbox');
+				var flag = $(this).find('input[type=checkbox]').is(':checked');
+
+				$.map(list, function (item) {
+
+					if (flag) {
+
+						var str = $(item).find('input[type=checkbox]').attr('obj-checked');
+						if (str === 'checked')
+							$(item).find('input[type=checkbox]').prop("checked", flag);
+						else $(item).find('input[type=checkbox]').prop("checked", !flag);
+					}
+					else $(item).find('input[type=checkbox]').prop("checked", !flag);
+
+					$(item).find('input[type=checkbox]').attr("disabled", !flag);
+				});
+
+			});
+
+			//---- сохранить
+			$('.editbyadmin-btn-save').click(function () {
+
+				var data = [];
+				var list = $('.user-edit-oblast-checkbox');
+
+				$.map(list, function (item) {
+					var checked = $(item).find('input[type=checkbox]').prop("checked");
+					if (checked) {
+						var text = $(item).find('label').text();
+						var id = $(item).find('label').attr('obj-id');
+						data.push(id);
+					}
+				});
+
+				var flag = $('.editbyadmin-iscontrol-checkbox').find('input[type=checkbox]').is(':checked');
+				$('#is_obl_control').val(flag);
+
+				var flag = $('.editbyadmin-send-wo-esp-checkbox').find('input[type=checkbox]').is(':checked');
+				$('#ger_wo_ecp').val(flag);
+
+				var ids = data.join(',');
+				$('#check_control_oblast').val(ids);
+
+				event = $(this);
+				window.Showbusy(event);
+				$('#saveUpdate').click();
+
+			});
+		}
+
+
+	});
+</script>
+<style>
+	.checkbox {
+		padding-left: 20px;
+	}
+
+		.checkbox label {
+			display: inline-block;
+			position: relative;
+			padding-left: 5px;
+			padding-top: 0px;
+			width: 100%;
+		}
+
+			.checkbox label::before {
+				content: "";
+				display: inline-block;
+				position: absolute;
+				margin-top: -2px;
+				width: 17px;
+				height: 17px;
+				left: 0;
+				/*margin-top:-19px;*/
+				margin-left: -20px;
+				border: 1px solid #cccccc;
+				border-radius: 3px;
+				background-color: #fff;
+				-webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+				-o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+				transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+			}
+
+			.checkbox label::after {
+				display: inline-block;
+				position: absolute;
+				width: 16px;
+				height: 16px;
+				left: 0;
+				top: 0;
+				margin-left: -20px;
+				padding-left: 3px;
+				padding-top: 1px;
+				font-size: 11px;
+				color: #555555;
+			}
+
+		.checkbox input[type="checkbox"] {
+			opacity: 0;
+			vertical-align: middle;
+			margin-right: 5px;
+			margin-bottom: 3px;
+		}
+
+			.checkbox input[type="checkbox"]:focus + label::before {
+				outline: thin dotted;
+				outline: 5px auto -webkit-focus-ring-color;
+				outline-offset: -2px;
+			}
+
+			.checkbox input[type="checkbox"]:checked + label::after {
+				font-family: 'FontAwesome';
+				content: "\f00c";
+			}
+
+			.checkbox input[type="checkbox"]:disabled + label {
+				opacity: 0.65;
+			}
+
+				.checkbox input[type="checkbox"]:disabled + label::before {
+					background-color: #eeeeee;
+					cursor: not-allowed;
+				}
+
+		.checkbox.checkbox-circle label::before {
+			border-radius: 50%;
+		}
+
+		.checkbox.checkbox-inline {
+			margin-top: 0;
+		}
+
+	.checkbox-primary input[type="checkbox"]:checked + label::before {
+		background-color: #428bca;
+		border-color: #428bca;
+	}
+
+	.checkbox-primary input[type="checkbox"]:checked + label::after {
+		color: #fff;
+	}
+
+	.checkbox-danger input[type="checkbox"]:checked + label::before {
+		background-color: #d9534f;
+		border-color: #d9534f;
+	}
+
+	.checkbox-danger input[type="checkbox"]:checked + label::after {
+		color: #fff;
+	}
+
+	.checkbox-info input[type="checkbox"]:checked + label::before {
+		background-color: #5bc0de;
+		border-color: #5bc0de;
+	}
+
+	.checkbox-info input[type="checkbox"]:checked + label::after {
+		color: #fff;
+	}
+
+	.checkbox-warning input[type="checkbox"]:checked + label::before {
+		background-color: #f0ad4e;
+		border-color: #f0ad4e;
+	}
+
+	.checkbox-warning input[type="checkbox"]:checked + label::after {
+		color: #fff;
+	}
+
+	.checkbox-success input[type="checkbox"]:checked + label::before {
+		background-color: #5cb85c;
+		border-color: #5cb85c;
+	}
+
+	.checkbox-success input[type="checkbox"]:checked + label::after {
+		color: #fff;
+	}
+
+	hr:before {
+		position: absolute;
+		top: -1px;
+		left: 0;
+		display: inline-block;
+		width: 100%;
+		height: 1px;
+		content: "";
+		background-color: #cccccc !important;
+	}
+
+	hr::after {
+		background-color: #cccccc !important;
+	}
+</style>

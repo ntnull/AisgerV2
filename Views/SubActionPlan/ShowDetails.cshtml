@@ -1,0 +1,113 @@
+﻿@using System.Globalization
+@using System.Text
+@using Aisger
+@using Aisger.Utils
+@model Aisger.Models.SUB_ActionPlan
+@{
+    ViewBag.Title = ResourceSetting.SubActionPlan;
+}
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+
+<style type="text/css">
+    .form1Field {
+        width: 100%;
+        height: 120px;
+        font-size: 12px;
+    }
+</style>
+
+<div id="B">
+    @Html.Partial("~/Views/Home/TitleItem.cshtml", ResourceSetting.privatePage + "," + ResourceSetting.SubActionPlan)
+    <div id="wrapper_grid" style="margin-left: 10px; margin-bottom: 100px">
+        @Html.Partial("~/Views/RegisterForm/ApplicantInfo.cshtml", @Model.SEC_User1)
+        <input type="hidden" id="currentDataViewId" value="@Model.Id">
+        <input type="hidden" id="IsExistForm" value="false">
+
+        <div class="clearfixmandatory form-group">
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.CreateDate)
+            @Html.HiddenFor(model => model.UserId)
+            @Html.HiddenFor(model => model.Editor)
+
+            <div class="row" style="margin-bottom: 10px ">
+                <div class="col-sm-4">
+                    @Html.LabelFor(model => model.ReportYear)
+                    <div class="input">
+                        @Html.TextBoxFor(model => model.ReportYear, new { @class = "form-control", style = "width:200px;" })
+                        @Html.ValidationMessageFor(model => model.ReportYear)
+                    </div>
+                </div>
+                <div style="float: right">
+                    <button type="button" class="btn btn-info btn-sm" id="HideInform" value="show">
+                        <span class="glyphicon glyphicon-unchecked" aria-hidden="true" id="HideInformCheck"></span> <span id="HideInformText">@ResourceSetting.ShowNote</span>
+                    </button>
+                </div>
+            </div>
+
+           @* @Html.LabelFor(model => model.ReportYear)
+            <div class="input">
+                @Html.TextBoxFor(model => model.ReportYear, new { @class = "form-control", style = "width:500px;" })
+                @Html.ValidationMessageFor(model => model.ReportYear)
+            </div>*@
+            <div class="alert alert-warning" role="alert" id="tempInfoId" style="display: none">По данному году и субъектку отчет уже зарегистрирован</div>
+           
+             <div class="input" style="margin-left: 0;">
+                 <textarea cols="20" id="Note" name="Note" rows="2" placeholder="@ResourceSetting.sWholeReportСlarification" style="width: 100%; height: 70px; margin-top: 10px">@Model.Note</textarea>
+            </div>
+        </div>
+        @if (Model.StatusId == CodeConstManager.STATUS_REJECT_ID)
+        {
+            <div class="alert alert-warning" role="alert">
+                <h4>Причина отказа:</h4>
+                @Model.DesignNote
+            </div>
+        }
+
+        @Html.Partial("~/Views/SubActionPlan/ActionPlanView.cshtml", @Model)
+        <div style="margin-top: 10px">
+            <button type="button" class="btn btn-success btn-lg" onclick="history.go(-1);return false;">
+                <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Return
+            </button>
+
+        </div>
+    </div>
+   
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        showInformIcon(false);
+
+
+        $("#HideInform").click(function () {
+            if ($(this).val() == "hide") {
+                $("#HideInformText").text("@ResourceSetting.ShowNote");
+                $(this).val("show");
+                $("#HideInformCheck").addClass("glyphicon-unchecked");
+                $("#HideInformCheck").removeClass("glyphicon-check");
+                showInformIcon(false);
+            } else {
+                $("#HideInformText").text("@ResourceSetting.HideNote");
+                $(this).val("hide");
+                $("#HideInformCheck").removeClass("glyphicon-unchecked");
+                $("#HideInformCheck").addClass("glyphicon-check");
+                showInformIcon(true);
+            }
+        });
+        $("input").prop("readonly", true);
+        $("textarea").prop("readonly", true);
+        $(".event-class").attr('disabled', 'disabled');
+        $(".deleteRow").remove();
+        $("#addCoordrrow").remove();
+        $("#addTable5").remove();
+        $(".add-plan-btn").remove();
+        $("#addTable6").remove();
+        $("#addtabplan3").remove();
+        $("#addtabKadastr").remove();
+
+    });
+</script>

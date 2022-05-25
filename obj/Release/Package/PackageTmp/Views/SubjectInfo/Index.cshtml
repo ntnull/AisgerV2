@@ -1,0 +1,334 @@
+﻿@using System.Text
+@using Aisger
+@using Aisger.Utils
+@model Aisger.Models.SubjectInfo
+
+<link rel="stylesheet" type="text/css" href="~/Content/custom/templatemo_style.css" />
+
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+
+@Styles.Render("~/Content/reportCss")
+@Scripts.Render("~/bundles/kendoui")
+@Scripts.Render("~/bundles/reportJs")
+
+<style type="text/css">
+    .title-label {
+        font-weight: bold;
+        color: gray;
+    }
+
+    .btn-lg {
+        padding: 10px 16px;
+        font-size: 18px;
+        line-height: 1.3333333;
+        border-radius: 6px;
+    }
+
+    .btn-success {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+    }
+</style>
+
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        @*        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.SubjectPage  <span></span></li>*@
+        @*        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  @ResourceSetting.SubPerson </li>*@
+    </ul>
+    <div id="wrapper_grid" style="margin-left: 50px; margin-bottom:100px;min-width:900px;">
+
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active"><a data-target="#form1tab" data-toggle="tab">@ResourceSetting.AccountSetting</a></li>
+            <li><a data-target="#form2tab" data-toggle="tab">@ResourceSetting.Forms</a></li>
+
+            <li><a data-target="#form4tab" data-toggle="tab">@ResourceSetting.MAP_Application</a></li>
+            <li><a data-target="#form3tab" data-toggle="tab">@ResourceSetting.History</a></li>
+            <li><a data-target="#form5tab" data-toggle="tab">Инфо</a></li>
+        </ul>
+        <div class="tab-content">
+
+            <div class="tab-pane active" id="form1tab">
+                @if (Model.SecUser != null)
+                {
+
+                    @Html.Partial("~/Views/PrivateSetting/GuestTemplateViewByManager.cshtml", @Model.SecUser)
+                }
+            </div>
+            <div class="tab-pane" id="form2tab">
+                @foreach (var entity in Model.SubForms)
+                {
+                    var builder = new List<string>();
+                    var from3String = new List<string>();
+                    var from4String = new List<string>();
+                    var from5String = new List<string>();
+                    var from6String = new StringBuilder();
+                    foreach (var form2 in entity.SUB_Form2Record)
+                    {
+                        if (form2.ExtractVolume > 0 || form2.NotOwnSource > 0 || form2.LosEnergy > 0 || form2.OwnSource > 0 || form2.TransferOtherLegal > 0 || form2.ExpenceEnergy > 0)
+                        {
+                            builder.Add(form2.SUB_DIC_TypeResource.Name);
+                        }
+                    }
+                    foreach (var form3 in entity.SUB_Form3Record)
+                    {
+                        if (form3.ConsumptionPrice > 0 || form3.ConsumptionVolume > 0 || form3.LosTransportPrice > 0 || form3.LosTransportVolume > 0)
+                        {
+                            var names = new StringBuilder(form3.SUB_DIC_KindResource.Name + ": ");
+                            if (form3.ConsumptionPrice > 0 || form3.ConsumptionVolume > 0)
+                            {
+                                names.Append(ResourceSetting.form3b);
+                                if (form3.ConsumptionVolume != null && form3.ConsumptionVolume > 0)
+                                {
+                                    names.Append(form3.ConsumptionVolume.Value).Append(" м.куб, ");
+                                }
+                                if (form3.ConsumptionPrice != null && form3.ConsumptionPrice > 0)
+                                {
+                                    names.Append(form3.ConsumptionPrice.Value).Append(" " + ResourceSetting.nds + " ");
+                                }
+                                names.Append(";");
+                            }
+                            from3String.Add(names.ToString());
+                        }
+                    }
+                    foreach (var form4 in entity.SUB_Form4Record)
+                    {
+                        if (string.IsNullOrEmpty(form4.EventName))
+                        {
+                            from4String.Add(form4.EventName);
+                        }
+                    }
+                    foreach (var form5 in entity.SUB_Form5Record)
+                    {
+                        if (string.IsNullOrEmpty(form5.IndicatorName))
+                        {
+                            from5String.Add(form5.IndicatorName);
+                        }
+                        if (form5.SUB_DIC_NormEnergy != null)
+                        {
+                            from5String.Add(form5.SUB_DIC_NormEnergy.NameRu);
+                        }
+                    }
+                    foreach (var form6 in entity.SUB_Form6Record)
+                    {
+                        if (form6.SUB_DIC_TypeCounter != null)
+                        {
+                            from6String.Append(form6.SUB_DIC_TypeCounter.Name).Append(" (");
+                        }
+                        if (form6.CountDevice != null)
+                        {
+                            from6String.Append(ResourceSetting.form63 + ": ").Append(form6.CountDevice).Append(", ");
+                        }
+                        if (form6.Equipment != null)
+                        {
+                            from6String.Append(ResourceSetting.form64 + ": ").Append(form6.Equipment);
+                        }
+                        from6String.Append("); ");
+                    }
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            @ResourceSetting.ReportPeriod : @entity.ReportYear
+                            <a style="color: white; float: right" href="@Url.Action("ShowDetails", "RegisterForm", new { id = @entity.Id })" target="_blank"><span class="glyphicon glyphicon-search"></span>@ResourceSetting.details ...</a>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="well">
+                                @if (builder.Count == 0)
+                                {
+                                    <h4>@ResourceSetting.from2notFill</h4>
+                                }
+                                else
+                                {
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <h4>@ResourceSetting.form2</h4>
+                                        </li>
+                                        <li class="list-group-item"><span class="title-label">@ResourceSetting.fillenergyResources </span>@string.Join(", ", builder)</li>
+                                    </ul>
+                                }
+                            </div>
+                            <div class="well">
+                                @if (from3String.Count == 0)
+                                {
+                                    <h4>@ResourceSetting.from3notFill</h4>
+                                }
+                                else
+                                {
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <h4>@ResourceSetting.form3</h4>
+                                        </li>
+                                        <li class="list-group-item"><span class="title-label">@ResourceSetting.SubDicKindResource : </span>@string.Join(", ", from3String)</li>
+                                    </ul>
+                                }
+                            </div>
+                            <div class="well">
+                                @if (from4String.Count == 0)
+                                {
+                                    <h4>@ResourceSetting.from4notFill</h4>
+                                }
+                                else
+                                {
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <h4>@ResourceSetting.form4</h4>
+                                        </li>
+                                        <li class="list-group-item"><span class="title-label">@ResourceSetting.form41 : </span>@string.Join(", ", from4String)</li>
+                                    </ul>
+                                }
+                            </div>
+                            <div class="well">
+                                @if (from5String.Count == 0)
+                                {
+                                    <h4>@ResourceSetting.from5notFill</h4>
+                                }
+                                else
+                                {
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <h4>@ResourceSetting.form5</h4>
+                                        </li>
+                                        <li class="list-group-item"><span class="title-label">@ResourceSetting.form51 : </span>@string.Join(", ", from5String)</li>
+                                    </ul>
+                                }
+                            </div>
+                            <div class="well">
+                                @if (from6String.Length == 0)
+                                {
+                                    <h4>@ResourceSetting.from6notFill</h4>
+                                }
+                                else
+                                {
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <h4>@ResourceSetting.form6</h4>
+                                        </li>
+                                        <li class="list-group-item"><span class="title-label">@ResourceSetting.form62 :  </span>@from6String.ToString()</li>
+                                    </ul>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="tab-pane" id="form4tab">
+                @Html.Partial("~/Views/SubjectInfo/MapApplicationView.cshtml", @Model.MapApplications)
+            </div>
+            <div class="tab-pane" id="form3tab">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">@ResourceSetting.HistoryReestr</div>
+                    <div class="panel-body">
+
+                        <ul class="list-group">
+                            @for (int i = 0; i < @Model.RstReestrHistories.Count; i++)
+                            {
+                                var entity = @Model.RstReestrHistories.ToList()[i];
+
+                                <li class="list-group-item">
+
+                                    <p><b>@ResourceSetting.RegDate:</b> @entity.RegDate.ToString() </p>
+                                    @if (entity.RST_DIC_Status != null)
+                                    {
+                                        <p><b>Статус:</b> @entity.RST_DIC_Status.Name </p>
+                                    }
+                                    @if (entity.SEC_User1 != null)
+                                    {
+                                        <p><b>@ResourceSetting.Executer:</b> @entity.SEC_User1.FullName </p>
+                                    }
+                                    <p><b>@ResourceSetting.DESCR:</b> @entity.Note </p>
+
+                                    <table id="historyFileTable" class="file_list">
+                                        <tbody>
+                                            @if (entity.AttachFiles != null)
+                                            {
+                                                for (int j = 0; j < entity.AttachFiles.Count; j++)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            <a href="@Url.Action("ShowFile", "RstApplication", new { id = @entity.ApplicationId, filename = @entity.AttachFiles[j] })">
+                                                                @entity.AttachFiles[j]
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+
+                                </li>
+                            }
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="form5tab">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-1">
+                        <div class="bi-report-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 40px">
+            <button type="button" class="btn btn-success btn-lg" onclick="history.go(-1);return false;">
+                <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>@ResourceSetting.Return
+            </button>
+
+        </div>
+    </div>
+
+</div>
+
+<script src="~/Scripts/reports/biFormaReport1.js"></script>
+<script>
+    $(document).ready(function () {
+
+        loadHtmlTemplates();
+        var year = getUrlParameter("year");
+        console.log("year=", year);
+        //----
+        function loadHtmlTemplates() {
+
+            //----bi report
+            templ_universal('FormaReport1', function () {
+
+                FormaReport1 = bi.FormaReport1({
+                    content: templs.FormaReport1,
+                    wrapper: $('.bi-report-container')
+                });
+
+                var currentURL = window.location.href;
+                console.log("curr url:", currentURL);
+                var arr = currentURL.split('/');
+                if (arr.length > 0) {
+
+                    var secId = arr[arr.length - 1].replace('#', '');
+                    var p = { year: year, secUserId: parseFloat(secId), rObject: [] };
+                    FormaReport1.openWindow(p);
+                }
+            });
+
+        }
+
+
+        function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+        };
+    });
+</script>

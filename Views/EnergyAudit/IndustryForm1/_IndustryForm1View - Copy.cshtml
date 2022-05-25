@@ -1,0 +1,638 @@
+﻿@using Aisger
+@using Aisger.Models
+@model EauditIndustryAttachment1
+           
+@Html.HiddenFor(model => model.Preamble.Id, new {id="refPreambleId"})
+
+<!-- Заголовок-->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="center-block">
+            @*            <h4 class="text-center">*@
+            @*                Отчетная часть заключения энергоаудита @Html.Raw(Model.Preamble != null ? @Model.Preamble.EauditObjectName : string.Empty)*@
+            @*                согласно Приложения 1 Постановления Правительства РК № 1115 от 31. 08. 2012 г*@
+            @*            </h4>*@
+            <h4 class="text-center">
+                1. Общие сведения
+            </h4>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="form-inline">
+            <label>
+                Объект отчетности
+            </label>
+            @Html.DropDownListFor(model => model.RefOwnedFacilities, Model.OwnedFacilityList, new { id = "ddlOwnedFacility" })
+        </div>
+    </div>
+</div>
+
+<div id="CSSTableGenerator">
+    <table id="tbIndustryForm1" class="table-center">
+        <thead>
+            <tr>
+                <th rowspan="2">№</th>
+                <th rowspan="2">@ResourceSetting.Name</th>
+                <th rowspan="2">@ResourceSetting.DicUnit</th>
+                <th>@ResourceSetting.tBaseYear</th>
+                <th>@ResourceSetting.tCurrentYear</th>
+                <th rowspan="2">@ResourceSetting.Note</th>
+                <th rowspan="2"></th>
+            </tr>
+            <tr>
+                <th>
+                    @Html.TextBoxFor(model => model.IndustryForm1BaseYear, new { @class = "text-center", id ="inputBaseyear" })
+                </th>
+                <th>
+                    @Html.TextBoxFor(model => model.IndustryForm1CurrentYear, new { @class = "text-center", id = "inputCurrentyear" })
+                </th>
+            </tr>
+            <tr>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ var rowSpanValue = @Model.IndustryForm1Rows.Count(ifr => ifr.EAUDIT_DIC_TypeResource.Code.StartsWith("02"));}
+            @foreach (EAUDIT_IndustryForm1 form1Row in Model.IndustryForm1Rows
+                .OrderBy(row => row.EAUDIT_DIC_TypeResource.PosIndex)
+                .ThenBy(row => row.EAUDIT_DIC_TypeResource.Code)
+                .ThenBy(row => row.InnerOrder))
+            {
+                if (form1Row.EAUDIT_DIC_TypeResource.Code.Contains("02"))
+                {
+                    var code = form1Row.EAUDIT_DIC_TypeResource.Code;
+                    if (code == "02-1" || code == "02-2")
+                    {
+                        if (string.IsNullOrEmpty(form1Row.ProductName) && !form1Row.IsCommand)
+                        {
+                            <tr id="@form1Row.Id" data-typeid="@form1Row.EAUDIT_DIC_TypeResource.Id" class="@Html.Raw(code == "02-1" ? "mainproduct-row" : "addproduct-row")">
+                                <td class="disabletd">
+                                    <!--2-->
+                                    @form1Row.EAUDIT_DIC_TypeResource.NameRu
+                                </td>
+                                <td class="disabletd">
+                                    <!--3-->
+                                </td>
+                                <td>
+                                    <!--4-->
+                                </td>
+                                <td>
+                                    <!--5-->
+                                </td>
+                                <td>
+                                    <!--6-->
+                                </td>
+                                <td></td>
+                            </tr>
+                        }
+                        else if (!string.IsNullOrEmpty(form1Row.ProductName) && !form1Row.IsCommand)
+                        {
+                            <tr id="@form1Row.Id" data-typeid="@form1Row.EAUDIT_DIC_TypeResource.Id" class="@Html.Raw(code == "02-1" ? "mainproduct-row" : "addproduct-row")">
+                                <td>
+                                    <!--2-->
+                                   <div class="input-group">
+                                        @Html.TextBoxFor(model => form1Row.ProductName, new { @class = "form-edit form1Field" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <!--3-->
+                                  <div class="input-group">
+                                        @Html.TextBoxFor(model => form1Row.Unit, new { @class = "form-edit form1Field unit-control" })
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <!--4-->
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => form1Row.BaseYearVolume, new {@class = "form-edit form1Field"})
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <!--5-->
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => form1Row.Volume, new {@class = "form-edit form1Field"})
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <!--6-->
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => form1Row.Note, new {@class = "form-edit form1Field"})
+                                        <span class="input-group-addon">
+                                            <a class="commentDialog" href="#">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td style="text-align: center">
+                                    <i class="glyphicon glyphicon-remove deleteRow" title="Удалить"></i>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr data-typeid="@form1Row.EAUDIT_DIC_TypeResource.Id">
+                                <td> <!--2-->
+                                    @if (code == "02-1")
+                                    {
+                                        <button id="btnInsertMainProduct" type="button" class="btn btn-info btn-sm btn-block">
+                                            <i class="glyphicon glyphicon-plus"></i>
+                                            Добавить основную продукцию
+                                        </button>
+                                    }
+                                    else if (code == "02-2")
+                                    {
+                                        <button id="btnInsertAddProduct" type="button" class="btn btn-info btn-sm btn-block">
+                                            <i class="glyphicon glyphicon-plus"></i>
+                                            Добавить дополнительную продукцию
+                                        </button>
+                                    }
+                                </td>
+                                <td><!--3-->
+                                   
+                                </td>
+                                <td>
+                                    <!--4-->
+                                </td>
+                                <td>
+                                    <!--5-->
+                                </td>
+                                <td>
+                                    <!--6-->
+                                </td>
+                                <td></td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr id="@form1Row.Id" data-typeid="@form1Row.EAUDIT_DIC_TypeResource.Id">
+                            <td id="productNum" class="disabletd" rowspan="@rowSpanValue">
+                                <!--1-->
+                                @form1Row.EAUDIT_DIC_TypeResource.PosIndex
+                            </td>
+                            <td class="disabletd">
+                                <!--2-->
+                                @form1Row.EAUDIT_DIC_TypeResource.NameRu
+                            </td>
+                            <td class="disabletd">
+                                <!--3-->
+                            </td>
+                            <td>
+                                <!--4-->
+                            </td>
+                            <td>
+                                <!--5-->
+                            </td>
+                            <td>
+                                <!--6-->
+                            </td>
+                            <td></td>
+                        </tr>
+                    }
+                }
+                else if (form1Row.DIC_Units != null && form1Row.DIC_Units.Count == 2)
+                {
+                    <tr id="@form1Row.Id" data-typeid="@form1Row.EAUDIT_DIC_TypeResource.Id">
+                        <td class="disabletd" rowspan="2" id="@form1Row.EAUDIT_DIC_TypeResource.Id">
+                            <!--1-->
+                            @form1Row.EAUDIT_DIC_TypeResource.PosIndex
+                        </td>
+                        <td class="disabletd" rowspan="2">
+                            <!--2-->
+                            @Html.Raw(form1Row.EAUDIT_DIC_TypeResource.NameRu)
+                        </td>
+                        <td class="disabletd">
+                            <!--3-->
+                            @if (form1Row.DIC_Units != null)
+                            {
+                                var du1 = form1Row.DIC_Units.OrderBy(du => du.PosIndex).FirstOrDefault();
+                                if (du1 != null)
+                                {
+                                    @du1.NameRu
+                                }
+                            }
+                        </td>
+                        <td>
+                            <!--4-->
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => form1Row.BaseYearVolume, new { @class = "form-edit form1Field" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <!--5-->
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => form1Row.Volume, new { @class = "form-edit form1Field" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <!--6-->
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => form1Row.Note, new { @class = "form-edit form1Field" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr id="@form1Row.Id" data-typeid="@form1Row.EAUDIT_DIC_TypeResource.Id">
+                        <td class="disabletd">
+                            <!--3-->
+                            @if (form1Row.DIC_Units != null)
+                            {
+                                var du2 = form1Row.DIC_Units.OrderBy(du => du.PosIndex).LastOrDefault();
+                                if (du2 != null)
+                                {
+                                    @du2.NameRu
+                                }
+                            }
+                        </td>
+                        <td>
+                            <!--4-->
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => form1Row.BaseYearVolume, new { @class = "form-edit form1Field" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <!--5-->
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => form1Row.Volume, new { @class = "form-edit form1Field" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <!--6-->
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => form1Row.Note, new { @class = "form-edit form1Field" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                }
+                else
+                {
+                    <tr id="@form1Row.Id" data-typeid="@form1Row.EAUDIT_DIC_TypeResource.Id">
+                        @if (form1Row.EAUDIT_DIC_TypeResource.Code == "07-0")
+                        {
+                            <td class="disabletd" rowspan="2">
+                                <!--1-->
+                                @form1Row.EAUDIT_DIC_TypeResource.PosIndex
+                            </td>
+                        }
+                        else if (form1Row.EAUDIT_DIC_TypeResource.Code != "07-1")
+                        {
+                            <td class="disabletd">
+                                <!--1-->
+                                @form1Row.EAUDIT_DIC_TypeResource.PosIndex
+                            </td>
+                        }
+
+                        <td class="disabletd">
+                            <!--2-->
+                            @Html.Raw(form1Row.EAUDIT_DIC_TypeResource.NameRu)
+                        </td>
+                        <td class="disabletd">
+                            <!--3-->
+                            @if (form1Row.DIC_Units != null)
+                            {
+                                var firstOrDefault = form1Row.DIC_Units.FirstOrDefault();
+                                if (firstOrDefault != null)
+                                {
+                                    @firstOrDefault.NameRu
+                                }
+                            }
+                        </td>
+                        <td>
+                            <!--4-->
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => form1Row.BaseYearVolume, new { @class = "form-edit form1Field" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <!--5-->
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => form1Row.Volume, new { @class = "form-edit form1Field" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <!--6-->
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => form1Row.Note, new { @class = "form-edit form1Field" })
+                                <span class="input-group-addon">
+                                    <a class="commentDialog" href="#">
+                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                    </a>
+                                </span>
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <p>
+        <button id="saveBtn" type="button" class="btn btn-success btn-lg pull-right">
+            <i class="glyphicon glyphicon-save" aria-hidden="true"></i> Сохранить
+        </button>
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <p>
+            1) Стоимость топливно-энергетического ресурса (ТЭР) определяется по предъявленным счетам. <br/>
+            2) Определяется по формуле     Значение п. 3 / Значение п. 1 <br />
+            3) Определяется по формуле      Значение п. 1 / Значение п. 3 <br />
+            * Текущий год – календарный год, предшествующий году заключения Договора по энергоаудиту; <br />
+            * Базовый год – календарный год, предшествующий текущему году. <br />
+        </p>
+    </div>
+</div>
+
+<table id="tbRowTemplate" class="hidden">
+    <tr>
+        <td>
+            <!--2-->
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryForm1Rows.FirstOrDefault().ProductName, new { @class = "form-edit form1Field", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <!--3-->
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryForm1Rows.FirstOrDefault().Unit, new { @class = "form-edit form1Field unit-control", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <!--4-->
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryForm1Rows.FirstOrDefault().BaseYearVolume, new { @class = "form-edit form1Field", @Value = "" } )
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <!--5-->
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryForm1Rows.FirstOrDefault().Volume, new { @class = "form-edit form1Field", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td>
+            <!--6-->
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.IndustryForm1Rows.FirstOrDefault().Note, new { @class = "form-edit form1Field", @Value = "" })
+                <span class="input-group-addon">
+                    <a class="commentDialog" href="#">
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td style="text-align: center">
+                <i class="glyphicon glyphicon-remove deleteRow" title="Удалить" ></i>    
+        </td>
+    </tr>
+</table>
+
+<script>
+    var IndustryForm1 = {
+        SaveOrUpdateFormFn: function (form1, row) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateForm1", "IndustryAttachment1")',
+                data: form1,
+                async: false,
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    if (data.IsSuccess) {
+                        $(row).attr("id", data.Id);
+                    }
+                },
+            });
+        },
+        DeleteFormFn: function (rowId) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Delete","IndustryAttachment1")',
+                data: {id: rowId,},
+                dataType: 'json',
+                cache: false,
+                success: function(data) {
+                },
+            });
+        },
+        init : function() {
+            var changeRowSpan = function (value) {
+                var td = $("#productNum");
+                var rowcount = parseInt(td.attr("rowspan")) + value;
+                td.attr("rowspan", rowcount);
+            };
+            $("#btnInsertMainProduct").click(function () {
+                IndustryForm1.addNewRowFn("mainproduct-row");
+            });
+            $("#btnInsertAddProduct").click(function () {
+                IndustryForm1.addNewRowFn("addproduct-row");
+            });
+            $("#tbIndustryForm1").on("click", ".deleteRow", function () {
+                var row = $(this).closest('tr');
+                var success = function () {
+                    var entityId = row.attr('id');
+                    IndustryForm1.DeleteFormFn(entityId);
+                    row.remove();
+                    changeRowSpan(-1);
+                }
+                var cancel = function () {
+
+                };
+                showConfirmation("Удалить", "Вы уверены, что хотите удалить?", success, cancel);
+            });
+            $("table .form1Field").blur(function () {
+                IndustryForm1.onBlurFieldFn(this);
+            });
+
+
+            $('#ddlOwnedFacility').change(function () {
+                var refOwnedFacility = $(this).val();
+                var refPreamble = $("#refPreambleId").val();
+                window.EnergyAuditParentForm.reloadForm1(refPreamble, refOwnedFacility);
+            });
+
+            jQuery.fn.extend({
+                propAttr: $.fn.prop || $.fn.attr
+            });
+            $(".unit-control").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '@Url.Action("GetUnitComplete", "EnergyAudit")',
+                        type: "POST",
+                        dataType: "json",
+                        data: { Prefix: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item.Name, value: item.Name };
+                            }));
+                        }
+                    });
+                },
+                messages: {
+                    noResults: "", results: ""
+                }
+            });
+        },
+        serializeForm1Fn: function (row) {
+            debugger;
+            var form1 = {};
+            var refPreamble = $("#refPreambleId").val();
+            form1.refPreamble = refPreamble;
+            var id = row.attr("id");
+            form1.Id = id;
+            var refTypeResource = row.attr("data-typeid");
+            form1.refTypeResource = refTypeResource;
+            form1.BaseYear = $("#inputBaseyear").val();
+            form1.CurrentYear = $("#inputCurrentyear").val();
+            form1.refOwnedFacility = $("#ddlOwnedFacility").val();
+
+            row.find(".form1Field").each(function () {
+                var name = $(this).attr("name");
+                if (name.indexOf('.') > -1) {
+                    var nameArr = name.split('.');
+                    name = nameArr[nameArr.length - 1];
+                }
+                form1[name] = $(this).val();
+            });
+
+            return form1;
+        },
+        addNewRowFn: function (className) {
+            var row = $("#tbRowTemplate tbody").html();
+            //row = $(row).addClass(className);
+            var lastRow = $("#tbIndustryForm1 tr." + className).last();
+            row = $(row).addClass(className).attr("data-typeid", lastRow.attr("data-typeid"));
+            IndustryForm1.changeRowSpanHelperFn(1);
+            $(".form1Field", row).blur(function () {
+                IndustryForm1.onBlurFieldFn(this);
+            });
+
+            $(".unit-control", row).autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '@Url.Action("GetUnitComplete", "EnergyAudit")',
+                        type: "POST",
+                        dataType: "json",
+                        data: { Prefix: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item.Name, value: item.Name };
+                            }));
+                        }
+                    });
+                },
+                messages: {
+                    noResults: "", results: ""
+                }
+            });
+
+            lastRow.after(row);
+        },
+        changeRowSpanHelperFn: function (value) {
+            var td = $("#productNum");
+            var rowcount = parseInt(td.attr("rowspan")) + value;
+            td.attr("rowspan", rowcount);
+        },
+        onBlurFieldFn: function (element) {
+            var row = $(element).closest("tr");
+            var form1 = IndustryForm1.serializeForm1Fn(row);
+            if (form1.refPreamble && form1.refTypeResource) {
+                IndustryForm1.SaveOrUpdateFormFn(form1, row);
+            }
+        }
+    };
+
+    $(document).ready(function () {
+        // IndustryForm1.init();
+    });
+</script>

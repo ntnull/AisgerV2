@@ -1,0 +1,59 @@
+﻿@using Aisger
+@using Aisger.Utils
+@using FlowDoc.Models
+@using GridMvc.Html
+@model IEnumerable<Aisger.Models.DIC_Organization>
+
+<script src="@Url.Content("~/Scripts/gridmvc.customwidgets.js")" type="text/javascript"> </script>
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+@helper GridManageItemColumn(long id)
+{
+  /*if (!MyExtensions.CheckRightEdit(CodeConstManager.DicOrganisation))
+    {
+        return;
+    }*/
+    <a href="@Url.Action("Edit", "DicOrganisation", new {id})">
+        <i class="glyphicon glyphicon-edit" title="@ResourceSetting.Edit"></i>
+    </a>
+    <a href="@Url.Action("Delete", "DicOrganisation", new {id})" class="deleteBtn">
+        <i class="glyphicon glyphicon-remove" style="margin-left: 5px" title="@ResourceSetting.Delete"></i>
+    </a>
+}
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.Dictionary  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  @ResourceSetting.Organisation (<span id="countGridRecord"></span>)</li>
+        <li style="float: right">
+            <button type="button" class="btn btn-success btn-sm" onclick="location.href='@Url.Action("Create", "DicOrganisation")'">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> @ResourceSetting.add
+            </button>
+            @Html.Partial("~/Views/Shared/ExportExcelBtn.cshtml")
+        </li>
+    </ul>
+    <div id="CSSTableGenerator">
+        @Html.Grid(Model).Columns(columns =>
+            {
+                 columns.Add(o => o.Id, true)
+                                       .Titled("Id").SetWidth(0);
+                                          columns.Add(o => o.NameRu).Titled(ResourceSetting.NameRu)
+                                            .SetWidth(150);
+                                          columns.Add(o => o.NameKz).Titled(ResourceSetting.ShortName)
+                                          .SetWidth(150);
+                                          columns.Add(o => o.Address).Titled(ResourceSetting.Address)
+                                            .SetWidth(150);
+                  columns.Add()
+                         .Encoded(false)
+                         .Sanitized(false).SetWidth(30)
+                         .RenderValueAs(o => GridManageItemColumn(o.Id).ToHtmlString());
+
+            }).WithPaging(50).Sortable().Filterable().WithMultipleFilters()
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        bindTodeleteBtn('@ResourceSetting.Delete', '@ResourceSetting.deleteconfirm');
+    });
+</script>

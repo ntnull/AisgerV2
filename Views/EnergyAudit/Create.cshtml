@@ -1,0 +1,441 @@
+﻿@using System.Globalization
+@using System.Text
+@using Aisger
+@using Aisger.Models.Constants
+@using Aisger.Utils
+@using NPOI.SS.Formula.Functions
+@model Aisger.Models.EAUDIT_Preamble
+@{
+    ViewBag.Title = ResourceSetting.tConclusion;
+}
+
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+
+<link href="@Url.Content("~/Content/custom/jquery.inputfile.css")" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="@Url.Content("~/Content/custom/subform-comment-style.css")" />
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/eaudit.css")" />
+<link href="@Url.Content("~/Content/plugins/bwizard/bwizard.css")" rel="stylesheet" type="text/css" />
+
+
+@*<script src="~/Scripts/plugins/jqnumeric/jquery.numeric.js" type="text/javascript"></script>*@
+<script src="~/Scripts/plugins/autoNumeric/autoNumeric.js" type="text/javascript"></script>
+<script src="~/Scripts/plugins/notification/bootstrap-notify.js"></script>
+<script src="@Url.Content("~/Scripts/jquery.inputfile.js")" type="text/javascript"> </script>
+@*@Scripts.Render("~/bundles/jqueryui")*@
+<script src="~/Scripts/plugins/bwizard/jquery.bootstrap.wizard.js"></script>
+<script src="~/Scripts/custom/eaudit.js"></script>
+
+<script type="text/javascript" src="~/Scripts/plugins/jqBlockUI/jquery.blockUI.js" charset="utf-8"></script>
+<script type="text/javascript" src="~/Scripts/plugins/crypto/crypto_object.js" charset="utf-8"></script>
+<script type="text/javascript" src="~/Scripts/plugins/crypto/eds.js" charset="utf-8"></script>
+
+<div id ="B">
+    @Html.Partial("~/Views/Home/TitleItem.cshtml", ResourceSetting.AuditPage + "," + ResourceSetting.tConclusion)
+    
+    <h4 style="text-align: center">
+        @ResourceSetting.tEauditConclution
+        
+        @if (!string.IsNullOrEmpty(Model.Status))
+        {
+@*            <small>*@
+                <span class="label label-info" style="vertical-align: middle;">@Model.Status</span>
+@*            </small>*@
+        }
+        @if (Model.IsSigned != null && Model.IsSigned.Value)
+        {
+            <a href="javascript:void(0);" data-toggle="popover" data-placement="left" data-trigger="hover" data-popover-content="#hlStrValue">
+                <span class="pull-right glyphicon glyphicon-certificate signed-color" title="@ResourceSetting.Signed"></span>
+            </a>
+        }
+    </h4>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            @{ var displayStyle = Model.Id == 0 ? "none" : "block";}
+            
+            <div id="divOperationContainer" class="pull-right" style="display:@displayStyle;">
+                
+
+                @if (Model.IsReadOnly)
+                {
+                    <a class="btn btn-warning btn-sm" href="@Url.Action("Edit", "EnergyAudit", new {Model.Id})">
+                        <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span> @ResourceSetting.Edit
+                    </a>
+                }
+                else
+                {
+                    <a class="btn btn-warning btn-sm" href="@Url.Action("ShowDetails", "EnergyAudit", new {Model.Id})">
+                        <span class="glyphicon glyphicon-check" aria-hidden="true"></span> @ResourceSetting.Edit
+                    </a>
+                }
+                <div class="btn-group pull-right">
+                    <button class="btn btn-outline-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @ResourceSetting.Operation <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            @if (Model.SignedEauditPreamble != null)
+                            {
+                                <a class="btn btn-signed btn-sm"
+                                   href="@Url.Action("ShowSigned", "EnergyAudit", new { Model.Id, isShowSigned = false })">
+                                    <span class="glyphicon glyphicon-open-file" aria-hidden="true"></span> @ResourceSetting.HideSignedValue
+                                </a>
+                            }
+                            else if (Model.IsSigned.HasValue && Model.IsSigned.Value)
+                            {
+                                <a class="btn btn-signed btn-sm"
+                                   href="@Url.Action("ShowSigned", "EnergyAudit", new { Model.Id, isShowSigned = true })">
+                                    <span class="glyphicon glyphicon-open-file" aria-hidden="true"></span> @ResourceSetting.ShowSignedValue
+                                </a>
+                            }
+                        </li>
+                        @if (Model.OperatorList != null)
+                        {
+                            foreach (SelectListItem op in Model.OperatorList)
+                            {
+                                string icon = string.Empty;
+                                if (op.Value == EAuditOperationConsts.Send)
+                                {
+                                    icon = "<i class=\"glyphicon glyphicon-send\"></i>";
+                                }
+                                <li>
+                                    <a id="@op.Value" href="" class="operation">
+                                        @Html.Raw(icon)
+                                        @op.Text
+                                    </a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div id="wrapper_grid" style="margin-left: 20px; margin-bottom: 100px">
+        <ul class="nav nav-tabs" id="EauditFormTabs">
+            <li class="active"><a data-target="#preambletab" data-toggle="tab">@ResourceSetting.tPreamble</a></li>
+            <li><a data-target="#application1tab" data-toggle="tab">@ResourceSetting.tApplication1 </a></li> <!-- Отчетная информация для промышленных предприятий -->
+            <li><a data-target="#application2tab" data-toggle="tab">@ResourceSetting.tApplication2 </a></li> <!-- Отчетная информация для зданий, строений, сооружений -->
+            <li><a data-target="#application3tab" data-toggle="tab">@ResourceSetting.tApplication3 </a></li> <!--  Отчетная информация для промышленных предприятий, имеющих здания, строения, сооружения-->
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="preambletab">
+                @Html.Action("LoadPreamble", "EnergyAudit", new { id = Model == null ? 0 : Model.Id, isReadOnly = Model.IsReadOnly })
+            </div>
+            <div class="tab-pane" id="application1tab">
+                <div id="application1tabContent">
+                    
+                </div>
+            </div>
+            <div class="tab-pane" id="application2tab">
+                <div id="application2tabContent">
+
+                </div>
+            </div>
+            <div class="tab-pane" id="application3tab">
+                <div id="application3tabContent">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+@*    <div style="margin-bottom: 40px">*@
+@*        <button type="button" class="btn btn-success btn-lg" onclick="location.href='@Url.Action("Index", "EnergyAudit")'">*@
+@*            <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> Вернуться*@
+@*        </button>*@
+@*    </div>*@
+</div>
+
+<!-- Dialog for enter password -->
+<div id="dlgPasswordModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">
+                    @ResourceSetting.sInputPassword
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div id="wrapper_logon" style="min-height: auto; margin-top: 0px;">
+                    <p>
+                        <label for="passwordCert" class="youpasswd" data-icon="p" style="width: 60px;">
+                            @ResourceSetting.sPassword
+                        </label>
+                        <input id="passwordCert" name="passwordCert" required="required" type="password" placeholder='@ResourceSetting.sInputPassword'>
+                    </p>
+                    @*                    <p class="login button">*@
+                    @*                        <input type="button" id="btnAccept" value="Подтвердить" />*@
+                    @*                        <input type="button" id="btnCancel" value="Отмена" />*@
+                    @*                    </p>*@
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnCancel" type="button" class="btn btn-default" data-dismiss="modal">@ResourceSetting.Cancel</button>
+                <button id="btnAccept" type="button" class="btn btn-primary">@ResourceSetting.sAccept</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Dialog to choose AC Employeer -->
+<div id="dlgChooserModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">
+                    @ResourceSetting.sChooseChecker
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div id="wrapper_logon" style="min-height: auto; margin-top: 0px;">
+                    <div class="form-group row">
+                        <label for="InspectorEmployee" class="col-sm-3 control-label">
+                            @ResourceSetting.sEmployeeAC
+                        </label>
+                        <div class="col-sm-8">
+                            <input id="InspectorEmployee" name="InspectorEmployee" type="text" style="width: 400px;">
+                            <input id="inputCode" name="inputCode" type="hidden" value>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnCancel" type="button" class="btn btn-default" data-dismiss="modal">@ResourceSetting.Cancel</button>
+                <button id="btnChoose" type="button" class="btn btn-primary">@ResourceSetting.sAccept</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.SignedEauditPreamble != null)
+{
+    <div id="hlStrValue" class="hidden">
+        <div class="popover-title">
+          Информация о подписи  
+        </div>
+        <div class="popover-content">
+          
+        </div>
+    </div>
+}
+
+
+<!-- For Sign Fields -->
+<div>
+    @Html.Hidden("hfStoragePath", "")
+    @Html.Hidden("hfKeyAlias", "")
+    @Html.Hidden("hfXmlToSign", "")
+    @Html.Hidden("Certificate", "")
+    @Html.Hidden("signIIN", "")
+    @Html.Hidden("signFIO", "")
+    @Html.Hidden("signEmail", "")
+    @Html.Hidden("signBIN", "")
+    @Html.Hidden("hfCurrentBin", "")
+    @Html.Hidden("signCompanyName", "")
+    @Html.Hidden("Certificate", "")
+    @Html.Password("Password", "", new { hidden = "hidden" })
+</div>
+
+<script>
+    function doSign()  {
+        if ($("#hfCurrentBin").val() !== $("#signBIN").val()) {
+            showConfirmation('@ResourceSetting.msgSignReport', "БИН ЭЦП не совпадает с БИН текущего пользователя");
+            return;
+        }
+
+        $.blockUI({ message: '<h1><img src="../../Content/images/loading.gif"/> @ResourceSetting.msgSignReport...</h1>', css: { opacity: 1 } });
+        var isSuceess = signXmlCall(function () {
+            var model = { preambleId: @Model.Id, xmlAuditForm:$("#Certificate").val(), bin:$("#signBIN").val(), iin:$("#signIIN").val(), name: $("#signFIO").val() };
+            $.ajax({
+                url: '@Url.Action("SignForm", "EnergyAudit")',
+                type: "POST",
+                dataType: 'json',
+                contentType: "application/json",
+                async: false,
+                data: JSON.stringify(model),
+                success: function (data) {
+                    if (data.success)
+                        window.location = data.url;
+                    else {
+                        $("#formCertValidation").show();
+                    }
+                    $.unblockUI();
+                    window.location.reload();
+                },
+                error: function (data) {
+                    $.unblockUI();
+                }
+            });
+        }, $("#hfXmlToSign").val());
+
+        if (!isSuceess)
+            $.unblockUI();
+    }
+
+
+    $(document).ready(function () {
+        $("#passwordCert").on('keyup', function (e) {
+            if (e.keyCode == 13) {
+                $("#formLogin").find("#Password").val($('#passwordCert').val());
+                fillKeys();
+                $("#dlgPasswordModal").modal('toggle');
+            }
+        });
+
+        if (window.FileUploadForm)
+            window.FileUploadForm.init();
+
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            var target = $(e.target).attr("data-target"); // activated tab
+            var pId = $("#hfPreamleId").val();
+            if (!pId || pId == "0") return;
+
+            if (target == "#application1tab") {
+                $("#application1tabContent").load('@Url.Action("LoadApplication1", "EnergyAudit")', { "preambleId": pId, "isReadOnly": @Model.IsReadOnly.ToString().ToLower() },
+                    function (responseText, textStatus, jqXhr) {
+                        if (window.EnergyAuditParentForm)
+                            window.EnergyAuditParentForm.init();
+                    });
+            } else if (target == "#application2tab") {
+                $("#application2tabContent").load('@Url.Action("LoadApplication2", "EnergyAudit")', { "preambleId": pId, "isReadOnly": @Model.IsReadOnly.ToString().ToLower() },
+                    function (responseText, textStatus, jqXhr) {
+                        if (window.BuiildingParentForm)
+                            window.BuiildingParentForm.init();
+                    });
+            } else if (target == "#application3tab") {
+                $("#application3tabContent").load('@Url.Action("LoadApplication3", "EnergyAudit")', { "preambleId": pId, "isReadOnly": @Model.IsReadOnly.ToString().ToLower() },
+                    function (responseText, textStatus, jqXhr) {
+                        if (window.IndustryBuiildingParentForm)
+                            window.IndustryBuiildingParentForm.init();
+                    });
+            }
+        });
+
+        $('.modal').on('shown.bs.modal', function () {
+            $(this).find('input:password:visible:first').focus();
+        });
+
+
+        $("#btnAccept").click(function () {
+            // $("#formLogin").find("#Password").val($('#passwordCert').val());
+            fillKeySign(doSign);
+            $("#dlgPasswordModal").modal('toggle');
+
+            //$("#formCertValidation").hide();
+        });
+        $("#btnCancel").click(function () {
+            $(this).closest('div.modal').modal('toggle');
+            //$("#dlgPasswordModal").modal('toggle');
+        });
+
+        $('#btnChoose').click(function() {
+            var refInspector = $("#InspectorEmployee").val();
+            var code = $("#inputCode").val();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("DoOperation", "EnergyAudit")',
+                data: 'euditPreambleId=' + $("#hfPreamleId").val() + '&operationCode=' + code + '&refInspector=' + refInspector,
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    $.unblockUI();
+                    if (data.IsSuccess) {
+                        if (data.IsRedirect) {
+                            window.location.reload();
+                        } else {
+                            $("#hfXmlToSign").val(data.preambleXml);
+                            $("#hfCurrentBin").val(data.Bin);
+
+                            if (!crypt_object_init("chooseStoragePath")) {
+                                chooseStoragePath();
+                            }
+                        }
+                    }
+                },
+                error:function(data) {
+                    $.unblockUI();
+                }
+            });
+        });
+
+        $(".operation").click(function () {
+            var code = $(this).attr('id');
+            if (code == '@EAuditOperationConsts.Send') {
+                $.blockUI({ message: '<h2><img src="../../Content/images/loading.gif"/> @ResourceSetting.msgCreatingReport...</h2>', css: { opacity: 1 } });
+            } else if (code == '@EAuditOperationConsts.Checking') {
+                $("#inputCode").val(code);
+                $("#dlgChooserModal").modal();
+                return false;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("DoOperation", "EnergyAudit")',
+                data: 'euditPreambleId=' + $("#hfPreamleId").val() + '&operationCode=' + code,
+                dataType: 'json',
+                cache: false,
+                success: function (data) {
+                    $.unblockUI();
+                    if (data.IsSuccess) {
+                        if (data.IsRedirect) {
+                            window.location.reload();
+                        } else {
+                            $("#hfXmlToSign").val(data.preambleXml);
+
+                            if (!crypt_object_init("chooseStoragePath")) {
+                                chooseStoragePath();
+                            }
+                        }
+                    }
+                },
+                error:function(data) {
+                    $.unblockUI();
+                }
+            });
+            return false;
+        });
+        var pageSize = 20;
+        $("#InspectorEmployee").select2({
+            placeholder: '@ResourceSetting.sPartName',
+            minimumInputLength: 3,
+            allowClear: true,
+            ajax: {
+                quietMillis: 150,
+                url: '@Url.Action("GetSpecialistAcList", "EnergyAudit")',
+                dataType: 'jsonp',
+                data: function (term, page) {
+                    return {
+                        pageSize: pageSize,
+                        pageNum: page,
+                        searchTerm: term
+                    };
+                },
+                results: function (data, page) {
+                    var more = (page * pageSize) < data.Total;
+                    return { results: data.Results, more: more };
+                }
+            },
+        });
+
+        $("[data-toggle=popover]").popover({
+            html: true,
+            container: 'body',
+            content: function () {
+                var content = $(this).attr("data-popover-content");
+                return $(content).children(".popover-content").html();
+            },
+            title: function () {
+                var title = $(this).attr("data-popover-content");
+                return $(title).children(".popover-title").html();
+            }
+        });
+    });
+</script>

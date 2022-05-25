@@ -1,0 +1,146 @@
+﻿@using System.Threading
+@using Aisger
+@using Aisger.Models
+@using Aisger.Utils
+@using GridMvc.Html
+@model IEnumerable<Aisger.Models.MAP_Application>
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+
+@helper GridManageItemColumn(MAP_Application form)
+{
+    <div class="btn-group">
+        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @ResourceSetting.Operation <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu btnmenu">
+            @if (form.StatusId == CodeConstManager.REG_STATUS_REESTR_ID)
+            {
+            <li class="btn-danger"><a href="#" onclick="DeleteRecord(@form.Id)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> @ResourceSetting.Delete</a></li>
+            <li class="btn-warning"><a href="#" onclick="sendApp(@form.Id)"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> @ResourceSetting.Send</a></li>
+            }
+            <li class="btn-success"><a href="@Url.Action("Copy", "MapApplication", new { form.Id })"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span> @ResourceSetting.Copy</a></li>
+            <li class="btn-info"><a href="@Url.Action("ExportToExcel", "MapApplication", new { form.Id })"><span class="glyphicon glyphicon-export" aria-hidden="true"></span> @ResourceSetting.download</a></li>
+
+        </ul>
+    </div>
+   
+}
+
+@helper ProjectName(MAP_Application o)
+{
+    var customer = o.ProjectName;
+    <a href="@Url.Action("ShowDetails", "MapApplication", new { id = o.Id })">
+        @customer
+    </a>
+}
+
+
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.EnergyMap  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  @ResourceSetting.MAP_Application (<span id="countGridRecord"></span>)</li>
+        <li style="float: right">
+            <button type="button" class="btn btn-success btn-sm MapApplication-edit" disabled id="addRegister">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> @ResourceSetting.add
+            </button>
+
+        </li>
+    </ul>
+    <div id="CSSTableGenerator">
+        @Html.Grid(Model).SetLanguage(Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName).Columns(columns =>
+            {
+                columns.Add(o => o.Id, true)
+                    .Titled("Id").SetWidth(0);
+                columns.Add()
+                   .Encoded(false)
+                   .Sanitized(false).Titled(ResourceSetting.ProjectName)
+                   .SetWidth(80)
+                   .RenderValueAs(o => ProjectName(o).ToHtmlString());
+                columns.Add(o => o.AppNumber).Titled(ResourceSetting.AppNumber)
+                  .SetWidth(40);
+                columns.Add(o => o.ProjectName,true).Titled(ResourceSetting.ProjectName)
+                    .SetWidth(40);
+                columns.Add(o => o.StatusName).Titled(ResourceSetting.RstDicStatus)
+                   .SetWidth(40);
+                columns.Add(o => o.SendDate).Titled(ResourceSetting.SendDate)
+    .Format("{0:dd/MM/yyyy}")
+    .SetWidth(80);
+             
+                columns.Add(o => o.Deadline).Titled(ResourceSetting.Deadline)
+                 .Format("{0:dd/MM/yyyy}")
+                 .SetWidth(90);
+                columns.Add(o => o.FinishDate).Titled(ResourceSetting.FinishDate)
+                    .Format("{0:dd/MM/yyyy}")
+                    .SetWidth(80);
+
+                columns.Add(o => o.Expied).Titled(ResourceSetting.Expied).Filterable(false)
+                         .SetWidth(40);
+
+                columns.Add()
+                       .Encoded(false)
+                       .Sanitized(false).SetWidth(20)
+                       .RenderValueAs(o => GridManageItemColumn(o).ToHtmlString());
+
+            }).WithPaging(50).Sortable().Filterable().WithMultipleFilters()
+    </div>
+</div>
+<script>
+    function sendApp(id) {
+        if ('@ViewBag.IsValidInfo' == "False") {
+            var success1 = function () {
+                window.location.href = '@Url.Action("GuestEditView", "PrivateSetting")';
+            }
+            var cancel1 = function () {
+            };
+            showConfirmation('@ResourceSetting.Warning', '@ResourceSetting.mustfillmandatory', success1, cancel1);
+            return;
+        }
+
+        var success = function () {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CheckSend")',
+                data: { 'id': id },
+                dataType: 'json',
+                cache: false,
+                success: function(data) {
+                    if (data.Success) {
+                        window.location.href = '@Url.Action("Send", "MapApplication")/' + id;
+                    } else {
+                        showWarning(data.ErrorMessage);
+                    }
+
+                },
+                error: function (data) {
+                    alert("1Error" + data);
+                }
+            });
+        
+        }
+        var cancel = function () {
+        };
+        showConfirmation("@ResourceSetting.Send", "@ResourceSetting.sAreYouSureYouWantToSend?", success, cancel);
+    }
+</script>
+<script type="text/javascript">
+    function DeleteRecord(id) {
+        var success = function () {
+            var url = '/MapApplication/Delete/' + id;
+            window.location.href = url;
+        }
+        var cancel = function () {
+        };
+        showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+
+    }
+    $(document).ready(function () {
+
+        $("#addRegister").click(function () {
+            window.location.href = '@Url.Action("Create", "MapApplication")';
+            return;
+
+        });
+    });
+</script>

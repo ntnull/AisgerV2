@@ -1,0 +1,170 @@
+﻿@using Aisger
+@model Aisger.Models.RST_Reestr
+@{
+    ViewBag.Title = ResourceSetting.RST_Reestr;
+}
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+<script src="@Url.Content("~/Scripts/jquery.inputfile.js")" type="text/javascript"> </script>
+<link href="@Url.Content("~/Content/custom/jquery.inputfile.css")" rel="stylesheet" type="text/css" />
+
+<div id="B">
+    @Html.Partial("~/Views/Home/TitleItem.cshtml", ResourceSetting.Reestr + "," + ResourceSetting.RST_Reestr)
+    <div id="wrapper_grid" style="margin-left: 50px; margin-bottom: 100px">
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active"><a data-target="#main" data-toggle="tab">Основное</a></li>
+            <li><a data-target="#profile" data-toggle="tab">История</a></li>
+        </ul>
+        <form>
+            <div class="tab-content">
+                <div class="tab-pane  active" id="main">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Данные реестра</div>
+                        <div class="panel-body">
+                            <div class="clearfix">
+                                @Html.Label(ResourceSetting.ReportYear)
+                                <div class="input">
+                                    @Html.TextBoxFor(model => model.ReportYear, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                @Html.Label(ResourceSetting.Oblast)
+                                <div class="input">
+                                    @Html.TextBoxFor(model => model.OblastName, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                @Html.Label(ResourceSetting.biniinOwner)
+                                <div class="input">
+                                    @Html.TextBoxFor(model => model.BINIIN, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                @Html.Label(ResourceSetting.KadastrNumber)
+                                <div class="input">
+                                    @Html.TextBoxFor(model => model.KadastNumber, new { @class = "form-control", @readonly = "readonly"})
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                @Html.Label(ResourceSetting.OwnerName)
+                                <div class="input">
+                                    @Html.TextAreaFor(model => model.OwnerName, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                @Html.Label(ResourceSetting.ObjectName)
+                                <div class="input">
+                                    @Html.TextAreaFor(model => model.ObjectName, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+
+                            <div class="clearfix">
+                                @Html.Label(ResourceSetting.Address)
+                                <div class="input">
+                                    @Html.TextAreaFor(model => model.Address, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @if (@Model.RST_Application != null)
+                {
+                        <div class="panel panel-info">
+                            <div class="panel-heading">Регистрация</div>
+                            <div class="panel-body">
+                                <div class="clearfix">
+                                    @Html.Label(ResourceSetting.RegDate)
+                                    <div class="input">
+                                        <input class="form-control" data-val="true" data-val-required="Введите значение" id="CreateDate" name="CreateDate" readonly="readonly" type="text" value="@Model.RST_Application.CreateDate.ToShortDateString()">
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+                                    @Html.Label(ResourceSetting.Executer)
+                                    <div class="input">
+                                        <input class="form-control" data-val="true" data-val-required="Введите значение" id="FullName" name="FullName" readonly="readonly" type="text" value="@Model.RST_Application.SEC_User.FullName">
+
+                                    </div>
+                                </div>
+                                <table>
+                                    @for (var i = 0; i < Model.RST_Application.AttachFiles.Count; i++)
+                                {
+                                        <tr>
+
+                                            <td>
+                                                <input type="hidden" name="AttachFiles" value="@Model.RST_Application.AttachFiles[i]" />
+                                                <a href="@Url.Action("ShowFile", "RstApplication", new { id = @Model.Id })">
+                                                    @Model.RST_Application.AttachFiles[i]
+                                                </a>
+
+                                            </td>
+
+
+                                        </tr>
+                                }
+                                </table>
+                            </div>
+                        </div>
+                }
+                </div>
+
+                <div class="tab-pane" id="profile">
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">История</div>
+                        <div class="panel-body">
+
+                            <ul class="list-group">
+                                @for (int i = 0; i < @Model.RST_ReestrHistory.Count; i++)
+                            {
+                                var entity = @Model.RST_ReestrHistory.ToList()[i];
+
+                                    <li class="list-group-item">
+
+                                        <p><b>@ResourceSetting.RegDate:</b> @entity.RegDate.ToString() </p>
+                                        @if (entity.RST_DIC_Status != null)
+                                    {
+                                            <p><b>Статус:</b> @entity.RST_DIC_Status.NameRu </p>
+                                    }
+                                        @if (entity.SEC_User != null)
+                                    {
+                                            <p><b>@ResourceSetting.Executer:</b> @entity.SEC_User.FullName </p>
+                                    }
+
+                                        <p style="font-weight: bold">@ResourceSetting.DESCR :</p>
+                                        <p>
+                                            @entity.Note
+                                        </p>
+                                        <table id="historyFileTable" class="file_list">
+                                            <tbody>
+                                                @if (entity.AttachFiles != null)
+                                            {
+                                                for (int j = 0; j < entity.AttachFiles.Count; j++)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            <a href="@Url.Action("ShowFile", "RstReestr", new { id = @entity.Id })">
+                                                                @entity.AttachFiles[j]
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            </tbody>
+                                        </table>
+
+                                    </li>
+                            }
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-success btn-lg" onclick="history.go(-1);return false;">
+                    <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> @ResourceSetting.Back
+                </button>
+
+            </div>
+        </form>
+            </div>
+        </div>

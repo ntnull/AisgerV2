@@ -1,0 +1,182 @@
+﻿@using System.Threading
+@using Aisger
+@using Aisger.Utils
+@using GridMvc.Html
+@using GridMvc.Sorting
+
+@using Aisger.Helpers
+@model IEnumerable<Aisger.Models.SEC_User>
+
+
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+
+@Styles.Render("~/Content/reportCss")
+@Scripts.Render("~/bundles/kendoui")
+<script src="~/Scripts/rhelper.js"></script>
+
+<div id="B">
+	<ul class="titlegroup" style="margin-top: 8px;">
+		<li style="font-size: 18px; color: #2679b5;" id="parentLabel">
+			@ResourceSetting.AuditPage
+			<span></span>
+		</li>
+		<li id="selectLabel"><span class="glyphicon glyphicon-arrow-right"></span>@ResourceSetting.AuditRequired (<span class="countGridRecord"></span>)
+		</li>
+	</ul>
+	<div class="panel-heading">
+		<div>
+			<table style="width: 100%;">
+				<tr>
+					<td>
+						<a class="lotLihk" style="font-weight: bold; cursor: pointer;"><span class="glyphicon glyphicon-forward"></span>@ResourceSetting.advansedFilter </a>
+						<span>Отчетный год</span>
+						<select class="select-year" style="width: 70px;"></select>
+						<span>Глубина расчета</span>
+						<select class="select-calc-deep" style="width: 50px;"></select>
+						<input type="text" class="k-textbox search-name-idk-bin" placeholder="@ResourceSetting.sFind"/>
+						<button type="button" class="k-button btn-refresh">
+							<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>@ResourceSetting.refresh
+						</button>
+						<button type="button" class="k-button btn-reset" title="@ResourceSetting.sResetAllFilters">
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+						</button>
+						<input placeholder="@ResourceSetting.Oblast" class="k-textbox input-oblast"  readonly="" />
+						<button class="k-button btn-oblast">...</button>
+					</td>
+					<td>
+						<button type="button" class="k-button btn-export-excell" style="float: right;" title="@ResourceSetting.exportExcel">
+							<i class="export-excell-i"></i>
+						</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="panel-body divpanel hide">
+		<div class="container c-container">
+			<div class="row">
+				@*	<div class="col-md-12">*@
+				<table class="advansedFilter-table">
+					<tr>
+						<td><span>@ResourceSetting.sExclusion</span></td>
+						<td>
+							<select class="select-excluded c-select"></select></td>
+						<td>
+							<label title="@ResourceSetting.ExpectantName" class="lbl-expectant">@ResourceSetting.ExpectantName</label></td>
+						<td>
+							<select class="multiple-expectant-selected"   multiple="multiple" title="@ResourceSetting.ExpectantName"></select>
+						</td>
+						<td><span>@ResourceSetting.sNotes</span></td>
+						<td>
+							<select class="multiple-reason-selected" multiple="multiple"></select>
+						</td>
+						<td>
+							<label title="@ResourceSetting.sOkedTooltip">@ResourceSetting.DicOked</label></td>
+						<td>
+							<input class="k-textbox input-oked" placeholder="-" readonly />
+							<button class="k-button btn-oked">...</button>
+						</td>
+						<td>
+							<label>@ResourceSetting.TypeApplication</label></td>
+						<td>
+							<select id="multiple-fscode-selected" class="multiple-fscode-selected" multiple="multiple"></select>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<select class="select-columns-value" style="width: 230px;"></select></td>
+						<td><span>@ResourceSetting.sColumn</span></td>
+						<td>
+							<select class="select-typeres c-select"></select></td>
+						<td style="width: 200px;">
+							<input placeholder="min" class="k-textbox restype-min" style="width: 90px;" />
+							<input placeholder="max" class="k-textbox restype-max" style="width: 90px;" />
+						</td>
+						<td>
+							<select class="select-orderby c-select">
+								<option value="-1">@ResourceSetting.sSortOff</option>
+								<option value="1">@ResourceSetting.sAscending </option>
+								<option value="0">@ResourceSetting.sDescending</option>
+							</select>
+						</td>
+						<td><span>@ResourceSetting.showTut</span></td>
+						<td>
+							<div style="display: inline-block; width: 10px; margin-left: 20px; margin-top: 5px;">
+								<input type="checkbox" class="btn-showtut" value="test" />
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="object-grid"></div>
+</div>
+<div class="hide">
+	<div class="oblast-window">
+		<ul class="oblast-ul"></ul>
+		<div style="padding: 5px; float: left;">
+			<label class="label-oblast-error label-error"></label>
+		</div>
+		<div class="" style="padding: 5px; float: right;">
+			<button class="k-button btn-oblast-ok">Ок</button>
+			<button class="k-button btn-oblast-close">Закрыть</button>
+		</div>
+	</div>
+</div>
+
+<script src="~/Scripts/controllers/requiredAudits.js"></script>
+<style>
+	.export-excell-i {
+		height: 24px;
+		width: 30px;
+		background-position: center;
+		background-position-y: center;
+		background-image: url('../Images/white_excel_16.png');
+		background-repeat: no-repeat;
+	}
+
+	.panel-heading {
+		height: 50px;
+		color: #3c763d;
+		background-color: #dff0d8;
+		border-color: #d6e9c6;
+	}
+
+		.panel-heading a {
+			color: #0072bc;
+			font-size: 16px;
+		}
+
+	.oblast-ul {
+		overflow-y: auto;
+		height: 495px;
+	}
+
+		.oblast-ul li {
+			padding: 3px;
+			border-bottom: 1px solid #e6e6e6;
+			color: #0072bc;
+		}
+
+			/*.oked-ul li:nth-child(odd) {
+		color: #777;
+	}*/
+			.oblast-ul li:nth-child(even) {
+				background-color: #d9edf7;
+			}
+
+			.oblast-ul li:hover {
+				cursor: pointer;
+			}
+
+
+		.oblast-ul .oblast-checkbox {
+			vertical-align: middle;
+			margin-right: 5px;
+			margin-bottom: 3px;
+		}
+</style>

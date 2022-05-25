@@ -1,0 +1,50 @@
+﻿@using Aisger
+@using Aisger.Helpers
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+
+@Styles.Render("~/Content/reportCss")
+@Scripts.Render("~/bundles/kendoui")
+@Scripts.Render("~/bundles/reportJs")
+<style>
+    #main-container {
+        height: calc(100% - 59px);
+    }
+
+    .divReportViewer {
+        height: 100%;
+    }
+</style>
+
+<div id="B">
+     @Html.Partial("~/Views/Home/TitleItem.cshtml", ResourceSetting.Reports + "," + @ResourceSetting.MapEnergy+" "+@ResourceSetting.sAnd+" "+@ResourceSetting.EscoPage)
+    <div id="divFormsReestr" style="height: 100%;">
+        <div class="divMenu">
+            <menu class="menu1">
+                <li class="liCmbx1">
+                    <select class="cmbx1" style="width: 400px;"></select>
+                </li>
+                <li class="liCmbx2">Год*
+                <select class="cmbx2"></select>
+                </li>
+                <li class="liCmbx3">Область
+                <select class="cmbx3"></select>
+                </li>
+                <li class="liDp1">Дата начала*
+                <input class="dp1" />
+                </li>
+                <li class="liDp2">Дата окончания *
+                                <input class="dp2" />
+                </li>
+                <li class="btnRun">Выполнить
+                </li>
+            </menu>
+        </div>
+        <div class="divReportViewer"></div>
+    </div>
+    <script src="~/Scripts/reports/formsMapEnergyEsco.js"></script>
+    <link href="~/ReportViewer/styles/telerikReportViewer-9.0.15.225.css" rel="stylesheet" />
+    <script src="~/ReportViewer/js/telerikReportViewer-9.0.15.225.js"></script>
+
+</div>
+
+

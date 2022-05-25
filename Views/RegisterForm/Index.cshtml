@@ -1,0 +1,410 @@
+﻿@using System.Threading
+@using Aisger
+@using Aisger.Helpers
+@using Aisger.Models
+@using Aisger.Utils
+@using GridMvc.Html
+@model IEnumerable<Aisger.Models.SUB_Form>
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+<script type="text/javascript" src="~/Scripts/plugins/jqBlockUI/jquery.blockUI.js" charset="utf-8"></script>
+<script type="text/javascript" src="~/Scripts/plugins/crypto/crypto_object.js" charset="utf-8"></script>
+<script type="text/javascript" src="~/Scripts/plugins/crypto/eds.js" charset="utf-8"></script>
+
+@helper EditItemColumn(SUB_Form form)
+{
+    <a href="@Url.Action("ShowDetails", "RegisterForm", new { form.Id })"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> @ResourceSetting.ShowDetails</a> <span>|</span>
+
+    var isplan = "false";
+    if (@form.IsPlan != null && @form.IsPlan == true)
+    {
+        isplan = "true";
+    }
+
+    if (@form.StatusId == 3 || @form.StatusId == 2)
+    {
+        <a href="#" style="color:gray;text-decoration:none;" title="@ResourceSetting.Edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>@ResourceSetting.Edit</a> <span>|</span>
+        <a href="#" style="color:gray;text-decoration:none;" title="@ResourceSetting.SendReportTooltip"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> @ResourceSetting.Send</a> <span>|</span>
+    }
+    else
+    {
+        if (ViewBag.IsEdit == true)
+        {
+            <a href="@Url.Action("Edit", "RegisterForm", new { form.Id })" title=" @ResourceSetting.Edit "><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>@ResourceSetting.Edit</a> <span>|</span>
+            <a href="#" onclick="sendApp(@form.Id,@isplan,@form.ReportYear)" title="@ResourceSetting.SendReportTooltip"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> @ResourceSetting.Send</a> <span>|</span>
+        }
+        else
+        {
+            <a href="#" style="color:gray;text-decoration:none;" title="@ResourceSetting.Edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>@ResourceSetting.Edit</a> <span>|</span>
+            <a href="#" style="color:gray;text-decoration:none;" title="@ResourceSetting.SendReportTooltip"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> @ResourceSetting.Send</a> <span>|</span>
+        }
+    }
+
+    if (@form.StatusId == 1)
+    {
+        if (ViewBag.IsEdit == true)
+        {
+            <a href="#" onclick="DeleteRecord(@form.Id)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> @ResourceSetting.Delete</a>
+        }
+        else
+        {
+            <a href="#" style="color:gray;text-decoration:none;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> @ResourceSetting.Delete</a>
+        }
+    }
+    else
+    {
+        <a href="#" style="color:gray;text-decoration:none;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> @ResourceSetting.Delete</a>
+    }
+
+}
+
+<div id="B">
+    <input id="paramcontroller" type="hidden" value="" />
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @ResourceSetting.Reestr  <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  @ResourceSetting.RegisterForm (<span id="countGridRecord"></span>)</li>
+    </ul>
+    <div style="padding:10px;background-color:#f5f5f5;padding-left:15px;">
+        @if (ViewBag.IsCreate == true)
+        {
+            <button type="button" class="btn btn-success btn-sm" accesscode="RegisterForm-edit" id="addRegister">
+                @if (CultureHelper.GetCurrentCulture() == "kz")
+                {
+                    var buttonName = @ViewBag.ActiveYear + " жыл үшін есеп беру";
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> @buttonName
+                }
+                else
+                {
+                    var buttonName = "Подать отчётность за " + @ViewBag.ActiveYear + " год";
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> @buttonName
+                }
+            </button>
+        }
+    </div>
+    <div id="CSSTableGenerator">
+        @Html.Grid(Model).SetLanguage(Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName).Columns(columns =>
+   {
+       columns.Add(o => o.Id, true)
+           .Titled("Id").SetWidth(0);
+       columns.Add(o => o.ReportYear).Titled(ResourceSetting.ReportPeriod)
+           .SetWidth(40);
+
+       columns.Add(o => o.SubjectName).Titled(ResourceSetting.SubjectPerson)
+           .SetWidth(80);
+       columns.Add(o => o.StatusName).Titled(ResourceSetting.RstDicStatus)
+           .SetWidth(80);
+       columns.Add(o => o.SendDate).Titled("Дата подачи")
+           .Format("{0:dd/MM/yyyy}")
+           .SetWidth(80);
+       columns.Add().Encoded(false).Sanitized(false).SetWidth(10).RenderValueAs(o => EditItemColumn(o).ToHtmlString());
+   }).SetRowCssClasses(item => item.CodeStatus == "REJECT" ? "warning" : item.CodeStatus == "FINISHED" ? "success" : string.Empty).WithPaging(50).Sortable().Filterable().WithMultipleFilters()
+    </div>
+
+
+</div>
+<div id="dlgPasswordModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">
+                    @ResourceSetting.sInputPassword
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div id="wrapper_logon" style="min-height: auto; margin-top: 0px;">
+                    <p>
+                        <label for="passwordCert" class="youpasswd" data-icon="p" style="width: 60px;">
+                            @ResourceSetting.sPassword
+                        </label>
+                        <input id="passwordCert" name="passwordCert" required="required" type="password" placeholder='Введите ваш пароль'>
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnCancel" type="button" class="btn btn-default" data-dismiss="modal">@ResourceSetting.Cancel</button>
+                <button id="btnAccept" type="button" class="btn btn-primary">@ResourceSetting.sAccept</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+
+    @Html.Hidden("hfStoragePath", "")
+    @Html.Hidden("hfKeyAlias", "")
+    @Html.Hidden("hfXmlToSign", "")
+    @Html.Hidden("hfCurrentBin", "")
+    @Html.Hidden("signBIN", "")
+    @Html.Hidden("Certificate", "")
+    @Html.Password("Password", "", new { hidden = "hidden" })
+    <span class="hide" id="ger_wo_ecp"></span>
+    <span class="hide" id="signFIO"></span>
+</div>
+
+<script>
+    function DeleteRecord(id) {
+        var success = function () {
+            var url = '/RegisterForm/Delete/' + id;
+            window.location.href = url;
+        }
+        var cancel = function () {
+        };
+        showConfirmation("@ResourceSetting.Delete", "@ResourceSetting.deleteconfirm", success, cancel);
+    }
+
+    function doSign() {
+        @*  	if ($("#hfCurrentBin").val() !== $("#signBIN").val()) {
+    		showConfirmation('@ResourceSetting.msgSignReport', "БИН ЭЦП не совпадает с БИН текущего пользователя");
+    		return;
+    	}*@
+
+        $.blockUI({ message: '<h1><img src="../../Content/images/loading.gif"/> Идет подпись отчета...</h1>', css: { opacity: 1 } });
+        var isSuceess = signXmlCall(function () {
+
+            var model = { preambleId: $("#paramcontroller").val(), xmlAuditForm: $("#Certificate").val(), signFio: $('#signFIO').text() };
+
+            $.ajax({
+                url: '@Url.Action("SignForm", "RegisterForm")',
+                type: "POST",
+                dataType: 'json',
+                contentType: "application/json",
+                async: false,
+                data: JSON.stringify(model),
+                success: function (data) {
+                    if (data.success)
+                        window.location = data.url;
+                    else {
+                        $("#formCertValidation").show();
+                    }
+                    $.unblockUI();
+                    window.location.reload();
+                },
+                error: function (data) {
+                    $.unblockUI();
+                }
+            });
+        }, $("#hfXmlToSign").val());
+
+        if (!isSuceess)
+            $.unblockUI();
+    }
+
+    //----send without ecp
+    function doSignWoEcp() {
+
+        $.blockUI({ message: '<h1><img src="../../Content/images/loading.gif"/> Идет загрузка ...</h1>', css: { opacity: 1 } });
+
+        var model = { preambleId: $("#paramcontroller").val() };
+        $.ajax({
+            url: '@Url.Action("SignFormWoEcp", "RegisterForm")',
+            type: "POST",
+            dataType: 'json',
+            contentType: "application/json",
+            async: false,
+            data: JSON.stringify(model),
+            success: function (data) {
+                if (data.success)
+                    window.location = data.url;
+                else {
+                    $("#formCertValidation").show();
+                }
+                $.unblockUI();
+                window.location.reload();
+            },
+            error: function (data) {
+            }
+        });
+
+    }
+
+    function sendApp(id, isplan, reportYear) {
+
+        //----
+        var str = '@ViewBag.IsCommentNotFill';
+        var array = str.split(',');
+        for (var h = 0; h < array.length; h++) {
+            if (array[h] == id) {
+                showWarning("В данной форме, имеются ячейки с указанием электроэнергия, затраченная на собственные нужды ГЭС, нужно в примечание указать и его источник");
+                return;
+            }
+        }
+
+        //-----
+
+
+        //if (ischeck == null || ischeck.length == 0) {
+        //	showWarning("В Форме 3 есть не заполненные ячеки, пожалуйста, заполните их и повторите отправку данного отчета.");
+        //	return;
+        //}
+
+        $.post('@Url.Action("CheckBeforeSendReport", "RegisterForm")',
+            {
+                subFormId: id,
+                reportYear: reportYear
+            }, function (data) {
+
+
+                if (isplan == true && data.IsExistFile == false) {
+                    showWarning("В Форме 3 включена галочка \"Энергоаудит проводился\", пожалуйста, вложите в Форму 3  электронные копии заключения энергоаудита и плана мероприятий разработанного по итогам энергоаудита");
+                    return;
+                }
+
+                if (data.isRent == false) {
+                    showWarning("Включена галочка \"Аренда\", обязательно вложите скан копию договора аренды.");
+                    return;
+                }
+
+                if (data.isGu) {
+
+                    if (data.isFillFormGu21 == false && reportYear<2019) {
+                        showWarning("В Форме 2 есть не заполненные ячеки, пожалуйста, заполните их и повторите отправку данного отчета (количество сотрудников по штатному расписанию )");
+                        return;
+                    }
+                    if (data.isFillFormGu22 == false && reportYear<2019) {
+                        showWarning("В Форме 2 есть не заполненные ячеки, пожалуйста, заполните их и повторите отправку данного отчета (количество учащихся(воспитанников))");
+                        return;
+                    }
+
+                    if (data.isFillFormGu23 == false && reportYear<2019) {
+                        showWarning("В Форме 2 есть не заполненные ячеки, пожалуйста, заполните их и повторите отправку данного отчета (количество койко-мест (посещений))");
+                        return;
+                    }
+
+                    if (data.isFillFormGu31 == false && reportYear<2019) {
+                        showWarning("В Форме 4 есть не заполненные ячеки, пожалуйста, заполните их и повторите отправку данного отчета (Год постройки*)");
+                        return;
+                    }
+                    if (data.isFillFormGu32 == false && reportYear<2019) {
+                        showWarning("В Форме 4 есть не заполненные ячеки, пожалуйста, заполните их и повторите отправку данного отчета (Общая площадь субъекта ГЭР, м2**)");
+                        return;
+                    }
+
+                    if (data.isFillFormGu33 == false && reportYear<2019) {
+                        showWarning("В Форме 4 есть не заполненные ячеки, пожалуйста, заполните их и повторите отправку данного отчета (Отапливаемая площадь субъекта ГЭР, м2)");
+                        return;
+                    }
+                }
+
+                //----
+                var success = function () {
+
+                    $("#paramcontroller").val(id);
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("CheckSendWOEcp", "RegisterForm")',
+                        data: '',
+                        dataType: 'json',
+                        cache: false,
+                        success: function (data) {
+
+                            //----without ecp
+                            if (data.ger_wo_ecp) {
+                                doSignWoEcp();
+                                return;
+                            }
+
+                            //---- with ecp
+                            $.blockUI({ message: '<h1><img src="../../Content/images/ajax-loader.gif"/> Идет формирование отчета для подписи...</h1>', css: { opacity: 1 } });
+                            $.ajax({
+                                type: "POST",
+                                url: '@Url.Action("DoOperation", "RegisterForm")',
+                                data: 'id=' + id,
+                                dataType: 'json',
+                                cache: false,
+                                success: function (data) {
+                                    $.unblockUI();
+                                    if (data.IsSuccess) {
+                                        console.log("data", data);
+                                        console.log("xml=", data.preambleXml);
+                                        $("#hfXmlToSign").val(data.preambleXml);
+                                        $("#hfCurrentBin").val(data.Bin);
+
+                                        if (!crypt_object_init("chooseStoragePath")) {
+                                            chooseStoragePath();
+                                        }
+                                    }
+                                },
+                                error: function (data) {
+                                    $.unblockUI();
+                                }
+                            });
+
+                        },
+                        error: function (data) {
+
+                        }
+                    });
+
+                    return false;
+                }
+
+                var cancel = function () { };
+
+                showConfirmation("@ResourceSetting.Save", "@ResourceSetting.sAreYouSureYouWantToSend?", success, cancel);
+
+            });
+
+
+
+
+    }
+</script>
+<script type="text/javascript">
+	$(document).ready(function () {
+
+        $('.modal').on('shown.bs.modal', function () {
+            $(this).find('input:password:visible:first').focus();
+        });
+
+        $("#passwordCert").on('keyup', function (e) {
+            if (e.keyCode == 13) {
+                $("#formLogin").find("#Password").val($('#passwordCert').val());
+                fillKeys();
+                $("#dlgPasswordModal").modal('toggle');
+            }
+        });
+        $("#btnAccept").click(function () {
+            // $("#formLogin").find("#Password").val($('#passwordCert').val());
+            fillKeySign(doSign);
+            $("#dlgPasswordModal").modal('toggle');
+
+            //$("#formCertValidation").hide();
+
+        });
+        $("#btnCancel").click(function () {
+            $(this).closest('div.modal').modal('toggle');
+            //$("#dlgPasswordModal").modal('toggle');
+        });
+
+		//----создать
+        $("#addRegister").click(function () {
+            
+        	if ('@ViewBag.IsValidInfo' == "True") {
+
+        		//---- check report is exist
+        		$.post('@Url.Action("CheckReportIsExist", "RegisterForm")', function (data) {
+        			console.log(data);
+        			if (data.ErrorMessage != "") {
+        				showWarning(data.ErrorMessage);
+        				return;
+        			}
+
+        			window.location.href = '@Url.Action("Create", "RegisterForm")';
+        			//window.location.href = '@Url.Action("Create", "RegisterForm")';
+        		});
+
+        		return;
+        	}
+
+            var success = function () {
+
+                window.location.href = '@Url.Action("GuestEditView", "PrivateSetting", new{year=@ViewBag.ActiveYear, regUrl = "RegisterForm" })';
+            }
+            var cancel = function () {
+            };
+            showConfirmation('@ResourceSetting.Warning', "Вам необходимо заполнить объязательные личные данные. Перейти на страницу личных данных?", success, cancel);
+        });
+
+    });
+</script>

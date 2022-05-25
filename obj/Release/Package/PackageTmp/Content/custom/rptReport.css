@@ -1,0 +1,145 @@
+﻿
+/*panel*/
+.panel
+{
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+
+.panel-body
+{
+    padding: 5px;
+}
+
+.panel-heading
+{
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+
+.panel-title
+{
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    color: inherit;
+}
+
+
+
+.panel-success
+{
+    border-color: #d6e9c6;
+    display: inline-block;
+    width: 100%;
+}
+.panel-org
+{
+    border-color: #d6e9c6;
+ 
+}
+.panel-org > .panel-heading
+{
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+.panel-primary {
+border-color: #428bca;
+   
+}
+.panel-primary>.panel-heading {
+color: #fff;
+background-color: #428bca;
+border-color: #428bca;
+}
+
+.panel-info {
+border-color: #bce8f1;
+}
+
+.panel-info>.panel-heading {
+color: #31708f;
+background-color: #d9edf7;
+border-color: #bce8f1;
+}
+
+.panel-warning {
+border-color: #faebcc;
+}
+.panel-warning>.panel-heading {
+color: #8a6d3b;
+background-color: #fcf8e3;
+border-color: #faebcc;
+}
+.panel-warning, .panel-primary, .panel-info,.panel-org {
+
+ min-height: 70px;
+    display: inline-block;
+      width: 100%;
+}
+
+.panel-warning>.panel-heading h3, .panel-org>.panel-heading h3, .panel-primary>.panel-heading h3, .panel-info>.panel-heading h3 {
+
+line-height: 8px
+}
+
+.panel-warning
+{
+    border-color: #faebcc;
+    display: inline-block;
+    width: 100%;
+}
+
+    .panel-warning > .panel-heading
+    {
+        color: #8a6d3b;
+        background-color: #fcf8e3;
+        border-color: #faebcc;
+    }
+
+.panel-finish
+{
+    border-color: #C0BEBA;
+    display: inline-block;
+    width: 100%;
+}
+
+    .panel-finish > .panel-heading
+    {
+        color: #686764;
+        background-color: #DADADA;
+        border-color: #CECBC6;
+    }
+
+.panel-success > .panel-heading
+{
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+    .panel-success > .panel-heading + .panel-collapse > .panel-body
+    {
+        border-top-color: #d6e9c6;
+    }
+
+    .panel-success > .panel-heading .badge
+    {
+        color: #dff0d8;
+        background-color: #3c763d;
+    }
+
+.panel-success > .panel-footer + .panel-collapse > .panel-body
+{
+    border-bottom-color: #d6e9c6;
+}
+
+/*end panel*/

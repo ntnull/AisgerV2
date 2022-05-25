@@ -1,0 +1,379 @@
+﻿@using System.Threading
+@using Aisger
+@using Aisger.Models
+@using Aisger.Utils
+@using GridMvc.Html
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+
+@Styles.Render("~/Content/kendoui")
+@Scripts.Render("~/bundles/kendoui")
+
+<style>
+	.object-grid {
+	height: calc(100% - 150px)!important;
+	}
+
+	.object-grid .k-grid-content {
+		/*height: calc(100% - 220px)!important;*/
+		height: calc(100% - 35px)!important;
+	}
+
+</style>
+
+<div id="B">
+	<ul class="titlegroup" style="margin-top: 8px;">
+		<li style="font-size: 18px; color: #2679b5;" id="parentLabel">@ResourceSetting.Other  <span></span></li>
+		<li id="selectLabel"><span class="glyphicon glyphicon-arrow-right"></span>@ResourceSetting.RemoveDuplicate<span></span></li>
+	</ul>
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<div class="row">
+				<input type="text" class="k-textbox inp-search" style="margin-left:10px;" placeholder="@ResourceSetting.sBIN"/>
+				<button type="button" class="btn btn-info btn-sm btn-search">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp @ResourceSetting.sFind
+				</button>
+				<button type="button" class="btn btn-info btn-sm btn-dclear">
+					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp @ResourceSetting.Clear
+				</button>
+				<button type="button" class="btn btn-info btn-sm btn-refresh">
+					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp @ResourceSetting.refresh
+				</button>
+
+			</div>
+		</div>
+	</div>
+	<div class="object-grid" style="height: 100%;"></div>
+</div>
+<div class="hide">
+
+	<div class="editor-window">
+		<table class="table">
+			<tr>
+				<td style="width: 200px;">
+					<label>@ResourceSetting.sBIN</label>
+				</td>
+				<td>
+					<input class="inp-biniin k-textbox" type="text" style="width: 100%;" /></td>
+			</tr>
+			<tr>
+				<td style="width: 200px;">
+					<label>@ResourceSetting.IDK </label>
+				</td>
+				<td>
+					<input class="inp-idk k-textbox" type="text" style="width: 100%;" /></td>
+			</tr>
+			<tr>
+				<td style="width: 200px;">
+					<label>@ResourceSetting.JuridicalAddress </label>
+				</td>
+				<td>
+					<textarea class="inp-juridicalname k-textbox" style="width: 450px;"></textarea></td>
+			</tr>
+		</table>
+		<div style="margin: 20px; text-align: center;">
+			<span class="error-validate"></span>
+			<button type="button" class="btn-choose btn btn-primary window-btn-save" style="margin-right: 3px;">@ResourceSetting.Save</button>
+			<button type="button" class="btn-close btn btn-primary window-btn-close" style="margin-right: 3px;">@ResourceSetting.close</button>
+		</div>
+	</div>
+
+</div>
+
+<script>
+	$(function () {
+
+		var qwe = {};
+		window.removeDuplicate = qwe;
+	
+		createGrid();
+		createWindow();
+		bindEventHandler();		
+		GetRemovedSubjects("");
+
+		function createWindow() {
+
+			qwe.modalWindow = $('.editor-window').kendoWindow({
+				width: "700px",
+				height: "300px",
+				title: "Редактировать БИН/ИИН",
+				visible: false,
+				modal: false,
+				actions: ["Maximize", "Close"],
+				resizable: true,
+				draggable: true,
+				open: function (e) { },
+				close: function () { }
+			}).getKendoWindow().center();
+
+		}
+
+		function bindEventHandler() {
+
+			//----создать
+			$('.btn-search').click(function () {
+				if ($('.inp-search').val() != "") {
+					GetRemovedSubjects($('.inp-search').val());
+				}
+			});
+
+			//----
+			$('.btn-refresh').click(function () {
+
+				if ($('.inp-search').val() != "") {
+					GetRemovedSubjects($('.inp-search').val());
+				} else GetRemovedSubjects("");
+
+			})
+
+			//----очистить
+			$('.btn-dclear').click(function () {
+				$('.inp-search').val("");
+				GetRemovedSubjects("");
+			})
+
+			//----
+			$('.inp-search').keyup(function (e) {
+				if (e.which == 13) {
+					GetRemovedSubjects($('.inp-search').val());
+				}
+			});
+					
+
+			//----
+			$('.window-btn-save').click(function () {
+
+				var biniin = $('.inp-biniin').val();
+				var idk = $('.inp-idk').val();
+				var juridicalname = $('.inp-juridicalname').val();
+
+				$.post(rootUrl + 'RemoveDuplicate/SaveBin', { userId: qwe.currUser.user_id, biniin: biniin, idk: idk, juridicalname: juridicalname, rst_id: qwe.currUser.rst_id }, function (data) {
+
+					console.log(data);
+
+					if (data.ErrorMessage != "") {
+						$('.error-validate').val(data.ErrorMessage);
+						return;
+					}
+					GetRemovedSubjects(biniin);
+					FillFields([]);
+					qwe.modalWindow.close();
+				});
+
+			})
+
+			//----
+			$('.window-btn-execute').click(function () {
+
+				var biniin = "";
+				var chbxs = $('.search-grid td[role="gridcell"] input[u-id]:checked');
+
+				if (!chbxs || chbxs.length < 1) {
+					$('.error-validate').text("Объект не выбран");
+					return;
+				}
+
+				$('.error-validate').text('');
+
+				var checked_ids = [];
+				$.map(chbxs, function (item) {
+					var id = $(item).attr('u-id');
+					checked_ids.push(id);
+					var dataItem = $.grep(qwe.searchgrid.dataSource.data(), function (e) { return e.user_id == id; })[0];
+					biniin = dataItem.login;
+				});
+				var StrCheckedIds = checked_ids.join(',');
+
+				var unchecked_ids = [];
+				var unchecked = $('.search-grid td[role="gridcell"] input[u-id]:not(:checked)');//
+				$.map(unchecked, function (item) {
+					var id = $(item).attr('u-id');
+					unchecked_ids.push(id);
+				});
+
+				var StrUncheckedIds = unchecked_ids.join(',');
+
+				if (StrUncheckedIds == "")
+					return;
+
+				kendo.ui.progress($('.search-grid'), true);
+				$.post(rootUrl + 'RemoveDuplicate/ExecuteDuplicate', { userId: StrCheckedIds, removedIds: StrUncheckedIds, biniin: biniin }, function (data) {
+					console.log(data);
+					kendo.ui.progress($('.search-grid'), false);
+
+					if (data.ErrorMessage != "") {
+						$('.error-validate').text(data.ErrorMessage);
+						return;
+					}
+
+					SearchBin(biniin);
+				});
+
+				//qwe.modalWindow.close();
+			});
+
+			//----
+			$('.window-btn-close').click(function () {
+				qwe.modalWindow.close();
+			});
+			
+			//----выбрат одно
+			$('.search-grid').on('click', 'td .checkbox', function (e) {
+
+				if (this.checked) {
+
+					var chbxs = $('.search-grid td[role="gridcell"] input[u-id]:checked');
+					$.map(chbxs, function (item) {
+						$(item).attr("checked", false);
+					});
+
+					this.checked = true;
+				}
+
+			});
+
+			//----изменить
+			$('.object-grid').on('click', 'td span.restore-subject', function () {
+				var biniin = $(this).attr('biniin');
+				var userId = $(this).attr('obj-id');				
+
+				var success = function () {
+					
+					$.post(rootUrl + 'RemoveDuplicate/RestoreSubject', { userId: userId }, function (data) {
+
+						if (data.ErrorMessage != "") {
+							showWarning(data.ErrorMessage);
+							return;
+						}
+
+						$('.inp-search').val('');
+						showWarning("Успешно завершено!");						
+						GetRemovedSubjects("");
+					});
+
+				};
+				var cancel = function () {
+				}
+
+				showConfirmation("@ResourceSetting.Delete", "Уверены что хотите восстановить Субъекта БИН "+biniin+" ?", success, cancel);
+				//SearchBin(biniin);				
+			});
+
+			
+		}
+				
+		function GetRemovedSubjects(biniin) {
+
+			kendo.ui.progress($('.object-grid'), true);
+			$.post(rootUrl + 'RemoveDuplicate/GetRemovedSubjects', { biniin: biniin}, function (data) {
+				kendo.ui.progress($('.object-grid'), false);
+				console.log(data);
+
+				if (data.ErrorMessage != "") {
+					showWarning(data.ErrorMessage);
+					return;
+				}
+
+				$.map(data.ListItems, function (item) {
+
+					//item.fulladdress = item.oblast_name + ", " + (item.region_name) ? item.region_name : "" + ", " + (item.address) ? item.address : "";
+
+					var arr_biniin = (item.rst_biniin) ? item.rst_biniin.split("*") : [];
+					var arr_owner = (item.rst_ownername) ? item.rst_ownername.split("*") : [];
+					var arr_year = (item.rst_year) ? item.rst_year.split("*") : [];
+					var arr_idk = (item.rst_idk) ? item.rst_idk.split("*") : [];
+
+					var tbl = "";
+					for (var i = 0; i < arr_biniin.length; i++) {
+						tbl += "<div style=\'padding:5px;border-bottom-color:black;\'>" + arr_biniin[i] + " | " + arr_idk[i] + " | " + arr_year[i] + " | " + arr_owner[i] + "</div>";
+					}
+
+					item.objHTML = tbl;
+					item.statusHTML = 'Удаленные<span class="glyphicon glyphicon-edit restore-subject" aria-hidden="true" title="Изменить" biniin=' + item.biniin + ' obj-id=' + item.user_id + '></span>';
+
+				});
+				console.log("moblast:", data.ListItems);
+
+				qwe.grid.dataSource.data(data.ListItems);
+			});
+		}
+	
+		function createGrid() {
+
+			qwe.grid = $('.object-grid').kendoGrid({
+				scrollable: true,
+				sortable: true,
+				width: '98%',
+				selectable: 'row',
+				columns: [
+					{
+						field: "biniin",
+						title: "№ п\\п",
+						template: '#= ++record #',
+						width: 40,
+						filterable: false
+					}, {
+						field: 'biniin',
+						title: '@ResourceSetting.sBIN',
+						width: 130
+					}, {
+						field: 'idk',
+						title: '@ResourceSetting.IDK',
+						width: 100
+					}, {
+						field: 'juridicalname',
+						title: '@ResourceSetting.SubPerson',
+						width: 200
+					}, {
+						field: 'address',
+						title: '@ResourceSetting.Oblast',
+						width: 200
+					}, {
+						field: 'objHTML',
+						title: 'В реестре',
+						template: '#=data.objHTML#'
+					},
+					 {
+					 	field: 'statusHTML',
+					 	title: '@ResourceSetting.Status',
+					 	width: 200,
+					 	template: '#=data.statusHTML#'
+					 }
+				],
+				dataBinding: function () {
+					record = 0; //(this.dataSource.page() - 1) * this.dataSource.pageSize();
+				},
+				resizable: true
+			}).getKendoGrid();
+
+
+		}
+
+
+	});
+</script>
+
+<style>
+	.search-grid {
+		height: 90%;
+	}
+
+	.error-validate {
+		color: red;
+		display: inline-table;
+		margin-right: 20px;
+	}
+	.restore-subject {
+	   padding-left:10px;
+	}
+
+		.restore-subject:hover {
+			cursor: pointer;
+		}
+</style>
+
+
+
+
+

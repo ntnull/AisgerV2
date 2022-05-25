@@ -1,0 +1,18 @@
+﻿@model string
+@{
+    var rootName = "";
+    var childName = "";
+    if (Model != null)
+    {
+        var array = Model.Split(',');
+        if (array.Length == 2)
+        {
+            rootName = array[0];
+            childName = array[1];
+        }
+    }
+    <ul class="titlegroup" style="margin-top: 8px;">
+      <li style="font-size: 18px; color: #2679b5;" id="parentLabel"> @rootName <span></span></li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>  @childName </li>
+    </ul>
+}

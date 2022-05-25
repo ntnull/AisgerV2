@@ -1,0 +1,350 @@
+﻿@using Aisger
+@model Aisger.Models.LogOnModel
+@{
+    ViewBag.Title = ResourceSetting.Enter;
+}
+
+<link href="@Url.Content("~/Content/bootstrap.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/login/style.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/login/animate-custom.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="~/Scripts/jquery-1.9.1.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="~/Scripts/bootstrap.js" charset="utf-8"></script>
+<script type="text/javascript" src="~/Scripts/plugins/jqBlockUI/jquery.blockUI.js" charset="utf-8"></script>
+<script type="text/javascript" src="~/Scripts/plugins/crypto/crypto_object.js" charset="utf-8"></script>
+<script type="text/javascript" src="~/Scripts/plugins/crypto/eds.js" charset="utf-8"></script>
+<script type="text/javascript" src="~/Scripts/jquery-ui-1.12.0.min.js" charset="utf-8"></script>
+<style>
+    .blockPage {
+        opacity: 0.7 !important;
+    }
+</style>
+
+    <div class="container" style="margin-top: 40px">
+            @*    @Html.AntiForgeryToken()*@
+
+            <div id="wrapper_logon">
+                <div style="background: #f4f4f4; height: 100%;">
+                    <ul class="nav nav-tabs nav-justified">
+                        <li class="active"><a data-toggle="tab" href="#loginForm">Логин/@ResourceSetting.sPassword</a></li>
+                        <li><a data-toggle="tab" href="#ecpForm">@ResourceSetting.sECP</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="loginForm" class="tab-pane active">
+                            <div>
+                                @using (Html.BeginForm("LogOn", "Account", FormMethod.Post))
+                                {
+                                    <span style="color: red">
+                                        @Html.ValidationSummary(true, ResourceSetting.eEnterError)
+                                    </span>
+
+                                @*          <h1><img src="../../Content/images/nicon.png"></h1>*@
+                                @*          <span style="color: red">  @Html.ValidationSummary(true, "Ошибка при входе в ситему.")</span>*@
+                                    <p>
+                                        <label for="username" class="uname" data-icon="u" style="width: 80px;">Логин(БИН)</label>
+                                        <input id="username" name="username" required="required" type="text" value="@Model.UserName" placeholder='@ResourceSetting.sInputLogin' />
+                                    </p>
+
+                                    <p>
+                                        <label for="password" class="youpasswd" data-icon="p" style="width: 80px;">@ResourceSetting.sPassword </label>
+                                        <input id="password" name="password" required="required" type="password" placeholder='@ResourceSetting.sInputPassword'>
+                                    </p>
+                                    <p class="login button">
+                                        <input type="submit" value="@ResourceSetting.Enter" />
+                                    </p>
+                                }
+                            </div>
+                        </div>
+                        <div id="ecpForm" class="tab-pane">
+                            <table>
+                                <tr>
+                                    <td colspan="2">
+                                        <span style="color: red" id="formCertValidation">
+@*                                            @Html.ValidationSummary(true, "Ошибка при входе в систему.", new {id = "validationSummary", hidden ="hidden"})*@
+                                            @ResourceSetting.eEnterError
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>
+                                           @ResourceSetting.sIIN:
+                                        </label>
+                                    </td>
+                                    <td><span id="signIIN"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>
+                                            E-mail:
+                                        </label>
+                                    </td>
+                                    <td><span id="signEmail"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>
+                                            @ResourceSetting.sFIO:
+                                        </label>
+                                    </td>
+                                    <td><span id="signFIO"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>
+                                            @ResourceSetting.sBIN:
+                                        </label>
+                                    </td>
+                                    <td><span id="signBIN"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>
+                                            @ResourceSetting.sCompanyName:
+                                        </label>
+                                    </td>
+                                    <td><span id="signCompanyName"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>
+                                            @ResourceSetting.sDateStartDateExpire:
+                                        </label>
+                                    </td>
+                                    <td><span id="signDateFrom"></span> - <span id="signDateTo"></span></td>
+                                </tr>
+                            </table>
+                            
+                            @using (Html.BeginForm("LogOnCertificate", "Account", FormMethod.Post, new { id = "formLogin" }))
+                            {
+                                <p>
+                                    @Html.Hidden("hfStoragePath", "")
+                                    @Html.Hidden("hfKeyAlias", "")
+                                    @Html.Hidden("UserName", "")
+                                    @Html.Password("Password", "", new { hidden = "hidden" })
+
+                                    @Html.Hidden("hfXmlToSign",
+                                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><login><timeTicket>"
+                                    + DateTime.Now.ToShortDateString()
+                                + "</timeTicket></login>")
+                                    @Html.Hidden("Certificate", "")
+                                    @*                                @Html.TextBox("",)*@
+                                </p>
+                                <p class="login button">
+                                    <input type="button" id="btnbtnChooseEds" value="@ResourceSetting.sChooseCertificate" 
+                                           style="text-align: right; width: 62%; float:left; background-position: left;
+                                           background-image:url(../../Content/images/usb.png); background-repeat: no-repeat" />
+                                    <input type="button" id="btnEnterEds" value="@ResourceSetting.Enter" />
+                                </p>
+                            }
+                        </div>
+                    </div>
+                    <p class="login button" style="padding: 0 10px 10px 0;">
+                        <a id="registerTag" href="@Url.Action("RegistrationGuest", "Account")">
+                            @ResourceSetting.sRegistrationINNBIN
+                        </a>
+                        <br/>
+                        <a style="float:right" class="openDialog hide" data-dialog-id="emailDialog" data-dialog-title="@ResourceSetting.sForgetPassword" href="@Url.Action("AdminContactInfo", "Account")">
+                            @ResourceSetting.sForgetPassword
+                        </a>
+                    </p>
+                </div>
+            </div>
+    </div>
+
+<button type="button" class="btn btn-default" aria-label="Left Align" style="position: fixed; right: 0; top: 0;"  id="btnMenu" value="true">
+    <span class="glyphicon glyphicon-align-justify" aria-hidden="true" ></span>
+</button>
+<div class="jumbotron" style="width: 400px; float: right; position: fixed; right: 0; top: 40px; display: none; padding-top: 0" id="contentMenu">
+   @Html.Raw(Model.ContentMenu)
+</div>
+
+<div id="dlgPasswordModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">
+                    @ResourceSetting.sInputPassword
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div id="wrapper_logon" style="min-height: auto; margin-top: 0px;">
+                    <p>
+                        <label for="passwordCert" class="youpasswd" data-icon="p" style="width: 70px;">
+                            @ResourceSetting.sPassword
+                        </label>
+                        <input id="passwordCert" name="passwordCert" required="required" type="password" placeholder='@ResourceSetting.sInputPassword'>
+                    </p>
+                    <p class="login button">
+                        <input type="button" id="btnAccept" value="@ResourceSetting.sAccept" />
+                        <input type="button" id="btnCancel" value="@ResourceSetting.Cancel" />
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#formCertValidation").hide();
+            var serializeLogonFormFn = function(formP) {
+                //debugger;
+                var form = {};
+                formP.find("input").each(function() {
+                    var name = $(this).attr("name");
+                    if (name) {
+//                        if (name == "password") {
+//                            form.Password = $(this).val();
+//                        } else if (name == "certificate") {
+//                            form.Certificate = $(this).val();
+//                        } else if (name == "hfBin") {
+//                            form.UserName = $(this).val();
+//                        }
+                        form[name] = $(this).val();
+                    }
+                });
+                return form;
+            };
+
+            $("#passwordCert").on('keyup', function(e) {
+                if (e.keyCode == 13) {
+                    $("#formLogin").find("#Password").val($('#passwordCert').val());
+                    fillKeys();
+                    $("#dlgPasswordModal").modal('toggle');
+                }
+            });
+            $("#btnMenu").click(function() {
+                if ($(this).val() == "true") {
+                    $("#contentMenu").show();
+                    $(this).val("false");
+                } else {
+                    $("#contentMenu").hide();
+                    $(this).val("true");
+
+                }
+                /*if (window.location.protocol != "https:") {
+                //window.location.protocol = "https:";
+                window.location.href = "https://"+window.location.hostname+"/";
+                //window.location.reload();
+            }*/
+            });
+
+            $("#btnEcp").click(function() {
+                /*if (window.location.protocol != "https:") {
+                //window.location.protocol = "https:";
+                window.location.href = "https://"+window.location.hostname+"/";
+                //window.location.reload();
+            }*/
+            });
+
+            $("#btnEnterEds").click(function() {
+
+                $("#formCertValidation").hide();
+                $.blockUI({ message: '<h1><img src="../../Content/images/loading.gif"/> Идет аутентификация...</h1>', css: { opacity: 1 } });
+                var isSuceess = signXmlCall(function() {
+                    var formData = serializeLogonFormFn($("#formLogin"));
+                    var model = formData;
+                    if (model.UserName == "") {
+                        model.UserName = $('#signIIN').val();
+                    }
+
+                    console.log("my model=", model);
+
+                    $.ajax({
+                        url: '@Url.Action("LogOnCertificate", "Account")',
+                        type: "POST",
+                        dataType: 'json',
+                        contentType: "application/json",
+                        async: false,
+                        data: JSON.stringify(model),
+                        success: function(data) {
+                            console.log("after cert=",data);
+                            if (data.success)
+                                window.location = data.url;
+                            else {
+                                $('#formCertValidation').text(data.errorStr);
+                                $("#formCertValidation").show();
+                            }
+                            $.unblockUI();
+                        },
+                        error: function(data) {
+                            console.log("data:",data);
+                            $.unblockUI();
+                        }
+                    });
+
+                }, $("#hfXmlToSign").val());
+
+                if (!isSuceess)
+                    $.unblockUI();
+            });
+//            debugger;
+//            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+//                var target = $(e.target).attr("href");
+//                if (target == '#ecpForm') {
+//                    crypt_object_init();
+//                }
+//            });
+//            $('#ecpForm').on('click', function (e) {
+//                crypt_object_init();
+//            });
+            $('#btnbtnChooseEds').on("click", function() {
+                if (!crypt_object_init("chooseStoragePath")) {
+                    chooseStoragePath();
+                }
+            });
+
+            if (window.location.protocol == "https:") {
+                $("#btnEcp").hide();
+                $("#registerTag").hide();
+            }
+
+            $('.modal').on('shown.bs.modal', function() {
+                $(this).find('input:password:visible:first').focus();
+            });
+
+            $("#btnAccept").click(function() {
+                $("#formLogin").find("#Password").val($('#passwordCert').val());
+                fillKeys();
+                $("#dlgPasswordModal").modal('toggle');
+            });
+            $("#btnCancel").click(function() {
+                $("#dlgPasswordModal").modal('toggle');
+            });
+            $('.openDialog').on('click', function(e) {
+                e.preventDefault();
+                $("<div style=" + '" =' + "text-align: center;" + ' ="' + "></br>" + "....</div>")
+                    .addClass("dialog")
+                    .attr("id", $(this)
+                        .attr("data-dialog-id"))
+                    .appendTo("body")
+                    .dialog({
+                        title: $(this).attr("data-dialog-title"),
+                        closeText: "",
+                        close: function() { $(this).remove(); },
+                        width: 800,
+                        modal: true
+                    })
+                    .load(this.href);
+            });
+            $(".close").on('click', function(e) {
+                e.preventDefault();
+                $(this).closest(".dialog").dialog("close");
+            });
+            $('#accordion').on('hidden.bs.collapse', function() {
+                //do something...
+            });
+
+            $('#accordion .accordion-toggle').click(function(e) {
+                var chevState = $(e.target).siblings("i.indicator").toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+                $("i.indicator").not(chevState).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+            });
+        });
+
+    </script>
+}

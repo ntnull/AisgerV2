@@ -1,0 +1,65 @@
+﻿@using System.Threading
+@using Aisger
+@using Aisger.Helpers
+@using Aisger.Utils
+@using GridMvc.Html
+@using GridMvc.Sorting
+@model IEnumerable<Aisger.Models.SEC_User>
+
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/GridContent.cshtml")
+
+
+@helper GridCvazy(bool isCvazy)
+{
+    if (isCvazy)
+    {
+        if (CultureHelper.GetCurrentCulture() == CultureHelper.FieldKz)
+        {
+            <text>Иә</text>
+        }
+        else
+        {
+            <text>Да</text>
+        }
+    }
+    else
+    {
+        if (CultureHelper.GetCurrentCulture() == CultureHelper.FieldKz)
+        {
+            <text>Жоқ</text>
+        }
+        else
+        {
+            <text>Нет</text>
+        }
+    }
+}
+<div id="B">
+    <ul class="titlegroup" style="margin-top: 8px;">
+        <li style="font-size: 18px; color: #2679b5;" id="parentLabel">
+            @ResourceSetting.AuditPage  
+            <span></span>
+        </li>
+        <li id="selectLabel"> <span class="glyphicon glyphicon-arrow-right"></span>   @ResourceSetting.AuditRequired (<span id="countGridRecord"></span>)
+        </li>
+    </ul>
+    <div id="CSSTableGenerator">
+        @Html.Grid(Model).SetLanguage(Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName).Columns(columns =>
+                {
+                    columns.Add(o => o.Id, true).Titled("Id").SetWidth(0);
+                    columns.Add(o => o.BINIIN).Titled(ResourceSetting.BININ)
+                    .SetWidth(60);
+                    columns.Add(o => o.JuridicalName).Titled(ResourceSetting.Name)
+                    .SetWidth(60);
+                    columns.Add(o => o.FullName).Titled(ResourceSetting.boss)
+                    .SetWidth(60);
+                    columns.Add(o => o.ResponceFIO).Titled(ResourceSetting.ResponceFIO)
+                    .SetWidth(60);
+                    columns.Add(o => o.Address).Titled(ResourceSetting.Address)
+                    .SetWidth(60);
+                    columns.Add(o => o.PlanedAuditDatetime).Format("{0:dd/MM/yyyy}").Titled("Cрок проведения")
+                    .SetWidth(60);
+                }).WithPaging(50).Sortable().Filterable().WithMultipleFilters()
+    </div>
+</div>

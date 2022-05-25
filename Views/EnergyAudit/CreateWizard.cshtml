@@ -1,0 +1,607 @@
+﻿@using System.Globalization
+@using System.Text
+@using Aisger
+@using Aisger.Utils
+@model Aisger.Models.EAUDIT_Preamble
+@{
+    ViewBag.Title = ResourceSetting.tConclusion;
+}
+
+@Html.Partial("~/Views/Home/MenuItem.cshtml")
+@Html.Partial("~/Views/Home/EditHeaderView.cshtml")
+@Html.Partial("~/Views/Home/MessageDialogBox.cshtml")
+
+<link href="@Url.Content("~/Content/custom/jquery.inputfile.css")" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/eaudit.css")" />
+<link href="@Url.Content("~/Content/plugins/bwizard/bwizard.css")" rel="stylesheet" type="text/css" />
+
+<script src="~/Scripts/plugins/jqnumeric/jquery.numeric.js" type="text/javascript"></script>
+<script src="~/Scripts/plugins/notification/bootstrap-notify.js"></script>
+<script src="@Url.Content("~/Scripts/jquery.inputfile.js")" type="text/javascript"> </script>
+<script src="~/Scripts/plugins/bwizard/jquery.bootstrap.wizard.js"></script>
+<script src="~/Scripts/custom/subform-comment.js"></script>
+
+<div id ="B">
+    @Html.Partial("~/Views/Home/TitleItem.cshtml", ResourceSetting.AuditPage + "," + ResourceSetting.tConclusion)
+    
+    <h4 style="text-align: center">
+        Заключение по энергосбережению и энергоэффективности
+    </h4>
+    <div id="wrapper_grid" style="margin-left: 20px; margin-bottom: 100px">
+        <div id="divWizardContainer" class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div id="divWizard" class="col-lg-12 bwizard">
+                            <ul style="overflow-x: auto;">
+                                <li>
+                                    <a href="#preambletab" data-toggle="tab">
+                                        <span class="label badge-inverse"></span>
+                                        Вводная часть
+                                        <small>
+                                            введите данные о договоре
+                                        </small>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#form1tab" data-toggle="tab">
+                                        <span class="label badge-inverse">1</span>
+                                        Таблица 1
+                                        <small>
+                                            1. Общие сведения
+                                        </small>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#form2tab" data-toggle="tab">
+                                        <span class="label badge-inverse">2</span>
+                                        Таблица 2
+                                        <small>
+                                            2. Общее потребление энергоносителей
+                                        </small>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#form3tab" data-toggle="tab">
+                                        <span class="label badge-inverse">3</span>
+                                        Таблица 3
+                                        <small>
+                                            3. Сведения о трансформаторных подстанци...
+                                        </small>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#form4tab" data-toggle="tab">
+                                        <span class="label badge-inverse">4</span>
+                                        Таблица 4
+                                        <small>
+                                            4. Установленная мощность потребителе...
+                                        </small>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#form5tab" data-toggle="tab">
+                                        <span class="label badge-inverse">5</span>
+                                        Таблица 5
+                                        <small>
+                                            5. Сведения о компрессорном оборудован...
+                                        </small>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#form6tab" data-toggle="tab">
+                                        <span class="label badge-inverse">6</span>
+                                        Таблица 6
+                                        <small>
+                                            6. Характеристика холодильного оборудов...
+                                        </small>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#form7tab" data-toggle="tab">
+                                        <span class="label badge-inverse">7</span>
+                                        Таблица 7
+                                        <small>
+                                            7. Сведения о составе и работе основног...
+                                        </small>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#form8tab" data-toggle="tab">
+                                        <span class="label badge-inverse">8</span>
+                                        Таблица 8
+                                        <small>
+                                            8. Баланс потребления электроэнергии в 2...
+                                        </small>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#form9tab" data-toggle="tab">
+                                        <span class="label badge-inverse">9</span>
+                                        Таблица 9
+                                        <small>
+                                            9. Сведения о составе и работе котельной...
+                                        </small>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#form10tab" data-toggle="tab">
+                                        <span class="label badge-inverse">10</span>
+                                        Таблица 10
+                                        <small>
+                                            10. Характеристика технологического оборуд...
+                                        </small>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#form11tab" data-toggle="tab">
+                                        <span class="label badge-inverse">11</span>
+                                        Таблица 11
+                                        <small>
+                                            11. Расчетно-нормативное потребление теплов...
+                                        </small>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#form12tab" data-toggle="tab">
+                                        <span class="label badge-inverse">12</span>
+                                        Таблица 12
+                                        <small>
+                                            12. Баланс потребления тепловой энергии в 2...
+                                        </small>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#form13tab" data-toggle="tab">
+                                        <span class="label badge-inverse">13</span>
+                                        Таблица 13
+                                        <small>
+                                            13. Характеристика топливоиспользующих агрег...
+                                        </small>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#form14tab" data-toggle="tab">
+                                        <span class="label badge-inverse">14</span>
+                                        Таблица 14
+                                        <small>
+                                            14. Баланс потребления котельно-печного топл...
+                                        </small>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#form15tab" data-toggle="tab">
+                                        <span class="label badge-inverse">15</span>
+                                        Таблица 15
+                                        <small>
+                                            15. Характеристика использования моторных топ...
+                                        </small>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#form16tab" data-toggle="tab">
+                                        <span class="label badge-inverse">16</span>
+                                        Таблица 16
+                                        <small>
+                                            16. Баланс потребления моторных топлив (зап...
+                                        </small>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#form17tab" data-toggle="tab">
+                                        <span class="label badge-inverse">17</span>
+                                        Таблица 17
+                                        <small>
+                                            17. Сведения об использовании вторичных эне...
+                                        </small>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#form18tab" data-toggle="tab">
+                                        <span class="label badge-inverse">18</span>
+                                        Таблица 18
+                                        <small>
+                                            18. Удельный расход ТЭР на выпускаемую пр...
+                                        </small>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#form19tab" data-toggle="tab">
+                                        <span class="label badge-inverse">19</span>
+                                        Таблица 19
+                                        <small>
+                                            19. Перечень энергосберегающих ...
+                                        </small>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="preambletab">
+                                    @Html.Action("LoadPreamble", "EnergyAudit", new { id = Model == null ? 0 : Model.Id })
+                                </div>
+                                <div class="tab-pane" id="form1tab">
+                                    <div id="form1tabContent">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="form2tab">
+                                    <div id="form2tabContent">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="form3tab">
+                                    <div id="form3tabContent">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="form4tab">
+                                    <div id="form4tabContent">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="form5tab">
+                                    <div id="form5tabContent">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="form6tab">
+                                    <div id="form6tabContent">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="form7tab">
+                                    <div id="form7tabContent">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="form8tab">
+                                    <div id="form8tabContent">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="form9tab">
+                                    <div id="form9tabContent">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="form10tab">
+                                    <div id="form10tabContent">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="form11tab">
+                                    <div id="form11tabContent">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="form12tab">
+                                    <div id="form12tabContent">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="form13tab">
+                                    <div id="form13tabContent">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="form14tab">
+                                    <div id="form14tabContent">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="form15tab">
+                                    <div id="form15tabContent">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="form16tab">
+                                    <div id="form16tabContent">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="form17tab">
+                                    <div id="form17tabContent">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="form18tab">
+                                    <div id="form18tabContent">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="form19tab">
+                                    <div id="form19tabContent">
+
+                                    </div>
+                                </div>
+                               
+                                <ul class="pager wizard bwizard-buttons">
+                                    <li class="exit" role="button" aria-disabled="False">
+                                        <a href="@Url.Action("Index","EnergyAudit")">
+                                            &#10005; Отмена
+                                        </a>
+                                    </li>
+                                    <li class="previous" role="button" aria-disabled="False">
+                                        <a href="#">
+                                            &larr; Назад
+                                        </a>
+                                    </li>
+                                    <li class="next" role="button" aria-disabled="False">
+                                        <a>
+                                            Далее &rarr;
+                                        </a>
+                                    </li>
+                                    <li class="finish">
+                                        <a href="@Url.Action("Index", "EnergyAudit")">
+                                            Завершить &#10003;
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@*    <div style="margin-bottom: 40px">*@
+@*        <button type="button" class="btn btn-success btn-lg" onclick="location.href='@Url.Action("Index", "EnergyAudit")'">*@
+@*            <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> Вернуться*@
+@*        </button>*@
+@*    </div>*@
+</div>
+
+@Scripts.Render("~/bundles/jqueryui")
+<script>
+    var EnergyAuditParentForm = {
+        reloadForm1: function (pId, ofacility) {
+            $("#form1tabContent").load('@Url.Action("GetIndustryForm1View", "IndustryAttachment1")', { "preambleId": pId, "ofacility": ofacility }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm1)
+                        window.IndustryForm1.init();
+                });
+        },
+        reloadForm2: function (pId, ofacility) {
+            $("#form2tabContent").load('@Url.Action("GetIndustryForm2View", "IndustryAttachment1")', { "preambleId": pId, "ofacility": ofacility }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm2)
+                        window.IndustryForm2.init();
+                });
+        },
+        reloadForm8: function (pId, ofacility) {
+            $("#form8tabContent").load('@Url.Action("GetIndustryForm8View", "IndustryAttachment1")', { "preambleId": pId, "ofacility": ofacility }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm8)
+                        window.IndustryForm8.init();
+                });
+        },
+        reloadForm11: function (pId, ofacility) {
+            $("#form11tabContent").load('@Url.Action("GetIndustryForm11View","IndustryAttachment1")', { "preambleId": pId, "ofacility": ofacility }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm11)
+                        window.IndustryForm11.init();
+                });
+        },
+        reloadForm12: function (pId, ofacility) {
+            $("#form12tabContent").load('@Url.Action("GetIndustryForm12View","IndustryAttachment1")', { "preambleId": pId, "ofacility": ofacility }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm12)
+                        window.IndustryForm12.init();
+                });
+        },
+        reloadForm14: function (pId, ofacility) {
+            $("#form14tabContent").load('@Url.Action("GetIndustryForm14View","IndustryAttachment1")', { "preambleId": pId, "ofacility": ofacility }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm14)
+                        window.IndustryForm14.init();
+                });
+        },
+        reloadForm16: function (pId, ofacility) {
+            $("#form16tabContent").load('@Url.Action("GetIndustryForm16View","IndustryAttachment1")', { "preambleId": pId, "ofacility": ofacility }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm16)
+                        window.IndustryForm16.init();
+                });
+        },
+        reloadForm17: function (pId, ofacility) {
+            $("#form17tabContent").load('@Url.Action("GetIndustryForm17View","IndustryAttachment1")', { "preambleId": pId, "ofacility": ofacility }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm17)
+                        window.IndustryForm17.init();
+                });
+        },
+        reloadForm18: function (pId, ofacility) {
+            $("#form18tabContent").load('@Url.Action("GetIndustryForm18View","IndustryAttachment1")', { "preambleId": pId, "ofacility": ofacility }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm18)
+                        window.IndustryForm18.init();
+                });
+        },
+        reloadForm19: function (pId, ofacility) {
+            $("#form19tabContent").load('@Url.Action("GetIndustryForm19View","IndustryAttachment1")', { "preambleId": pId, "ofacility": ofacility }
+                , function (responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm19)
+                        window.IndustryForm19.init();
+                });
+        }
+    };
+
+    var bwizardInitFn = function () {
+        $('#divWizard').bootstrapWizard({
+            tabClass: 'bwizard-steps',
+            onNext: function (tab, navigation, index) {
+                if (index == 1) {
+                   
+                } else if (index == 2) {
+                   
+                } else if (index == 3) {
+                    
+                } else if (index == 4) {
+                    
+                } else if (index == 5) {
+                    
+                }
+                return true;
+            },
+            onTabShow: function (tab, navigation, index) {
+                $('.previous').show();
+                $('.exit').hide();
+
+                var pId = $("#hfPreamleId").val();
+                if (!pId || pId == "0") return false;
+
+                if (index == 0) {
+                    $('.previous').hide();
+                    $('.exit').show();
+
+                }
+                if (index == 1) {
+                    EnergyAuditParentForm.reloadForm1(pId);
+                } else if (index == 2) {
+                    EnergyAuditParentForm.reloadForm2(pId);
+                } else if (index == 3) {
+                    $("#form3tabContent").load('@Url.Action("GetIndustryForm3View","IndustryAttachment1")', { "preambleId": pId }, function (responseText, textStatus, jqXhr) {
+                        if (window.IndustryForm3)
+                            window.IndustryForm3.init();
+                    });
+                } else if (index == 4) {
+
+                } else if (index == 5) {
+                    $("#form5tabContent").load('@Url.Action("GetIndustryForm5View","IndustryAttachment1")', { "preambleId": pId }, function (responseText, textStatus, jqXhr) {
+                        if (window.IndustryForm5)
+                            window.IndustryForm5.init();
+                    });
+                } else if (index == 6) {
+                    $("#form6tabContent").load('@Url.Action("GetIndustryForm6View","IndustryAttachment1")', { "preambleId": pId }, function (responseText, textStatus, jqXhr) {
+                        if (window.IndustryForm6)
+                            window.IndustryForm6.init();
+                    });
+                } else if (index == 7) {
+                    $("#form7tabContent").load('@Url.Action("GetIndustryForm7View","IndustryAttachment1")', { "preambleId": pId }, function (responseText, textStatus, jqXhr) {
+                        if (window.IndustryForm7)
+                            window.IndustryForm7.init();
+                    });
+                } else if (index == 8) {
+                    EnergyAuditParentForm.reloadForm8(pId);
+                } else if (index == 9) {
+                    $("#form9tabContent").load('@Url.Action("GetIndustryForm9View","IndustryAttachment1")', { "preambleId": pId }, function (responseText, textStatus, jqXhr) {
+                        if (window.IndustryForm9)
+                            window.IndustryForm9.init();
+                    });
+                } else if (index == 10) {
+                    $("#form10tabContent").load('@Url.Action("GetIndustryForm10View","IndustryAttachment1")', { "preambleId": pId }, function (responseText, textStatus, jqXhr) {
+                        if (window.IndustryForm10)
+                            window.IndustryForm10.init();
+                    });
+                } else if (index == 11) {
+                    EnergyAuditParentForm.reloadForm11(pId);
+                } else if (index == 12) {
+                    EnergyAuditParentForm.reloadForm12(pId);
+                } else if (index == 13) {
+                    $("#form13tabContent").load('@Url.Action("GetIndustryForm13View","IndustryAttachment1")', { "preambleId": pId }, function (responseText, textStatus, jqXhr) {
+                        if (window.IndustryForm13)
+                            window.IndustryForm13.init();
+                    });
+                } else if (index == 14) {
+                    EnergyAuditParentForm.reloadForm14(pId);
+                } else if (index == 15) {
+                    $("#form15tabContent").load('@Url.Action("GetIndustryForm15View","IndustryAttachment1")', { "preambleId": pId }, function (responseText, textStatus, jqXhr) {
+                        if (window.IndustryForm15)
+                            window.IndustryForm15.init();
+                    });
+                } else if (index == 16) {
+                    EnergyAuditParentForm.reloadForm16(pId);
+                } else if (index == 17) {
+                    EnergyAuditParentForm.reloadForm17(pId);
+                } else if (index == 18) {
+                    EnergyAuditParentForm.reloadForm18(pId);
+                } else if (index == 19) {
+                    EnergyAuditParentForm.reloadForm19(pId);
+                }
+            }
+        });
+    };
+
+
+    $(document).ready(function() {
+
+        if (window.IndustryFormOf)
+            window.IndustryFormOf.init();
+
+        if (window.FileUploadForm)
+            window.FileUploadForm.init();
+        bwizardInitFn();
+        return;
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+            var target = $(e.target).attr("data-target"); // activated tab
+            var pId = $("#hfPreamleId").val();
+            if (!pId || pId == "0") return;
+
+            if (target == "#form1tab") {
+                EnergyAuditParentForm.reloadForm1(pId);
+            } else if (target == "#form2tab") {
+                EnergyAuditParentForm.reloadForm2(pId);
+            } else if (target == "#form3tab") {
+                $("#form3tabContent").load('@Url.Action("GetIndustryForm3View","IndustryAttachment1")', { "preambleId": pId }, function(responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm3)
+                        window.IndustryForm3.init();
+                });
+            } else if (target == "#form4tab") {
+
+            } else if (target == "#form5tab") {
+                $("#form5tabContent").load('@Url.Action("GetIndustryForm5View","IndustryAttachment1")', { "preambleId": pId }, function(responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm5)
+                        window.IndustryForm5.init();
+                });
+            } else if (target == "#form6tab") {
+                $("#form6tabContent").load('@Url.Action("GetIndustryForm6View","IndustryAttachment1")', { "preambleId": pId }, function(responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm6)
+                        window.IndustryForm6.init();
+                });
+            } else if (target == "#form7tab") {
+                $("#form7tabContent").load('@Url.Action("GetIndustryForm7View","IndustryAttachment1")', { "preambleId": pId }, function(responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm7)
+                        window.IndustryForm7.init();
+                });
+            } else if (target == "#form8tab") {
+                EnergyAuditParentForm.reloadForm8(pId);
+            } else if (target == "#form9tab") {
+                $("#form9tabContent").load('@Url.Action("GetIndustryForm9View","IndustryAttachment1")', { "preambleId": pId }, function(responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm9)
+                        window.IndustryForm9.init();
+                });
+            } else if (target == "#form10tab") {
+                $("#form10tabContent").load('@Url.Action("GetIndustryForm10View","IndustryAttachment1")', { "preambleId": pId }, function(responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm10)
+                        window.IndustryForm10.init();
+                });
+            } else if (target == "#form11tab") {
+                EnergyAuditParentForm.reloadForm11(pId);
+            } else if (target == "#form12tab") {
+                EnergyAuditParentForm.reloadForm12(pId);
+            } else if (target == "#form13tab") {
+                $("#form13tabContent").load('@Url.Action("GetIndustryForm13View","IndustryAttachment1")', { "preambleId": pId }, function(responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm13)
+                        window.IndustryForm13.init();
+                });
+            } else if (target == "#form14tab") {
+                EnergyAuditParentForm.reloadForm14(pId);
+            } else if (target == "#form15tab") {
+                $("#form15tabContent").load('@Url.Action("GetIndustryForm15View","IndustryAttachment1")', { "preambleId": pId }, function(responseText, textStatus, jqXhr) {
+                    if (window.IndustryForm15)
+                        window.IndustryForm15.init();
+                });
+            } else if (target == "#form16tab") {
+                EnergyAuditParentForm.reloadForm16(pId);
+            } else if (target == "#form17tab") {
+                EnergyAuditParentForm.reloadForm17(pId);
+            } else if (target == "#form18tab") {
+                EnergyAuditParentForm.reloadForm18(pId);
+            } else if (target == "#form19tab") {
+                EnergyAuditParentForm.reloadForm19(pId);
+            }
+        });
+
+    });
+</script>

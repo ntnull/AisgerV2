@@ -1,0 +1,13 @@
+﻿@using System.Globalization
+@using System.Text
+@using Aisger
+@model Aisger.Models.Entity.Subject.Sub_FormGu
+@{
+    ViewBag.Title = ResourceSetting.SubForm;
+}
+@Html.Partial("~/Views/RegisterForm/ShowDetailsGu.cshtml", @Model)
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#hideControlPrice").show();
+    });
+</script>
