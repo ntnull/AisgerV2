@@ -2399,9 +2399,16 @@ namespace Aisger.Models.Repository.Subject
 
         public int GetCountReject(long? getCurrentUserId)
         {
-            if (AppContext.Database.Connection.State == System.Data.ConnectionState.Closed) { AppContext.Database.Connection.Open(); }
-            return AppContext.SUB_Form.Count(
-                 e => e.UserId == getCurrentUserId && e.StatusId == CodeConstManager.STATUS_REJECT_ID && !e.IsDeleted);
+            try
+            {
+                if (AppContext.Database.Connection.State == System.Data.ConnectionState.Closed) { AppContext.Database.Connection.Open(); }
+                return AppContext.SUB_Form.Count(
+                     e => e.UserId == getCurrentUserId && e.StatusId == CodeConstManager.STATUS_REJECT_ID && !e.IsDeleted);
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
         }
 
         public int GetCountInbox()

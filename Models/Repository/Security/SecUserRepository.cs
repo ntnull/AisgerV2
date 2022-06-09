@@ -62,7 +62,8 @@ namespace Aisger.Models.Repository.Security
         }
         public override List<SEC_User> GetAll()
         {
-            return GetQueryByDescending(e => !e.IsDeleted, true, e => e.Id).ToList();
+            var res = GetQueryByDescending(e => !e.IsDeleted, true, e => e.Id);
+            return res.ToList();
         }
         protected override void PrepareDelete(SEC_User obj)
         {
